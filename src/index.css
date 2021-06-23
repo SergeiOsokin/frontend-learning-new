@@ -13,6 +13,30 @@ body {
   padding: 20px;
 }
 
-input > .input-search {
-  padding-left: 20px;
+nav {
+  background: cornflowerblue;
 }
+
+@media only screen and (max-width: 320px) {
+  ul {
+    display: none;
+  }
+  .checkbox {
+    position: relative !important;
+    opacity: 1 !important;
+    pointer-events: all !important;
+  }
+
+  .checkbox:checked ~ .nav-menu {
+    position: absolute;
+    top: 0;
+    right: 0;
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    max-width: 120px;
+    background: cornflowerblue;
+    z-index: 1;
+  }
+}
+ 

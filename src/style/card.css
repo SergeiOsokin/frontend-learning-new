@@ -21,10 +21,10 @@
     align-items: center;
     justify-content: center;
     margin: 25px;
-    border: 1px blue solid;
+    border-top: 1px solid rosybrown;
+    border-bottom: 1px solid rosybrown;
   }
   .card__container-button {
-      border: 1px green solid;
       width: 100%;
       display: flex;
       flex-direction: row;

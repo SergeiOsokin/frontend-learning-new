@@ -1,5 +1,5 @@
 import React from 'react';
-import { wordsArr } from '../data.json';
+import { wordsArr } from '../words.json';
 
 export const WordsList = () => {
 

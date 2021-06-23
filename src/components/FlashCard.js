@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Header } from './Header';
-import { wordsArr } from '../data.json';
+import { wordsArr } from '../words.json';
 
 export const FlashCardForm = (qwe = '') => {
     const randomIndexWord = Math.floor(Math.random() * (wordsArr.length - 0) + 0);
