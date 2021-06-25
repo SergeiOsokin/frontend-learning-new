@@ -14,9 +14,9 @@ export const Header = () => {
                 <div className="nav-wrapper">
                     <input type="checkbox" className="checkbox" />
                     <ul  className="right nav-menu">
-                        <li><NavLink to="/home">Главная</NavLink></li>
-                        <li><NavLink to="/flashcards">Повторение</NavLink></li>
-                        <li><NavLink to="/wordslist">Список слов</NavLink></li>
+                        <li><NavLink to="/english-cards/home">Главная</NavLink></li>
+                        <li><NavLink to="/english-cards/flashcards">Повторение</NavLink></li>
+                        <li><NavLink to="/english-cards/wordslist">Список слов</NavLink></li>
                     </ul>
                 </div>
             </nav>

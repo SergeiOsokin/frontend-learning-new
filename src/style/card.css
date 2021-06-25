@@ -1,6 +1,11 @@
 * {
     margin: 0;
   }
+
+  button:focus{
+    background-color: white !important;
+  }
+
   .section-card {
     display: flex;
     flex-direction: column;
@@ -20,10 +25,16 @@
     height: 40px;
     align-items: center;
     justify-content: center;
-    margin: 25px;
+    margin: 25px 0;
     border-top: 1px solid rosybrown;
     border-bottom: 1px solid rosybrown;
+    text-transform: uppercase;
   }
+
+  .card__word_write {
+    margin: 25px 0 10px;
+  }
+
   .card__container-button {
       width: 100%;
       display: flex;
@@ -33,6 +44,12 @@
       justify-content: space-between
   }
   
+  .word-check {
+    padding: 10px;
+    flex-direction: column;
+    width: auto;
+  }
+
   .card-button {
     width: 250px;
     height: 40px;
@@ -41,6 +58,7 @@
     background: none;
     cursor: pointer;
     margin: 15px 15px;
+    text-transform: uppercase;
   }
 
   @media screen and (max-width: 702px) {

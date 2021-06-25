@@ -1,14 +1,12 @@
 import React, { useState } from 'react';
-import { Header } from './Header';
-import { wordsArr } from '../words.json';
 
-export const FlashCardForm = (qwe = '') => {
-    const randomIndexWord = Math.floor(Math.random() * (wordsArr.length - 0) + 0);
+export const FlashCardForm = ({ wordsArr }) => {
+    const randomIndexWordFirst = Math.floor(Math.random() * (wordsArr.length - 0) + 0);
     const [words, setWords] = useState({
-        rusWord: wordsArr[randomIndexWord].rusWord,
-        rusWordTrans: wordsArr[randomIndexWord].engWord,
+        rusWord: wordsArr[randomIndexWordFirst].rusWord,
+        rusWordTrans: wordsArr[randomIndexWordFirst].engWord,
         engWord1: wordsArr[Math.floor(Math.random() * (wordsArr.length - 0) + 0)].engWord,
-        engWord2: wordsArr[randomIndexWord].engWord,
+        engWord2: wordsArr[randomIndexWordFirst].engWord,
         engWord3: wordsArr[Math.floor(Math.random() * (wordsArr.length - 0) + 0)].engWord,
         engWord4: wordsArr[Math.floor(Math.random() * (wordsArr.length - 0) + 0)].engWord,
     });
@@ -32,6 +30,7 @@ export const FlashCardForm = (qwe = '') => {
     }
     const handleBtn = (e) => {
         changeBtn();
+        const randomIndexWordSecond = Math.floor(Math.random() * (wordsArr.length - 0) + 0);
         const transWord = document.querySelector('.card__word').getAttribute('translate')
         if (e.target.value === transWord) {
             setRightAnswer(rightAnswers + 1);
@@ -39,7 +38,7 @@ export const FlashCardForm = (qwe = '') => {
                 shadow: 'inset 0px 0px 15px 0px #32CD32'
             });
             setTimeout(() => { setStyle({ shadow: 'none' }) }, 100);
-        } else if (e.target.value != transWord) {
+        } else if (e.target.value !== transWord) {
             setWrongAnswer(wrongAnswers + 1);
             setStyle({
                 shadow: 'inset 0px 0px 15px 0px #f56262'
@@ -47,10 +46,10 @@ export const FlashCardForm = (qwe = '') => {
             setTimeout(() => { setStyle({ shadow: 'none' }) }, 100);
         }
         setWords({
-            rusWord: wordsArr[randomIndexWord].rusWord,
-            rusWordTrans: wordsArr[randomIndexWord].engWord,
+            rusWord: wordsArr[randomIndexWordSecond].rusWord,
+            rusWordTrans: wordsArr[randomIndexWordSecond].engWord,
             [btnArr[0]]: wordsArr[Math.floor(Math.random() * (wordsArr.length - 0) + 0)].engWord,
-            [btnArr[1]]: wordsArr[randomIndexWord].engWord,
+            [btnArr[1]]: wordsArr[randomIndexWordSecond].engWord,
             [btnArr[2]]: wordsArr[Math.floor(Math.random() * (wordsArr.length - 0) + 0)].engWord,
             [btnArr[3]]: wordsArr[Math.floor(Math.random() * (wordsArr.length - 0) + 0)].engWord,
         })
@@ -58,17 +57,16 @@ export const FlashCardForm = (qwe = '') => {
 
     return (
         <>
-            <Header />
             <section className="section-card">
                 <div className="card">
                     <div>Правильных ответов {rightAnswers}</div>
                     <div>Неправильных ответов {wrongAnswers}</div>
                     <p className="card__word" translate={words.rusWordTrans}>{words.rusWord}</p>
                     <div className="card__container-button" style={{ boxShadow: style.shadow }}>
-                        <button className="card-button" name='btn1' value={words.engWord1} onClick={handleBtn}>{words.engWord1}</button>
-                        <button className="card-button" name='btn2' value={words.engWord2} onClick={handleBtn}>{words.engWord2}</button>
-                        <button className="card-button" name='btn3' value={words.engWord3} onClick={handleBtn}>{words.engWord3}</button>
-                        <button className="card-button" name='btn4' value={words.engWord4} onClick={handleBtn}>{words.engWord4}</button>
+                        <button className="card-button browser-default" name='btn1' value={words.engWord1} onClick={handleBtn}>{words.engWord1}</button>
+                        <button className="card-button browser-default" name='btn2' value={words.engWord2} onClick={handleBtn}>{words.engWord2}</button>
+                        <button className="card-button browser-default" name='btn3' value={words.engWord3} onClick={handleBtn}>{words.engWord3}</button>
+                        <button className="card-button browser-default" name='btn4' value={words.engWord4} onClick={handleBtn}>{words.engWord4}</button>
                     </div>
                 </div>
             </section>
