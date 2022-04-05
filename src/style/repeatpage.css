@@ -1,0 +1,13 @@
+.section-repeat {
+    max-width: 1300px;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
+
+.section-repeat__empty-wordArr {
+    display: block;
+    width: 100%;
+    text-align: center;
+}

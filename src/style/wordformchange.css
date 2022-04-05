@@ -1,0 +1,74 @@
+/* WordFormChange */
+
+.change-word-section {
+  position: fixed;
+  top: 0;
+  right: 0;
+  width: 100%;
+  height: 100vh;
+  background: rgba(0, 0, 0, 0.4);
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  z-index: 1;
+}
+
+.change-word-section__content {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 430px;
+  background-color: #fff;
+  border-radius: 10px;
+  box-sizing: border-box;
+  padding: 34px 36px;
+  -webkit-box-shadow: 0px 0px 8px 5px rgba(21, 106, 171, 0.3);
+  -moz-box-shadow: 0px 0px 8px 5px rgba(21, 106, 171, 0.3);
+  box-shadow: 0px 0px 8px 5px rgba(21, 106, 171, 0.3);
+}
+
+.change-word-section__title {
+  margin: 0 0 15px;
+  font-family: Roboto, Arial, Helvetica, sans-serif;
+  font-style: normal;
+  font-weight: 900;
+  font-size: 24px;
+  line-height: 28px;
+  color: #1A1B22;
+}
+
+body.change-word-section {
+  overflow: hidden;
+}
+
+.form__close {
+  position: absolute;
+  top: -35px;
+  right: -35px;
+  width: 32px;
+  height: 32px;
+  opacity: 0.5;
+}
+
+.form__close:hover {
+  opacity: 1;
+}
+
+.form__close:before, .form__close:after {
+  position: absolute;
+  left: 15px;
+  content: ' ';
+  height: 33px;
+  width: 2px;
+  background-color: #fff;
+}
+
+.form__close:before {
+  transform: rotate(45deg);
+}
+
+.form__close:after {
+  transform: rotate(-45deg);
+}

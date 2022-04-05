@@ -1,0 +1,164 @@
+.words-section {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  max-width: 1300px;
+  margin: 0 auto;
+}
+
+.words-section__input-container {
+  display: flex;
+  flex-direction: row;
+  margin: 10px 0;
+  padding: 0 5px;
+  position: sticky;
+  top: 0;
+  background: white;
+}
+
+.input-container {
+  width: 40%;
+  position: relative;
+}
+
+
+.pagination {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  font-size: 15px;
+  padding: 0;
+  margin: 0;
+  width: 60%;
+}
+
+.pagination__page-count {
+  margin: 5px;
+
+}
+
+.pagination_page-next,
+.pagination_page-previous {
+  margin: 5px;
+  padding: 8px;
+  border: none;
+  background-color: cornflowerblue;
+  cursor: pointer;
+  outline: none;
+  border-radius: 5px;
+}
+
+.pagination_page-number {
+  margin: 5px;
+  padding: 2px;
+  border: none;
+  background-color: white;
+  cursor: pointer;
+  outline: none;
+}
+
+.pagination_page-number.active {
+  background-color: #4CAF50;
+  color: white;
+  border-radius: 5px;
+}
+
+
+
+.words-section__input-search {
+  width: 100%;
+}
+
+.words-section__button-clean {
+  width: 45px;
+  margin: 0;
+  height: 45px;
+  background-image: url('../img/close.svg');
+  background-repeat: no-repeat;
+  background-position: center;
+  position: absolute;
+  right: 0;
+  cursor: pointer;
+}
+
+table {
+  font-family: "Lucida Sans Unicode", "Lucida Grande", Sans-Serif;
+  border-collapse: collapse;
+  color: #686461;
+}
+
+caption {
+  padding: 10px;
+  color: white;
+  background: #00a8b4;
+  font-size: 18px;
+  text-align: center;
+  font-weight: bold;
+}
+
+th {
+  border-bottom: 3px solid #B9B29F;
+  padding: 2px;
+  text-align: left;
+}
+
+td {
+  padding: 2px;
+  font-size: 15px;
+  height: 21px;
+}
+
+tr {}
+
+tr:nth-child(odd) {
+  background: white;
+}
+
+tr:nth-child(even) {
+  background-color: rgba(242, 242, 242, 0.5);
+}
+
+.button_table {
+  width: 125px;
+  height: 25px;
+  color: #686461;
+  background: transparent;
+  margin: 0;
+  font-size: 15px;
+}
+
+.button_table-delete {
+  width: 50px;
+  height: 25px;
+  background: transparent;
+  margin: 0;
+}
+
+.trash-icon {
+  width: 20px;
+}
+
+.button-up {
+  width: 50px;
+  border: 2px solid #ccc;
+  background: #f7f7f7;
+  text-align: center;
+  padding: 10px;
+  position: fixed;
+  bottom: 30px;
+  right: 30px;
+  cursor: pointer;
+  color: #333;
+  font-family: verdana;
+  font-size: 12px;
+  border-radius: 5px;
+  -moz-border-radius: 5px;
+  -webkit-border-radius: 5px;
+  -khtml-border-radius: 5px;
+}
+
+@media only screen and (max-width: 660px) {
+  .words-section__input-container {
+    flex-direction: column;
+  }
+}
