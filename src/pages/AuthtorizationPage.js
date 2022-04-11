@@ -9,7 +9,6 @@ export default class AuthtorizationPage extends React.Component {
     render() {
         return (
             <>
-                <Header />
                 <AuthForm />
             </>
         )

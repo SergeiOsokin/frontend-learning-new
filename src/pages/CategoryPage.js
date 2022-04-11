@@ -6,7 +6,6 @@ export default class CategoryPage extends React.Component {
     render() {
         return (
             <>
-                <Header />
                 <CategoryForm />
             </>
         )

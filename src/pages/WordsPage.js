@@ -6,7 +6,6 @@ export default class WordsPage extends React.Component {
     render() {
         return (
             <>
-                <Header />
                 <WordsList />
             </>
         )

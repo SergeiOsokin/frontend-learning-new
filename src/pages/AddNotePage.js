@@ -6,7 +6,6 @@ export default class AddNote extends React.Component {
     render() {
         return (
             <>
-                <Header />
                 <NoteForm />
             </>
         )

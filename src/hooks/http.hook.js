@@ -25,7 +25,7 @@ export const useHttp = () => {
             setLoading(false); 
             setError(e.message);
         }
-    });
+    }, []);
 
     const clearError = useCallback(() => setError(null), []); // очищаем ошибки
 

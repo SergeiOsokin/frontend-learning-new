@@ -100,7 +100,7 @@ export const WordsList = () => {
             }
         }
         fetchData();
-    });
+    }, [request, message]);
 
     return (
         <section className="words-section">

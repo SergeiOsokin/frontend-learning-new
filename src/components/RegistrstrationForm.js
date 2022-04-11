@@ -1,13 +1,11 @@
-import React, { useContext, useState } from 'react';
-import { useHistory, Redirect } from 'react-router-dom';
+import React, { useState } from 'react';
+import { useHistory } from 'react-router-dom';
 import { useHttp } from '../hooks/http.hook';
 import { useMessage } from '../hooks/message.hook';
-import { AuthContext } from '../context/AuthContext';
 import { Loader } from './Loader';
 import { validation } from '../hooks/validation.hook';
 
-export const AuthForm = () => {
-    const auth = useContext(AuthContext); // получаем контекст в объекте auth
+export const RegistrationForm = () => {
     const message = useMessage();
     const { validationInputs } = validation();
     const { loading, request } = useHttp();
@@ -22,26 +20,24 @@ export const AuthForm = () => {
         validationInputs(e);
     };
 
-    const loginHandler = async (e) => {
+    const registrHandler = async (e) => {
         e.preventDefault();
         try {
-            const req = await request('/signin', 'POST', form);
-            message(req.message);
-            history.push('/wordslist');
-            auth.login(); // передаем полученные данные в auth.hook
+            const data = await request('/signup', 'POST', form);
+            message(data.message);
         } catch (e) {
             message(e);
         }
     };
     const moveHandler = (event) => {
-        history.push('/registration');
+        history.push('/authorization');
     }
 
     return (
         <section className={"authorization "}>
             <div className="authorization__content">
-                <h3 className={"authorization__title "}>Вход</h3>
-                <form className="form" name="entrance" onSubmit={loginHandler}>
+                <h3 className={"authorization__title "}>Регистрация</h3>
+                <form className="form" name="entrance" onSubmit={registrHandler}>
                     <fieldset>
                         <div>
                             <label htmlFor="email" className="form__label">Email</label>
@@ -80,17 +76,17 @@ export const AuthForm = () => {
                     {!loading &&
                         <div className="form__buttons-container">
                             <button
-                                className={"button button_enter button-disable"}
-                                onClick={loginHandler}
+                                className={"button button_rigistration "}
+                                onClick={registrHandler}
                                 disabled={true}
-                            >Войти</button>
+                            >Зарегистрироваться</button>
                         </div>
                     }
                 </form>
                 <button
                     className="button button-move"
                     onClick={moveHandler}
-                >Зарегистрироваться
+                >Войти
                 </button>
             </div>
             {loading && < Loader />}

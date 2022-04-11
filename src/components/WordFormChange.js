@@ -19,7 +19,6 @@ export const WordFormChange = ({ wordInfo, setActive }) => {
     const message = useMessage();
 
     const changeHandler = (e) => {
-        console.log(word.categoryWordId)
         if (e.target.name === 'categoryWord') {
             const idCategory = e.target.closest(".form__select").selectedOptions[0].getAttribute('info');
             setWords({ ...word, [e.target.name]: e.target.value, categoryWordId: idCategory });
@@ -64,7 +63,7 @@ export const WordFormChange = ({ wordInfo, setActive }) => {
             }
         }
         fetchData();
-    });
+    }, [message, request, setActive, wordInfo.category, wordInfo.category_word_id, wordInfo.foreign_word, wordInfo.id, wordInfo.russian_word]);
 
     return (
         <section className="change-word-section">

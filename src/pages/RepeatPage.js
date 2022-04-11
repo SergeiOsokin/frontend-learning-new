@@ -28,7 +28,7 @@ export const RepeatPage = () => {
             }
         }
         fetchData()
-    });
+    }, [message, request]);
 
     const handleClick = () => {
         setEasy(!isEasy);
@@ -37,7 +37,6 @@ export const RepeatPage = () => {
 
     return (
         <>
-            <Header />
             <div className="section-repeat">
                 {loading && <Loader />}
                 {(!words && !loading) && <div className="section-repeat__empty-wordArr">Недостаточно слов для повторения (минимум 4)</div>}

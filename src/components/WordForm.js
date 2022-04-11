@@ -53,7 +53,7 @@ export const WordForm = () => {
             }
         }
         fetchData();
-    });
+    }, [request, message]);
 
     return (
         <section className="add-word-section">

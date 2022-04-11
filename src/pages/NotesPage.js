@@ -21,11 +21,10 @@ export const NotesPage = () => {
             }
         }
         fetchData();
-    });
+    }, [message, request]);
 
     return (
         <>
-            <Header />
             <section className="section-main">
                 {loading && <Loader />}
                 {!loading && <NavNoteThemes arrNoteThemes={noteThemes} />}

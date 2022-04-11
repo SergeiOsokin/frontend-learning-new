@@ -6,7 +6,6 @@ export default class AddWord extends React.Component {
     render() {
         return (
             <>
-                <Header />
                 <WordForm />
             </>
         )

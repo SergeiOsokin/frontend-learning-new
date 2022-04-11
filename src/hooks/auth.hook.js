@@ -1,17 +1,17 @@
-import { useCallback, useState, useEffect } from 'react';
+import { useCallback, useState, useEffect, useContext } from 'react';
+import { useHistory } from 'react-router-dom';
 import { useHttp } from '../hooks/http.hook';
+import { AuthContext } from '../context/AuthContext';
 
 export const useAuth = () => {
     const [authorization, setAuthorization] = useState(null);
     const [userId, setUserId] = useState(null);
     const [ready, setReady] = useState(false); // для "модуля" авторизации
     const { request } = useHttp();
+    const history = useHistory();
     // что происходит после успешной авторизации
-    const login = useCallback((id) => {
-        if(id) {
-            setAuthorization(true);
-            setUserId(id);
-        }
+    const login = useCallback(() => {
+        setAuthorization(true)
     }, []);
     // что делаем при разлогинивании
     const logout = useCallback(async () => {
@@ -38,7 +38,7 @@ export const useAuth = () => {
             }
         }
         fetchData();
-    })
+    }, [request])
 
     return {
         login,
