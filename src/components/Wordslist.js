@@ -100,11 +100,15 @@ export const WordsList = () => {
             }
         }
         fetchData();
-    }, [request, message]);
+    }, [request, message, active]);
 
     return (
         <section className="words-section">
-            {active && <WordFormChange wordInfo={wordInfo} setActive={setModalActive} />}
+            {active &&
+
+                <WordFormChange wordInfo={wordInfo} setActive={setModalActive} />
+
+            }
 
             {loading && <Loader />}
 
