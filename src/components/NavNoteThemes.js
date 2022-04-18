@@ -1,18 +1,19 @@
 //
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useHttp } from '../hooks/http.hook';
 import { useMessage } from '../hooks/message.hook';
 import { NoteCard } from './NoteCard';
 
-export const NavNoteThemes = ({ arrNoteThemes }) => {
+export const NavNoteThemes = () => {
     const { loading, request } = useHttp();
     const message = useMessage();
-    const [note, setNote] = useState({
+    const [noteId, setNoteId] = useState({
         id: '',
-        theme: '',
-        text: '',
-        example: '',
+        theme: ''
     });
+    const [themes, setThemes] = useState([]);
+    const [noteCard, setNoteCardActive] = useState(false);
+    const [change, setChanged] = useState(false);
 
     function menuSearch() {
         let phrase = document.querySelector('.input_topics');
@@ -30,27 +31,32 @@ export const NavNoteThemes = ({ arrNoteThemes }) => {
             }
         }
     }
-    const handleClickGetNote = async (e) => {
+    const handleClickGetNote = (e) => {
         const idNote = e.target.getAttribute('info');
-        e.preventDefault();
-        try {
-            const data = await request(`/notes/getnote/${idNote}`, 'GET', {});
-            message(data.message);
-            setNote({
-                id: data[0].id,
-                theme: data[0].theme,
-                text: data[0].text,
-                example: data[0].example,
-            })
-        } catch (err) {
-            message('Ошибка:', err);
-        }
+        setNoteId({
+            id: idNote,
+        });
+        setNoteCardActive(true)
     };
+
+    useEffect(() => {
+        async function fetchData() {
+            try {
+                const data = await request('/notes/notethemes', 'GET', {});
+                setThemes(data);
+            } catch (e) {
+                message(e)
+            }
+        }
+        fetchData();
+    }, [change]);
 
     return (
         <>
-            <label className="nav-themes-toggle" htmlFor="nav-theme-checkbox">M</label>
-            <input className="nav-theme-checkbox" type="checkbox" id="nav-theme-checkbox" />
+            <input id="menu__toggle" type="checkbox" />
+            <label className="menu__btn" for="menu__toggle">
+                <span></span>
+            </label>
             <section className="section-nav-topics">
                 <input
                     className="input input_topics"
@@ -60,21 +66,21 @@ export const NavNoteThemes = ({ arrNoteThemes }) => {
                 />
                 <nav className="nav-themes">
                     <ul className="nav__items_topics nav__items_topics">
-                        {arrNoteThemes.sort((a, b) => a.id - b.id).map((note, index) => {
+                        {themes.sort((a, b) => a.id - b.id).map((theme, index) => {
                             return (
-                                <li className="nav__item-li_topics nav__item-li_topics" key={index + note.id}>
+                                <li className="nav__item-li_topics nav__item-li_topics" key={index + theme.id}>
                                     <button
                                         className="nav__item-button_topics nav__item-button_topics"
-                                        info={note.id}
+                                        info={theme.id}
                                         onClick={handleClickGetNote}
-                                    >{note.theme}</button>
+                                    >{theme.theme}</button>
                                 </li>
                             )
                         })}
                     </ul>
                 </nav>
             </section>
-            {!loading && <NoteCard note={note} />}
+            {noteCard && <NoteCard props={noteId} setChanged={setChanged} change={change} />}
         </>
     )
 };

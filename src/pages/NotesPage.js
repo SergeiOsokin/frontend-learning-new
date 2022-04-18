@@ -11,23 +11,24 @@ export const NotesPage = () => {
 
     const message = useMessage();
 
-    useEffect(() => {
-        async function fetchData() {
-            try {
-                const data = await request('/notes/notethemes', 'GET', {});
-                setNoteThemes(data);
-            } catch (e) {
-                message(e)
-            }
-        }
-        fetchData();
-    }, [message, request]);
+    // useEffect(() => {
+    //     async function fetchData() {
+    //         try {
+    //             const data = await request('/notes/notethemes', 'GET', {});
+    //             setNoteThemes(data);
+    //         } catch (e) {
+    //             message(e)
+    //         }
+    //     }
+    //     fetchData();
+    // }, [message, request]);
 
     return (
         <>
             <section className="section-main">
-                {loading && <Loader />}
-                {!loading && <NavNoteThemes arrNoteThemes={noteThemes} />}
+                {/* {loading && <Loader />} */}
+                {/* {!loading && <NavNoteThemes arrNoteThemes={noteThemes} />} */}
+                <NavNoteThemes />
             </section>
         </>
     )

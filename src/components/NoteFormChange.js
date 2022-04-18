@@ -4,7 +4,7 @@ import { useMessage } from '../hooks/message.hook';
 import { validation } from '../hooks/validation.hook';
 import { Loader } from './Loader';
 
-export const NoteFormChange = ({ props, setActive, setNoteCard }) => {
+export const NoteFormChange = ({ props, setActive }) => {
     const { loading, request } = useHttp();
     const { validationInputs } = validation();
     const [note, setNoteForm] = useState({
@@ -34,13 +34,6 @@ export const NoteFormChange = ({ props, setActive, setNoteCard }) => {
                 text: '',
                 example: '',
             })
-            // установим новые значения для отображения
-            setNoteCard({
-                id: data.data[0].id,
-                theme: data.data[0].theme,
-                text: data.data[0].text,
-                example: data.data[0].example,
-            })
         } catch (err) {
             message(err);
         }
@@ -52,7 +45,7 @@ export const NoteFormChange = ({ props, setActive, setNoteCard }) => {
                 setActive(false);
             }
         });
-    });
+    }, [setActive]);
 
     return (
         <>

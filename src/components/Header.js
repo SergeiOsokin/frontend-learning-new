@@ -21,10 +21,16 @@ export const Header = () => {
                     <input className="nav__checkbox" type="checkbox" id="checkbox-nav" />
                     <ul className="nav__items">
                         {authorization && <li className="nav__item-li"><Link className="nav__item-a" to="/flashcards">Повторение</Link></li>}
-                        {authorization && <li className="nav__item-li"><Link className="nav__item-a" to="/addword">Добавить слово</Link></li>}
-                        {authorization && <li className="nav__item-li"><Link className="nav__item-a" to="/category">Мои категории</Link></li>}
+
+                        {authorization && <li className="nav__item-li_add">Добавить
+                            <ul className="nav__add-items">
+                                <li className="nav__item-li"><Link className="nav__item-a" to="/addword">Слово</Link></li>
+                                <li className="nav__item-li"><Link className="nav__item-a" to="/addnote">Заметку</Link></li>
+                                <li className="nav__item-li"><Link className="nav__item-a" to="/category">Категорию</Link></li>
+                            </ul>
+                        </li>}
+
                         {authorization && <li className="nav__item-li"><Link className="nav__item-a" to="/wordslist">Список слов</Link></li>}
-                        {authorization && <li className="nav__item-li"><Link className="nav__item-a" to="/addnote">Добавить заметку</Link></li>}
                         {authorization && <li className="nav__item-li"><Link className="nav__item-a" to="/notes">Заметки</Link></li>}
                         {!authorization && <li className="nav__item-li"><Link className="nav__item-a" to="/authorization">Войти</Link></li>}
                         {authorization && <li className="nav__item-li"><Link className="nav__item-a" to="/authorization" onClick={logoutHandler}>Выйти</Link></li>}

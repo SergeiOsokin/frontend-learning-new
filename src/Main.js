@@ -3,7 +3,7 @@ import 'materialize-css'; // для всплывабщих сообшений. �
 import { Route, Switch } from 'react-router-dom';
 import { NotesPage } from './pages/NotesPage';
 import { RepeatPage } from './pages/RepeatPage';
-import {WordsPage} from './pages/WordsPage';
+import WordsPage from './pages/WordsPage';
 import AddWord from './pages/AddWordPage';
 import AddNote from './pages/AddNotePage';
 import CategoryPage from './pages/CategoryPage';

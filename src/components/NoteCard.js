@@ -1,14 +1,21 @@
-import React, { useState, useCallback } from 'react';
+import React, { useState, useCallback, useEffect } from 'react';
 import { useHttp } from '../hooks/http.hook';
 import { Loader } from './Loader';
 import { useMessage } from '../hooks/message.hook';
 import trashIcon from '../../src/img/trash_icon.png';
 import { NoteFormChange } from './NoteFormChange';
-
-export const NoteCard = (props) => {
+// setChanged, change меняем, чтобы заставить navnotetheme вызывать useEffect 
+// и обновлять динамично пункты меню после изменения заметки
+export const NoteCard = ({ props, setChanged, change }) => {
     const message = useMessage();
     const { request } = useHttp();
-    const [noteForm, setNoteForm] = useState(false);
+    const [noteForm, setNoteFormActive] = useState(false);
+    const [note, setNote] = useState({
+        id: '',
+        theme: '',
+        text: '',
+        example: '',
+    });
 
     const deleteNote = useCallback(async (e) => {
         const [id] = e.target.closest(".main-content").getAttribute('noteinfo').split('+');
@@ -18,7 +25,6 @@ export const NoteCard = (props) => {
             try {
                 const data = await request(`/notes/deletenote/${id}`, 'DELETE', {});
                 message(data.message);
-                // e.target.closest(".word-string").parentElement.removeChild(e.target.closest(".word-string"));
             } catch (e) {
                 message(e);
             }
@@ -26,16 +32,35 @@ export const NoteCard = (props) => {
     }, [message, request]);
 
     const patchNote = () => {
-        setNoteForm(true);
+        setNoteFormActive(true);
     }
 
-    if (props.note.theme === '') { return (<p className="empty-note"> Выберите заметку </p>) }
+    useEffect(() => {
+        async function fetchData() {
+            try {
+                const data = await request(`/notes/getnote/${props.id}`, 'GET', {});
+                message(data.message);
+                setNote({
+                    id: data[0].id,
+                    theme: data[0].theme,
+                    text: data[0].text,
+                    example: data[0].example,
+                })
+            } catch (e) {
+                message(e);
+            }
+        }
+        fetchData();
+        setChanged(!change);
+    }, [noteForm])
+
+    if (props.id === '') { return (<p className="empty-note"> Выберите заметку </p>) }
 
     return (
         <>
             {props.loading && <Loader />}
             {!props.loading &&
-                <main className="main-content" noteinfo={`${props.note.id}`}>
+                <main className="main-content" noteinfo={`${note.id}`}>
                     <div className="main-content__control-panel">
                         <button className="control-panel__edit-button button" onClick={patchNote}>Редактировать</button>
                         <button
@@ -43,18 +68,18 @@ export const NoteCard = (props) => {
                             onClick={deleteNote}
                         ><img className="trash-icon" src={trashIcon} alt="Удалить"></img></button>
                     </div>
-                    <h1 className="note__title"> <span>{props.note.theme} </span></h1>
+                    <h1 className="note__title"> <span>{note.theme} </span></h1>
                     <p className="">Основная информация:</p>
                     <div className="note__text">
-                        {props.note.text}
+                        {note.text}
                     </div>
                     <p className="">Примеры:</p>
                     <div className="note__example">
-                        {props.note.example}
+                        {note.example}
                     </div>
                 </main>
             }
-            {noteForm && <NoteFormChange props={props.note} setActive={setNoteForm} />}
+            {noteForm && <NoteFormChange props={note} setActive={setNoteFormActive} />}
         </>
     )
 }
