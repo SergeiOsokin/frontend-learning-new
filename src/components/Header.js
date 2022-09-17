@@ -10,7 +10,6 @@ export const Header = () => {
         logout();
         history.push('/authorization');
     };
-    console.log(authorization)
 
     return (
         <>
@@ -22,7 +21,7 @@ export const Header = () => {
                     <ul className="nav__items">
                         {authorization && <li className="nav__item-li"><Link className="nav__item-a" to="/flashcards">Повторение</Link></li>}
 
-                        {authorization && <li className="nav__item-li_add">Добавить
+                        {authorization && <li className="nav__item-li_sub">Добавить:
                             <ul className="nav__add-items">
                                 <li className="nav__item-li"><Link className="nav__item-a" to="/addword">Слово</Link></li>
                                 <li className="nav__item-li"><Link className="nav__item-a" to="/addnote">Заметку</Link></li>
@@ -30,8 +29,14 @@ export const Header = () => {
                             </ul>
                         </li>}
 
-                        {authorization && <li className="nav__item-li"><Link className="nav__item-a" to="/wordslist">Список слов</Link></li>}
-                        {authorization && <li className="nav__item-li"><Link className="nav__item-a" to="/notes">Заметки</Link></li>}
+                        {authorization && <li className="nav__item-li_sub">Добавленные:
+                            <ul className="nav__add-items">
+                                <li className="nav__item-li"><Link className="nav__item-a" to="/wordslist">Слова</Link></li>
+                                <li className="nav__item-li"><Link className="nav__item-a" to="/notes">Заметки</Link></li>
+                                <li className="nav__item-li"><Link className="nav__item-a" to="/categories">Категории</Link></li>
+                            </ul>
+                        </li>}
+
                         {!authorization && <li className="nav__item-li"><Link className="nav__item-a" to="/authorization">Войти</Link></li>}
                         {authorization && <li className="nav__item-li"><Link className="nav__item-a" to="/authorization" onClick={logoutHandler}>Выйти</Link></li>}
                     </ul>

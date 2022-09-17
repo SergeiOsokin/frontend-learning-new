@@ -1,12 +1,14 @@
-import React, { useState, useCallback, useEffect } from 'react';
+import React, { useState, useCallback, useEffect, useContext } from 'react';
 import { useHttp } from '../hooks/http.hook';
 import { Loader } from './Loader';
 import { useMessage } from '../hooks/message.hook';
 import trashIcon from '../../src/img/trash_icon.png';
 import { NoteFormChange } from './NoteFormChange';
+import { AuthContext } from '../context/AuthContext';
 // setChanged, change меняем, чтобы заставить navnotetheme вызывать useEffect 
 // и обновлять динамично пункты меню после изменения заметки
 export const NoteCard = ({ props, setChanged, change }) => {
+    const { loading } = useContext(AuthContext);
     const message = useMessage();
     const { request } = useHttp();
     const [noteForm, setNoteFormActive] = useState(false);
@@ -52,14 +54,14 @@ export const NoteCard = ({ props, setChanged, change }) => {
         }
         fetchData();
         setChanged(!change);
-    }, [noteForm])
+    }, [noteForm, props.id])
 
-    if (props.id === '') { return (<p className="empty-note"> Выберите заметку </p>) }
+    if (props === '') { return (<p className="empty-note"> Выберите заметку </p>) }
 
     return (
         <>
-            {props.loading && <Loader />}
-            {!props.loading &&
+            {loading && <Loader />}
+            {!loading &&
                 <main className="main-content" noteinfo={`${note.id}`}>
                     <div className="main-content__control-panel">
                         <button className="control-panel__edit-button button" onClick={patchNote}>Редактировать</button>

@@ -13,6 +13,7 @@ export const WordsList = () => {
     const [inputValue, setInputValue] = useState('')
     const [wordInfo, setWordInfo] = useState({});
     const [active, setModalActive] = useState(false);
+    const [countItems, setCountItems] = useState(30);
 
     const {
         firstContentIndex,
@@ -20,15 +21,17 @@ export const WordsList = () => {
         nextPage,
         prevPage,
         page,
-        setPage,
         totalPages,
     } = usePagination({
-        contentPerPage: 250,
+        contentPerPage: countItems,
         count: wordsArr.length || 0,
     });
 
+    const handleItems = (e) => {
+        setCountItems(e.target.value)
+    }
 
-    function tableSearch() {
+    const tableSearch = () => {
         let phrase = document.querySelector('.words-section__input-search');
         let table = document.querySelector('.words-section__table-words');
         let regPhrase = new RegExp(phrase.value, 'i');
@@ -61,7 +64,10 @@ export const WordsList = () => {
     }
 
     const handleScrollUp = () => {
-        window.scrollTo(0, 0);
+        if (window.pageYOffset > 0) {
+            window.scrollBy(0, -80);
+            setTimeout(handleScrollUp, 0);
+        }
     }
 
     const deleteWord = useCallback(async (e) => {
@@ -86,7 +92,19 @@ export const WordsList = () => {
         setModalActive(true);
     };
 
+    const scroll = () => {
+        if (window.scrollY > 50) {
+            document.querySelector('.button-back_to_top').classList.add('button-back_to_top-show');
+        } else {
+            document.querySelector('.button-back_to_top').classList.remove('button-back_to_top-show');
+        }
+    }
+
+
     useEffect(() => {
+        window.addEventListener('scroll', () => {
+            scroll()
+        })
         async function fetchData() {
             try {
                 const data = await request(`/words/wordslist`, 'GET');
@@ -105,9 +123,7 @@ export const WordsList = () => {
     return (
         <section className="words-section">
             {active &&
-
                 <WordFormChange wordInfo={wordInfo} setActive={setModalActive} />
-
             }
 
             {loading && <Loader />}
@@ -128,24 +144,23 @@ export const WordsList = () => {
                             onClick={handleClose}
                         ></span>
                     </div>
-
                     <div className="pagination">
-                        <p className="pagination__page-count">
-                            {page}/{totalPages}
+                        <p className='pagination__text-count'>Отображать:
+                            <select className="count-items" defaultValue={countItems} onChange={handleItems}>
+                                <option value='30'>30</option>
+                                <option value='50'>50</option>
+                                <option value='100'>100</option>
+                                <option value={wordsArr.length}>{wordsArr.length}</option>
+                            </select>
+                            слов
                         </p>
-                        <button onClick={prevPage} className="pagination_page-previous">
+                        <button onClick={prevPage} className="pagination__page-previous">
                             &#60;
                         </button>
-                        {[...Array(totalPages).keys()].map((el) => (
-                            <button
-                                onClick={() => setPage(el + 1)}
-                                key={el}
-                                className={`pagination_page-number ${page === el + 1 ? "active" : ""}`}
-                            >
-                                {el + 1}
-                            </button>
-                        ))}
-                        <button onClick={nextPage} className="pagination_page-next">
+                        <p className="pagination__page-count">
+                            Страница {page} из {totalPages}
+                        </p>
+                        <button onClick={nextPage} className="pagination__page-next">
                             &#62;
                         </button>
                     </div>
@@ -199,9 +214,9 @@ export const WordsList = () => {
                 </table>
 
                 <button
-                    className="button button-up"
+                    className="button button-back_to_top"
                     onClick={handleScrollUp}
-                >UP</button>
+                >↑</button>
             </>
         </section>
     )

@@ -36,7 +36,7 @@ export const NavNoteThemes = () => {
         setNoteId({
             id: idNote,
         });
-        setNoteCardActive(true)
+        setNoteCardActive(true);
     };
 
     useEffect(() => {
@@ -54,7 +54,7 @@ export const NavNoteThemes = () => {
     return (
         <>
             <input id="menu__toggle" type="checkbox" />
-            <label className="menu__btn" for="menu__toggle">
+            <label className="menu__btn" htmlFor="menu__toggle">
                 <span></span>
             </label>
             <section className="section-nav-topics">

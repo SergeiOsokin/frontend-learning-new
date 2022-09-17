@@ -5,8 +5,9 @@ import { useCallback } from 'react';
 
 export const useMessage = () => {
     return useCallback(text => {
-        if (window.M && text) {
-            window.M.toast({html: text, classes: 'message'})
-        }
+        // if (window.M && text) {
+        //     window.M.toast({html: text, classes: 'message'})
+        // }
+        <div className='message'>{text}</div>
     }, []);
 }

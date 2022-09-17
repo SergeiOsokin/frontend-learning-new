@@ -44,7 +44,7 @@
     color: rgba(255, 255, 255, 1);
 }
 
-.nav__item-li_add {
+.nav__item-li_sub {
   padding: 18px;
   color: rgba(255, 255, 255, 0.8);
   font-size: 15px;
@@ -53,13 +53,14 @@
   display: inline-block;
   border-left: 1px #9e9e9e solid;
   position: relative;
+  cursor: pointer;
 }
 
 .nav__add-items {
   display: none;
 }
 
-.nav__item-li_add:hover > 
+.nav__item-li_sub:hover > 
 .nav__add-items {
   position: absolute;
   display: flex;

@@ -9,6 +9,7 @@ import AddNote from './pages/AddNotePage';
 import CategoryPage from './pages/CategoryPage';
 import { RegistrationForm } from './components/RegistrstrationForm';
 import { AuthForm } from './components/AuthForm';
+import { Categories } from './components/Categories';
 
 const Main = () => {
 
@@ -23,6 +24,7 @@ const Main = () => {
             <Route exact path='/category' component={CategoryPage} />
             <Route exact path='/authorization' component={AuthForm} />
             <Route exact path='/registration' component={RegistrationForm} />
+            <Route exact path='/categories' component={Categories} />
         </Switch>
     )
 }

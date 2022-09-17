@@ -9,44 +9,33 @@ const usePagination = ({ contentPerPage, count }) => {
     // индекс первого элемента текущей страницы
     const firstContentIndex = lastContentIndex - contentPerPage;
 
-    // change page based on direction either front or back
+    // переходы по страницам через "боковые кнопки"
     const changePage = (direction) => {
         setPage((state) => {
-            // move forward
+            // двигаемся вперед
             if (direction) {
-                // if page is the last page, do nothing
+                // если это последняя страница, ничего не делаем
                 if (state === pageCount) {
                     return state;
                 }
+                // иначе переходим вперед
                 return state + 1;
-                // go back
+                // двигаемся назад
             } else {
-                // if page is the first page, do nothing
+                // если это первая страница, ничего не делаем
                 if (state === 1) {
                     return state;
                 }
+                // иначе возвращаемся назад
                 return state - 1;
             }
         });
-    };
-
-    const setPageSAFE = (num) => {
-        // if number is greater than number of pages, set to last page
-        if (num > pageCount) {
-            setPage(pageCount);
-            // if number is less than 1, set page to first page
-        } else if (num < 1) {
-            setPage(1);
-        } else {
-            setPage(num);
-        }
     };
 
     return {
         totalPages: pageCount,
         nextPage: () => changePage(true),
         prevPage: () => changePage(false),
-        setPage: setPageSAFE,
         firstContentIndex,
         lastContentIndex,
         page,
