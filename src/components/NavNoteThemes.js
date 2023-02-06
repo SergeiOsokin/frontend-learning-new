@@ -42,7 +42,7 @@ export const NavNoteThemes = () => {
     useEffect(() => {
         async function fetchData() {
             try {
-                const data = await request('/notes/notethemes', 'GET', {});
+                const data = await request('/notes/themes', 'GET', {});
                 setThemes(data);
             } catch (e) {
                 message(e)

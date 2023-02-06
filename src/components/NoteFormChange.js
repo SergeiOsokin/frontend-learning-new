@@ -24,7 +24,7 @@ export const NoteFormChange = ({ props, setActive }) => {
     const handleSubmit = (async (e) => {
         e.preventDefault()
         try {
-            const data = await request('/notes/patchnote', 'PATCH', note);
+            const data = await request('/notes/patch', 'PATCH', note);
             message(data.message);
             setActive(false);
             // очистим форму

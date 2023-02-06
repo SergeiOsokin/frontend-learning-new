@@ -53,19 +53,25 @@
 }
 
 .note__text {
-  font-family: ‘Raleway’, sans-serif;
+  font-family: 'Raleway', sans-serif;
   font-size: 18px;
   font-weight: 500;
   line-height: 32px;
   margin: 5px 0;
+  white-space: pre-line;
+  border-top: double;
+  width: 100%;
 }
 
 .note__example {
-  font-family: ‘Raleway’, sans-serif;
+  font-family: 'Raleway', sans-serif;
   font-size: 18px;
   font-weight: 500;
   line-height: 32px;
   margin: 5px 0;
+  white-space: pre-line;
+  border-top: double;
+  width: 100%;
 }
 
 .control-panel__edit-button {

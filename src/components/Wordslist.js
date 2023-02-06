@@ -75,7 +75,7 @@ export const WordsList = () => {
         const [id] = e.target.closest(".word-string").getAttribute('info').split('+');
         if (decision) {
             try {
-                const data = await request(`/words/deleteword/${id}`, 'DELETE', {}, {
+                const data = await request(`/words/delete/${id}`, 'DELETE', {}, {
                     credentials: 'include'
                 });
                 message(data.message);
@@ -107,7 +107,7 @@ export const WordsList = () => {
         })
         async function fetchData() {
             try {
-                const data = await request(`/words/wordslist`, 'GET');
+                const data = await request(`/words/list`, 'GET');
                 if (data.data.length === 0) {
                     return message(data.message)
                 } else {

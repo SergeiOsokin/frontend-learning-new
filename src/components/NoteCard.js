@@ -25,7 +25,7 @@ export const NoteCard = ({ props, setChanged, change }) => {
 
         if (decision) {
             try {
-                const data = await request(`/notes/deletenote/${id}`, 'DELETE', {});
+                const data = await request(`/notes/delete/${id}`, 'DELETE', {});
                 message(data.message);
             } catch (e) {
                 message(e);
@@ -40,7 +40,7 @@ export const NoteCard = ({ props, setChanged, change }) => {
     useEffect(() => {
         async function fetchData() {
             try {
-                const data = await request(`/notes/getnote/${props.id}`, 'GET', {});
+                const data = await request(`/notes/get/${props.id}`, 'GET', {});
                 message(data.message);
                 setNote({
                     id: data[0].id,

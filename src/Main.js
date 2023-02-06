@@ -10,12 +10,13 @@ import CategoryPage from './pages/CategoryPage';
 import { RegistrationForm } from './components/RegistrstrationForm';
 import { AuthForm } from './components/AuthForm';
 import { Categories } from './components/Categories';
+import { MainPage } from './components/MainPage';
 
 const Main = () => {
 
     return (
         <Switch>
-            <Route exact path='/' component={CategoryPage} />
+            <Route exact path='/' component={MainPage} />
             <Route exact path='/notes' component={NotesPage} />
             <Route exact path='/flashcards' component={RepeatPage} />
             <Route exact path='/wordslist' component={WordsPage} />

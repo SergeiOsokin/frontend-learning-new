@@ -31,7 +31,7 @@ export const WordFormChange = ({ wordInfo, setActive }) => {
     const handleSubmit = (async (e) => {
         e.preventDefault();
         try {
-            const data = await request(`/words/patchword/${word.id}`, 'PATCH', word);
+            const data = await request(`/words/patch/${word.id}`, 'PATCH', word);
             message(data.message);
             clearError();
             setActive(false);

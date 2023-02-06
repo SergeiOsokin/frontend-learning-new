@@ -5,6 +5,7 @@ import { Header } from './components/Header';
 import Main from './Main';
 import { AuthContext } from './context/AuthContext';
 import { useAuth } from './hooks/auth.hook';
+import { Footer } from './components/Footer';
 
 const App = () => {
   const { login, logout, authorization } = useAuth();
@@ -13,6 +14,7 @@ const App = () => {
     <AuthContext.Provider value={{login, logout, authorization}}>
       <Header />
       <Main />
+      <Footer />
     </AuthContext.Provider>
   )
 }

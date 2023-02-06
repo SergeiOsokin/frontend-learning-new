@@ -29,14 +29,17 @@ export const WordForm = () => {
     const handleSubmit = (async (e) => {
         e.preventDefault();
         try {
-            const data = await request('/words/addword', 'POST', word);
-            message(data.message);
-            clearError();
-            setWords({
-                russianWord: '',
-                foreignWord: '',
-                categoryWord: '',
-            })
+            const data = await request('/words/add', 'POST', word);
+            if (data.statusCode === 200) {
+                message(data.message);
+                setWords({
+                    russianWord: '',
+                    foreignWord: '',
+                    categoryWord: '',
+                })
+            } else {
+                throw data.message
+            }
         } catch (err) {
             message(err);
         }

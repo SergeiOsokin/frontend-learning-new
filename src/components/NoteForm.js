@@ -22,14 +22,18 @@ export const NoteForm = () => {
     const handleSubmit = (async (e) => {
         e.preventDefault()
         try {
-            const data = await request('/notes/addnote', 'POST', note);
-            message(data.message);
-            clearError();
-            setNote({
-                theme: '',
-                text: '',
-                example: '',
-            })
+            const data = await request('/notes/add', 'POST', note);
+            if(data.statusCode === 200) {
+                message(data.message);
+                clearError();
+                setNote({
+                    theme: '',
+                    text: '',
+                    example: '',
+                })
+            } else {
+                throw data.message 
+            }
         } catch (err) {
             message(err);
         }

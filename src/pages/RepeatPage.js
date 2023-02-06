@@ -17,7 +17,7 @@ export const RepeatPage = () => {
     useEffect(() => {
         async function fetchData() {
             try {
-                const data = await request(`/words/wordslist`, 'GET');
+                const data = await request(`/words/list`, 'GET');
                 if (data.data.length < 4) {
                     return setWords(null)
                 } else {
