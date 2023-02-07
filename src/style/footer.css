@@ -6,6 +6,17 @@ footer {
     background: cornflowerblue;
     position: absolute;
     bottom: 0;
-    left: -10px;
+    left: 0px;
     right: 0;
+    justify-content: center;
+    height: 25px;
+    align-items: center;
+  }
+
+  .footer__copirate {
+    margin-right: 10px;
+  }
+
+  .footer__link_main {
+    margin-right: 10px;
   }
