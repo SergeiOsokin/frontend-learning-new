@@ -16,11 +16,12 @@ export const useHttp = () => {
         try{
             const response = await fetch(`http://localhost:3000${url}`, params);
             const data = await response.json();
-            if(!response.ok) {
-                setError(data.message || 'Что-то пошло не так')  
-            }
             setLoading(false);
-            return data;
+            if(!response.ok) {
+                return setError(data || 'Что-то пошло не так'); 
+            } else {
+                return data;
+            }
         } catch(e){
             setLoading(false); 
             setError(e.message);

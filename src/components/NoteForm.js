@@ -23,17 +23,13 @@ export const NoteForm = () => {
         e.preventDefault()
         try {
             const data = await request('/notes/add', 'POST', note);
-            if(data.statusCode === 200) {
-                message(data.message);
-                clearError();
-                setNote({
-                    theme: '',
-                    text: '',
-                    example: '',
-                })
-            } else {
-                throw data.message 
-            }
+            message(data.message);
+            clearError();
+            setNote({
+                theme: '',
+                text: '',
+                example: '',
+            })
         } catch (err) {
             message(err);
         }
@@ -45,10 +41,10 @@ export const NoteForm = () => {
     // }, [error, message, clearError]);
 
     return (
-        <section className="notice-section">
-            
+        <section className="notice-section commonClass">
+
             <div className="notice-section__content">
-            {loading && <Loader />}
+                {loading && <Loader />}
                 <h3 className="notice-section__title">Добавить заметку</h3>
                 <form className="form" name="add-word-form" onSubmit={handleSubmit}>
                     <fieldset>

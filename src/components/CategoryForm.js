@@ -22,13 +22,9 @@ export const CategoryForm = () => {
         e.preventDefault()
         try {
             const data = await request('/category/add', 'POST', category);
-            if(data.statusCode === 200) {
-                message(data.message);
-                setCategory({ ...category, categoryWord: '' });
-                clearError();
-            } else {
-                throw data.message
-            }
+            message(data.message);
+            setCategory({ ...category, categoryWord: '' });
+            clearError();
         } catch (err) {
             message(err);
         }
@@ -40,7 +36,7 @@ export const CategoryForm = () => {
     // }, [error, message, clearError]);
 
     return (
-        <section className="add-category-section">
+        <section className="add-category-section commonClass">
             <div className="add-category-section__content">
                 {/* {loading && <Loader />} */}
                 <h3 className="add-category-section__title">Добавить категорию</h3>

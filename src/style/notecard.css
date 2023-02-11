@@ -88,3 +88,36 @@
   cursor: pointer;
   margin-left: 10px;
 }
+
+@media screen and (max-width:760px) {
+
+  .main-content__control-panel {
+    padding: 0 15px;
+  }
+
+  .note__title {
+    font-size: 15px;
+  }
+
+  .note__title span {
+    background: white;
+    padding: 0 4px;
+    margin-left: 8px;
+  }
+  .note__text {
+    font-size: 12px;
+    font-weight: 250;
+    line-height: 16px;
+  }
+  
+  .note__example {
+    font-size: 12px;
+    font-weight: 250;
+    line-height: 16px;
+  }
+  
+  .control-panel__delete-button {
+    margin-left: 25px;
+  }
+
+}

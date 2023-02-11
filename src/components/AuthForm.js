@@ -38,7 +38,7 @@ export const AuthForm = () => {
     }
 
     return (
-        <section className={"authorization "}>
+        <section className={"authorization commonClass "}>
             <div className="authorization__content">
                 <h3 className={"authorization__title "}>Вход</h3>
                 <form className="form" name="entrance" onSubmit={loginHandler}>

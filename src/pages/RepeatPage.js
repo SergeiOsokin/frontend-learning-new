@@ -37,7 +37,7 @@ export const RepeatPage = () => {
 
     return (
         <>
-            <div className="section-repeat">
+            <div className="section-repeat commonClass">
                 {loading && <Loader />}
                 {(!words && !loading) && <div className="section-repeat__empty-wordArr">Недостаточно слов для повторения (минимум 4)</div>}
                 {(words && !loading) && <>

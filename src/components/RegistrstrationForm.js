@@ -34,7 +34,7 @@ export const RegistrationForm = () => {
     }
 
     return (
-        <section className={"authorization "}>
+        <section className={"authorization commonClass "}>
             <div className="authorization__content">
                 <h3 className={"authorization__title "}>Регистрация</h3>
                 <form className="form" name="entrance" onSubmit={registrHandler}>

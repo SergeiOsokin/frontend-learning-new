@@ -45,7 +45,7 @@ export const WordFormChange = ({ wordInfo, setActive }) => {
             if (event.key === 'Escape') {
                 setActive(false);
             }
-          });
+        });
         async function fetchData() {
             try {
                 const data = await request('/category/get', 'GET', {});
@@ -66,7 +66,7 @@ export const WordFormChange = ({ wordInfo, setActive }) => {
     }, [message, request, setActive, wordInfo.category, wordInfo.category_word_id, wordInfo.foreign_word, wordInfo.id, wordInfo.russian_word]);
 
     return (
-        <section className="change-word-section">
+        <section className="change-word-section commonClass">
             <div className="change-word-section__content">
                 <h3 className="change-word-section__title">Изменить слово</h3>
                 <span className="form__close" onClick={() => { setActive(false) }}></span>

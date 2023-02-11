@@ -72,3 +72,14 @@ body.change-notice-section {
 .form__close:after {
   transform: rotate(-45deg);
 }
+
+@media screen and (max-width:760px) {
+  .form__close {
+    right: 0px;
+  }
+
+  .change-notice-section__content {
+    padding: 15px 15px;
+    width: 350px;
+  }
+}

@@ -5,7 +5,7 @@ export const NotesPage = () => {
 
     return (
         <>
-            <section className="section-main">
+            <section className="section-main commonClass">
                 <NavNoteThemes />
             </section>
         </>

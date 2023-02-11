@@ -16,9 +16,9 @@ export const Header = () => {
             <header className="header">
 
                 <nav className="header__nav">
+                    <li className="nav__item-li"><Link className="nav__item-a" to="/">Главная</Link></li>
                     <label className="nav__checkbox-label" htmlFor="checkbox-nav">Меню</label>
                     <input className="nav__checkbox" type="checkbox" id="checkbox-nav" />
-                    <li className="nav__item-li"><Link className="nav__item-a" to="/">Главная</Link></li>
                     <ul className="nav__items">
                         {authorization && <li className="nav__item-li"><Link className="nav__item-a" to="/flashcards">Повторение</Link></li>}
 

@@ -72,3 +72,13 @@ body.change-word-section {
 .form__close:after {
   transform: rotate(-45deg);
 }
+
+@media screen and (max-width:760px) {
+  .form__close {
+    top: -15px;
+    right: 0px;
+    width: 16px;
+    height: 16px;
+    opacity: 0.5;
+  }
+}

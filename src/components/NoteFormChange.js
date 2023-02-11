@@ -27,7 +27,6 @@ export const NoteFormChange = ({ props, setActive }) => {
             const data = await request('/notes/patch', 'PATCH', note);
             message(data.message);
             setActive(false);
-            // очистим форму
             setNoteForm({
                 id: '',
                 theme: '',
@@ -49,7 +48,7 @@ export const NoteFormChange = ({ props, setActive }) => {
 
     return (
         <>
-            <section className="change-notice-section">
+            <section className="change-notice-section commonClass">
                 <div className="change-notice-section__content">
                     <h3 className="change-notice-section__title">Изменить заметку</h3>
                     <span className="form__close" onClick={() => { setActive(false) }}></span>
