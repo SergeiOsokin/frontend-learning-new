@@ -43,6 +43,9 @@ export const NavNoteThemes = () => {
         async function fetchData() {
             try {
                 const data = await request('/notes/themes', 'GET', {});
+                if (data === undefined) {
+                    return
+                }
                 setThemes(data);
             } catch (e) {
                 message(e)

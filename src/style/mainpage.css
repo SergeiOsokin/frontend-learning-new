@@ -1,8 +1,9 @@
+
 .title-section {
     display: flex;
     flex-direction: column;
     width: 70%;
-    margin: 40px 0 0;
+    /* margin: 40px 0 0; */
 }
 
 .title-section__title {
@@ -69,18 +70,22 @@
 }
 
 @media screen and (max-width:760px) {
+
+    .main-page {
+        padding: 0 10px;
+    }
+
     .title-section {
         display: flex;
         flex-direction: column;
         width: 90%;
-        margin: 10px 0 0;
     }
 
     .title-section__title {
         font-size: 24px;
         font-weight: 250;
-        margin-top: 20px;
-        margin-bottom: 5px;
+        /* margin-top: 20px;
+        margin-bottom: 5px; */
     }
 
     .instrustion-section__title {
@@ -97,6 +102,7 @@
         flex-basis: 150px;
         justify-content: space-around;
         flex-wrap: wrap;
+        margin: 0 0 10px;
     }
     
     .item {

@@ -8,7 +8,7 @@ import trashIcon from '../../src/img/trash_icon.png';
 export const MainPage = () => {
 
     return (
-        <main className="root commonClass">
+        <main className="main-page commonClass">
             <section className="title-section">
                 <h1 className='title-section__title'>То, что ты учишь, всегда с тобой.</h1>
                 <p className="title-section__paragraph">Сайт позволяет тебе создавать твою собственную библиотеку грамматических правил, определений,

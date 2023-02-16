@@ -108,6 +108,9 @@ export const WordsList = () => {
         async function fetchData() {
             try {
                 const data = await request(`/words/list`, 'GET');
+                if (data === undefined) {
+                    return
+                }
                 if (data.data.length === 0) {
                     return message(data.message)
                 } else {

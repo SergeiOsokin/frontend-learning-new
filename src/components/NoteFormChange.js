@@ -25,6 +25,9 @@ export const NoteFormChange = ({ props, setActive }) => {
         e.preventDefault()
         try {
             const data = await request('/notes/patch', 'PATCH', note);
+            if (data === undefined) {
+                return
+            }
             message(data.message);
             setActive(false);
             setNoteForm({

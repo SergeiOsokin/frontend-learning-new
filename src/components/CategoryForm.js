@@ -22,6 +22,9 @@ export const CategoryForm = () => {
         e.preventDefault()
         try {
             const data = await request('/category/add', 'POST', category);
+            if(data === undefined) {
+                return
+            }
             message(data.message);
             setCategory({ ...category, categoryWord: '' });
             clearError();

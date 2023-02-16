@@ -81,4 +81,9 @@ body.change-word-section {
     height: 16px;
     opacity: 0.5;
   }
+
+  .change-word-section__content {
+    padding: 10px;
+  }
+
 }

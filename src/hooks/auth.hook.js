@@ -1,27 +1,24 @@
 import { useCallback, useState, useEffect, useContext } from 'react';
 import { useHistory } from 'react-router-dom';
 import { useHttp } from '../hooks/http.hook';
+import { useMessage } from '../hooks/message.hook';
 import { AuthContext } from '../context/AuthContext';
 
-export const useAuth = () => {
+export const useAuth = (data) => {
     const [authorization, setAuthorization] = useState(null);
     const [userId, setUserId] = useState(null);
     const [ready, setReady] = useState(false); // для "модуля" авторизации
+    const message = useMessage();
     const { request } = useHttp();
     const history = useHistory();
     // что происходит после успешной авторизации
     const login = useCallback(() => {
-        setAuthorization(true)
+        setAuthorization(true);
     }, []);
     // что делаем при разлогинивании
     const logout = useCallback(async () => {
-        const req = await fetch('http://localhost:3000/deletecookie', {
-            method: 'DELETE',
-            credentials: 'include',
-            headers: {
-                "Content-Type": "application/json"
-            }
-        });
+        const req = await request('/deletecookie', 'DELETE');
+        message('Выход выполнен')
         setAuthorization(false);
     }, []);
     // проверим, нет ли данных в cookie сейчас, чтобы сделать пользователя авторизованным. 
@@ -29,12 +26,12 @@ export const useAuth = () => {
         async function fetchData() {
             try {
                 const req = await request('/words/list', 'GET');
-                if(req.message === 'Не авторизованы') {
+                if (req.message === 'Не авторизованы') {
                     return setAuthorization(false);
                 }
                 setAuthorization(true);
-            } catch(error) {
-               
+            } catch (error) {
+
             }
         }
         fetchData();

@@ -37,6 +37,9 @@ export const Categories = () => {
         async function fetchData() {
             try {
                 const data = await request(`/category/get`, 'GET');
+                if (data === undefined) {
+                    return
+                }
                 if (data.data.length === 0) {
                     return message(data.message)
                 } else {
@@ -50,7 +53,7 @@ export const Categories = () => {
     }, [request, message, active]);
 
     return (
-        <section className="words-section every">
+        <section className="category-section every">
             {active &&
                 <WordFormChange wordInfo={wordInfo} setActive={setModalActive} />
             }
@@ -58,25 +61,25 @@ export const Categories = () => {
             {loading && <Loader />}
 
             <>
-                <table className="words-section__table-words" >
+                <table className="category-section__table" >
                     <caption>
                         Ваши категории
                     </caption>
-                    <thead>
+                    {/* <thead>
                         <tr>
-                            {/* <th>№ п/п</th> */}
+                            <th>№ п/п</th>
                             <th>Категория</th>
                             <th></th>
                             <th></th>
                         </tr>
-                    </thead>
+                    </thead> */}
 
                     <tbody>
                         {categories
                             .sort((a, b) => a.id - b.id)
                             .map((element, index) => {
                                 return (
-                                    <tr className="word-string"
+                                    <tr className="category-string"
                                         info={`${element.id}+${element.category}`}
                                         key={element.id}
                                     >

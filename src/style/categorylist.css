@@ -1,0 +1,19 @@
+.category-section {
+    width: 100%;
+
+}
+
+.category-section__table {
+    width: 100%;    
+}
+
+.category-string {
+    
+}
+
+@media screen and (max-width:760px) {
+
+    /* .category-section {
+      padding: 0 10px;
+    } */
+}

@@ -49,3 +49,14 @@
     outline: none;
   }
   
+  @media screen and (max-width:760px) {
+
+    .add-category-section{
+      /* height: calc(100vh - 25px - 40px); */
+      padding: 0 10px;
+    }
+
+    .add-category-section__content {
+      padding: 10px 10px;
+    }
+}

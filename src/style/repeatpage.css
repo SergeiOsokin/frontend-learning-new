@@ -11,3 +11,15 @@
     width: 100%;
     text-align: center;
 }
+
+@media screen and (max-width:760px) {
+
+    /* .section-repeat__empty-wordArr {
+        min-height: calc(100vh - 25px - 40px);
+    } */
+
+    .section-repeat {
+      /* min-height: calc(100vh - 25px - 40px); */
+      justify-content: center;
+    }
+}   

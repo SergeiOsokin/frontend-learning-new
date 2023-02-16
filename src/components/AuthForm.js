@@ -26,9 +26,11 @@ export const AuthForm = () => {
         e.preventDefault();
         try {
             const req = await request('/signin', 'POST', form);
-            message(req.message);
+            if(req === undefined) {
+                return
+            }
             history.push('/wordslist');
-            auth.login(); // передаем полученные данные в auth.hook
+            auth.login(req); // передаем полученные данные в auth.hook
         } catch (e) {
             message(e);
         }

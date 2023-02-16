@@ -41,6 +41,9 @@ export const NoteCard = ({ props, setChanged, change }) => {
         async function fetchData() {
             try {
                 const data = await request(`/notes/get/${props.id}`, 'GET', {});
+                if (data === undefined) {
+                    return
+                }
                 message(data.message);
                 setNote({
                     id: data[0].id,

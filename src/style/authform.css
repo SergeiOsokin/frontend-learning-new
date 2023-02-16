@@ -122,29 +122,23 @@
   }
   
   @media screen and (max-width:767px) {
-    .button {
-      width:90%;
-      margin-top:23px;
-    }
-  
-    .form__buttons-container {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-    }
+
+  .authorization {
+    /* height: calc(100vh - 25px - 40px); */
+    padding: 0 10px;
+  }
+
+  .button {
+    width:90%;
+    margin:10px auto;
+  }
+
+  .authorization__content {
+    width: 100%;
+    padding: 10px;
   }
   
-  @media screen and (max-width:480px) {
-    .button {
-      width:90%;
-      margin-top:23px;
-    }
-  
-    .authorization__content {
-      width: 100%;
-    }
-    
-    .form {
-      width: 100%;
-    }
+  .form {
+    width: 100%;
+  }
   }

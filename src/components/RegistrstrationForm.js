@@ -24,6 +24,9 @@ export const RegistrationForm = () => {
         e.preventDefault();
         try {
             const data = await request('/signup', 'POST', form);
+            if (data === undefined) {
+                return
+            }
             message(data.message);
         } catch (e) {
             message(e);

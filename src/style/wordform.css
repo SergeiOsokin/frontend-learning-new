@@ -5,7 +5,7 @@
     flex-direction: row;
     justify-content: center;
     align-items: center;
-    height: 80vh;
+    /* height: 80vh; */
   }
   
   .add-word-section__content {
@@ -48,4 +48,15 @@
   .form__select:focus {
     outline: none;
   }
-  
+
+  @media screen and (max-width:760px) {
+
+    .add-word-section {
+      /* height: calc(100vh - 25px - 40px); */
+      padding: 0 10px;
+    }
+
+    .add-word-section__content {
+      padding: 10px;
+    }
+}

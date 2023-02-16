@@ -163,3 +163,11 @@
 .menu__item:hover {
     background-color: #CFD8DC;
 }
+
+@media screen and (max-width:760px) {
+
+    .section-main {
+        margin: 0;
+        padding: 10px 0 0;
+    }
+}   

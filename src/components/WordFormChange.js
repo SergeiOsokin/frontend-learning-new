@@ -32,8 +32,10 @@ export const WordFormChange = ({ wordInfo, setActive }) => {
         e.preventDefault();
         try {
             const data = await request(`/words/patch/${word.id}`, 'PATCH', word);
+            if (data === undefined) {
+                return
+            }
             message(data.message);
-            clearError();
             setActive(false);
         } catch (err) {
             message('Ошибка:', err);
@@ -49,6 +51,9 @@ export const WordFormChange = ({ wordInfo, setActive }) => {
         async function fetchData() {
             try {
                 const data = await request('/category/get', 'GET', {});
+                if (data === undefined) {
+                    return
+                }
                 message(data.message);
                 setWords({
                     id: wordInfo.id,

@@ -3,7 +3,7 @@
     flex-direction: row;
     justify-content: center;
     align-items: center;
-    height: 80vh;
+    /* height: 80vh; */
 }
 
 .notice-section__content {
@@ -54,8 +54,13 @@
 
 @media screen and (max-width:760px) {
 
+    .notice-section {
+        /* min-height: calc(100vh - 25px - 40px); */
+        padding: 0 10px;
+    }
+
     .notice-section__content {
         width: 430px;
-        padding: 17px 18px;
+        padding: 10px 10px;
     }
 }

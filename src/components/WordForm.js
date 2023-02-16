@@ -30,6 +30,9 @@ export const WordForm = () => {
         e.preventDefault();
         try {
             const data = await request('/words/add', 'POST', word);
+            if(data === undefined) {
+                return
+            }
             message(data.message);
             setWords({
                 russianWord: '',
@@ -46,6 +49,9 @@ export const WordForm = () => {
         async function fetchData() {
             try {
                 const data = await request('/category/get', 'GET', {});
+                if(data === undefined) {
+                    return
+                }
                 message(data.message);
                 setCategory(data.data)
             } catch (err) {
@@ -95,7 +101,7 @@ export const WordForm = () => {
                         <div>
                             <label className="form__label" htmlFor="categoryWord">Выберите категорию</label>
                             <select className="form__select" name="categoryWord" onChange={changeHandler} disabled={loading} required >
-                                <option value="" selected>Выберите категорию</option>
+                                <option value="" defaultValue>Выберите категорию</option>
                                 {category.map((element, index) => {
                                     return (
                                         <option key={index.toString()} className="form__selected" info={element.id}>{element.category}</option>

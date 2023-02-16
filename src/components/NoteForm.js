@@ -23,6 +23,9 @@ export const NoteForm = () => {
         e.preventDefault()
         try {
             const data = await request('/notes/add', 'POST', note);
+            if (data === undefined) {
+                return
+            }
             message(data.message);
             clearError();
             setNote({
