@@ -53,7 +53,7 @@ export const Categories = () => {
     }, [request, message, active]);
 
     return (
-        <section className="category-section every">
+        <section className="category-section commonClass">
             {active &&
                 <WordFormChange wordInfo={wordInfo} setActive={setModalActive} />
             }

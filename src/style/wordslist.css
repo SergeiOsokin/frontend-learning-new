@@ -2,7 +2,6 @@
   display: flex;
   flex-direction: column;
   max-width: 1300px;
-  margin: 0 auto;
 }
 
 .words-section__input-container {
@@ -10,7 +9,6 @@
   flex-direction: row;
   margin: 10px 0;
   padding: 0 5px;
-  /* position: sticky; */
   top: 0;
   background: white;
 }

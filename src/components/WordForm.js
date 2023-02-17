@@ -6,7 +6,7 @@ import { Loader } from './Loader';
 import { validation } from '../hooks/validation.hook';
 
 export const WordForm = () => {
-    const { loading, request, clearError } = useHttp();
+    const { loading, request } = useHttp();
     const { validationInputs } = validation();
     const [word, setWords] = useState({
         russianWord: '',

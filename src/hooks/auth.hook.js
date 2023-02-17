@@ -1,8 +1,9 @@
-import { useCallback, useState, useEffect, useContext } from 'react';
+import { useCallback, useState, useEffect } from 'react';
+// import { useCallback, useState, useEffect, useContext } from 'react';
 import { useHistory } from 'react-router-dom';
 import { useHttp } from '../hooks/http.hook';
 import { useMessage } from '../hooks/message.hook';
-import { AuthContext } from '../context/AuthContext';
+// import { AuthContext } from '../context/AuthContext';
 
 export const useAuth = (data) => {
     const [authorization, setAuthorization] = useState(null);
@@ -10,7 +11,7 @@ export const useAuth = (data) => {
     const [ready, setReady] = useState(false); // для "модуля" авторизации
     const message = useMessage();
     const { request } = useHttp();
-    const history = useHistory();
+    // const history = useHistory();
     // что происходит после успешной авторизации
     const login = useCallback(() => {
         setAuthorization(true);

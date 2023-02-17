@@ -1,4 +1,5 @@
 import React, { useEffect, useCallback, useState } from 'react';
+import { useHistory } from 'react-router-dom';
 import { useHttp } from '../hooks/http.hook';
 import { WordFormChange } from './WordFormChange';
 import { useMessage } from '../hooks/message.hook';
@@ -8,6 +9,7 @@ import usePagination from "../hooks/pagination.hook";
 
 export const WordsList = () => {
     const { loading, request } = useHttp();
+    const history = useHistory();
     const [wordsArr, setWordsArr] = useState([]);
     const message = useMessage();
     const [inputValue, setInputValue] = useState('')
@@ -102,9 +104,12 @@ export const WordsList = () => {
 
 
     useEffect(() => {
-        // window.addEventListener('scroll', () => {
-        //     scroll()
-        // })
+        document.addEventListener('scroll', () => {
+            // console.log(history.location.pathname === '/wordslist')
+            if(history.location.pathname === '/wordslist') {
+                scroll();
+            }
+        });
         async function fetchData() {
             try {
                 const data = await request(`/words/list`, 'GET');

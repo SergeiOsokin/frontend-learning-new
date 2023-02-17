@@ -1,9 +1,10 @@
-import React, { useEffect, useCallback, useState } from 'react';
-import { useHttp } from '../hooks/http.hook';
-import { WordFormChange } from './WordFormChange';
-import { useMessage } from '../hooks/message.hook';
-import { Loader } from './Loader';
-import trashIcon from '../../src/img/trash_icon.png';
+import React from 'react';
+// import React, { useEffect, useCallback, useState } from 'react';
+// import { useHttp } from '../hooks/http.hook';
+// import { WordFormChange } from './WordFormChange';
+// import { useMessage } from '../hooks/message.hook';
+// import { Loader } from './Loader';
+// import trashIcon from '../../src/img/trash_icon.png';
 
 export const MainPage = () => {
 

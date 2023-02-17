@@ -1,16 +1,14 @@
-import React, { useState, useCallback, useEffect, useContext } from 'react';
+import React, { useState, useCallback, useEffect } from 'react';
 import { useHttp } from '../hooks/http.hook';
 import { Loader } from './Loader';
 import { useMessage } from '../hooks/message.hook';
 import trashIcon from '../../src/img/trash_icon.png';
 import { NoteFormChange } from './NoteFormChange';
-import { AuthContext } from '../context/AuthContext';
 // setChanged, change меняем, чтобы заставить navnotetheme вызывать useEffect 
 // и обновлять динамично пункты меню после изменения заметки
 export const NoteCard = ({ props, setChanged, change }) => {
-    const { loading } = useContext(AuthContext);
     const message = useMessage();
-    const { request } = useHttp();
+    const { loading,request } = useHttp();
     const [noteForm, setNoteFormActive] = useState(false);
     const [note, setNote] = useState({
         id: '',

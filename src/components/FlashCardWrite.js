@@ -27,6 +27,7 @@ export const FlashCardWrite = ({ wordsArr }) => {
     }, [wordsArr]);
 
     const checkAnswer = useCallback(() => {
+        // eslint-disable-next-line no-useless-escape
         const regexp = /[(,)\s\. ]\/*/gi; // удалим лишнее
         const answer = userAnswer.toUpperCase().trim().replace(regexp, '');
         const right = word.foreignWord.toUpperCase().replace(regexp, '');

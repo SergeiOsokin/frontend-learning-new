@@ -3,7 +3,6 @@ import { useHttp } from '../hooks/http.hook';
 import { useMessage } from '../hooks/message.hook';
 import { Loader } from '../components/Loader';
 import { FlashCard } from '../components/FlashCard';
-import { Header } from '../components/Header';
 import { FlashCardWrite } from '../components/FlashCardWrite';
 
 export const RepeatPage = () => {

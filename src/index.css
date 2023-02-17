@@ -56,4 +56,6 @@ body {
 .commonClass {
   flex: 1;
   margin-bottom: 25px !important; 
+  margin-left: 10px;
+  margin-right: 10px;
 }

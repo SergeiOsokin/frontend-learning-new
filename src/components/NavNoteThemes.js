@@ -5,7 +5,7 @@ import { useMessage } from '../hooks/message.hook';
 import { NoteCard } from './NoteCard';
 
 export const NavNoteThemes = () => {
-    const { loading, request } = useHttp();
+    const { request } = useHttp();
     const message = useMessage();
     const [noteId, setNoteId] = useState({
         id: '',
