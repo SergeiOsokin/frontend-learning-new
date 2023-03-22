@@ -2,7 +2,7 @@
     display: block;
     text-align: center;
     width: 350px;
-    height: 36px;
+    height: min-content;
     padding: 2px;
     box-sizing: border-box;
     border-radius: 4px;

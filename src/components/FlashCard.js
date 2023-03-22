@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 
 export const FlashCard = ({ wordsArr }) => {
-    const randomIndexWordFirst = Math.floor(Math.random() * (wordsArr.length - 0) + 0);
+    const randomIndexWordFirst = Math.floor(Math.random() * (wordsArr.length - 0) + 0); //это для правильного ответа, при загрузке страницы
     const [rightAnswers, setRightAnswer] = useState(0);
     const [wrongAnswers, setWrongAnswer] = useState(0);
     let btnArr = ['foreignWord1', 'foreignWord2', 'foreignWord3', 'foreignWord4'];
@@ -31,7 +31,7 @@ export const FlashCard = ({ wordsArr }) => {
 
     const checkAnswer = (e) => {
         changeBtn();
-        const randomIndexWordSecond = Math.floor(Math.random() * (wordsArr.length - 0) + 0);
+        const randomIndexWordSecond = Math.floor(Math.random() * (wordsArr.length - 0) + 0);; //это для правильного ответа, после выбора ответа
         const translateWord = document.querySelector('.card__word').getAttribute('translate')
         if (e.target.value === translateWord) {
             setRightAnswer(rightAnswers + 1);
