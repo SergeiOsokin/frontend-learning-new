@@ -1,37 +1,50 @@
-import React from 'react';
-import { FlashCardForm } from '../components/FlashCard';
-import { Header } from '../components/Header';
-import { WriteWord } from '../components/WriteWord';
-import { wordsArr } from '../words.json';
+import React, { useEffect, useState } from 'react';
+import { useHttp } from '../hooks/http.hook';
+import { useMessage } from '../hooks/message.hook';
+import { Loader } from '../components/Loader';
+import { FlashCard } from '../components/FlashCard';
+import { FlashCardWrite } from '../components/FlashCardWrite';
 
-export default class FlashCards extends React.Component {
-    constructor(props) {
-        super(props);
-        this.state = {
-            isEasy: true,
-            easyHard: 'сложнее'
-        };
-        this.handleClick = this.handleClick.bind(this);
-    }
+export const RepeatPage = () => {
+    const { loading, request } = useHttp();
+    const [isEasy, setEasy] = useState(true);
+    const [easyHard, setEasyHard] = useState('сложнее');
+    const [words, setWords] = useState(null);
 
-    handleClick() {
-        console.log(this.state.isEasy)
-        this.setState((prevState, props) => {
-            return {
-                isEasy: !this.state.isEasy,
-                easyHard: this.state.easyHard === 'проще' ? 'сложнее' : 'проще'
+    const message = useMessage();
+
+    useEffect(() => {
+        async function fetchData() {
+            try {
+                const data = await request(`/words/list`, 'GET');
+                if (data.data.length < 4) {
+                    return setWords(null)
+                } else {
+                    setWords(data.data);
+                }
+            } catch (err) {
+                message(err);
             }
-        })
+        }
+        fetchData()
+    }, [message, request]);
+
+    const handleClick = () => {
+        setEasy(!isEasy);
+        setEasyHard(easyHard === 'проще' ? 'сложнее' : 'проще')
     }
 
-    render() {
-        return (
-            <>
-                <Header />
-                <input className="make-differend-way" type="button" value={`Сделать ${this.state.easyHard}`} onClick={this.handleClick} />
-                {this.state.isEasy && <FlashCardForm wordsArr={wordsArr} />}
-                {!this.state.isEasy && <WriteWord wordsArr={wordsArr} />}
-            </>
-        )
-    }
-}
+    return (
+        <>
+            <div className="section-repeat commonClass">
+                {loading && <Loader />}
+                {(!words && !loading) && <div className="section-repeat__empty-wordArr">Недостаточно слов для повторения (минимум 4)</div>}
+                {(words && !loading) && <>
+                    <input className="button button__change-test" type="button" value={`Сделать ${easyHard}`} onClick={handleClick} />
+                    {isEasy && <FlashCard wordsArr={words} />}
+                    {!isEasy && <FlashCardWrite wordsArr={words} />}
+                </>}
+            </div>
+        </>
+    )
+};

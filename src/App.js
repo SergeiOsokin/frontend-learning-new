@@ -1,27 +1,22 @@
 import './App.css';
-import { HashRouter as Router, Route, Switch, Redirect } from 'react-router-dom';
-import MainPage from './pages/MainPage';
-import RepeatPage from './pages/RepeatPage';
-import WordsPage from './pages/WordsPage';
+import 'materialize-css'; // для всплывабщих сообшений. См.message.hook
+import React from 'react';
+import { Header } from './components/Header';
+import Main from './Main';
+import { AuthContext } from './context/AuthContext';
+import { useAuth } from './hooks/auth.hook';
+import { Footer } from './components/Footer';
 
+const App = () => {
+  const { login, logout, authorization } = useAuth();
 
-function App() {
   return (
-    <Router>
-      <Switch>
-        <Route path='/english-cards/home'>
-          <MainPage />
-        </Route>
-        <Route path='/english-cards/flashcards'>
-          <RepeatPage />
-        </Route>
-        <Route path='/english-cards/wordslist'>
-          <WordsPage />
-        </Route>
-        <Redirect to='/english-cards/home' />
-      </Switch>
-    </Router>
-  );
+    <AuthContext.Provider value={{login, logout, authorization}}>
+      <Header />
+      <Main />
+      <Footer />
+    </AuthContext.Provider>
+  )
 }
 
 export default App;

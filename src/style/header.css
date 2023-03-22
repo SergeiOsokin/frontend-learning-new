@@ -1,0 +1,130 @@
+/* Header */
+
+.header {
+  /* max-width: 1300px; */
+  margin: 0 auto;
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-end;
+  background: cornflowerblue;
+  width: 100%
+}
+
+.nav__checkbox, .nav__checkbox-label {
+  display: none;
+}
+
+.header__nav {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+.nav__items {
+  display: flex;
+  flex-direction: row;
+}
+
+.nav__item-li {
+  display: inline-block;
+  /* border-left: 1px #9e9e9e solid; */
+  position: relative;
+}
+
+.nav__item-a {
+  padding: 18px;
+  color: rgba(255, 255, 255, 1);
+  font-size: 15px;
+  text-decoration: none;
+  display: block;
+  text-transform: uppercase;
+}
+
+.nav__item-a:hover {
+    box-shadow: 0 0 25px rgba(0, 0, 0, 0.1), inset 0 0 1px rgba(255, 255, 255, 0.6);
+    color: rgba(255, 255, 255, 1);
+    border-radius: 10px;
+    background-color: #4671D5;
+}
+
+.nav__item-li_sub {
+  padding: 18px;
+  color: rgba(255, 255, 255, 0.8);
+  font-size: 15px;
+  text-decoration: none;
+  text-transform: uppercase;
+  display: inline-block;
+  /* border-left: 1px #9e9e9e solid; */
+  position: relative;
+  cursor: pointer;
+}
+
+.nav__add-items {
+  display: none;
+}
+
+.nav__item-li_sub:hover > 
+.nav__add-items {
+  position: absolute;
+  display: flex;
+  flex-direction: column;
+  background: rgb(113, 113, 211);
+  z-index: 1;
+  top: 100%;
+  left: -20px;
+}
+
+@media only screen and (max-width: 760px) {
+  .header {
+    height: 40px;
+    /* position: sticky;
+    top: 0; */
+  }
+
+  .nav__checkbox-label {
+    padding: 7px;
+    color: rgba(255, 255, 255, 1);
+    font-size: 10px;
+    text-decoration: none;
+    display: block;
+    width: 80px;
+    /* text-align: center; */
+    text-transform: uppercase;
+  }
+  
+  .nav__items {
+    display: none;
+  }
+
+  .nav__item-a {
+    padding: 14px;
+    color: rgba(255, 255, 255, 1);
+    font-size: 10px;
+    text-decoration: none;
+    display: block;
+    /* border-top: 1px #9e9e9e solid; */
+    /* text-align: center; */
+    width: 80px;
+  }
+
+  .nav__checkbox:checked ~ .nav__items {
+    position: absolute;
+    top: 40px;
+    right: 0;
+    display: flex;
+    flex-direction: column;
+    background: cornflowerblue;
+    z-index: 1;
+  }
+
+  .nav__item-li {
+    display: contents;
+    height: 100%;
+  }
+
+  .nav__item-li_sub {
+    padding: 14px;
+    font-size: 10px;
+  }
+
+}

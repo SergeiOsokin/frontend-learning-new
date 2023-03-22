@@ -1,0 +1,23 @@
+.message {
+    display: block;
+    text-align: center;
+    width: 350px;
+    height: min-content;
+    padding: 2px;
+    box-sizing: border-box;
+    border-radius: 4px;
+    background: #ebe2e3;
+    border: 1px solid #DA0B20;
+    box-shadow: 0px 4px 8px rgba(138, 150, 168, 0.4), 0px -2px 4px rgba(138, 150, 168, 0.08);
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    text-align: center;
+}
+
+@media screen and (max-width:760px) {
+
+    .message {
+        width: 100%;
+    }
+}

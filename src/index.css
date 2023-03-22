@@ -1,46 +1,61 @@
-@import url('./style/card.css');
+html {
+  /* overflow-y: scroll; */
+  height: 100%;
+  max-width: 1300px;
+  /* position: relative; */
+  margin: 0 auto;
+  height: -webkit-fill-available;
+}
+
+
+a {
+  text-decoration: none ;
+  color: aliceblue;
+}
+
+fieldset {
+  border: 0;
+  padding: 0.01em 0 0 0;
+  margin: 0;
+  min-width: 0;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+}
+
+ul {
+  list-style: none;
+}
 
 body {
+  /* max-width: 1440px; */
   margin: 0;
+  /* height: 100%; */
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
     'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  height: 100%;
+  /* display: flex; */
+  /* flex-direction: column; */
+  /* position: relative; */
 }
 
-.words-section {
-  padding: 20px;
+#root {
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  min-height: 100%;
+  /* min-height: calc(100vh);
+  min-height: -webkit-fill-available; */
 }
 
-nav {
-  background: cornflowerblue;
+.commonClass {
+  flex: 1;
+  margin-bottom: 25px !important; 
+  margin-left: 10px;
+  margin-right: 10px;
 }
-
-@media only screen and (max-width: 320px) {
-  ul {
-    display: none;
-  }
-  .checkbox {
-    position: relative !important;
-    opacity: 1 !important;
-    pointer-events: all !important;
-  }
-
-  .checkbox:checked ~ .nav-menu {
-    position: absolute;
-    top: 0;
-    right: 0;
-    display: flex;
-    flex-direction: column;
-    flex-wrap: wrap;
-    max-width: 120px;
-    background: cornflowerblue;
-    z-index: 1;
-  }
-}
-
-.make-differend-way {
-  width: 145px;
-}
- 
