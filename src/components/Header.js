@@ -40,8 +40,8 @@ export const Header = () => {
 
                         {authorization && <li className="nav__item-li_sub">Обучение:
                             <ul className="nav__add-items">
-                                <li className="nav__item-li"><Link className="nav__item-a" to="/homework">Д/з</Link></li>
-                                <li className="nav__item-li"><Link className="nav__item-a" to="/tasks">Студенты</Link></li>
+                                <li className="nav__item-li"><Link className="nav__item-a" to="/homework">Ученик</Link></li>
+                                <li className="nav__item-li"><Link className="nav__item-a" to="/tasks">Учитель</Link></li>
                             </ul>
                         </li>}
 
