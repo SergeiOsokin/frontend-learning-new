@@ -15,6 +15,8 @@ import { Tasks } from './pages/Tasks';
 import { Homework } from './pages/Homework';
 
 const Main = () => {
+    var pjson = require('../package.json');
+    console.log(pjson.version);
 
     return (
         <Switch>
