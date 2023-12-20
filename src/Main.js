@@ -11,6 +11,8 @@ import { RegistrationForm } from './components/RegistrstrationForm';
 import { AuthForm } from './components/AuthForm';
 import { Categories } from './components/Categories';
 import { MainPage } from './components/MainPage';
+import { Tasks } from './pages/Tasks';
+import { Homework } from './pages/Homework';
 
 const Main = () => {
     var pjson = require('../package.json');
@@ -28,6 +30,9 @@ const Main = () => {
             <Route exact path='/authorization' component={AuthForm} />
             <Route exact path='/registration' component={RegistrationForm} />
             <Route exact path='/categories' component={Categories} />
+
+            <Route exact path='/tasks' component={Tasks} /> 
+            <Route exact path='/homework' component={Homework} />
         </Switch>
     )
 }
