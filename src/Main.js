@@ -13,6 +13,8 @@ import { Categories } from './components/Categories';
 import { MainPage } from './components/MainPage';
 
 const Main = () => {
+    var pjson = require('../package.json');
+    console.log(pjson.version);
 
     return (
         <Switch>
