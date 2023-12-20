@@ -17,7 +17,7 @@ export const RepeatPage = () => {
         async function fetchData() {
             try {
                 const data = await request(`/words/list`, 'GET');
-                if (data.data.length < 4) {
+                if (data.data.length < 10) {
                     return setWords(null)
                 } else {
                     setWords(data.data);
@@ -38,7 +38,7 @@ export const RepeatPage = () => {
         <>
             <div className="section-repeat commonClass">
                 {loading && <Loader />}
-                {(!words && !loading) && <div className="section-repeat__empty-wordArr">Недостаточно слов для повторения (минимум 4)</div>}
+                {(!words && !loading) && <div className="section-repeat__empty-wordArr">Недостаточно слов для повторения (минимум 10)</div>}
                 {(words && !loading) && <>
                     <input className="button button__change-test" type="button" value={`Сделать ${easyHard}`} onClick={handleClick} />
                     {isEasy && <FlashCard wordsArr={words} />}
