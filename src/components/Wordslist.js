@@ -102,11 +102,10 @@ export const WordsList = () => {
         }
     }
 
-
     useEffect(() => {
         document.addEventListener('scroll', () => {
             // console.log(history.location.pathname === '/wordslist')
-            if(history.location.pathname === '/wordslist') {
+            if (history.location.pathname === '/wordslist') {
                 scroll();
             }
         });
