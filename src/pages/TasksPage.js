@@ -4,10 +4,10 @@ import { useHttp } from '../hooks/http.hook';
 import { useMessage } from '../hooks/message.hook';
 import { Loader } from '../components/Loader';
 import { TaskFormNew } from '../components/TaskFormNew';
-import { TaskFormOld } from '../components/TaskFormOld';
+import { TaskFormOld } from '../components/TaskFormChange';
 import { TaskCard } from '../components/TaskCard';
 
-export const Tasks = () => {
+export const TaskPage = () => {
     const { loading, request } = useHttp();
     const [tasks, setTasks] = useState([]);
     const btnCreateClick = false;
@@ -35,10 +35,9 @@ export const Tasks = () => {
             }
         }
         fetchData();
-    }, [message, request]);
+    }, [message, request, change]);
 
     const handleClickGet = (e) => {
-        console.log('click task')
         const taskId = e.target.getAttribute('info');
         setTaskId({
             id: taskId,
@@ -47,10 +46,8 @@ export const Tasks = () => {
     }
 
     const handleClickCreate = () => {
-        console.log('click create');
+        
     }
-
-    console.log(tasks);
 
     function menuSearch() {
         let phrase = document.querySelector('.input_tasks');
@@ -96,14 +93,6 @@ export const Tasks = () => {
             </section>
 
             {taskCard && <TaskCard props={taskId} setChanged={setChanged} change={change} />}
-
-            <section className="section-field">
-                {btnCreateClick && <TaskFormNew />}
-
-                {btnTaskClick && <TaskFormOld />}
-
-            </section>
-
         </div>
     )
 };
