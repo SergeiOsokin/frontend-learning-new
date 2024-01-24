@@ -10,14 +10,13 @@ import { TaskCard } from '../components/TaskCard';
 export const TaskPage = () => {
     const { loading, request } = useHttp();
     const [tasks, setTasks] = useState([]);
-    const btnCreateClick = false;
-    const btnTaskClick = false;
 
     const [taskId, setTaskId] = useState({
         id: '',
         theme: ''
     });
     const [taskCard, setTaskCardActive] = useState(false);
+    const [taskForm, setTaskFormActive] = useState(false);
     const [change, setChanged] = useState(false);
 
     const message = useMessage();
@@ -45,8 +44,8 @@ export const TaskPage = () => {
         setTaskCardActive(true);
     }
 
-    const handleClickCreate = () => {
-        
+    const openTaskForm = () => {
+        setTaskFormActive(true)
     }
 
     function menuSearch() {
@@ -69,6 +68,11 @@ export const TaskPage = () => {
     return (
         <div className="section-tasks">
             <section className="section-nav-tasks">
+                <button
+                    className="button button_new-task"
+                    onClick={openTaskForm}
+                >Новое задание</button>
+
                 <input
                     className="input input_tasks"
                     type="input"
@@ -81,7 +85,7 @@ export const TaskPage = () => {
                             return (
                                 <li className="nav__item-li_tasks nav__item-li_tasks" key={index + task.id}>
                                     <button
-                                        className="nav__item-button_tasks nav__item-button_tasks"
+                                        className="nav__item-button_tasks"
                                         info={task.id}
                                         onClick={handleClickGet}
                                     >{task.theme}</button>
@@ -92,7 +96,10 @@ export const TaskPage = () => {
                 </nav>
             </section>
 
-            {taskCard && <TaskCard props={taskId} setChanged={setChanged} change={change} />}
+            {!taskCard && <div className="section-tasks__info">Для начала работы выберите заметку или создайте новую</div>}
+
+            {taskCard && <TaskCard props={taskId} set={setChanged} chan={change} />}
+            {taskForm && <TaskFormNew set={setChanged} chan={change} setActive={setTaskFormActive} />}
         </div>
     )
 };

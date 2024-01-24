@@ -7,7 +7,7 @@ import { NoteFormChange } from './NoteFormChange';
 import { TaskFormChange } from './TaskFormChange';
 // setChanged, change меняем, чтобы заставить navnotetheme вызывать useEffect 
 // и обновлять динамично пункты меню после изменения
-export const TaskCard = ({ props, setChanged, change }) => {
+export const TaskCard = ({ props, set, chan }) => {
     const message = useMessage();
     const { loading, request } = useHttp();
     const [taskForm, setTaskFormActive] = useState(false);
@@ -29,15 +29,15 @@ export const TaskCard = ({ props, setChanged, change }) => {
         if (decision) {
             try {
                 const data = await request(`/task/delete/${id}`, 'DELETE', {});
+                set(!chan);
                 message(data.message);
             } catch (e) {
                 message(e);
             }
         }
-        setChanged(!change);
-    }, [message, request]);
+    }, [message, request, chan]);
 
-    const patchTask = () => {
+    function patchTask() {
         setTaskFormActive(true);
     }
 
@@ -45,7 +45,6 @@ export const TaskCard = ({ props, setChanged, change }) => {
         async function fetchData() {
             try {
                 const data = await request(`/task/theme/${props.id}`, 'GET', {});
-                console.log(data);
                 if (data === undefined) {
                     return
                 }
@@ -65,10 +64,8 @@ export const TaskCard = ({ props, setChanged, change }) => {
             }
         }
         fetchData();
-        setChanged(!change);
+        set(!chan);
     }, [taskForm, props.id])
-
-    if (props === '') { return (<p className="empty-note"> Выберите заметку </p>) }
 
     return (
         <>
