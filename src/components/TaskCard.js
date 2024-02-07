@@ -5,12 +5,14 @@ import { useMessage } from '../hooks/message.hook';
 import trashIcon from '../../src/img/trash_icon.png';
 import { NoteFormChange } from './NoteFormChange';
 import { TaskFormChange } from './TaskFormChange';
+import { AppointForm } from './AppointForm';
 // setChanged, change меняем, чтобы заставить navnotetheme вызывать useEffect 
 // и обновлять динамично пункты меню после изменения
 export const TaskCard = ({ props, set, chan }) => {
     const message = useMessage();
     const { loading, request } = useHttp();
     const [taskForm, setTaskFormActive] = useState(false);
+    const [appointForm, setAppointFormActive] = useState(false);
     const [task, setTask] = useState({
         id: '',
         theme: '',
@@ -39,6 +41,10 @@ export const TaskCard = ({ props, set, chan }) => {
 
     function patchTask() {
         setTaskFormActive(true);
+    }
+
+    function appointTask() {
+        setAppointFormActive(true);
     }
 
     useEffect(() => {
@@ -73,6 +79,7 @@ export const TaskCard = ({ props, set, chan }) => {
             {!loading &&
                 <main className="main-content" info={`${task.id}`}>
                     <div className="main-content__control-panel">
+                        <button className="control-panel__appoint-button button" onClick={appointTask}>Назначить</button>
                         <button className="control-panel__edit-button button" onClick={patchTask}>Редактировать</button>
                         <button
                             className="control-panel__delete-button"
@@ -113,6 +120,7 @@ export const TaskCard = ({ props, set, chan }) => {
                 </main>
             }
             {taskForm && <TaskFormChange props={task} setActive={setTaskFormActive} />}
+            {appointForm && <AppointForm props={task} setActive={setAppointFormActive} />}
         </>
     )
 }

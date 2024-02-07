@@ -1,123 +1,134 @@
 .empty-note {
-    display: block;
-    width: 100%;
-    text-align: center;
-  }
-  
-  .main-content {
-    width: 100%;
-    padding: 0 15px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-  }
-  
+  display: block;
+  width: 100%;
+  text-align: center;
+}
+
+.main-content {
+  width: 100%;
+  padding: 0 15px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.main-content__control-panel {
+  width: 100%;
+  padding: 0 15px;
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-end;
+}
+
+.note__title {
+  font-family: 'Merriweather', serif;
+  font-size: 20px;
+  letter-spacing: 1px;
+  max-width: 320px;
+  width: 100%;
+  position: relative;
+  display: inline-block;
+  color: #465457;
+}
+
+.note__title {
+  text-align: left;
+}
+
+.note__title:before {
+  content: "";
+  position: absolute;
+  top: calc(50% - 6px);
+  left: 0;
+  right: 0;
+  height: 12px;
+  background: #A6D8CB;
+  z-index: -1;
+}
+
+.note__title span {
+  background: white;
+  padding: 0 15px;
+  margin-left: 20px;
+}
+
+.note__text {
+  font-family: 'Raleway', sans-serif;
+  font-size: 18px;
+  font-weight: 500;
+  line-height: 32px;
+  margin: 5px 0;
+  white-space: pre-line;
+  border-top: double;
+  width: 100%;
+}
+
+.note__example {
+  font-family: 'Raleway', sans-serif;
+  font-size: 18px;
+  font-weight: 500;
+  line-height: 32px;
+  margin: 5px 0;
+  white-space: pre-line;
+  border-top: double;
+  width: 100%;
+}
+
+.control-panel__edit-button {
+  width: 125px;
+  height: 25px;
+  color: #686461;
+  background: transparent;
+  margin: 0;
+  font-size: 15px;
+  cursor: pointer;
+}
+
+.control-panel__appoint-button {
+  width: 125px;
+  height: 25px;
+  color: #686461;
+  background: transparent;
+  margin: 0;
+  font-size: 15px;
+  cursor: pointer;
+}
+
+.control-panel__delete-button {
+  cursor: pointer;
+  margin-left: 10px;
+}
+
+@media screen and (max-width:760px) {
+
   .main-content__control-panel {
-    width: 100%;
     padding: 0 15px;
-    display: flex;
-    flex-direction: row;
-    justify-content: flex-end;
   }
-  
+
   .note__title {
-    font-family: 'Merriweather', serif;
-    font-size: 20px;
-    letter-spacing: 1px;
-    max-width: 320px;
-    width: 100%;
-    position: relative;
-    display: inline-block;
-    color: #465457;
+    font-size: 15px;
   }
-  
-  .note__title {
-    text-align: left;
-  }
-  
-  .note__title:before {
-    content: "";
-    position: absolute;
-    top: calc(50% - 6px);
-    left: 0;
-    right: 0;
-    height: 12px;
-    background: #A6D8CB;
-    z-index: -1;
-  }
-  
+
   .note__title span {
     background: white;
-    padding: 0 15px;
-    margin-left: 20px;
+    padding: 0 4px;
+    margin-left: 8px;
   }
-  
+
   .note__text {
-    font-family: 'Raleway', sans-serif;
-    font-size: 18px;
-    font-weight: 500;
-    line-height: 32px;
-    margin: 5px 0;
-    white-space: pre-line;
-    border-top: double;
-    width: 100%;
+    font-size: 12px;
+    font-weight: 250;
+    line-height: 16px;
   }
-  
+
   .note__example {
-    font-family: 'Raleway', sans-serif;
-    font-size: 18px;
-    font-weight: 500;
-    line-height: 32px;
-    margin: 5px 0;
-    white-space: pre-line;
-    border-top: double;
-    width: 100%;
+    font-size: 12px;
+    font-weight: 250;
+    line-height: 16px;
   }
-  
-  .control-panel__edit-button {
-    width: 125px;
-    height: 25px;
-    color: #686461;
-    background: transparent;
-    margin: 0;
-    font-size: 15px;
-    cursor: pointer;
-  }
-  
+
   .control-panel__delete-button {
-    cursor: pointer;
-    margin-left: 10px;
+    margin-left: 25px;
   }
-  
-  @media screen and (max-width:760px) {
-  
-    .main-content__control-panel {
-      padding: 0 15px;
-    }
-  
-    .note__title {
-      font-size: 15px;
-    }
-  
-    .note__title span {
-      background: white;
-      padding: 0 4px;
-      margin-left: 8px;
-    }
-    .note__text {
-      font-size: 12px;
-      font-weight: 250;
-      line-height: 16px;
-    }
-    
-    .note__example {
-      font-size: 12px;
-      font-weight: 250;
-      line-height: 16px;
-    }
-    
-    .control-panel__delete-button {
-      margin-left: 25px;
-    }
-  
-  }
+
+}
