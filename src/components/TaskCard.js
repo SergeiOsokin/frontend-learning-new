@@ -31,6 +31,7 @@ export const TaskCard = ({ props, set, chan }) => {
         if (decision) {
             try {
                 const data = await request(`/task/delete/${id}`, 'DELETE', {});
+                console.log(data)
                 set(!chan);
                 message(data.message);
             } catch (e) {
@@ -112,7 +113,7 @@ export const TaskCard = ({ props, set, chan }) => {
                     <div className="note__example">
                         {task.other}
                     </div>
-                    <p className="">Назначено: (пока кто автор)</p>
+                    <p className="">Назначено:</p>
                     <div className="note__example">
                         {task.users}
                     </div>
