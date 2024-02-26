@@ -3,11 +3,9 @@ import React, { useEffect, useState } from 'react';
 import { useHttp } from '../hooks/http.hook';
 import { useMessage } from '../hooks/message.hook';
 import { Loader } from '../components/Loader';
-import { TaskFormNew } from '../components/TaskFormNew';
-import { TaskFormOld } from '../components/TaskFormChange';
-import { TaskCard } from '../components/TaskCard';
+import { HomeworkCard } from '../components/HomeworkCard';
 
-export const TaskPage = () => {
+export const HomeworkPage = () => {
     const { loading, request } = useHttp();
     const [tasks, setTasks] = useState([]);
 
@@ -24,7 +22,7 @@ export const TaskPage = () => {
     useEffect(() => {
         async function fetchData() {
             try {
-                const data = await request('/task/themes', 'GET', {});
+                const data = await request('/homework/themes', 'GET', {});
                 if (data === undefined) {
                     return
                 }
@@ -72,10 +70,6 @@ export const TaskPage = () => {
                 <span></span>
             </label>
             <section className="section-nav-tasks">
-                <button
-                    className="button button_new-task"
-                    onClick={openTaskForm}
-                >Новое задание</button>
 
                 <input
                     className="input input_tasks"
@@ -100,10 +94,9 @@ export const TaskPage = () => {
                 </nav>
             </section>
 
-            {!taskCard && <div className="section-tasks__info">Для начала работы задание или создайте новое</div>}
+            {!taskCard && <div className="section-tasks__info">Для начала работы выберите задание</div>}
 
-            {taskCard && <TaskCard props={taskId} set={setChanged} chan={change} />}
-            {taskForm && <TaskFormNew set={setChanged} chan={change} setActive={setTaskFormActive} />}
+            {taskCard && <HomeworkCard props={taskId} set={setChanged} chan={change} />}
         </div>
     )
 };

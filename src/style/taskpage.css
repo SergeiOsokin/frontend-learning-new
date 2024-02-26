@@ -8,6 +8,18 @@
     position: relative;
 }
 
+.section-nav-tasks {
+    position: fixed;
+    max-width: 250px;
+    left: -250px;
+    top: 25px;
+}
+
+.section-tasks__info {
+    text-align: center;
+    width: 100%;
+}
+
 .button_new-task {
     border: 1px solid white;
     display: block;
@@ -19,6 +31,60 @@
     background: #2F71E5;
     width: 100%;
     padding: 5px;
-    margin:0 0 8px;
+    margin: 0 0 8px;
     height: auto;
+}
+
+#section-tasks-menu__toggle {
+    opacity: 0;
+}
+
+#section-tasks-menu__toggle:checked~.section-tasks-menu__btn>span {
+    transform: rotate(45deg);
+}
+
+#section-tasks-menu__toggle:checked~.section-tasks-menu__btn>span::before {
+    top: 0;
+    transform: rotate(0);
+}
+
+#section-tasks-menu__toggle:checked~.section-tasks-menu__btn>span::after {
+    top: 0;
+    transform: rotate(90deg);
+}
+
+#section-tasks-menu__toggle:checked~.section-nav-tasks {
+    position: relative;
+    left: 0px;
+}
+
+.section-tasks-menu__btn {
+    display: flex;
+    align-items: center;
+    position: fixed;
+    width: 26px;
+    height: 26px;
+    cursor: pointer;
+    z-index: 1;
+}
+
+.section-tasks-menu__btn>span,
+.section-tasks-menu__btn>span::before,
+.section-tasks-menu__btn>span::after {
+    display: block;
+    position: absolute;
+    width: 100%;
+    height: 2px;
+    background-color: #616161;
+    transition-duration: .25s;
+}
+
+.section-tasks-menu__btn>span::before {
+    content: '';
+    top: -8px;
+}
+
+.section-tasks-menu__btn>span::after {
+    content: '';
+    top: 8px;
 }

@@ -11,7 +11,7 @@ import { RegistrationForm } from './components/RegistrstrationForm';
 import { AuthForm } from './components/AuthForm';
 import { Categories } from './components/Categories';
 import { MainPage } from './components/MainPage';
-import { Homework } from './pages/Homework';
+import { HomeworkPage } from './pages/HomeworkPage';
 import { TaskPage } from './pages/TasksPage';
 
 const Main = () => {
@@ -32,7 +32,7 @@ const Main = () => {
             <Route exact path='/categories' component={Categories} />
 
             <Route exact path='/tasks' component={TaskPage} /> 
-            <Route exact path='/homework' component={Homework} />
+            <Route exact path='/homework' component={HomeworkPage} />
         </Switch>
     )
 }
