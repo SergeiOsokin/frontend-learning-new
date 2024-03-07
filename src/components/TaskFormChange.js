@@ -155,7 +155,7 @@ export const TaskFormChange = ({ props, setActive }) => {
                                     required maxLength="300"
                                 />
                             </div>
-                            <div>
+                            {/* <div>
                                 <label className="form__label" htmlFor="users">Назначить на:</label>
                                 <textarea
                                     id="users"
@@ -169,7 +169,7 @@ export const TaskFormChange = ({ props, setActive }) => {
                                     disabled={loading}
                                     required maxLength="300"
                                 />
-                            </div>
+                            </div> */}
                         </fieldset>
 
                         {!loading && <div className="form__buttons-container">
