@@ -115,7 +115,7 @@ export const TaskCard = ({ props, set, chan }) => {
                     </div>
                     <p className="">Назначено:</p>
                     <div className="note__example">
-                        {task.users}
+                        {task.users.join(', ')}
                     </div>
 
                 </main>
