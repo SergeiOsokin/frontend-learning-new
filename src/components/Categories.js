@@ -12,14 +12,14 @@ export const Categories = () => {
     const [wordInfo, setWordInfo] = useState({});
     const [active, setModalActive] = useState(false);
 
-    const deleteWord = useCallback(async (e) => {
+    const deleteCategory = useCallback(async (e) => {
         const decision = window.confirm('Удалить категорию?');
-        const [id] = e.target.closest(".word-string").getAttribute('info').split('+');
+        const [id] = e.target.closest(".category-string").getAttribute('info').split('+');
         if (decision) {
             try {
                 const data = await request(`/category/delete/${id}`, 'DELETE', {});
                 message(data.message);
-                e.target.closest(".word-string").parentElement.removeChild(e.target.closest(".word-string"));
+                e.target.closest(".category-string").parentElement.removeChild(e.target.closest(".category-string"));
             } catch (e) {
                 message(e);
             }
@@ -27,7 +27,7 @@ export const Categories = () => {
     }, [message, request]);
 
     const changeWord = (e) => {
-        const [id, foreign_word, russian_word, category, category_word_id] = e.target.closest(".word-string").getAttribute('info').split('+');
+        const [id, foreign_word, russian_word, category, category_word_id] = e.target.closest(".category-string").getAttribute('info').split('+');
         setWordInfo({ id, foreign_word, russian_word, category, category_word_id });
         setModalActive(true);
     };
@@ -85,7 +85,7 @@ export const Categories = () => {
                                     >
                                         {/* <td>{index + 1}</td> */}
                                         <td>{element.category}</td>
-                                        <td>
+                                        {/* <td>
                                             <button
                                                 className="button button_table"
                                                 onClick={changeWord}
@@ -95,11 +95,11 @@ export const Categories = () => {
                                                     <path fillRule="evenodd" d="M1 13.5A1.5 1.5 0 0 0 2.5 15h11a1.5 1.5 0 0 0 1.5-1.5v-6a.5.5 0 0 0-1 0v6a.5.5 0 0 1-.5.5h-11a.5.5 0 0 1-.5-.5v-11a.5.5 0 0 1 .5-.5H9a.5.5 0 0 0 0-1H2.5A1.5 1.5 0 0 0 1 2.5v11z" />
                                                 </svg>
                                             </button>
-                                        </td>
+                                        </td> */}
                                         <td>
                                             <button
                                                 className="button button_table-delete"
-                                                onClick={deleteWord}
+                                                onClick={deleteCategory}
                                             ><img className="trash-icon" src={trashIcon} alt="Удалить"></img></button>
                                         </td>
                                     </tr>

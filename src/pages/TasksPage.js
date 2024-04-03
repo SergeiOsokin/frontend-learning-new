@@ -34,7 +34,7 @@ export const TaskPage = () => {
             }
         }
         fetchData();
-    }, [message, request, change]);
+    }, [message, request, change, taskCard]);
 
     const handleClickGet = (e) => {
         const taskId = e.target.getAttribute('info');
@@ -100,9 +100,9 @@ export const TaskPage = () => {
                 </nav>
             </section>
 
-            {!taskCard && <div className="section-tasks__info">Для начала работы задание или создайте новое</div>}
+            {!taskCard && <div className="section-tasks__info">Для начала работы выберите задание или создайте новое</div>}
 
-            {taskCard && <TaskCard props={taskId} set={setChanged} chan={change} />}
+            {taskCard && <TaskCard props={taskId} set={setChanged} chan={change} chan2={taskCard} set2={setTaskCardActive} />}
             {taskForm && <TaskFormNew set={setChanged} chan={change} setActive={setTaskFormActive} />}
         </div>
     )

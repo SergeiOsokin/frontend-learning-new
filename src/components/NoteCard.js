@@ -25,6 +25,8 @@ export const NoteCard = ({ props, setChanged, change }) => {
             try {
                 const data = await request(`/notes/delete/${id}`, 'DELETE', {});
                 message(data.message);
+                // setChanged2(!change2);
+                setChanged(!change);
             } catch (e) {
                 message(e);
             }
@@ -54,7 +56,6 @@ export const NoteCard = ({ props, setChanged, change }) => {
             }
         }
         fetchData();
-        setChanged(!change);
     }, [noteForm, props.id])
 
     if (props === '') { return (<p className="empty-note"> Выберите заметку </p>) }

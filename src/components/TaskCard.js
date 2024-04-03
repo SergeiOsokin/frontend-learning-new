@@ -8,7 +8,7 @@ import { TaskFormChange } from './TaskFormChange';
 import { AppointForm } from './AppointForm';
 // setChanged, change меняем, чтобы заставить navnotetheme вызывать useEffect 
 // и обновлять динамично пункты меню после изменения
-export const TaskCard = ({ props, set, chan }) => {
+export const TaskCard = ({ props, set, chan, chan2, set2 }) => {
     const message = useMessage();
     const { loading, request } = useHttp();
     const [taskForm, setTaskFormActive] = useState(false);
@@ -21,7 +21,7 @@ export const TaskCard = ({ props, set, chan }) => {
         read: '',
         translate: '',
         other: '',
-        users: '',
+        users: [],
     });
     //  
     const deleteTask = useCallback(async (e) => {
@@ -31,14 +31,14 @@ export const TaskCard = ({ props, set, chan }) => {
         if (decision) {
             try {
                 const data = await request(`/task/delete/${id}`, 'DELETE', {});
-                console.log(data)
                 set(!chan);
+                set2(!chan2)
                 message(data.message);
             } catch (e) {
                 message(e);
             }
         }
-    }, [message, request, chan]);
+    }, [message, request, chan, chan2]);
 
     function patchTask() {
         setTaskFormActive(true);

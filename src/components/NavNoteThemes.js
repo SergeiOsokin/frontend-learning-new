@@ -83,6 +83,8 @@ export const NavNoteThemes = () => {
                     </ul>
                 </nav>
             </section>
+
+            {!noteCard && <div className="section-tasks__info">Для начала работы выберите заметку или создайте новую</div>}
             {noteCard && <NoteCard props={noteId} setChanged={setChanged} change={change} />}
         </>
     )
