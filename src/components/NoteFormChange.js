@@ -4,7 +4,7 @@ import { useMessage } from '../hooks/message.hook';
 import { validation } from '../hooks/validation.hook';
 import { Loader } from './Loader';
 
-export const NoteFormChange = ({ props, setActive }) => {
+export const NoteFormChange = ({ props, setActive, setChanged, change }) => {
     const { loading, request } = useHttp();
     const { validationInputs } = validation();
     const [note, setNoteForm] = useState({
@@ -30,6 +30,7 @@ export const NoteFormChange = ({ props, setActive }) => {
             }
             message(data.message);
             setActive(false);
+            setChanged(!change)
             setNoteForm({
                 id: '',
                 theme: '',
