@@ -4,7 +4,7 @@ import { useMessage } from '../hooks/message.hook';
 import { validation } from '../hooks/validation.hook';
 import { Loader } from './Loader';
 
-export const TaskFormChange = ({ props, setActive }) => {
+export const TaskFormChange = ({ props, setActive, set, chan }) => {
     const { loading, request } = useHttp();
     const { validationInputs } = validation();
     const [task, setTaskForm] = useState({
@@ -34,6 +34,7 @@ export const TaskFormChange = ({ props, setActive }) => {
             }
             message(data.message);
             setActive(false);
+            set(!chan);
             setTaskForm({
                 id: '',
                 theme: '',

@@ -8,7 +8,7 @@ import { TaskFormChange } from './TaskFormChange';
 import { AppointForm } from './AppointForm';
 // setChanged, change меняем, чтобы заставить navnotetheme вызывать useEffect 
 // и обновлять динамично пункты меню после изменения
-export const TaskCard = ({ props, set, chan, chan2, set2 }) => {
+export const TaskCard = ({ props, set, chan, taskCard, setTaskCardActive }) => {
     const message = useMessage();
     const { loading, request } = useHttp();
     const [taskForm, setTaskFormActive] = useState(false);
@@ -32,13 +32,13 @@ export const TaskCard = ({ props, set, chan, chan2, set2 }) => {
             try {
                 const data = await request(`/task/delete/${id}`, 'DELETE', {});
                 set(!chan);
-                set2(!chan2)
+                setTaskCardActive(!taskCard)
                 message(data.message);
             } catch (e) {
                 message(e);
             }
         }
-    }, [message, request, chan, chan2]);
+    }, [message, request]);
 
     function patchTask() {
         setTaskFormActive(true);
@@ -71,8 +71,7 @@ export const TaskCard = ({ props, set, chan, chan2, set2 }) => {
             }
         }
         fetchData();
-        set(!chan);
-    }, [taskForm, props.id])
+    }, [taskForm, props.id, appointForm])
 
     return (
         <>
@@ -120,7 +119,7 @@ export const TaskCard = ({ props, set, chan, chan2, set2 }) => {
 
                 </main>
             }
-            {taskForm && <TaskFormChange props={task} setActive={setTaskFormActive} />}
+            {taskForm && <TaskFormChange props={task} setActive={setTaskFormActive} set={set} chan={chan} />}
             {appointForm && <AppointForm props={task} setActive={setAppointFormActive} />}
         </>
     )

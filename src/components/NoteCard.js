@@ -6,7 +6,7 @@ import trashIcon from '../../src/img/trash_icon.png';
 import { NoteFormChange } from './NoteFormChange';
 // setChanged, change меняем, чтобы заставить navnotetheme вызывать useEffect 
 // и обновлять динамично пункты меню после изменения заметки
-export const NoteCard = ({ props, setChanged, change }) => {
+export const NoteCard = ({ props, setChanged, change, noteCard, setNoteCardActive }) => {
     const message = useMessage();
     const { loading,request } = useHttp();
     const [noteForm, setNoteFormActive] = useState(false);
@@ -25,13 +25,13 @@ export const NoteCard = ({ props, setChanged, change }) => {
             try {
                 const data = await request(`/notes/delete/${id}`, 'DELETE', {});
                 message(data.message);
-                // setChanged2(!change2);
                 setChanged(!change);
+                setNoteCardActive(!noteCard);
             } catch (e) {
                 message(e);
             }
         }
-    }, [message, request]);
+    }, [message, request, setChanged, change]);
 
     const patchNote = () => {
         setNoteFormActive(true);
@@ -83,7 +83,7 @@ export const NoteCard = ({ props, setChanged, change }) => {
                     </div>
                 </main>
             }
-            {noteForm && <NoteFormChange props={note} setActive={setNoteFormActive} />}
+            {noteForm && <NoteFormChange props={note} setActive={setNoteFormActive} setChanged={setChanged} change={change} />}
         </>
     )
 }

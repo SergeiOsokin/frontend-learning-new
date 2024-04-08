@@ -12,7 +12,6 @@ export const AppointForm = ({ props, setActive }) => {
     });
     const message = useMessage();
 
-
     const changeHandler = (e) => {
         setForm({ ...form, [e.target.name]: e.target.value });
         validationInputs(e);
@@ -25,7 +24,6 @@ export const AppointForm = ({ props, setActive }) => {
             if (data === undefined) {
                 return
             }
-            message(data.message);
             setActive(false);
             setForm({
                 student: '',
