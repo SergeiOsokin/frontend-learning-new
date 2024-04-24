@@ -77,27 +77,27 @@ export const HomeworkCard = ({ props, set, chan }) => {
                 <main className="main-content" info={`${task.id}`}>
                     <h1 className="note__title"> <span>{task.theme} </span></h1>
 
-                    <p className="">Правила:</p>
+                    <p className="">Грамматика:</p>
                     <div className="note__example">
                         {task.rules}
                     </div>
 
-                    <p className="">Слова для изучения:</p>
+                    <p className="">Лексика:</p>
                     <div className="note__example">
                         {task.words}
                     </div>
 
-                    <p className="">Для самостоятельного чтения:</p>
+                    <p className="">Чтение и Письмо:</p>
                     <div className="note__example">
                         {task.read}
                     </div>
 
-                    <p className="">Выполните перевод:</p>
+                    <p className="">Аудирование и Видео:</p>
                     <div className="note__example">
                         {task.translate}
                     </div>
 
-                    <p className="">Дополнительно:</p>
+                    <p className="">Дополнительные материалы:</p>
                     <div className="note__example">
                         {task.other}
                     </div>
