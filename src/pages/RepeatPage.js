@@ -10,6 +10,8 @@ export const RepeatPage = () => {
     const [isEasy, setEasy] = useState(true);
     const [easyHard, setEasyHard] = useState('сложнее');
     const [words, setWords] = useState(null);
+    const [categories, setCategories] = useState(null);
+    const [category, setCategory] = useState('Тестовая');
 
     const message = useMessage();
 
@@ -20,6 +22,14 @@ export const RepeatPage = () => {
                 if (data.data.length < 10) {
                     return setWords(null)
                 } else {
+                    setCategories(data.data.map(el =>
+                        el.category
+                    ).reduce((acc, item, index) => {
+                        if (acc.includes(item)) {
+                            return acc;
+                        }
+                        return [...acc, item];
+                    }, []));
                     setWords(data.data);
                 }
             } catch (err) {
@@ -28,6 +38,12 @@ export const RepeatPage = () => {
         }
         fetchData()
     }, [message, request]);
+
+    const selectHandler = (e) => {
+        const categoryName = e.target.closest(".form__select").selectedOptions[0].getAttribute('value');
+        console.log(categoryName)
+        setCategory(e.target.value);
+    };
 
     const handleClick = () => {
         setEasy(!isEasy);
@@ -41,7 +57,26 @@ export const RepeatPage = () => {
                 {(!words && !loading) && <div className="section-repeat__empty-wordArr">Недостаточно слов для повторения (минимум 10)</div>}
                 {(words && !loading) && <>
                     <input className="button button__change-test" type="button" value={`Сделать ${easyHard}`} onClick={handleClick} />
-                    {isEasy && <FlashCard wordsArr={words} />}
+
+                    <div>
+                        <label className="form__label" htmlFor="categoryWord">Выберите категорию для повторения</label>
+                        <select className="form__select" name="categoryWord" onChange={selectHandler} disabled={loading} value={category}>
+                            <option value="" key={-1}>Выберите катагорию</option>
+                            {categories.map((element, index) => {
+                                return (
+                                    <option
+                                        className="form__selected"
+                                        key={index} info={index}
+                                        value={element}
+                                    >
+                                        {element}
+                                    </option>
+                                )
+                            })}
+                        </select>
+                    </div>
+
+                    {isEasy && <FlashCard wordsArr={words.filter(element => element.category = category)} />}
                     {!isEasy && <FlashCardWrite wordsArr={words} />}
                 </>}
             </div>

@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 
-export const FlashCard = ({ wordsArr }) => {
+export const FlashCard = ({ wordsArr, category }) => {
     // тусуем массив
     const mixArray = (array) => {
         var i = 0, j = 0, temp = null
@@ -13,7 +13,7 @@ export const FlashCard = ({ wordsArr }) => {
         return array;
     }
 
-    const [arrayWords, setArrayWords] = useState(mixArray(wordsArr.slice()));
+    const [arrayWords, setArrayWords] = useState(mixArray(wordsArr).slice());
     const [rightAnswers, setRightAnswer] = useState(0);
     const [wrongAnswers, setWrongAnswer] = useState(0);
     let btnArr = ['foreignWord1', 'foreignWord2', 'foreignWord3', 'foreignWord4'];

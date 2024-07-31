@@ -61,7 +61,7 @@ export const HomeworkCard = ({ props, set, chan }) => {
                     read: data[0].read,
                     translate: data[0].translate,
                     other: data[0].other,
-                })
+                });
             } catch (e) {
                 message(e);
             }
@@ -78,8 +78,9 @@ export const HomeworkCard = ({ props, set, chan }) => {
                     <h1 className="note__title"> <span>{task.theme} </span></h1>
 
                     <p className="">Грамматика:</p>
-                    <div className="note__example">
+                    <div className="note__example gramma">
                         {task.rules}
+
                     </div>
 
                     <p className="">Лексика:</p>
