@@ -11,14 +11,15 @@ export const RepeatPage = () => {
     const [easyHard, setEasyHard] = useState('сложнее');
     const [words, setWords] = useState(null);
     const [categories, setCategories] = useState(null);
-    const [category, setCategory] = useState('Тестовая');
+    const [category, setCategory] = useState(null);
+    const [hand, setHand] = useState(true);
 
     const message = useMessage();
 
     useEffect(() => {
         async function fetchData() {
             try {
-                const data = await request(`/words/list`, 'GET');
+                const data = await request(`/words/list?category=${category}`, 'GET');
                 if (data.data.length < 10) {
                     return setWords(null)
                 } else {
@@ -37,7 +38,7 @@ export const RepeatPage = () => {
             }
         }
         fetchData()
-    }, [message, request]);
+    }, [message, request, category]);
 
     const selectHandler = (e) => {
         const categoryName = e.target.closest(".form__select").selectedOptions[0].getAttribute('value');
@@ -50,6 +51,10 @@ export const RepeatPage = () => {
         setEasyHard(easyHard === 'проще' ? 'сложнее' : 'проще')
     }
 
+    const categoryHandler = () => {
+        setHand(!hand);
+    }
+
     return (
         <>
             <div className="section-repeat commonClass">
@@ -60,7 +65,7 @@ export const RepeatPage = () => {
 
                     <div>
                         <label className="form__label" htmlFor="categoryWord">Выберите категорию для повторения</label>
-                        <select className="form__select" name="categoryWord" onChange={selectHandler} disabled={loading} value={category}>
+                        <select className="form__select" name="categoryWord" onChange={selectHandler} disabled={loading} defaultValue={null}>
                             <option value="" key={-1}>Выберите катагорию</option>
                             {categories.map((element, index) => {
                                 return (
@@ -76,7 +81,7 @@ export const RepeatPage = () => {
                         </select>
                     </div>
 
-                    {isEasy && <FlashCard wordsArr={words.filter(element => element.category = category)} />}
+                    {isEasy && <FlashCard wordsArr={words} />}
                     {!isEasy && <FlashCardWrite wordsArr={words} />}
                 </>}
             </div>
