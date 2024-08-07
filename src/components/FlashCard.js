@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 
-export const FlashCard = ({ wordsArr, category }) => {
+export const FlashCard = ({ wordsArr }) => {
     // тусуем массив
     const mixArray = (array) => {
         var i = 0, j = 0, temp = null
@@ -28,6 +28,7 @@ export const FlashCard = ({ wordsArr, category }) => {
         foreignWord3: arrayWords[2].foreign_word,
         foreignWord4: arrayWords[3].foreign_word,
     });
+
 
     // обновим массив, если осталось мало элементов
     if (arrayWords.length === 4) {

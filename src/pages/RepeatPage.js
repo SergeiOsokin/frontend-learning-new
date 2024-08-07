@@ -23,21 +23,22 @@ export const RepeatPage = () => {
                 if (data.data.length < 10) {
                     return setWords(null)
                 } else {
-                    setCategories(data.data.map(el =>
-                        el.category
-                    ).reduce((acc, item, index) => {
-                        if (acc.includes(item)) {
-                            return acc;
-                        }
-                        return [...acc, item];
-                    }, []));
                     setWords(data.data);
                 }
             } catch (err) {
                 message(err);
             }
+        };
+        async function fetchCategory() {
+            try {
+                const data = await request(`/category/get`, 'GET');
+                setCategories(data.data)
+            } catch (err) {
+                message(err);
+            }
         }
-        fetchData()
+        fetchCategory();
+        fetchData();
     }, [message, request, category]);
 
     const selectHandler = (e) => {
@@ -59,22 +60,22 @@ export const RepeatPage = () => {
         <>
             <div className="section-repeat commonClass">
                 {loading && <Loader />}
-                {(!words && !loading) && <div className="section-repeat__empty-wordArr">Недостаточно слов для повторения (минимум 10)</div>}
-                {(words && !loading) && <>
+                {((!words || categories) && !loading) && <div className="section-repeat__empty-wordArr">Недостаточно слов для повторения (минимум 10)</div>}
+                {((words && categories) && !loading) && <>
                     <input className="button button__change-test" type="button" value={`Сделать ${easyHard}`} onClick={handleClick} />
 
                     <div>
-                        <label className="form__label" htmlFor="categoryWord">Выберите категорию для повторения</label>
-                        <select className="form__select" name="categoryWord" onChange={selectHandler} disabled={loading} defaultValue={null}>
-                            <option value="" key={-1}>Выберите катагорию</option>
+                        <label className="form__label" htmlFor="categoryWord">Категория для повторения</label>
+                        <select className="form__select" name="categoryWord" onChange={selectHandler} disabled={loading} defaultValue={category}>
+                            <option value="null" key={-1}>Все</option>
                             {categories.map((element, index) => {
                                 return (
                                     <option
                                         className="form__selected"
                                         key={index} info={index}
-                                        value={element}
+                                        value={element.category}
                                     >
-                                        {element}
+                                        {element.category}
                                     </option>
                                 )
                             })}
