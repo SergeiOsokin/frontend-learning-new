@@ -16,6 +16,8 @@ export const RepeatPage = () => {
 
     const message = useMessage();
 
+    console.log(words)
+
     useEffect(() => {
         async function fetchData() {
             try {
@@ -45,42 +47,41 @@ export const RepeatPage = () => {
         const categoryName = e.target.closest(".form__select").selectedOptions[0].getAttribute('value');
         console.log(categoryName)
         setCategory(e.target.value);
+        setHand(!hand);
     };
 
     const handleClick = () => {
         setEasy(!isEasy);
         setEasyHard(easyHard === 'проще' ? 'сложнее' : 'проще')
-    }
-
-    const categoryHandler = () => {
-        setHand(!hand);
-    }
+    };
 
     return (
         <>
             <div className="section-repeat commonClass">
                 {loading && <Loader />}
-                {((!words || categories) && !loading) && <div className="section-repeat__empty-wordArr">Недостаточно слов для повторения (минимум 10)</div>}
+
+                {(categories && !loading) && <div>
+                    <label className="form__label" htmlFor="categoryWord">Категория для повторения</label>
+                    <select className="form__select" name="categoryWord" onChange={selectHandler} disabled={loading} defaultValue={category}>
+                        <option value="null" key={-1}>Все</option>
+                        {categories.map((element, index) => {
+                            return (
+                                <option
+                                    className="form__selected"
+                                    key={index} info={index}
+                                    value={element.category}
+                                >
+                                    {element.category}
+                                </option>
+                            )
+                        })}
+                    </select>
+                </div>}
+
+                {((!words || !categories) && !loading) && <div className="section-repeat__empty-wordArr">Недостаточно слов для повторения (минимум 10)</div>}
+
                 {((words && categories) && !loading) && <>
                     <input className="button button__change-test" type="button" value={`Сделать ${easyHard}`} onClick={handleClick} />
-
-                    <div>
-                        <label className="form__label" htmlFor="categoryWord">Категория для повторения</label>
-                        <select className="form__select" name="categoryWord" onChange={selectHandler} disabled={loading} defaultValue={category}>
-                            <option value="null" key={-1}>Все</option>
-                            {categories.map((element, index) => {
-                                return (
-                                    <option
-                                        className="form__selected"
-                                        key={index} info={index}
-                                        value={element.category}
-                                    >
-                                        {element.category}
-                                    </option>
-                                )
-                            })}
-                        </select>
-                    </div>
 
                     {isEasy && <FlashCard wordsArr={words} />}
                     {!isEasy && <FlashCardWrite wordsArr={words} />}

@@ -29,6 +29,7 @@ export const FlashCard = ({ wordsArr }) => {
         foreignWord4: arrayWords[3].foreign_word,
     });
 
+    console.log(wordsArr);
 
     // обновим массив, если осталось мало элементов
     if (arrayWords.length === 4) {
