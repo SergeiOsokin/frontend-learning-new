@@ -4,9 +4,14 @@ import { Loader } from './Loader';
 import { useMessage } from '../hooks/message.hook';
 import trashIcon from '../../src/img/trash_icon.png';
 import { AppointForm } from './AppointForm';
+
+import linkifyHtml from 'linkify-html';
+
 // setChanged, change меняем, чтобы заставить navnotetheme вызывать useEffect 
 // и обновлять динамично пункты меню после изменения
 export const HomeworkCard = ({ props, set, chan }) => {
+
+
     const message = useMessage();
     const { loading, request } = useHttp();
     const [taskForm, setTaskFormActive] = useState(false);
@@ -21,29 +26,13 @@ export const HomeworkCard = ({ props, set, chan }) => {
         other: '',
     });
     //  
-    const deleteTask = useCallback(async (e) => {
-        const [id] = e.target.closest(".main-content").getAttribute('info').split('+');
-        const decision = window.confirm('Удалить задание?');
+    function searchLink() {
+        // console.log(document.querySelector('.gramma').textContent);
+        const beforeEl = linkifyHtml(document.querySelector('.gramma').textContent)
+        const afterEl = document.querySelector('.gramma')
 
-        if (decision) {
-            try {
-                const data = await request(`/task/delete/${id}`, 'DELETE', {});
-                console.log(data)
-                set(!chan);
-                message(data.message);
-            } catch (e) {
-                message(e);
-            }
-        }
-    }, [message, request, chan]);
-
-    function patchTask() {
-        setTaskFormActive(true);
-    }
-
-    function appointTask() {
-        setAppointFormActive(true);
-    }
+        afterEl.innerHTML = beforeEl;
+    };
 
     useEffect(() => {
         async function fetchData() {
@@ -61,13 +50,14 @@ export const HomeworkCard = ({ props, set, chan }) => {
                     read: data[0].read,
                     translate: data[0].translate,
                     other: data[0].other,
-                })
+                });
             } catch (e) {
                 message(e);
             }
         }
         fetchData();
         set(!chan);
+
     }, [taskForm, props.id])
 
     return (
@@ -77,30 +67,35 @@ export const HomeworkCard = ({ props, set, chan }) => {
                 <main className="main-content" info={`${task.id}`}>
                     <h1 className="note__title"> <span>{task.theme} </span></h1>
 
-                    <p className="">Правила:</p>
-                    <div className="note__example">
+                    <p className="">Грамматика:</p>
+                    <div className="note__example gramma after">
                         {task.rules}
                     </div>
 
-                    <p className="">Слова для изучения:</p>
+                    <p className="">Лексика:</p>
                     <div className="note__example">
                         {task.words}
                     </div>
 
-                    <p className="">Для самостоятельного чтения:</p>
+                    <p className="">Чтение и Письмо:</p>
                     <div className="note__example">
                         {task.read}
                     </div>
 
-                    <p className="">Выполните перевод:</p>
+                    <p className="">Аудирование и Видео:</p>
                     <div className="note__example">
                         {task.translate}
                     </div>
 
-                    <p className="">Дополнительно:</p>
+                    <p className="">Дополнительные материалы:</p>
                     <div className="note__example">
                         {task.other}
                     </div>
+
+                    {/* <button
+                        className="control-panel__delete-button"
+                        onClick={searchLink}
+                    >Показать ссылки</button> */}
 
                 </main>
             }

@@ -13,7 +13,7 @@ export const FlashCard = ({ wordsArr }) => {
         return array;
     }
 
-    const [arrayWords, setArrayWords] = useState(mixArray(wordsArr.slice()));
+    const [arrayWords, setArrayWords] = useState(mixArray(wordsArr).slice());
     const [rightAnswers, setRightAnswer] = useState(0);
     const [wrongAnswers, setWrongAnswer] = useState(0);
     let btnArr = ['foreignWord1', 'foreignWord2', 'foreignWord3', 'foreignWord4'];
@@ -28,6 +28,8 @@ export const FlashCard = ({ wordsArr }) => {
         foreignWord3: arrayWords[2].foreign_word,
         foreignWord4: arrayWords[3].foreign_word,
     });
+
+    console.log(wordsArr);
 
     // обновим массив, если осталось мало элементов
     if (arrayWords.length === 4) {

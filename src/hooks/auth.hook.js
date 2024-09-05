@@ -26,7 +26,7 @@ export const useAuth = (data) => {
     useEffect(() => {
         async function fetchData() {
             try {
-                const req = await request('/words/list', 'GET');
+                const req = await request('/words/list?category=null', 'GET');
                 if (req.message === 'Не авторизованы') {
                     return setAuthorization(false);
                 }

@@ -32,6 +32,7 @@ export const HomeworkPage = () => {
             }
         }
         fetchData();
+
     }, [message, request, change]);
 
     const handleClickGet = (e) => {

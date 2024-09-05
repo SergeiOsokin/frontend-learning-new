@@ -64,7 +64,7 @@ export const TaskFormNew = ({ set, chan, setActive }) => {
                     <form className="form" name="add-word-form" onSubmit={handleSubmit}>
                         <fieldset>
                             <div>
-                                <label className="form__label" htmlFor="theme">Тема</label>
+                                <label className="form__label" htmlFor="theme">Тема:</label>
                                 <input
                                     id="theme"
                                     type="text"
@@ -79,7 +79,7 @@ export const TaskFormNew = ({ set, chan, setActive }) => {
                                 />
                             </div>
                             <div>
-                                <label className="form__label" htmlFor="rules">Правила</label>
+                                <label className="form__label" htmlFor="rules">Грамматика:</label>
                                 <textarea
                                     id="rules"
                                     type="text"
@@ -94,11 +94,11 @@ export const TaskFormNew = ({ set, chan, setActive }) => {
                                 />
                             </div>
                             <div>
-                                <label className="form__label" htmlFor="words">Слова для изучения:</label>
+                                <label className="form__label" htmlFor="words">Лексика:</label>
                                 <textarea
                                     id="words"
                                     type="text"
-                                    placeholder="Максимум 200 символов."
+                                    placeholder="Максимум 1000 символов."
                                     name="words"
                                     onChange={changeHandler}
                                     value={task.words}
@@ -109,7 +109,7 @@ export const TaskFormNew = ({ set, chan, setActive }) => {
                                 />
                             </div>
                             <div>
-                                <label className="form__label" htmlFor="read">Для самостоятельного чтения:</label>
+                                <label className="form__label" htmlFor="read">Чтение и Письмо:</label>
                                 <textarea
                                     id="read"
                                     type="text"
@@ -124,7 +124,7 @@ export const TaskFormNew = ({ set, chan, setActive }) => {
                                 />
                             </div>
                             <div>
-                                <label className="form__label" htmlFor="translate">Выполните перевод:</label>
+                                <label className="form__label" htmlFor="translate">Аудирование и Видео:</label>
                                 <textarea
                                     id="translate"
                                     type="text"
@@ -139,7 +139,7 @@ export const TaskFormNew = ({ set, chan, setActive }) => {
                                 />
                             </div>
                             <div>
-                                <label className="form__label" htmlFor="other">Дополнительно:</label>
+                                <label className="form__label" htmlFor="other">Дополнительные материалы:</label>
                                 <textarea
                                     id="other"
                                     type="text"

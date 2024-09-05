@@ -82,7 +82,7 @@ export const TaskFormChange = ({ props, setActive, set, chan }) => {
                                 />
                             </div>
                             <div>
-                                <label className="form__label" htmlFor="rules">Правила</label>
+                                <label className="form__label" htmlFor="rules">Грамматика:</label>
                                 <textarea
                                     id="rules"
                                     type="text"
@@ -97,7 +97,7 @@ export const TaskFormChange = ({ props, setActive, set, chan }) => {
                                 />
                             </div>
                             <div>
-                                <label className="form__label" htmlFor="words">Слова для изучения:</label>
+                                <label className="form__label" htmlFor="words">Лексика:</label>
                                 <textarea
                                     id="words"
                                     type="text"
@@ -112,7 +112,7 @@ export const TaskFormChange = ({ props, setActive, set, chan }) => {
                                 />
                             </div>
                             <div>
-                                <label className="form__label" htmlFor="read">Для самостоятельного чтения:</label>
+                                <label className="form__label" htmlFor="read">Чтение и Письмо:</label>
                                 <textarea
                                     id="read"
                                     type="text"
@@ -127,7 +127,7 @@ export const TaskFormChange = ({ props, setActive, set, chan }) => {
                                 />
                             </div>
                             <div>
-                                <label className="form__label" htmlFor="translate">Выполните перевод:</label>
+                                <label className="form__label" htmlFor="translate">Аудирование и Видео:</label>
                                 <textarea
                                     id="translate"
                                     type="text"
@@ -142,7 +142,7 @@ export const TaskFormChange = ({ props, setActive, set, chan }) => {
                                 />
                             </div>
                             <div>
-                                <label className="form__label" htmlFor="other">Дополнительно:</label>
+                                <label className="form__label" htmlFor="other">Дополнительные материалы:</label>
                                 <textarea
                                     id="other"
                                     type="text"
