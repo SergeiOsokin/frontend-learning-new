@@ -34,12 +34,6 @@ export const HomeworkCard = ({ props, set, chan }) => {
         afterEl.innerHTML = beforeEl;
     };
 
-    // console.log(linkifyHtml(document.querySelectorAll('.note__example')));
-    // console.log(document.querySelector('.gramma'));
-
-
-
-
     useEffect(() => {
         async function fetchData() {
             try {
@@ -98,10 +92,10 @@ export const HomeworkCard = ({ props, set, chan }) => {
                         {task.other}
                     </div>
 
-                    <button
+                    {/* <button
                         className="control-panel__delete-button"
                         onClick={searchLink}
-                    >Показать ссылки</button>
+                    >Показать ссылки</button> */}
 
                 </main>
             }
