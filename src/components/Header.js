@@ -16,7 +16,9 @@ export const Header = () => {
             <header className="header">
 
                 <nav className="header__nav">
-                    <li className="nav__item-li"><Link className="nav__item-a" to="/">Главная</Link></li>
+                    
+                    {authorization && <li className="nav__item-li"><Link className="nav__item-a" to="/">Главная</Link></li>}
+
                     <label className="nav__checkbox-label" htmlFor="checkbox-nav">Меню</label>
                     <input className="nav__checkbox" type="checkbox" id="checkbox-nav" />
                     <ul className="nav__items">
@@ -46,6 +48,7 @@ export const Header = () => {
                         </li>}
 
                         {!authorization && <li className="nav__item-li"><Link className="nav__item-a" to="/authorization">Войти</Link></li>}
+                        {!authorization && <li className="nav__item-li"><Link className="nav__item-a" to="/registration">Регистрация</Link></li>}
                         {authorization && <li className="nav__item-li"><Link className="nav__item-a" to="/authorization" onClick={logoutHandler}>Выйти</Link></li>}
                     </ul>
                 </nav>
