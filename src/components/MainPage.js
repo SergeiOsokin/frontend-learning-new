@@ -9,7 +9,17 @@ import React from 'react';
 export const MainPage = () => {
 
     return (
-        <main></main>
+        <section className="introduction">
+            <div className="introduction__block introduction__green"></div>
+            <div className="introduction introduction_there">
+                <div className="introduction__block introduction__image"></div>
+                <div className="introduction introduction_two">
+                    <div className="introduction__block introduction__registration"></div>
+                    <div className="introduction__block introduction__feedback"></div>
+                </div>
+            </div>
+            <div className="introduction__block introduction__tags"></div>
+        </section>
         // <main className="main-page commonClass">
         //     <section className="title-section">
         //         <h1 className='title-section__title'>То, что ты учишь, всегда с тобой.</h1>
