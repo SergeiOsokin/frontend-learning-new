@@ -10,15 +10,37 @@ export const MainPage = () => {
 
     return (
         <section className="introduction">
-            <div className="introduction__block introduction__green"></div>
+            <div className="introduction__block introduction__green">
+                <p>Словарь, заметки, квизы —</p>
+                <p>учите язык легко</p>
+                <a>Начать учиться </a>
+            </div>
             <div className="introduction introduction_there">
                 <div className="introduction__block introduction__image"></div>
                 <div className="introduction introduction_two">
-                    <div className="introduction__block introduction__registration"></div>
-                    <div className="introduction__block introduction__feedback"></div>
+                    <div className="introduction__block introduction__registration">
+                        <a>Регистрация</a>
+                    </div>
+                    <div className="introduction__block introduction__feedback">
+                        <a>Обратная связь</a>
+                    </div>
                 </div>
             </div>
-            <div className="introduction__block introduction__tags"></div>
+            <div className="introduction__block introduction__tags">
+                <p>Храните слова, записывайте грамматику, создавайте задания и проходите квизы. </p>
+                <p>Всё необходимое для изучения языка в одном месте.</p>
+                <div>
+                    <div>Словарь</div>
+                    <div>Квиз</div>
+                    <div>Грамматика</div>
+                    <div>Заметки</div>
+                    <div>Задания</div>
+                    <div>В своём темпе</div>
+                    <div>С учителем</div>
+                    <div>Самостоятельно</div>
+
+                </div>
+            </div>
         </section>
         // <main className="main-page commonClass">
         //     <section className="title-section">

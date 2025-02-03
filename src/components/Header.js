@@ -23,8 +23,6 @@ export const Header = () => {
                 <img className="header__logo header__logo_white" src={logoWhite} alt="Логотип белый"></img>
 
                 <nav class="header__menu">
-                    {/* {!authorization && <li className="header__enter nav__item-li"><img className="header__logo-white" alt="Символ пользователя"></img><Link className="nav__item-a nav__item-a_enter" to="/authorization">Войти</Link></li>} */}
-                    {/* {!authorization && <li className="header__registration nav__item-li"><Link className="nav__item-a nav__item-a_registration" to="/registration">Зарегистрироваться</Link></li>} */}
                     {!authorization && <div class="header__menu-in">
                         <img className="header__user-white" src={iconUserWhite} alt="Символ пользователя"></img>
                         <Link className="header__menu-enter" to="/authorization">Войти</Link>

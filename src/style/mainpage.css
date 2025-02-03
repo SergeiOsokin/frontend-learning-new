@@ -30,27 +30,29 @@
 .introduction__green {
     width: 864px;
     height: 400px;
-    background-color: green;
+    background-color: #DAFB59;
 }
 
 .introduction__tags {
     width: 612px;
     height: 815px;
-    background-color: white;
+    background-color: #F6F6F1;
 }
 
 
 .introduction__image {
     width: 612px;
     height: 400px;
-    background-color: bisque;
+    background-image: url(../../src/img/start_girl.svg);
+    background-repeat: no-repeat;
+    background-size: cover;
 }
 
 
 .introduction__registration {
     width: 236px;
     height: 261px;
-    background-color: orange;
+    background-color: #FF6611;
 }
 
 
