@@ -25,6 +25,64 @@
 
 .introduction__block {
     border-radius: 24px;
+    width: 612px;
+    height: 815px;
+    background-color: #F6F6F1;
+}
+
+.iintroduction__block_registration {
+    width: 236px;
+    height: 261px;
+    background-color: #FF6611;
+
+    box-sizing: border-box;
+    padding: 24px;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.introduction__block_tags {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    padding: 64px 40px;
+    box-sizing: border-box;
+}
+
+.introduction__paragraph {
+    font-family: Golos;
+    font-size: 24px;
+    font-weight: 400;
+    line-height: 36px;
+    letter-spacing: -0.02em;
+    color: #1F1E30;
+}
+
+.introduction__tags {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: 12px;
+    font-family: Golos;
+    font-size: 20px;
+    /* line-height: 30px; */
+    /* letter-spacing: 2em; */
+}
+
+.introduction__tag {
+    /* width: 130px; */
+    height: 40px;
+    padding: 0px 10px 0px 10px;
+    gap: 6px;
+    border-radius: 40px;
+    border: 1px black solid;
+    /* opacity: 0px; */
+    color: #1F1E30;
+    box-sizing: border-box;
+    display: flex;
+    align-items: center;
 }
 
 .introduction__green {
@@ -33,11 +91,13 @@
     background-color: #DAFB59;
 }
 
-.introduction__tags {
+/* .introduction__tags {
     width: 612px;
     height: 815px;
     background-color: #F6F6F1;
-}
+} */
+
+
 
 
 .introduction__image {
@@ -48,11 +108,24 @@
     background-size: cover;
 }
 
+.introduction__arrow {
+    width: 16px;
+    height: 16px;
+    align-self: flex-end;
+}
 
-.introduction__registration {
-    width: 236px;
-    height: 261px;
-    background-color: #FF6611;
+
+.introduction__registration-link {
+    font-family: Golos;
+    font-size: 20px;
+    font-weight: 400;
+    line-height: 30px;
+    text-align: left;
+    text-decoration-line: underline;
+    text-decoration-style: solid;
+    text-underline-position: from-font;
+    text-decoration-skip-ink: auto;
+    color: #1F1E30;
 }
 
 
@@ -61,6 +134,8 @@
     height: 123px;
     background-color: blue;
 }
+
+
 
 
 
