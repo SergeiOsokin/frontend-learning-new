@@ -15,15 +15,23 @@ import check_round_black from '../../src/img/check_round_black.svg';
 import two_users_black from '../../src/img/two_users_black.svg';
 import user_black from '../../src/img/user_black.svg';
 import arrow_black from '../../src/img/arrow_black.svg';
+import envelope_white from '../../src/img/envelope_white.svg';
 
 export const MainPage = () => {
 
     return (
         <section className="introduction">
             <div className="introduction__block introduction__green">
-                <p>Словарь, заметки, квизы —</p>
-                <p>учите язык легко</p>
-                <a>Начать учиться </a>
+                <div>
+                    <p className="introduction__green-paragraph green-paragraph_1">Словарь, заметки, квизы —</p>
+                    <p className="introduction__green-paragraph green-paragraph_2">учите язык легко</p>
+                </div>
+
+                <div>
+                    <Link className="introduction__start-link" to="/registration">Начать учиться</Link>
+                    &rarr; 
+                </div>
+
             </div>
             <div className="introduction introduction_there">
                 <div className="introduction__block introduction__image"></div>
@@ -35,7 +43,8 @@ export const MainPage = () => {
                     </div>
 
                     <div className="introduction__block introduction__feedback">
-                        <a href="#" className="sdsd-enter" to="/authorization">Обратная связь</a>
+                        <img className="introduction__envelope" src={envelope_white} alt="Символ конверта"></img>
+                        <Link className="introduction__feedback-link" to="/registration">Обратная связь</Link>
                     </div>
 
                 </div>

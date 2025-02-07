@@ -49,7 +49,39 @@
     justify-content: space-between;
     padding: 64px 40px;
     box-sizing: border-box;
+    position: relative;
 }
+
+.introduction__block_tags::after {
+    content: "";
+    display: block;
+    border-radius: 50%;
+    height: 300px;
+    width: 300px;
+    position: absolute;
+    bottom: 100px;
+    left: 220px;
+    /* background: radial-gradient(circle, #DAFB59); */
+    background: radial-gradient(#DAFB59, transparent);
+    opacity: 0.1;
+    z-index: 1;
+}
+
+.introduction__block_tags::before {
+    content: "";
+    display: block;
+    border-radius: 50%;
+    height: 300px;
+    width: 300px;
+    position: absolute;
+    bottom: 290px;
+    left: 350px;
+    /* background: radial-gradient(circle, #DAFB59); */
+    background: radial-gradient(#9000FF, transparent);
+    opacity: 0.05;
+    z-index: 1;
+}
+
 
 .introduction__paragraph {
     font-family: Golos;
@@ -67,6 +99,7 @@
     gap: 12px;
     font-family: Golos;
     font-size: 20px;
+    z-index: 2;
     /* line-height: 30px; */
     /* letter-spacing: 2em; */
 }
@@ -89,14 +122,46 @@
     width: 864px;
     height: 400px;
     background-color: #DAFB59;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+
+    box-sizing: border-box;
+    padding: 56px 0px 48px 58px;
 }
 
-/* .introduction__tags {
-    width: 612px;
-    height: 815px;
-    background-color: #F6F6F1;
-} */
+.introduction__green-paragraph {
+    font-family: Unbounded;
+    font-size: 50px;
+    font-weight: 900;
+    line-height: 63px;
+    color: #1F1E30;
 
+    position: relative;
+}
+
+.green-paragraph_2 {
+    border: 2px solid #1F1E30;
+    border-radius: 120px;
+
+    display: inline-block;
+    padding: 0px 19px 0 19px;
+}
+
+.introduction__start-link {
+    font-family: Golos;
+    font-size: 22px;
+    font-weight: 400;
+    line-height: 33px;
+    letter-spacing: -0.02em;
+    text-align: left;
+    text-decoration-line: underline;
+    text-decoration-style: solid;
+    text-underline-position: from-font;
+    text-decoration-skip-ink: auto;
+    color: #1F1E30
+}
 
 
 
@@ -132,9 +197,34 @@
 .introduction__feedback {
     width: 236px;
     height: 123px;
-    background-color: blue;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    background-color: transparent;
+    box-sizing: border-box;
+    border: 1px solid #939393;
+    padding: 24px;
 }
 
+.introduction__envelope {
+    width: 16px;
+    height: 16px;
+    align-self: flex-end;
+}
+
+
+.introduction__feedback-link {
+    font-family: Golos;
+    font-size: 20px;
+    font-weight: 400;
+    line-height: 30px;
+    text-align: left;
+    text-decoration-line: underline;
+    text-decoration-style: solid;
+    text-underline-position: from-font;
+    text-decoration-skip-ink: auto;
+    color: #939393;
+}
 
 
 
