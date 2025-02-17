@@ -33,10 +33,10 @@ export const MainPage = () => {
                 </div>
 
             </div>
-            <div className="introduction introduction_there">
+            <div className="introduction_there">
                 <div className="introduction__block introduction__image"></div>
 
-                <div className="introduction introduction_two">
+                <div className="introduction__block introduction_two">
                     <div className="introduction__block iintroduction__block_registration">
                         <img className="introduction__arrow" src={arrow_black} alt="Символ стрелки"></img>
                         <Link className="introduction__registration-link" to="/registration">Регистрация</Link>

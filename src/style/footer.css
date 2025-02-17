@@ -1,4 +1,4 @@
-footer {
+.footer {
   /* max-width: 1300px; */
   /* width: 100%; */
   display: flex;
@@ -46,4 +46,10 @@ footer {
 
 .footer__link:last-child {
   margin-right: 0px;
+}
+
+@media screen and (max-width: 1440px) { 
+  .footer {
+    margin: 0px 20px;
+  }
 }

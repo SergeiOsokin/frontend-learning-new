@@ -82,7 +82,7 @@
     opacity: 0;
 }
 
-#menu__toggle:checked~.menu__btn>span {
+/* #menu__toggle:checked~.menu__btn>span {
     transform: rotate(45deg);
 }
 
@@ -99,7 +99,7 @@
 #menu__toggle:checked~.section-nav-topics {
     position: relative;
     left: 0px;
-}
+} */
 
 .menu__btn {
     display: flex;
