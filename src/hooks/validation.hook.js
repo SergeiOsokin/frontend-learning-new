@@ -7,10 +7,10 @@ export const validation = () => {
         // переделать на case
         switch (event.target.value.length) {
             case 0:
-                event.target.style.cssText += 'border-bottom: 1px solid  rgba(255, 0, 0, .8);'
+                event.target.style.cssText += 'border: 1px solid  rgba(255, 0, 0, .8);'
             break;
             default:
-                event.target.style.cssText += 'border-bottom: 1px solid  rgba(0, 0, 0, .2);'
+                event.target.style.cssText += 'border: 1px solid  rgba(0, 0, 0, .2);'
         }
         // проверка формы в общем
         if (form.checkValidity()) {

@@ -22,8 +22,8 @@ export const Header = () => {
 
                 <img className="header__logo header__logo_white" src={logoWhite} alt="Логотип белый"></img>
 
-                <nav class="header__menu">
-                    {!authorization && <div class="header__menu-in">
+                <nav className="header__menu">
+                    {!authorization && <div className="header__menu-in">
                         <img className="header__user-white" src={iconUserWhite} alt="Символ пользователя"></img>
                         <Link className="header__menu-enter" to="/authorization">Войти</Link>
                     </div>}

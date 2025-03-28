@@ -5,7 +5,7 @@ import { useMessage } from '../hooks/message.hook';
 import { Loader } from './Loader';
 import { validation } from '../hooks/validation.hook';
 
-export const RegistrationForm = () => {
+export const FormReg = () => {
     const message = useMessage();
     const { validationInputs } = validation();
     const { loading, request } = useHttp();
@@ -39,9 +39,9 @@ export const RegistrationForm = () => {
     }
 
     return (
-        <section className={"authorization commonClass"}>
-            <div className="authorization__content">
-                <h3 className={"authorization__title "}>Регистрация</h3>
+        <section className={"registration form-section"}>
+            <div className="registration form-content">
+                <h3 className={"registration authorization__title form-title"}>Регистрация</h3>
                 <form className="form" name="entrance" onSubmit={registrHandler}>
                     <fieldset>
                         <div>
@@ -94,22 +94,22 @@ export const RegistrationForm = () => {
                     </fieldset>
 
                     {!loading &&
-                        <div className="form__buttons-container">
+                        <div className="form-buttons-container">
                             <button
-                                className={"button button_rigistration "}
+                                className={"button button_registration "}
                                 onClick={registrHandler}
                                 disabled={true}
                             >Зарегистрироваться</button>
                         </div>
                     }
+                    {loading && < Loader />}
                 </form>
-                <div>
-                    <p>Регистрируясь вы соглашаетесь с <Link className="" to="/authorization">условиями использования</Link> и <Link className="" to="/authorization">политикой конфиденциальности</Link></p>
+                <div className='form-text-block'>
+                    <p className='form-text'>Регистрируясь вы соглашаетесь с <Link className="form-link" to="/authorization">условиями использования</Link> и <Link className="form-link" to="/authorization">политикой конфиденциальности</Link></p>
                 </div>
             </div>
-            {loading && < Loader />}
-            <div className='authorization__account-q'>
-                <p className='authorization__account-q'>Есть аккаунт?</p><Link className="introduction__registration-link" to="/authorization">Войти</Link>
+            <div className='form-q'>
+                <p className='form-text form-text_registration'>Есть аккаунт? <Link className="form-link form-link_registration" to="/authorization">Войти</Link></p>
             </div>
         </section>
     )

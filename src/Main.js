@@ -7,12 +7,13 @@ import WordsPage from './pages/WordsPage';
 import AddWord from './pages/AddWordPage';
 import AddNote from './pages/AddNotePage';
 import CategoryPage from './pages/CategoryPage';
-import { RegistrationForm } from './components/RegistrstrationForm';
-import { AuthForm } from './components/AuthForm';
+import { FormReg } from './components/FormReg';
+import { FormAuth } from './components/FormAuth';
 import { Categories } from './components/Categories';
 import { MainPage } from './components/MainPage';
 import { HomeworkPage } from './pages/HomeworkPage';
 import { TaskPage } from './pages/TasksPage';
+import { NotFoundPage } from './pages/NotFoundPage';
 
 const Main = () => {
     var pjson = require('../package.json');
@@ -27,12 +28,12 @@ const Main = () => {
             <Route exact path='/addword' component={AddWord} />
             <Route exact path='/addnote' component={AddNote} />
             <Route exact path='/category' component={CategoryPage} />
-            <Route exact path='/authorization' component={AuthForm} />
-            <Route exact path='/registration' component={RegistrationForm} />
+            <Route exact path='/authorization' component={FormAuth} />
+            <Route exact path='/registration' component={FormReg} />
             <Route exact path='/categories' component={Categories} />
-
             <Route exact path='/tasks' component={TaskPage} /> 
             <Route exact path='/homework' component={HomeworkPage} />
+            <Route exact path='/*' component={NotFoundPage} statusCode={404} />
         </Switch>
     )
 }
