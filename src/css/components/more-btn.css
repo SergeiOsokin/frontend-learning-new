@@ -1,0 +1,58 @@
+.more-btn {
+  position: relative;
+}
+.more-btn.--th-active .more-btn__menu {
+  opacity: 1;
+  visibility: visible;
+}
+.more-btn.--th-active .more-btn__btn {
+  color: #1F1E30 !important;
+}
+.more-btn.--th-active .more-btn__btn .icon {
+  width: 2.4rem;
+  height: 2.4rem;
+}
+.more-btn__btn {
+  width: 1.2rem;
+  height: 1.6rem;
+  padding: 0;
+  background-color: transparent;
+  border: none;
+  outline: none;
+}
+.more-btn__menu {
+  position: absolute;
+  z-index: 11;
+  top: auto;
+  bottom: -1.4rem;
+  transform: translateY(100%);
+  left: auto;
+  right: -2rem;
+  box-shadow: 2px 4px 2rem 0.6rem rgba(74, 74, 66, 0.06);
+  background-color: #fff;
+  border-radius: 0.8rem;
+  min-width: 21.4rem;
+  transition: all 0.1s ease-in-out;
+  opacity: 0;
+  visibility: hidden;
+}
+.more-btn__item:not(:last-child) {
+  border-bottom: 1px solid #E7E7E7;
+}
+.more-btn__item-btn {
+  border: none;
+  outline: none;
+  background-color: transparent;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 0.8rem;
+  padding-left: 2.9rem;
+  font-size: 1.8rem;
+  line-height: 150%;
+  height: 5.5rem;
+}
+.more-btn__item-btn .icon {
+  width: 2.4rem;
+  height: 2.4rem;
+}

@@ -1,0 +1,22 @@
+.app-area-text {
+  font-family: "Golos Text", serif;
+  color: #1F1E30;
+  outline: none;
+  border: none;
+  resize: none;
+  overflow: hidden;
+  font-size: 1.8rem;
+  line-height: 150%;
+  padding: 0;
+  margin: 0;
+  background-color: transparent;
+  width: 100%;
+  height: 8rem;
+  position: relative;
+}
+.app-area-text::placeholder {
+  color: #939393;
+}
+.app-area-text.--th-bold {
+  font-weight: 500;
+}

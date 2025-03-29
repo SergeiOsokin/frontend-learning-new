@@ -3,14 +3,24 @@ import React from 'react';
 export const Footer = () => {
 
   return (
-    <footer className="footer">
-      <p className="footer__copirate">&copy; 2025 Learnew. Все права защищены.</p>
-      <div className="footer__link-group">
-        <a className="footer__link" href="./">Поддержка</a>
-        <a className="footer__link" href="./">Условия использования</a>
-        <a className="footer__link" href="./">Политика конфиденциальности</a>
+    <footer className="o-footer">
+      <div className="o-footer__inner container">
+        <p className="o-footer__label o-footer__cors">
+          © 2025 Learnew. <br /> Все права защищены.
+        </p>
+        <div className="o-footer__links">
+          <a href="#" className="o-footer__label o-footer__link">
+            Поддержка
+          </a>
+          <a href="#" className="o-footer__label o-footer__link">
+            Условия использования
+          </a>
+          <a href="#" className="o-footer__label o-footer__link">
+            Политика конфиденциальности
+          </a>
+        </div>
       </div>
-      {/* <a className="footer__link footer__link_GH" href="https://vk.com/sergei_osokin" rel="no noreferrer" target="_blank">ВК</a> */}
     </footer>
+
   )
 }

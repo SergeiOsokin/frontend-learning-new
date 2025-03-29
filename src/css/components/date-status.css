@@ -1,0 +1,16 @@
+.date-status {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 0.8rem;
+}
+.date-status img {
+  width: 2.4rem;
+  height: 2.4rem;
+}
+.date-status span {
+  color: #939393;
+  font-weight: 400;
+  font-size: 1.4rem;
+  line-height: 130%;
+}
