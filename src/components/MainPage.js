@@ -85,9 +85,10 @@ export const MainPage = () => {
                                     fill="currentColor"
                                 />
                             </svg>
-                            <a href="#" className="board-link__elem">
+                            {/* <a href="#" className="board-link__elem">
                                 Регистрация
-                            </a>
+                            </a> */}
+                            <Link className="board-link__elem" to="/registration">Регистрация</Link>
                         </div>
                         <div className="board-link --th-fill-white">
                             <svg className="board-link__icon" viewBox="0 0 16 16" fill="none">
@@ -96,9 +97,10 @@ export const MainPage = () => {
                                     fill="currentColor"
                                 />
                             </svg>
-                            <a href="#" className="board-link__elem">
+                            {/* <a href="#" className="board-link__elem">
                                 Вход
-                            </a>
+                            </a> */}
+                            <Link className="board-link__elem" to="/authorization">Вход</Link>
                         </div>
                     </div>
                     <div className="o-main__grid-1">
@@ -114,7 +116,18 @@ export const MainPage = () => {
                                         </span>
                                     </h1>
                                 </div>
-                                <a href="#" className="green-board__link">
+                                <Link className="green-board__link" to="/authorization">
+                                    <span>Начать учиться</span>
+                                    <svg className="icon" viewBox="0 0 24 24" fill="none">
+                                        <path
+                                            d="M19 12H5M19 12L15 16M19 12L15 8"
+                                            stroke="#1F1E30"
+                                            strokeWidth={2}
+                                            strokeLinecap="round"
+                                            strokeLinejoin="round"
+                                        />
+                                    </svg></Link>
+                                {/* <a href="#" className="green-board__link">
                                     <span>Начать учиться</span>
                                     <svg className="icon" viewBox="0 0 24 24" fill="none">
                                         <path
@@ -125,7 +138,7 @@ export const MainPage = () => {
                                             strokeLinejoin="round"
                                         />
                                     </svg>
-                                </a>
+                                </a> */}
                             </div>
                             <div className="o-main__grid-3 tb-hide">
                                 <div className="image-board" />
@@ -141,9 +154,10 @@ export const MainPage = () => {
                                                 fill="currentColor"
                                             />
                                         </svg>
-                                        <a href="#" className="board-link__elem">
+                                        <Link className="board-link__elem" to="/registration">Регистрация</Link>
+                                        {/* <a href="#" className="board-link__elem">
                                             Регистрация
-                                        </a>
+                                        </a> */}
                                     </div>
                                     <div className="board-link --th-fill-stroke">
                                         <svg
@@ -158,9 +172,10 @@ export const MainPage = () => {
                                                 strokeLinecap="round"
                                             />
                                         </svg>
-                                        <a href="#" className="board-link__elem">
+                                        <Link className="board-link__elem" to="/">Обратная связь</Link>
+                                        {/* <a href="#" className="board-link__elem">
                                             Обратная связь
-                                        </a>
+                                        </a> */}
                                     </div>
                                 </div>
                             </div>
@@ -378,9 +393,10 @@ export const MainPage = () => {
                                     fill="currentColor"
                                 />
                             </svg>
-                            <a href="#" className="board-link__elem">
+                            {/* <a href="#" className="board-link__elem">
                                 Регистрация
-                            </a>
+                            </a> */}
+                            <Link className="board-link__elem" to="/registration">Регистрация</Link>
                         </div>
                     </div>
                     <div className="o-main__grid-7 tb-grid">
@@ -393,9 +409,10 @@ export const MainPage = () => {
                                     strokeLinecap="round"
                                 />
                             </svg>
-                            <a href="#" className="board-link__elem">
+                            <Link className="board-link__elem" to="/">Обратная связь</Link>
+                            {/* <a href="#" className="board-link__elem">
                                 Обратная связь
-                            </a>
+                            </a> */}
                         </div>
                         <div className="image-board" />
                     </div>

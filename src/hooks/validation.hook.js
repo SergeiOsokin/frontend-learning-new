@@ -1,7 +1,7 @@
 export const validation = () => {
     const validationInputs = (event) => {
-        const form = event.target.closest(".form");
-        const button = form.querySelector('.button');
+        const form = event.target.closest(".o-form");
+        const button = form.querySelector('.btn');
 
         // проверка inputs
         // переделать на case
