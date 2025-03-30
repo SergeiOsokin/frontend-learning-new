@@ -20,3 +20,6 @@
 @import url('./css/components/inputs.css');
 @import url('./css/components/more-btn.css');
 @import url('./css/components/task-more.css');
+
+@import url('./css/dictionary/word.css');
+@import url('./css/dictionary/index.css');

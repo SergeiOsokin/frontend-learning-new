@@ -30,7 +30,15 @@ export const WordsList = () => {
     });
 
     const handleItems = (e) => {
-        setCountItems(e.target.value)
+        document.querySelector('.pagination__settings-dropdown').classList.add('--th-active');
+        console.log('work');
+    }
+
+    const handleItems2 = (e) => {
+        document.querySelector('.pagination__settings-dropdown').classList.remove('--th-active');
+        // document.querySelector('.pagination__settings-btn').classList.add('--th-current'); - найти "ближайший" с таким свойством
+        setCountItems(e.target.value);
+        console.log(e.target.value);
     }
 
     const tableSearch = () => {
@@ -232,6 +240,8 @@ export const WordsList = () => {
         //     </>
         // </section>
         <>
+            {loading && <Loader />}
+
             <div className="app-inner">
                 <aside className="app-aside">
                     <div className="app-aside__top">
@@ -975,108 +985,108 @@ export const WordsList = () => {
                                             <td className="table__ceil" />
                                         </tr>
                                     </thead>
-                                    {wordsArr
-                                        .sort((a, b) => a.id - b.id)
-                                        .slice(firstContentIndex, lastContentIndex)
-                                        .map((word, index) => {
-                                            return (
-                                                <tr className="table__ceil"
-                                                    info={`${word.id}+${word.foreign_word}+${word.russian_word}+${word.category}+${word.category_word_id}`}
-                                                    key={word.id}
-                                                >
-                                                    {" "}
-                                                    <th className="table__ceil">
-                                                        {" "}
-                                                        <div className="app-checkbox">
-                                                            <input type="checkbox" className="app-checkbox__input" />
-                                                            <div className="app-checkbox__elem">
-                                                                <svg
-                                                                    className="app-checkbox__icon"
-                                                                    viewBox="0 0 14 10"
-                                                                    fill="none"
-                                                                >
-                                                                    <path
-                                                                        d="M1.16699 4.93083L5.10366 8.75L12.8337 1.25"
-                                                                        stroke="#F6F6F1"
-                                                                        strokeWidth={2}
-                                                                        strokeLinecap="round"
-                                                                        strokeLinejoin="round"
-                                                                    />
-                                                                </svg>
-                                                            </div>
-                                                        </div>{" "}
-                                                        {word.foreign_word}
-                                                    </th>
-                                                    <th className="table__ceil">{word.russian_word}</th>
-                                                    <th className="category">{word.category}</th>
-                                                    <th className="table__ceil">
-                                                        <div className="more-btn ">
-                                                            <button className="more-btn__btn">
-                                                                <svg className="icon" viewBox="0 0 24 24" fill="none">
-                                                                    <path
-                                                                        d="M12 6H12.01M12 12H12.01M12 18H12.01"
-                                                                        stroke="currentColor"
-                                                                        strokeWidth={3}
-                                                                        strokeLinecap="round"
-                                                                    />
-                                                                </svg>
-                                                            </button>
-                                                            <ul className="more-btn__menu">
-                                                                <li className="more-btn__item">
-                                                                    <button className="more-btn__item-btn line-btn-dark">
-                                                                        <svg
-                                                                            className="icon"
-                                                                            viewBox="0 0 24 24"
-                                                                            fill="none"
-                                                                        >
-                                                                            <path
-                                                                                d="M8.5 11.5L11 14L15 10M21 12C21 13.1819 20.7672 14.3522 20.3149 15.4442C19.8626 16.5361 19.1997 17.5282 18.364 18.364C17.5282 19.1997 16.5361 19.8626 15.4442 20.3149C14.3522 20.7672 13.1819 21 12 21C10.8181 21 9.64778 20.7672 8.55585 20.3149C7.46392 19.8626 6.47177 19.1997 5.63604 18.364C4.80031 17.5282 4.13738 16.5361 3.68508 15.4442C3.23279 14.3522 3 13.1819 3 12C3 9.61305 3.94821 7.32387 5.63604 5.63604C7.32387 3.94821 9.61305 3 12 3C14.3869 3 16.6761 3.94821 18.364 5.63604C20.0518 7.32387 21 9.61305 21 12Z"
-                                                                                stroke="currentColor"
-                                                                                strokeWidth={2}
-                                                                                strokeLinecap="round"
-                                                                                strokeLinejoin="round"
-                                                                            />
-                                                                        </svg>
-                                                                        <span>Выбрать</span>
-                                                                    </button>
-                                                                </li>
-                                                                <li className="more-btn__item">
-                                                                    <button className="more-btn__item-btn line-btn-dark">
-                                                                        <svg className="icon" viewBox="0 0 24 24">
-                                                                            <path
-                                                                                fill="none"
-                                                                                d="M15.717 4.07486L18.9255 7.28329M7.49999 6.5003H4.125C3.82663 6.5003 3.54048 6.61883 3.3295 6.8298C3.11853 7.04078 3 7.32692 3 7.62528V18.875C3 19.1734 3.11853 19.4595 3.3295 19.6705C3.54048 19.8815 3.82663 20 4.125 20H16.5C16.7983 20 17.0845 19.8815 17.2955 19.6705C17.5064 19.4595 17.625 19.1734 17.625 18.875V13.8126M20.3351 2.66414C20.5459 2.87485 20.7131 3.12503 20.8272 3.40038C20.9413 3.67574 21 3.97087 21 4.26892C21 4.56697 20.9413 4.8621 20.8272 5.13745C20.7131 5.4128 20.5459 5.66298 20.3351 5.87369L12.6356 13.573L8.62499 14.3751L9.42711 10.3646L17.1266 2.66527C17.3371 2.45437 17.5872 2.28706 17.8625 2.17291C18.1378 2.05876 18.4328 2 18.7308 2C19.0289 2 19.3239 2.05876 19.5992 2.17291C19.8745 2.28706 20.1245 2.45437 20.3351 2.66527V2.66414Z"
-                                                                                stroke="currentColor"
-                                                                                strokeWidth={2}
-                                                                                strokeLinecap="round"
-                                                                                strokeLinejoin="round"
-                                                                            />
-                                                                        </svg>
-                                                                        <span>Редактировать</span>
-                                                                    </button>
-                                                                </li>
-                                                                <li className="more-btn__item">
-                                                                    <button className="more-btn__item-btn line-btn-red">
-                                                                        <svg className="icon" viewBox="0 0 24 24">
-                                                                            <path
-                                                                                d="M5 7H19M10 10V18M14 10V18M10 3H14C14.2652 3 14.5196 3.10536 14.7071 3.29289C14.8946 3.48043 15 3.73478 15 4V7H9V4C9 3.73478 9.10536 3.48043 9.29289 3.29289C9.48043 3.10536 9.73478 3 10 3ZM6 7H18V20C18 20.2652 17.8946 20.5196 17.7071 20.7071C17.5196 20.8946 17.2652 21 17 21H7C6.73478 21 6.48043 20.8946 6.29289 20.7071C6.10536 20.5196 6 20.2652 6 20V7Z"
-                                                                                stroke="currentColor"
-                                                                                strokeWidth={2}
-                                                                                fill="none"
-                                                                                strokeLinecap="round"
-                                                                                strokeLinejoin="round"
-                                                                            />
-                                                                        </svg>
-                                                                        <span>Удалить</span>
-                                                                    </button>
-                                                                </li>
-                                                            </ul>
-                                                        </div>
-                                                    </th>
-                                                </tr>
-                                            )
-                                        })}
                                     <tbody>
+                                        {wordsArr
+                                            .sort((a, b) => a.id - b.id)
+                                            .slice(firstContentIndex, lastContentIndex)
+                                            .map((word, index) => {
+                                                return (
+                                                    <tr className="table__ceil"
+                                                        info={`${word.id}+${word.foreign_word}+${word.russian_word}+${word.category}+${word.category_word_id}`}
+                                                        key={word.id}
+                                                    >
+                                                        {" "}
+                                                        <th className="table__ceil">
+                                                            {" "}
+                                                            <div className="app-checkbox">
+                                                                <input type="checkbox" className="app-checkbox__input" />
+                                                                <div className="app-checkbox__elem">
+                                                                    <svg
+                                                                        className="app-checkbox__icon"
+                                                                        viewBox="0 0 14 10"
+                                                                        fill="none"
+                                                                    >
+                                                                        <path
+                                                                            d="M1.16699 4.93083L5.10366 8.75L12.8337 1.25"
+                                                                            stroke="#F6F6F1"
+                                                                            strokeWidth={2}
+                                                                            strokeLinecap="round"
+                                                                            strokeLinejoin="round"
+                                                                        />
+                                                                    </svg>
+                                                                </div>
+                                                            </div>{" "}
+                                                            {word.foreign_word}
+                                                        </th>
+                                                        <th className="table__ceil">{word.russian_word}</th>
+                                                        <th className="table__ceil">{word.category}</th>
+                                                        <th className="table__ceil">
+                                                            <div className="more-btn ">
+                                                                <button className="more-btn__btn">
+                                                                    <svg className="icon" viewBox="0 0 24 24" fill="none">
+                                                                        <path
+                                                                            d="M12 6H12.01M12 12H12.01M12 18H12.01"
+                                                                            stroke="currentColor"
+                                                                            strokeWidth={3}
+                                                                            strokeLinecap="round"
+                                                                        />
+                                                                    </svg>
+                                                                </button>
+                                                                <ul className="more-btn__menu">
+                                                                    <li className="more-btn__item">
+                                                                        <button className="more-btn__item-btn line-btn-dark">
+                                                                            <svg
+                                                                                className="icon"
+                                                                                viewBox="0 0 24 24"
+                                                                                fill="none"
+                                                                            >
+                                                                                <path
+                                                                                    d="M8.5 11.5L11 14L15 10M21 12C21 13.1819 20.7672 14.3522 20.3149 15.4442C19.8626 16.5361 19.1997 17.5282 18.364 18.364C17.5282 19.1997 16.5361 19.8626 15.4442 20.3149C14.3522 20.7672 13.1819 21 12 21C10.8181 21 9.64778 20.7672 8.55585 20.3149C7.46392 19.8626 6.47177 19.1997 5.63604 18.364C4.80031 17.5282 4.13738 16.5361 3.68508 15.4442C3.23279 14.3522 3 13.1819 3 12C3 9.61305 3.94821 7.32387 5.63604 5.63604C7.32387 3.94821 9.61305 3 12 3C14.3869 3 16.6761 3.94821 18.364 5.63604C20.0518 7.32387 21 9.61305 21 12Z"
+                                                                                    stroke="currentColor"
+                                                                                    strokeWidth={2}
+                                                                                    strokeLinecap="round"
+                                                                                    strokeLinejoin="round"
+                                                                                />
+                                                                            </svg>
+                                                                            <span>Выбрать</span>
+                                                                        </button>
+                                                                    </li>
+                                                                    <li className="more-btn__item">
+                                                                        <button className="more-btn__item-btn line-btn-dark">
+                                                                            <svg className="icon" viewBox="0 0 24 24">
+                                                                                <path
+                                                                                    fill="none"
+                                                                                    d="M15.717 4.07486L18.9255 7.28329M7.49999 6.5003H4.125C3.82663 6.5003 3.54048 6.61883 3.3295 6.8298C3.11853 7.04078 3 7.32692 3 7.62528V18.875C3 19.1734 3.11853 19.4595 3.3295 19.6705C3.54048 19.8815 3.82663 20 4.125 20H16.5C16.7983 20 17.0845 19.8815 17.2955 19.6705C17.5064 19.4595 17.625 19.1734 17.625 18.875V13.8126M20.3351 2.66414C20.5459 2.87485 20.7131 3.12503 20.8272 3.40038C20.9413 3.67574 21 3.97087 21 4.26892C21 4.56697 20.9413 4.8621 20.8272 5.13745C20.7131 5.4128 20.5459 5.66298 20.3351 5.87369L12.6356 13.573L8.62499 14.3751L9.42711 10.3646L17.1266 2.66527C17.3371 2.45437 17.5872 2.28706 17.8625 2.17291C18.1378 2.05876 18.4328 2 18.7308 2C19.0289 2 19.3239 2.05876 19.5992 2.17291C19.8745 2.28706 20.1245 2.45437 20.3351 2.66527V2.66414Z"
+                                                                                    stroke="currentColor"
+                                                                                    strokeWidth={2}
+                                                                                    strokeLinecap="round"
+                                                                                    strokeLinejoin="round"
+                                                                                />
+                                                                            </svg>
+                                                                            <span>Редактировать</span>
+                                                                        </button>
+                                                                    </li>
+                                                                    <li className="more-btn__item">
+                                                                        <button className="more-btn__item-btn line-btn-red">
+                                                                            <svg className="icon" viewBox="0 0 24 24">
+                                                                                <path
+                                                                                    d="M5 7H19M10 10V18M14 10V18M10 3H14C14.2652 3 14.5196 3.10536 14.7071 3.29289C14.8946 3.48043 15 3.73478 15 4V7H9V4C9 3.73478 9.10536 3.48043 9.29289 3.29289C9.48043 3.10536 9.73478 3 10 3ZM6 7H18V20C18 20.2652 17.8946 20.5196 17.7071 20.7071C17.5196 20.8946 17.2652 21 17 21H7C6.73478 21 6.48043 20.8946 6.29289 20.7071C6.10536 20.5196 6 20.2652 6 20V7Z"
+                                                                                    stroke="currentColor"
+                                                                                    strokeWidth={2}
+                                                                                    fill="none"
+                                                                                    strokeLinecap="round"
+                                                                                    strokeLinejoin="round"
+                                                                                />
+                                                                            </svg>
+                                                                            <span>Удалить</span>
+                                                                        </button>
+                                                                    </li>
+                                                                </ul>
+                                                            </div>
+                                                        </th>
+                                                    </tr>
+                                                )
+                                            })}
                                         <tr>
                                             <th className="table__ceil">
                                                 {" "}
@@ -1169,95 +1179,92 @@ export const WordsList = () => {
                                         </tr>
                                     </tbody>
                                 </table>
-                                <ul className="app-dictionary__list dictionary-mob">
-                                    <li className="dictionary-mob__item">
-                                        <div className="dictionary-mob__item-inner">
-                                            <p className="dictionary-mob__categories">IT</p>
-                                            <h3 className="dictionary-mob__title">Backbone interface</h3>
-                                            <p className="dictionary-mob__text">Главное подключение</p>
-                                            <div className="dictionary-mob__btn">
-                                                <div className="more-btn ">
-                                                    <button className="more-btn__btn">
-                                                        <svg className="icon" viewBox="0 0 24 24" fill="none">
-                                                            <path
-                                                                d="M12 6H12.01M12 12H12.01M12 18H12.01"
-                                                                stroke="currentColor"
-                                                                strokeWidth={3}
-                                                                strokeLinecap="round"
-                                                            />
-                                                        </svg>
-                                                    </button>
-                                                    <ul className="more-btn__menu">
-                                                        <li className="more-btn__item">
-                                                            <button className="more-btn__item-btn line-btn-dark">
-                                                                <svg
-                                                                    className="icon"
-                                                                    viewBox="0 0 24 24"
-                                                                    fill="none"
-                                                                >
-                                                                    <path
-                                                                        d="M8.5 11.5L11 14L15 10M21 12C21 13.1819 20.7672 14.3522 20.3149 15.4442C19.8626 16.5361 19.1997 17.5282 18.364 18.364C17.5282 19.1997 16.5361 19.8626 15.4442 20.3149C14.3522 20.7672 13.1819 21 12 21C10.8181 21 9.64778 20.7672 8.55585 20.3149C7.46392 19.8626 6.47177 19.1997 5.63604 18.364C4.80031 17.5282 4.13738 16.5361 3.68508 15.4442C3.23279 14.3522 3 13.1819 3 12C3 9.61305 3.94821 7.32387 5.63604 5.63604C7.32387 3.94821 9.61305 3 12 3C14.3869 3 16.6761 3.94821 18.364 5.63604C20.0518 7.32387 21 9.61305 21 12Z"
-                                                                        stroke="currentColor"
-                                                                        strokeWidth={2}
-                                                                        strokeLinecap="round"
-                                                                        strokeLinejoin="round"
-                                                                    />
-                                                                </svg>
-                                                                <span>Выбрать</span>
-                                                            </button>
-                                                        </li>
-                                                        <li className="more-btn__item">
-                                                            <button className="more-btn__item-btn line-btn-dark">
-                                                                <svg className="icon" viewBox="0 0 24 24">
-                                                                    <path
-                                                                        fill="none"
-                                                                        d="M15.717 4.07486L18.9255 7.28329M7.49999 6.5003H4.125C3.82663 6.5003 3.54048 6.61883 3.3295 6.8298C3.11853 7.04078 3 7.32692 3 7.62528V18.875C3 19.1734 3.11853 19.4595 3.3295 19.6705C3.54048 19.8815 3.82663 20 4.125 20H16.5C16.7983 20 17.0845 19.8815 17.2955 19.6705C17.5064 19.4595 17.625 19.1734 17.625 18.875V13.8126M20.3351 2.66414C20.5459 2.87485 20.7131 3.12503 20.8272 3.40038C20.9413 3.67574 21 3.97087 21 4.26892C21 4.56697 20.9413 4.8621 20.8272 5.13745C20.7131 5.4128 20.5459 5.66298 20.3351 5.87369L12.6356 13.573L8.62499 14.3751L9.42711 10.3646L17.1266 2.66527C17.3371 2.45437 17.5872 2.28706 17.8625 2.17291C18.1378 2.05876 18.4328 2 18.7308 2C19.0289 2 19.3239 2.05876 19.5992 2.17291C19.8745 2.28706 20.1245 2.45437 20.3351 2.66527V2.66414Z"
-                                                                        stroke="currentColor"
-                                                                        strokeWidth={2}
-                                                                        strokeLinecap="round"
-                                                                        strokeLinejoin="round"
-                                                                    />
-                                                                </svg>
-                                                                <span>Редактировать</span>
-                                                            </button>
-                                                        </li>
-                                                        <li className="more-btn__item">
-                                                            <button className="more-btn__item-btn line-btn-red">
-                                                                <svg className="icon" viewBox="0 0 24 24">
-                                                                    <path
-                                                                        d="M5 7H19M10 10V18M14 10V18M10 3H14C14.2652 3 14.5196 3.10536 14.7071 3.29289C14.8946 3.48043 15 3.73478 15 4V7H9V4C9 3.73478 9.10536 3.48043 9.29289 3.29289C9.48043 3.10536 9.73478 3 10 3ZM6 7H18V20C18 20.2652 17.8946 20.5196 17.7071 20.7071C17.5196 20.8946 17.2652 21 17 21H7C6.73478 21 6.48043 20.8946 6.29289 20.7071C6.10536 20.5196 6 20.2652 6 20V7Z"
-                                                                        stroke="currentColor"
-                                                                        strokeWidth={2}
-                                                                        fill="none"
-                                                                        strokeLinecap="round"
-                                                                        strokeLinejoin="round"
-                                                                    />
-                                                                </svg>
-                                                                <span>Удалить</span>
-                                                            </button>
-                                                        </li>
-                                                    </ul>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </li>
-                                    <li className="dictionary-mob__item">
-                                        <div className="dictionary-mob__item-inner">
-                                            <p className="dictionary-mob__categories">IT</p>
-                                            <h3 className="dictionary-mob__title">Keystroke</h3>
-                                            <p className="dictionary-mob__text">Нажатие на клавишу</p>
-                                            <button className="dictionary-mob__btn line-btn-grey">
-                                                <svg className="icon" viewBox="0 0 24 24" fill="none">
-                                                    <path
-                                                        d="M12 6H12.01M12 12H12.01M12 18H12.01"
-                                                        stroke="currentColor"
-                                                        strokeWidth={3}
-                                                        strokeLinecap="round"
-                                                    />
-                                                </svg>
-                                            </button>
-                                        </div>
-                                    </li>
+                                < ul className="app-dictionary__list dictionary-mob">
+                                    {wordsArr
+                                        .sort((a, b) => a.id - b.id)
+                                        .slice(firstContentIndex, lastContentIndex)
+                                        .map((word, index) => {
+                                            return (
+                                                <li className="dictionary-mob__item"
+                                                    info={`${word.id}+${word.foreign_word}+${word.russian_word}+${word.category}+${word.category_word_id}`}
+                                                    key={word.id}
+                                                >
+                                                    <div className="dictionary-mob__item-inner">
+                                                        <p className="dictionary-mob__categories">{word.category}</p>
+                                                        <h3 className="dictionary-mob__title">
+                                                            {word.foreign_word}
+                                                        </h3>
+                                                        <p className="dictionary-mob__text">
+                                                            {word.russian_word}
+                                                        </p>
+                                                        <div className="dictionary-mob__btn">
+                                                            <div className="more-btn ">
+                                                                <button className="more-btn__btn">
+                                                                    <svg className="icon" viewBox="0 0 24 24" fill="none">
+                                                                        <path
+                                                                            d="M12 6H12.01M12 12H12.01M12 18H12.01"
+                                                                            stroke="currentColor"
+                                                                            strokeWidth={3}
+                                                                            strokeLinecap="round"
+                                                                        />
+                                                                    </svg>
+                                                                </button>
+                                                                <ul className="more-btn__menu">
+                                                                    <li className="more-btn__item">
+                                                                        <button className="more-btn__item-btn line-btn-dark">
+                                                                            <svg
+                                                                                className="icon"
+                                                                                viewBox="0 0 24 24"
+                                                                                fill="none"
+                                                                            >
+                                                                                <path
+                                                                                    d="M8.5 11.5L11 14L15 10M21 12C21 13.1819 20.7672 14.3522 20.3149 15.4442C19.8626 16.5361 19.1997 17.5282 18.364 18.364C17.5282 19.1997 16.5361 19.8626 15.4442 20.3149C14.3522 20.7672 13.1819 21 12 21C10.8181 21 9.64778 20.7672 8.55585 20.3149C7.46392 19.8626 6.47177 19.1997 5.63604 18.364C4.80031 17.5282 4.13738 16.5361 3.68508 15.4442C3.23279 14.3522 3 13.1819 3 12C3 9.61305 3.94821 7.32387 5.63604 5.63604C7.32387 3.94821 9.61305 3 12 3C14.3869 3 16.6761 3.94821 18.364 5.63604C20.0518 7.32387 21 9.61305 21 12Z"
+                                                                                    stroke="currentColor"
+                                                                                    strokeWidth={2}
+                                                                                    strokeLinecap="round"
+                                                                                    strokeLinejoin="round"
+                                                                                />
+                                                                            </svg>
+                                                                            <span>Выбрать</span>
+                                                                        </button>
+                                                                    </li>
+                                                                    <li className="more-btn__item">
+                                                                        <button className="more-btn__item-btn line-btn-dark">
+                                                                            <svg className="icon" viewBox="0 0 24 24">
+                                                                                <path
+                                                                                    fill="none"
+                                                                                    d="M15.717 4.07486L18.9255 7.28329M7.49999 6.5003H4.125C3.82663 6.5003 3.54048 6.61883 3.3295 6.8298C3.11853 7.04078 3 7.32692 3 7.62528V18.875C3 19.1734 3.11853 19.4595 3.3295 19.6705C3.54048 19.8815 3.82663 20 4.125 20H16.5C16.7983 20 17.0845 19.8815 17.2955 19.6705C17.5064 19.4595 17.625 19.1734 17.625 18.875V13.8126M20.3351 2.66414C20.5459 2.87485 20.7131 3.12503 20.8272 3.40038C20.9413 3.67574 21 3.97087 21 4.26892C21 4.56697 20.9413 4.8621 20.8272 5.13745C20.7131 5.4128 20.5459 5.66298 20.3351 5.87369L12.6356 13.573L8.62499 14.3751L9.42711 10.3646L17.1266 2.66527C17.3371 2.45437 17.5872 2.28706 17.8625 2.17291C18.1378 2.05876 18.4328 2 18.7308 2C19.0289 2 19.3239 2.05876 19.5992 2.17291C19.8745 2.28706 20.1245 2.45437 20.3351 2.66527V2.66414Z"
+                                                                                    stroke="currentColor"
+                                                                                    strokeWidth={2}
+                                                                                    strokeLinecap="round"
+                                                                                    strokeLinejoin="round"
+                                                                                />
+                                                                            </svg>
+                                                                            <span>Редактировать</span>
+                                                                        </button>
+                                                                    </li>
+                                                                    <li className="more-btn__item">
+                                                                        <button className="more-btn__item-btn line-btn-red">
+                                                                            <svg className="icon" viewBox="0 0 24 24">
+                                                                                <path
+                                                                                    d="M5 7H19M10 10V18M14 10V18M10 3H14C14.2652 3 14.5196 3.10536 14.7071 3.29289C14.8946 3.48043 15 3.73478 15 4V7H9V4C9 3.73478 9.10536 3.48043 9.29289 3.29289C9.48043 3.10536 9.73478 3 10 3ZM6 7H18V20C18 20.2652 17.8946 20.5196 17.7071 20.7071C17.5196 20.8946 17.2652 21 17 21H7C6.73478 21 6.48043 20.8946 6.29289 20.7071C6.10536 20.5196 6 20.2652 6 20V7Z"
+                                                                                    stroke="currentColor"
+                                                                                    strokeWidth={2}
+                                                                                    fill="none"
+                                                                                    strokeLinecap="round"
+                                                                                    strokeLinejoin="round"
+                                                                                />
+                                                                            </svg>
+                                                                            <span>Удалить</span>
+                                                                        </button>
+                                                                    </li>
+                                                                </ul>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </li>
+                                            )
+                                        })}
                                     <li className="dictionary-mob__item">
                                         <div className="dictionary-mob__item-inner">
                                             <p className="dictionary-mob__categories">IT</p>
@@ -1562,11 +1569,12 @@ export const WordsList = () => {
                             </div>
                             {/* Footer */}
                             <div className="app-dictionary__bot">
+
                                 <div className="pagination">
                                     <div className="pagination__settings">
                                         <span className="label">На странице</span>
-                                        <span className="current">15 слов</span>
-                                        <svg className="icon" viewBox="0 0 12 12" fill="none">
+                                        <span className="current">{countItems} слов</span>
+                                        <svg className="icon" viewBox="0 0 12 12" fill="none" onClick={handleItems}>
                                             <path
                                                 fillRule="evenodd"
                                                 clipRule="evenodd"
@@ -1574,33 +1582,31 @@ export const WordsList = () => {
                                                 fill="#1F1E30"
                                             />
                                         </svg>
-                                        <ul className="pagination__settings-dropdown --th-active">
+                                        {/* Добавить --th-active для pagination__settings-dropdown */}
+
+                                        <ul className="pagination__settings-dropdown">
                                             <li className="pagination__settings-item">
-                                                <button className="pagination__settings-btn">10</button>
+                                                <button className="pagination__settings-btn" value='5' onClick={handleItems2}>5</button>
                                             </li>
                                             <li className="pagination__settings-item">
-                                                <button className="pagination__settings-btn --th-current line-btn-grey">
+                                                {/* --th-current */}
+                                                <button className="pagination__settings-btn  line-btn-grey" value='15' onClick={handleItems2}>
                                                     15
                                                 </button>
                                             </li>
                                             <li className="pagination__settings-item">
-                                                <button className="pagination__settings-btn line-btn-grey">
-                                                    20
-                                                </button>
-                                            </li>
-                                            <li className="pagination__settings-item">
-                                                <button className="pagination__settings-btn line-btn-grey">
+                                                <button className="pagination__settings-btn line-btn-grey" value='30' onClick={handleItems2}>
                                                     30
                                                 </button>
                                             </li>
                                             <li className="pagination__settings-item">
-                                                <button className="pagination__settings-btn line-btn-grey">
-                                                    40
+                                                <button className="pagination__settings-btn line-btn-grey" value='45' onClick={handleItems2}>
+                                                    45
                                                 </button>
                                             </li>
-                                            <li className="pagination__settings-item">
+                                            <li className="pagination__settings-item" value={wordsArr.length} onClick={handleItems2}>
                                                 <button className="pagination__settings-btn line-btn-grey">
-                                                    50
+                                                    {wordsArr.length}
                                                 </button>
                                             </li>
                                         </ul>
@@ -1650,7 +1656,7 @@ export const WordsList = () => {
                                             </button>
                                         </li>
                                     </ul>
-                                    <div className="pagination__all">Всего 79 слов</div>
+                                    <div className="pagination__all">Всего {wordsArr.length} слов</div>
                                 </div>
                             </div>
                         </section>
@@ -1678,7 +1684,7 @@ export const WordsList = () => {
                         </ul>
                     </footer>
                 </main>
-            </div>
+            </div >
             <div className="app-mobile-menu">
                 <ul className="app-mobile-menu__actions">
                     <li className="app-mobile-menu__item">
@@ -1708,7 +1714,7 @@ export const WordsList = () => {
                         </button>
                     </li>
                     <li className="app-mobile-menu__item">
-                        <button className="app-mobile-menu__btn --th-active">
+                        <button className="app-mobile-menu__btn ">
                             <svg viewBox="0 0 32 32" fill="none">
                                 <path
                                     d="M17.9987 10.6667H5.33203M5.33203 8.00008V25.3334C5.33203 25.687 5.47251 26.0262 5.72256 26.2762C5.9726 26.5263 6.31174 26.6667 6.66536 26.6667H25.332C25.6857 26.6667 26.0248 26.5263 26.2748 26.2762C26.5249 26.0262 26.6654 25.687 26.6654 25.3334V12.0001C26.6654 11.6465 26.5249 11.3073 26.2748 11.0573C26.0248 10.8072 25.6857 10.6667 25.332 10.6667H18.6227C18.4273 10.6667 18.2342 10.6236 18.0573 10.5407C17.8803 10.4577 17.7238 10.3369 17.5987 10.1867L15.0654 7.14675C14.9403 6.99658 14.7837 6.87575 14.6068 6.7928C14.4298 6.70986 14.2368 6.66682 14.0414 6.66675H6.66536C6.31174 6.66675 5.9726 6.80722 5.72256 7.05727C5.47251 7.30732 5.33203 7.64646 5.33203 8.00008Z"
@@ -1721,7 +1727,7 @@ export const WordsList = () => {
                         </button>
                     </li>
                     <li className="app-mobile-menu__item">
-                        <button className="app-mobile-menu__btn">
+                        <button className="app-mobile-menu__btn --th-active">
                             <svg viewBox="0 0 32 32" fill="none">
                                 <path
                                     d="M6.66797 25.3333V5.33333C6.66797 4.97971 6.80844 4.64057 7.05849 4.39052C7.30854 4.14048 7.64768 4 8.0013 4H24.0013C24.3549 4 24.6941 4.14048 24.9441 4.39052C25.1942 4.64057 25.3346 4.97971 25.3346 5.33333V22.6667H9.33464C8.62739 22.6667 7.94911 22.9476 7.44902 23.4477C6.94892 23.9478 6.66797 24.6261 6.66797 25.3333ZM6.66797 25.3333C6.66797 26.0406 6.94892 26.7189 7.44902 27.219C7.94911 27.719 8.62739 28 9.33464 28H25.3346M12.0013 4V22.6667M21.3346 22.6667V28"
@@ -1747,7 +1753,7 @@ export const WordsList = () => {
                     </li>
                 </ul>
             </div>
-            <div className="app-selected">
+            < div className="app-selected" >
                 <div className="app-selected__inner">
                     <p className="app-selected__left">Выбрано 3 из 79</p>
                     <ul className="app-selected__actions">
@@ -1813,7 +1819,7 @@ export const WordsList = () => {
                         </li>
                     </ul>
                 </div>
-            </div>
+            </div >
         </>
 
     )
