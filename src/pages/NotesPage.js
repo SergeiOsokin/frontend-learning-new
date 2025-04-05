@@ -5,9 +5,9 @@ export const NotesPage = () => {
 
     return (
         <>
-            <section className="section-main commonClass">
+            {/* <section className="section-main commonClass"> */}
                 <NavNoteThemes />
-            </section>
+            {/* </section> */}
         </>
     )
 }
