@@ -1,10 +1,12 @@
-import React, { useContext, useState } from 'react';
+import React, { useContext, useState, useEffect } from 'react';
 import { Link, useHistory } from 'react-router-dom';
 import { useHttp } from '../hooks/http.hook';
 import { useMessage } from '../hooks/message.hook';
 import { AuthContext } from '../context/AuthContext';
 import { Loader } from './Loader';
 import { validation } from '../hooks/validation.hook';
+import { Header } from './Header';
+import { Footer } from './Footer';
 
 export const FormAuth = () => {
     const auth = useContext(AuthContext); // получаем контекст в объекте auth
@@ -38,6 +40,11 @@ export const FormAuth = () => {
     const moveHandler = (event) => {
         history.push('/registration');
     }
+
+    useEffect(() => {
+        // document.getElementById("root").classList.add("o-wrapper");
+        document.getElementById("root").classList.replace("app-wrapper", "o-wrapper");
+    }, []);
 
     return (
         // <section className={"authorization form-section"}>
@@ -99,7 +106,8 @@ export const FormAuth = () => {
         //     {loading && < Loader />}
         // </section>
         <>
-            <header className="o-header --th-simple">
+            <Header simple={true} />
+            {/* <header className="o-header --th-simple">
                 <div className="container o-header__inner">
                     <div className="o-header__logo">
                         <svg className="icon" viewBox="0 0 24 24" fill="none">
@@ -153,7 +161,7 @@ export const FormAuth = () => {
                         </button>
                     </div>
                 </div>
-            </header>
+            </header> */}
             <main className="o-form-page">
                 <div className="container">
                     <div className="o-form-wrapper">
@@ -216,6 +224,7 @@ export const FormAuth = () => {
                     </div>
                 </div>
             </main>
+            <Footer />
         </>
 
     )

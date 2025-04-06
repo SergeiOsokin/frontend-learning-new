@@ -74,8 +74,7 @@ export const NavNoteThemes = () => {
                     return
                 }
                 message(data.message);
-                setNotes(data)
-                console.log(data)
+                setNotes(data.data)
             } catch (e) {
                 message(e);
             }

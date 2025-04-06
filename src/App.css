@@ -5,13 +5,14 @@
 @import url('./css/dictionary.css');
 @import url('./css/mixins.css');
 @import url('./css/notice-board.css');
-@import url('./css/other.css');
+
 @import url('./css/quiz.css');
 @import url('./css/role-select.css');
 @import url('./css/status-date.css');
 @import url('./css/task-opened.css');
 @import url('./css/tasks-empty.css');
 @import url('./css/tasks-teacher-list.css');
+@import url('./css/other.css');
 
 @import url('./css/components/area-text.css');
 @import url('./css/components/cards.css');
@@ -21,5 +22,16 @@
 @import url('./css/components/more-btn.css');
 @import url('./css/components/task-more.css');
 
-@import url('./css/dictionary/word.css');
-@import url('./css/dictionary/index.css');
+@import url('./css/pages/dictionary/index.css');
+@import url('./css/pages/dictionary/add/word.css');
+
+@import url('./css/pages/education/empty/index.css');
+@import url('./css/pages/education/list/list.css');
+@import url('./css/pages/education/opened/student.css');
+@import url('./css/pages/education/opened/teacher.css');
+/* @import url('./css/pages/education/other/role.css'); */
+
+@import url('./css/pages/notice/create.css');
+@import url('./css/pages/notice/list.css');
+
+@import url('./css/pages/quiz/index.css');

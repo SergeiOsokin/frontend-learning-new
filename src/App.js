@@ -12,9 +12,9 @@ const App = () => {
 
   return (
     <AuthContext.Provider value={{login, logout, authorization}}>
-      <Header />
+      {/* <Header /> */}
       <Main />
-      <Footer />
+      {/* <Footer /> */}
     </AuthContext.Provider>
   )
 }

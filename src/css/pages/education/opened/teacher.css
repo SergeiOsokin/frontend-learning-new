@@ -1,0 +1,285 @@
+.app-area-text {
+  font-family: "Golos Text", serif;
+  color: #1F1E30;
+  outline: none;
+  border: none;
+  resize: none;
+  overflow: hidden;
+  font-size: 1.8rem;
+  line-height: 150%;
+  padding: 0;
+  margin: 0;
+  background-color: transparent;
+  width: 100%;
+  height: 8rem;
+  position: relative;
+}
+.app-area-text::placeholder {
+  color: #939393;
+}
+.app-area-text.--th-bold {
+  font-weight: 500;
+}
+
+.date-status {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 0.8rem;
+}
+.date-status img {
+  width: 2.4rem;
+  height: 2.4rem;
+}
+.date-status span {
+  color: #939393;
+  font-weight: 400;
+  font-size: 1.4rem;
+  line-height: 130%;
+}
+
+.app-toggle-wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 1.2rem;
+}
+
+.app-toggle-label {
+  font-size: 1.8rem;
+  line-height: 130%;
+  font-weight: 500;
+  cursor: pointer;
+}
+
+.app-toggle {
+  width: 4.8rem;
+  height: 2.8rem;
+  position: relative;
+  margin: 0;
+  padding: 0;
+}
+.app-toggle__input {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 10;
+  width: 100%;
+  height: 100%;
+  opacity: 0;
+  padding: 0;
+  margin: 0;
+  cursor: pointer;
+}
+.app-toggle__input:checked + .app-toggle__elem:after {
+  left: calc(100% - 2.4rem - 0.2rem);
+}
+.app-toggle__input:checked + .app-toggle__elem {
+  background-color: #4ABE63;
+}
+.app-toggle__elem {
+  width: 100%;
+  height: 100%;
+  background-color: #CDCDCD;
+  border-radius: 100rem;
+  transition: all 0.1s ease-in-out;
+  margin: 0;
+  padding: 0;
+  position: relative;
+  z-index: 9;
+}
+.app-toggle__elem:after {
+  content: "";
+  display: block;
+  width: 2.4rem;
+  height: 2.4rem;
+  left: 0.2rem;
+  background-color: white;
+  border-radius: 10rem;
+  top: 50%;
+  transform: translateY(-50%);
+  position: absolute;
+  transition: all 0.1s ease-in-out;
+  box-shadow: 6px 4px 16px 0px rgba(31, 30, 48, 0.03);
+}
+
+.task-more {
+  background-color: white;
+  border-radius: 1.2rem;
+  padding: 2.4rem;
+  box-shadow: 6px 4px 16px 0px rgba(31, 30, 48, 0.03);
+  width: 100%;
+  max-width: 66.3rem;
+}
+.task-more__title {
+  font-size: 2.4rem;
+  font-family: "Golos Text", serif;
+  font-weight: 700;
+  margin-top: 1.6rem;
+  color: #1F1E30;
+}
+.task-more__area {
+  height: 5.2rem;
+}
+.task-more__list {
+  margin-top: 3.2rem;
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-gap: 1.2rem;
+}
+.task-more__actions {
+  margin-top: 2.4rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.task-more__remove .icon {
+  width: 2.4rem;
+  height: 2.4rem;
+}
+
+.task-step {
+  background-color: white;
+  padding: 2rem 2.4rem;
+  border: 1px solid #CDCDCD;
+  border-radius: 0.8rem;
+  box-shadow: 6px 4px 16px 0px rgba(31, 30, 48, 0.03);
+  cursor: pointer;
+}
+.task-step.--th-creator.--th-edited .task-step__icon {
+  color: #1F1E30 !important;
+}
+.task-step.--th-creator .task-step__icon {
+  width: 2.4rem !important;
+  height: 2.4rem !important;
+  color: #939393;
+}
+.task-step.--th-opened .task-step__icon {
+  transform: rotate(180deg);
+}
+.task-step__header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.task-step__title {
+  font-size: 2rem;
+  line-height: 130%;
+  font-weight: 600;
+}
+.task-step__icon {
+  width: 1.4rem;
+  height: 0.7rem;
+  transition: all 0.05s linear;
+}
+.task-step__text {
+  font-size: 1.8rem;
+  line-height: 150%;
+  margin-bottom: 1rem;
+  margin-top: 2.4rem;
+}
+.task-step__text a {
+  color: #084EF1;
+  text-decoration: underline;
+  word-break: break-all;
+}
+.task-step__pins {
+  margin-top: 2.4rem;
+  margin-bottom: 1.2rem;
+}
+.task-step.--th-creator .task-step__title {
+  color: #939393;
+}
+.task-step.--th-creator .task-step__icon {
+  width: 1.4rem;
+  height: 1.4rem;
+}
+.task-step.--th-edited {
+  border-color: #1F1E30;
+}
+.task-step.--th-edited .task-step__title {
+  color: #1F1E30;
+}
+.task-step.--th-edited .task-step__icon {
+  cursor: pointer;
+  color: #CDCDCD;
+  transition: all 0.05s linear;
+  width: 1.4rem;
+  height: 1.8rem;
+}
+.task-step.--th-edited .task-step__icon:hover {
+  color: #E84245 !important;
+}
+
+.pin {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 0.4rem;
+  height: 3.6rem;
+  padding: 0 1.2rem;
+  color: #939393;
+  border: 1px solid #939393;
+  background-color: white;
+  font-size: 1.6rem;
+  line-height: 130%;
+  border-radius: 0.4rem;
+  cursor: default;
+}
+.pin__icon {
+  width: 2rem;
+  height: 2rem;
+  flex: 0 0 auto;
+}
+.pin__input {
+  font-size: 1.6rem;
+  line-height: 130%;
+  border: none;
+  outline: none;
+  font-family: "Golos Text", serif;
+  font-weight: 300;
+  padding: 0;
+  margin: 0;
+  width: 100%;
+  flex: 1 1 auto;
+  color: #1F1E30;
+}
+.pin__input::placeholder {
+  color: #939393;
+}
+.pin__delete {
+  transition: all 0.05s linear;
+  flex: 0 0 auto;
+  width: max-content;
+  height: max-content;
+  border: none;
+  background-color: transparent;
+  color: inherit;
+  padding: 0;
+  margin: 0;
+}
+.pin__delete:hover {
+  opacity: 0.8;
+}
+.pin.--th-focus {
+  color: #1F1E30;
+  border-color: #1F1E30;
+}
+.pin.--th-creator {
+  width: 18.8rem;
+}
+.pin.--th-new {
+  border-color: #1F1E30;
+  background-color: #1F1E30;
+  color: white;
+}
+
+.pins-wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 0.8rem;
+  flex-wrap: wrap;
+}

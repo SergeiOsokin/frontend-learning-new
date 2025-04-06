@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React, { useContext, useEffect } from 'react';
 import { Link, useHistory } from 'react-router-dom';
 import { AuthContext } from '../context/AuthContext';
 
@@ -15,6 +15,11 @@ export const Aside = () => {
         logout();
         history.push('/authorization');
     };
+
+    useEffect(() => {
+        // document.getElementById("root").classList.add("o-wrapper");
+        document.getElementById("root").classList.replace("o-wrapper", "app-wrapper");
+    }, []);
 
     return (
         <aside className="app-aside">

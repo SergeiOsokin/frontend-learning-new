@@ -40,8 +40,6 @@
   padding: 4rem 0;
   flex: 0 0 auto;
 }
-
-/* Скрытие кнопок хедера */
 .o-header.--th-simple .o-header__actions {
   display: none;
 }

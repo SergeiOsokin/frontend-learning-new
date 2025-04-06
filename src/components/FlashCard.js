@@ -77,7 +77,7 @@ export const FlashCard = ({ wordsArr }) => {
 
     return (
         <>
-            {arrayWords.length === 4 && <div>Новый круг</div>}
+            {/* {arrayWords.length === 4 && <div>Новый круг</div>}
             <section className="section-card">
                 <main className="card">
                     <h1 className="card__title">Выберите правильный перевод</h1>
@@ -93,7 +93,7 @@ export const FlashCard = ({ wordsArr }) => {
                         <button className="button card-button" name='btn4' value={words.foreignWord4} onClick={handleBtn} >{words.foreignWord4}</button>
                     </div>
                 </main>
-            </section>
+            </section> */}
         </>
     )
 }
