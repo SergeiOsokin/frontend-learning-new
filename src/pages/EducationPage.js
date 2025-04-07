@@ -1,6 +1,7 @@
 import React from 'react';
 import { NoteForm } from '../components/NoteForm';
 import { Aside } from '../components/Aside';
+import { MobileMenu } from '../components/MobileMenu'
 
 export const EducationPage = () => {
 
@@ -186,7 +187,8 @@ export const EducationPage = () => {
                     </footer>
                 </main>
             </div>
-            <div className="app-mobile-menu">
+            <MobileMenu />
+            {/* <div className="app-mobile-menu">
                 <ul className="app-mobile-menu__actions">
                     <li className="app-mobile-menu__item">
                         <button className="app-mobile-menu__btn">
@@ -253,7 +255,7 @@ export const EducationPage = () => {
                         </button>
                     </li>
                 </ul>
-            </div>
+            </div> */}
         </>
 
     )

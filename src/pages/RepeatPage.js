@@ -5,6 +5,7 @@ import { Loader } from '../components/Loader';
 import { FlashCard } from '../components/FlashCard';
 import { FlashCardWrite } from '../components/FlashCardWrite';
 import { Aside } from '../components/Aside';
+import { MobileMenu } from '../components/MobileMenu';
 
 export const RepeatPage = () => {
     const { loading, request } = useHttp();
@@ -92,7 +93,7 @@ export const RepeatPage = () => {
         <>
             <>
                 <div className="app-inner">
-                    <Aside/>
+                    <Aside />
                     <main className="app-main">
                         <header className="app-main__top">
                             <div className="app-main__left">
@@ -107,28 +108,234 @@ export const RepeatPage = () => {
                                 <div className="app-quiz__inner">
                                     {/* Top */}
                                     <div className="app-quiz__top">
-                                        <div className="dropdown-categories">
-                                            <p className="dropdown-categories__label">Категории:</p>
-                                            <p className="dropdown-categories__current">
-                                                слова, идиомы, IT,
-                                            </p>
-                                            <p className="dropdown-categories__current --th-not-dropdown">
-                                                ...
-                                            </p>
-                                            <p className="dropdown-categories__current">ещё 2</p>
-                                            <svg
-                                                className="dropdown-categories__arrow"
-                                                viewBox="0 0 8 5"
-                                                fill="none"
-                                            >
-                                                <path
-                                                    fillRule="evenodd"
-                                                    clipRule="evenodd"
-                                                    d="M7.21292 1.6355C7.74992 0.9835 7.28542 0 6.44042 0H1.56042C0.71542 0 0.25142 0.9835 0.78842 1.6355L3.22892 4.599C3.32273 4.71294 3.44061 4.80471 3.57408 4.86771C3.70756 4.93071 3.85332 4.96338 4.00092 4.96338C4.14852 4.96338 4.29428 4.93071 4.42776 4.86771C4.56123 4.80471 4.6791 4.71294 4.77292 4.599L7.21292 1.6355Z"
-                                                    fill="currentColor"
-                                                />
-                                            </svg>
+                                        <div className="quiz-categories">
+                                            <div className="quiz-categories__list">
+                                                <p className="quiz-categories__label">Категории:</p>
+                                                <p className="quiz-categories__current">слова, идиомы, IT,</p>
+                                                <p className="quiz-categories__current --th-not-dropdown">...</p>
+                                                <p className="quiz-categories__current">ещё 2</p>
+                                                <svg className="quiz-categories__arrow" viewBox="0 0 8 5" fill="none">
+                                                    <path
+                                                        fillRule="evenodd"
+                                                        clipRule="evenodd"
+                                                        d="M7.21292 1.6355C7.74992 0.9835 7.28542 0 6.44042 0H1.56042C0.71542 0 0.25142 0.9835 0.78842 1.6355L3.22892 4.599C3.32273 4.71294 3.44061 4.80471 3.57408 4.86771C3.70756 4.93071 3.85332 4.96338 4.00092 4.96338C4.14852 4.96338 4.29428 4.93071 4.42776 4.86771C4.56123 4.80471 4.6791 4.71294 4.77292 4.599L7.21292 1.6355Z"
+                                                        fill="currentColor"
+                                                    />
+                                                </svg>
+                                            </div>
+                                            <div className="dropdown-categories">
+                                                <ul className="dropdown-categories__list">
+                                                    <li className="dropdown-categories__row">
+                                                        <div className="dropdown-categories__name">Выбрать все</div>
+                                                        <div className="dropdown-categories__checkbox">
+                                                            <div className="app-checkbox">
+                                                                <input type="checkbox" className="app-checkbox__input" />
+                                                                <div className="app-checkbox__elem">
+                                                                    <svg
+                                                                        className="app-checkbox__icon"
+                                                                        viewBox="0 0 14 10"
+                                                                        fill="none"
+                                                                    >
+                                                                        <path
+                                                                            d="M1.16699 4.93083L5.10366 8.75L12.8337 1.25"
+                                                                            stroke="#F6F6F1"
+                                                                            strokeWidth={2}
+                                                                            strokeLinecap="round"
+                                                                            strokeLinejoin="round"
+                                                                        />
+                                                                    </svg>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </li>
+                                                    <li className="dropdown-categories__row">
+                                                        <div className="dropdown-categories__name">Слова</div>
+                                                        <div className="dropdown-categories__checkbox">
+                                                            <div className="app-checkbox">
+                                                                <input type="checkbox" className="app-checkbox__input" />
+                                                                <div className="app-checkbox__elem">
+                                                                    <svg
+                                                                        className="app-checkbox__icon"
+                                                                        viewBox="0 0 14 10"
+                                                                        fill="none"
+                                                                    >
+                                                                        <path
+                                                                            d="M1.16699 4.93083L5.10366 8.75L12.8337 1.25"
+                                                                            stroke="#F6F6F1"
+                                                                            strokeWidth={2}
+                                                                            strokeLinecap="round"
+                                                                            strokeLinejoin="round"
+                                                                        />
+                                                                    </svg>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </li>
+                                                    <li className="dropdown-categories__row">
+                                                        <div className="dropdown-categories__name">Слова</div>
+                                                        <div className="dropdown-categories__checkbox">
+                                                            <div className="app-checkbox">
+                                                                <input type="checkbox" className="app-checkbox__input" />
+                                                                <div className="app-checkbox__elem">
+                                                                    <svg
+                                                                        className="app-checkbox__icon"
+                                                                        viewBox="0 0 14 10"
+                                                                        fill="none"
+                                                                    >
+                                                                        <path
+                                                                            d="M1.16699 4.93083L5.10366 8.75L12.8337 1.25"
+                                                                            stroke="#F6F6F1"
+                                                                            strokeWidth={2}
+                                                                            strokeLinecap="round"
+                                                                            strokeLinejoin="round"
+                                                                        />
+                                                                    </svg>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </li>
+                                                    <li className="dropdown-categories__row">
+                                                        <div className="dropdown-categories__name">Слова</div>
+                                                        <div className="dropdown-categories__checkbox">
+                                                            <div className="app-checkbox">
+                                                                <input type="checkbox" className="app-checkbox__input" />
+                                                                <div className="app-checkbox__elem">
+                                                                    <svg
+                                                                        className="app-checkbox__icon"
+                                                                        viewBox="0 0 14 10"
+                                                                        fill="none"
+                                                                    >
+                                                                        <path
+                                                                            d="M1.16699 4.93083L5.10366 8.75L12.8337 1.25"
+                                                                            stroke="#F6F6F1"
+                                                                            strokeWidth={2}
+                                                                            strokeLinecap="round"
+                                                                            strokeLinejoin="round"
+                                                                        />
+                                                                    </svg>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </li>
+                                                    <li className="dropdown-categories__row">
+                                                        <div className="dropdown-categories__name">Слова</div>
+                                                        <div className="dropdown-categories__checkbox">
+                                                            <div className="app-checkbox">
+                                                                <input type="checkbox" className="app-checkbox__input" />
+                                                                <div className="app-checkbox__elem">
+                                                                    <svg
+                                                                        className="app-checkbox__icon"
+                                                                        viewBox="0 0 14 10"
+                                                                        fill="none"
+                                                                    >
+                                                                        <path
+                                                                            d="M1.16699 4.93083L5.10366 8.75L12.8337 1.25"
+                                                                            stroke="#F6F6F1"
+                                                                            strokeWidth={2}
+                                                                            strokeLinecap="round"
+                                                                            strokeLinejoin="round"
+                                                                        />
+                                                                    </svg>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </li>
+                                                    <li className="dropdown-categories__row">
+                                                        <div className="dropdown-categories__name">Слова</div>
+                                                        <div className="dropdown-categories__checkbox">
+                                                            <div className="app-checkbox">
+                                                                <input type="checkbox" className="app-checkbox__input" />
+                                                                <div className="app-checkbox__elem">
+                                                                    <svg
+                                                                        className="app-checkbox__icon"
+                                                                        viewBox="0 0 14 10"
+                                                                        fill="none"
+                                                                    >
+                                                                        <path
+                                                                            d="M1.16699 4.93083L5.10366 8.75L12.8337 1.25"
+                                                                            stroke="#F6F6F1"
+                                                                            strokeWidth={2}
+                                                                            strokeLinecap="round"
+                                                                            strokeLinejoin="round"
+                                                                        />
+                                                                    </svg>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </li>
+                                                    <li className="dropdown-categories__row">
+                                                        <div className="dropdown-categories__name">Слова</div>
+                                                        <div className="dropdown-categories__checkbox">
+                                                            <div className="app-checkbox">
+                                                                <input type="checkbox" className="app-checkbox__input" />
+                                                                <div className="app-checkbox__elem">
+                                                                    <svg
+                                                                        className="app-checkbox__icon"
+                                                                        viewBox="0 0 14 10"
+                                                                        fill="none"
+                                                                    >
+                                                                        <path
+                                                                            d="M1.16699 4.93083L5.10366 8.75L12.8337 1.25"
+                                                                            stroke="#F6F6F1"
+                                                                            strokeWidth={2}
+                                                                            strokeLinecap="round"
+                                                                            strokeLinejoin="round"
+                                                                        />
+                                                                    </svg>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </li>
+                                                    <li className="dropdown-categories__row">
+                                                        <div className="dropdown-categories__name">Слова</div>
+                                                        <div className="dropdown-categories__checkbox">
+                                                            <div className="app-checkbox">
+                                                                <input type="checkbox" className="app-checkbox__input" />
+                                                                <div className="app-checkbox__elem">
+                                                                    <svg
+                                                                        className="app-checkbox__icon"
+                                                                        viewBox="0 0 14 10"
+                                                                        fill="none"
+                                                                    >
+                                                                        <path
+                                                                            d="M1.16699 4.93083L5.10366 8.75L12.8337 1.25"
+                                                                            stroke="#F6F6F1"
+                                                                            strokeWidth={2}
+                                                                            strokeLinecap="round"
+                                                                            strokeLinejoin="round"
+                                                                        />
+                                                                    </svg>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </li>
+                                                    <li className="dropdown-categories__row">
+                                                        <div className="dropdown-categories__name">Слова</div>
+                                                        <div className="dropdown-categories__checkbox">
+                                                            <div className="app-checkbox">
+                                                                <input type="checkbox" className="app-checkbox__input" />
+                                                                <div className="app-checkbox__elem">
+                                                                    <svg
+                                                                        className="app-checkbox__icon"
+                                                                        viewBox="0 0 14 10"
+                                                                        fill="none"
+                                                                    >
+                                                                        <path
+                                                                            d="M1.16699 4.93083L5.10366 8.75L12.8337 1.25"
+                                                                            stroke="#F6F6F1"
+                                                                            strokeWidth={2}
+                                                                            strokeLinecap="round"
+                                                                            strokeLinejoin="round"
+                                                                        />
+                                                                    </svg>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </li>
+                                                </ul>
+                                            </div>
                                         </div>
+
                                         <ul className="quiz-tabs">
                                             <li className="quiz-tabs__item">
                                                 <button className="quiz-tabs__btn ">Сложнее</button>
@@ -201,7 +408,8 @@ export const RepeatPage = () => {
                         </footer>
                     </main>
                 </div>
-                <div className="app-mobile-menu">
+                <MobileMenu />
+                {/* <div className="app-mobile-menu">
                     <ul className="app-mobile-menu__actions">
                         <li className="app-mobile-menu__item">
                             <button className="app-mobile-menu__btn">
@@ -268,7 +476,7 @@ export const RepeatPage = () => {
                             </button>
                         </li>
                     </ul>
-                </div>
+                </div> */}
             </>
 
         </>

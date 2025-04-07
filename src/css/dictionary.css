@@ -156,7 +156,12 @@
 .more-btn.--th-active .more-btn__btn {
   color: #1F1E30 !important;
 }
-.more-btn.--th-active .more-btn__btn .icon {
+/* Три точки */
+/* .more-btn.--th-active .more-btn__btn .icon {
+  width: 2.4rem;
+  height: 2.4rem;
+} */
+.more-btn .more-btn__btn .icon  {
   width: 2.4rem;
   height: 2.4rem;
 }
