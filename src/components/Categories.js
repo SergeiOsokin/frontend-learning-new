@@ -33,7 +33,36 @@ export const Categories = ({ setActive }) => {
     };
 
     const handleClose = (async (e) => {
-        setActive(false)
+        setActive(false);
+
+        // e.preventDefault();
+        // try {
+        //     const data = await request('/words/add', 'POST', word);
+        //     if (data === undefined) {
+        //         return
+        //     }
+        //     message(data.message);
+        //     setWords({
+        //         russianWord: '',
+        //         foreignWord: '',
+        //         categoryWord: '',
+        //     })
+        //     document.querySelector(".form__select").value = ""
+        // } catch (err) {
+        //     message(err);
+        // }
+    });
+
+    const handleCancel = (async (e) => {
+        // setActive(false);
+
+        console.log(e.target.classList)
+
+        document.querySelector(".categories-edit-actions").classList.remove('--th-disabled');
+        document.querySelector(".confirm-category-delete-actions").classList.remove('--th-active');
+
+        document.querySelector(".edit-wrapper").classList.remove('--th-delete-category');
+
         // e.preventDefault();
         // try {
         //     const data = await request('/words/add', 'POST', word);
@@ -54,6 +83,11 @@ export const Categories = ({ setActive }) => {
 
     const handleDelCat = (e) => {
         e.target.closest(".edit-wrapper").classList.add('--th-delete-category');
+        
+        // кнопки базовые для редактировани категории
+        document.querySelector(".categories-edit-actions").classList.add('--th-disabled'); 
+        // кнопки подтверждения удаления
+        document.querySelector(".confirm-category-delete-actions").classList.add('--th-active');
     }
 
 
@@ -159,6 +193,7 @@ export const Categories = ({ setActive }) => {
                                 )
                             })}
                     </ul>
+
                     <div className="confirm-category-delete">
                         <h4 className="confirm-category-delete__title">
                             Вы уверены, что хотите удалить эту категорию?
@@ -168,6 +203,7 @@ export const Categories = ({ setActive }) => {
                         </p>
                         <p className="confirm-category-delete__board">Для работы</p>
                     </div>
+
                 </div>
                 <div className="categories-edit-actions">
                     <div className="categories-edit-actions__left">
@@ -182,6 +218,22 @@ export const Categories = ({ setActive }) => {
                         <button className="categories-edit-actions__save btn btn-dark">
                             Сохранить и закрыть
                         </button>
+                    </div>
+                </div>
+
+                {/* Тупой, но быстрый вариант заменить кнопки */}
+                <div className="confirm-category-delete-actions">
+                    <div className="categories-edit-actions__left">
+                        <button className="categories-edit-actions__delete btn btn-red-outline">
+                            <svg className="icon" viewBox="0 0 24 24" fill="none">
+                                <path d="M5 7H19M10 10V18M14 10V18M10 3H14C14.2652 3 14.5196 3.10536 14.7071 3.29289C14.8946 3.48043 15 3.73478 15 4V7H9V4C9 3.73478 9.10536 3.48043 9.29289 3.29289C9.48043 3.10536 9.73478 3 10 3ZM6 7H18V20C18 20.2652 17.8946 20.5196 17.7071 20.7071C17.5196 20.8946 17.2652 21 17 21H7C6.73478 21 6.48043 20.8946 6.29289 20.7071C6.10536 20.5196 6 20.2652 6 20V7Z"
+                                    stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+                            </svg>
+                            <span>Да, удалить</span>
+                        </button>
+                    </div>
+                    <div className="categories-edit-actions__right">
+                        <button className="categories-edit-actions__save btn btn-dark" onClick={handleCancel}>Нет, вернуться назад</button>
                     </div>
                 </div>
             </div>

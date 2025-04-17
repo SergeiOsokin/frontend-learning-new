@@ -845,6 +845,9 @@ tbody tr:nth-child(2n+2) .table__ceil {
   justify-content: space-between;
   padding-top: 2rem;
 }
+.categories-edit-actions.--th-disabled {
+  display: none;
+}
 .categories-edit-actions__right {
   display: flex;
   align-items: center;
@@ -931,4 +934,16 @@ tbody tr:nth-child(2n+2) .table__ceil {
   grid-template-columns: 2rem auto 5.2rem 5.2rem;
   grid-gap: 1.2rem;
   align-items: center;
+}
+
+.confirm-category-delete-actions {
+  flex: 0 0 auto;
+  display: none;
+  align-items: center;
+  justify-content: space-between;
+  padding-top: 2rem;
+}
+
+.confirm-category-delete-actions.--th-active {
+  display: flex;
 }
