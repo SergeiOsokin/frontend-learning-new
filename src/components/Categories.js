@@ -11,6 +11,7 @@ export const Categories = ({ setActive }) => {
     const message = useMessage();
     const [wordInfo, setWordInfo] = useState({});
     const [active, setModalActive] = useState(false);
+    const [categoryInfo, setCategoryInfo] = useState({});
 
     const deleteCategory = useCallback(async (e) => {
         const decision = window.confirm('Удалить категорию?');
@@ -56,7 +57,7 @@ export const Categories = ({ setActive }) => {
     const handleCancel = (async (e) => {
         // setActive(false);
 
-        console.log(e.target.classList)
+        // console.log(e.target.classList)
 
         document.querySelector(".categories-edit-actions").classList.remove('--th-disabled');
         document.querySelector(".confirm-category-delete-actions").classList.remove('--th-active');
@@ -81,7 +82,9 @@ export const Categories = ({ setActive }) => {
         // }
     });
 
-    const handleDelCat = (e) => {
+    const handleDelCat = (e, element) => {
+        setCategoryInfo(element)
+        // console.log(element)
         e.target.closest(".edit-wrapper").classList.add('--th-delete-category');
         
         // кнопки базовые для редактировани категории
@@ -178,7 +181,7 @@ export const Categories = ({ setActive }) => {
                                             />
                                             <div className="categories-edit-input__label">10 слов</div>
                                         </div>
-                                        <button className="categories-edit-remove btn btn-grey-red-outline" onClick={handleDelCat}>
+                                        <button className="categories-edit-remove btn btn-grey-red-outline" onClick={(e) => { handleDelCat(e, element) }}>
                                             <svg className="icon" viewBox="0 0 24 24" fill="none">
                                                 <path
                                                     d="M5 7H19M10 10V18M14 10V18M10 3H14C14.2652 3 14.5196 3.10536 14.7071 3.29289C14.8946 3.48043 15 3.73478 15 4V7H9V4C9 3.73478 9.10536 3.48043 9.29289 3.29289C9.48043 3.10536 9.73478 3 10 3ZM6 7H18V20C18 20.2652 17.8946 20.5196 17.7071 20.7071C17.5196 20.8946 17.2652 21 17 21H7C6.73478 21 6.48043 20.8946 6.29289 20.7071C6.10536 20.5196 6 20.2652 6 20V7Z"
@@ -201,7 +204,7 @@ export const Categories = ({ setActive }) => {
                         <p className="confirm-category-delete__lower">
                             Это действие будет нельзя отменить
                         </p>
-                        <p className="confirm-category-delete__board">Для работы</p>
+                        <p className="confirm-category-delete__board">{categoryInfo.category}</p>
                     </div>
 
                 </div>

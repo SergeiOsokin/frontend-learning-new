@@ -29,7 +29,7 @@ export const FlashCard = ({ wordsArr }) => {
         foreignWord4: arrayWords[3].foreign_word,
     });
 
-    console.log(wordsArr);
+    // console.log(wordsArr);
 
     // обновим массив, если осталось мало элементов
     if (arrayWords.length === 4) {
@@ -94,6 +94,31 @@ export const FlashCard = ({ wordsArr }) => {
                     </div>
                 </main>
             </section> */}
+            <div className="app-quiz__mid quiz-questions">
+                <h2 className="quiz-questions__title" translate={words.foreignWord}>{words.russianWord}</h2>
+                <ul className="quiz-responses">
+                    <li className="quiz-responses__item">
+                        <button className="quiz-responses__btn --th-green" name='btn1' value={words.foreignWord1} onClick={handleBtn}>
+                            {words.foreignWord1}
+                        </button>
+                    </li>
+                    <li className="quiz-responses__item">
+                        <button className="quiz-responses__btn --th-red" name='btn2' value={words.foreignWord2} onClick={handleBtn}>
+                            {words.foreignWord2}
+                        </button>
+                    </li>
+                    <li className="quiz-responses__item">
+                        <button className="quiz-responses__btn" name='btn3' value={words.foreignWord3} onClick={handleBtn}>
+                            {words.foreignWord3}
+                        </button>
+                    </li>
+                    <li className="quiz-responses__item">
+                        <button className="quiz-responses__btn" name='btn4' value={words.foreignWord4} onClick={handleBtn}>
+                            {words.foreignWord4}
+                        </button>
+                    </li>
+                </ul>
+            </div>
         </>
     )
 }
