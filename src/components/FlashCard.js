@@ -39,24 +39,25 @@ export const FlashCard = ({ wordsArr }) => {
     const checkAnswer = (e) => {
         mixArray(btnArr);
         // проверка на правильность слова
-        const translateWord = document.querySelector('.card__word').getAttribute('translate')
+        const translateWord = document.querySelector('.quiz-questions__title').getAttribute('translate')
         if (e.target.value === translateWord) {
             setRightAnswer(rightAnswers + 1);
-            setStyle({
-                shadow: 'inset 0px 0px 15px 0px #32CD32'
-            });
+            e.target.closest('.quiz-responses__btn').classList.add('--th-green');
 
             setTimeout(() => {
                 // удалим правильный ответ
                 arrayWords.shift();
-                setStyle({ shadow: 'none' });
-            }, 100);
+                e.target.closest('.quiz-responses__btn').classList.remove('--th-green');
+
+            }, 200);
         } else if (e.target.value !== translateWord) {
             setWrongAnswer(wrongAnswers + 1);
-            setStyle({
-                shadow: 'inset 0px 0px 15px 0px #f56262'
-            });
-            setTimeout(() => { setStyle({ shadow: 'none' }) }, 100);
+
+            e.target.closest('.quiz-responses__btn').classList.add('--th-red');
+
+            setTimeout(() => {
+                e.target.closest('.quiz-responses__btn').classList.remove('--th-red');
+            }, 200);
         }
         // обновим слова
         setTimeout(() => {
@@ -68,7 +69,7 @@ export const FlashCard = ({ wordsArr }) => {
                 [btnArr[2]]: arrayWords[2].foreign_word,
                 [btnArr[3]]: arrayWords[3].foreign_word,
             })
-        }, 100);
+        }, 200);
     }
 
     const handleBtn = (e) => {
@@ -98,12 +99,12 @@ export const FlashCard = ({ wordsArr }) => {
                 <h2 className="quiz-questions__title" translate={words.foreignWord}>{words.russianWord}</h2>
                 <ul className="quiz-responses">
                     <li className="quiz-responses__item">
-                        <button className="quiz-responses__btn --th-green" name='btn1' value={words.foreignWord1} onClick={handleBtn}>
+                        <button className="quiz-responses__btn" name='btn1' value={words.foreignWord1} onClick={handleBtn}>
                             {words.foreignWord1}
                         </button>
                     </li>
                     <li className="quiz-responses__item">
-                        <button className="quiz-responses__btn --th-red" name='btn2' value={words.foreignWord2} onClick={handleBtn}>
+                        <button className="quiz-responses__btn" name='btn2' value={words.foreignWord2} onClick={handleBtn}>
                             {words.foreignWord2}
                         </button>
                     </li>
@@ -118,6 +119,18 @@ export const FlashCard = ({ wordsArr }) => {
                         </button>
                     </li>
                 </ul>
+            </div>
+            {/* Footer */}
+            <div className="app-quiz__footer">
+                <div className="quiz-progress">
+                    <div className="quiz-progress__line">
+                        <div className="quiz-progress__line-inner" style={{ width: (rightAnswers + wrongAnswers) + '%' }} />
+                    </div>
+                    <div className="quiz-progress__labels">
+                        <p className="quiz-progress__label">{1 + rightAnswers + wrongAnswers} из {wordsArr.length}</p>
+                        <p className="quiz-progress__label">{rightAnswers} правильных ответов</p>
+                    </div>
+                </div>
             </div>
         </>
     )

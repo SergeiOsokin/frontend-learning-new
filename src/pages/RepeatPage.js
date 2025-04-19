@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useLayoutEffect } from 'react';
 import { useHttp } from '../hooks/http.hook';
 import { useMessage } from '../hooks/message.hook';
 import { Loader } from '../components/Loader';
@@ -17,75 +17,37 @@ export const RepeatPage = () => {
     const [hand, setHand] = useState(true);
     const message = useMessage();
 
-    const [rightAnswers, setRightAnswer] = useState(0);
-    const [wrongAnswers, setWrongAnswer] = useState(0);
-    let btnArr = ['foreignWord1', 'foreignWord2', 'foreignWord3', 'foreignWord4'];
-    const [style, setStyle] = useState({
-        shadow: 'none'
-    })
-
-    // console.log(words);
-
-    const checkAnswer = (e) => {
-        // mixArray(btnArr);
-        // проверка на правильность слова
-        const translateWord = document.querySelector('.card__word').getAttribute('translate')
-        if (e.target.value === translateWord) {
-            setRightAnswer(rightAnswers + 1);
-            setStyle({
-                shadow: 'inset 0px 0px 15px 0px #32CD32'
-            });
-
-            setTimeout(() => {
-                // удалим правильный ответ
-                // arrayWords.shift();
-                setStyle({ shadow: 'none' });
-            }, 100);
-        } else if (e.target.value !== translateWord) {
-            setWrongAnswer(wrongAnswers + 1);
-            setStyle({
-                shadow: 'inset 0px 0px 15px 0px #f56262'
-            });
-            setTimeout(() => { setStyle({ shadow: 'none' }) }, 100);
+    async function getWords(category) {
+        try {
+            const data = await request(`/words/list?category=${category}`, 'GET');
+            if (data.data.length < 10) {
+                return setWordsInit(null)
+            } else {
+                setWordsInit(data.data);
+            }
+        } catch (err) {
+            message(err);
         }
-        // обновим слова
-        // setTimeout(() => {
-        //     setWords({
-        //         russianWord: arrayWords[0].russian_word,
-        //         foreignWord: arrayWords[0].foreign_word,
-        //         [btnArr[0]]: arrayWords[0].foreign_word,
-        //         [btnArr[1]]: arrayWords[1].foreign_word,
-        //         [btnArr[2]]: arrayWords[2].foreign_word,
-        //         [btnArr[3]]: arrayWords[3].foreign_word,
-        //     })
-        // }, 100);
+    };
+
+    async function fetchCategory() {
+        try {
+            const data = await request(`/category/get`, 'GET');
+            setCategories(data.data)
+        } catch (err) {
+            message(err);
+        }
     }
 
-    console.log(categories)
+    useLayoutEffect(() => {
+        window.addEventListener('keydown', (event) => {
+            if (event.key === 'Escape') {
+                document.querySelector(".dropdown-categories").classList.remove('--th-active');
+            }
+        });
 
-    useEffect(() => {
-        async function fetchData() {
-            try {
-                const data = await request(`/words/list?category=${category}`, 'GET');
-                if (data.data.length < 10) {
-                    return setWordsInit(null)
-                } else {
-                    setWordsInit(data.data);
-                }
-            } catch (err) {
-                message(err);
-            }
-        };
-        async function fetchCategory() {
-            try {
-                const data = await request(`/category/get`, 'GET');
-                setCategories(data.data)
-            } catch (err) {
-                message(err);
-            }
-        }
         fetchCategory();
-        fetchData();
+        getWords(null);
     }, [message, request]);
 
     const selectHandler = (e) => {
@@ -95,6 +57,14 @@ export const RepeatPage = () => {
         // setCategory(e.target.value);
         // setHand(!hand);
     };
+
+    const handleSetCategory = (e) => {
+        document.querySelector(".dropdown-categories").classList.remove('--th-active');
+
+        const categoryName = e.target.closest(".dropdown-categories__row").getAttribute('value');
+        getWords(categoryName);
+        // setHand(!hand);
+    }
 
     const handleClick = () => {
         setEasy(!isEasy);
@@ -169,11 +139,11 @@ export const RepeatPage = () => {
                                             </div>
                                             <div className="dropdown-categories">
                                                 <ul className="dropdown-categories__list">
-                                                    <li className="dropdown-categories__row">
+                                                    <li className="dropdown-categories__row" value='null'>
                                                         <div className="dropdown-categories__name">Выбрать все</div>
                                                         <div className="dropdown-categories__checkbox">
                                                             <div className="app-checkbox">
-                                                                <input type="checkbox" className="app-checkbox__input" />
+                                                                <input type="checkbox" className="app-checkbox__input" onClick={handleSetCategory} />
                                                                 <div className="app-checkbox__elem">
                                                                     <svg
                                                                         className="app-checkbox__icon"
@@ -198,7 +168,7 @@ export const RepeatPage = () => {
                                                                 <div className="dropdown-categories__name">{element.category}</div>
                                                                 <div className="dropdown-categories__checkbox">
                                                                     <div className="app-checkbox">
-                                                                        <input type="checkbox" className="app-checkbox__input" />
+                                                                        <input type="checkbox" className="app-checkbox__input" onClick={handleSetCategory} />
                                                                         <div className="app-checkbox__elem">
                                                                             <svg
                                                                                 className="app-checkbox__icon"
@@ -223,7 +193,7 @@ export const RepeatPage = () => {
                                                         <div className="dropdown-categories__name">Для теста в коде</div>
                                                         <div className="dropdown-categories__checkbox">
                                                             <div className="app-checkbox">
-                                                                <input type="checkbox" className="app-checkbox__input" />
+                                                                <input type="checkbox" className="app-checkbox__input" on />
                                                                 <div className="app-checkbox__elem">
                                                                     <svg
                                                                         className="app-checkbox__icon"
@@ -262,18 +232,6 @@ export const RepeatPage = () => {
                                         {isEasy && <FlashCard wordsArr={wordsInit} />}
                                         {!isEasy && <FlashCardWrite wordsArr={wordsInit} />}
                                     </>}
-                                    {/* Footer */}
-                                    <div className="app-quiz__footer">
-                                        <div className="quiz-progress">
-                                            <div className="quiz-progress__line">
-                                                <div className="quiz-progress__line-inner" />
-                                            </div>
-                                            <div className="quiz-progress__labels">
-                                                <p className="quiz-progress__label">1 из 10</p>
-                                                <p className="quiz-progress__label">0 правильных ответов</p>
-                                            </div>
-                                        </div>
-                                    </div>
                                 </div>
                             </section>
                         </main>
