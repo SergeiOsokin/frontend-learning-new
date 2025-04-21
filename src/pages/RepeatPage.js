@@ -7,6 +7,8 @@ import { FlashCardWrite } from '../components/FlashCardWrite';
 import { Aside } from '../components/Aside';
 import { MobileMenu } from '../components/MobileMenu';
 
+import logoWhite from '../../src/images/empty/empty-secondary.png';
+
 export const RepeatPage = () => {
     const { loading, request } = useHttp();
     const [isEasy, setEasy] = useState(true);
@@ -66,9 +68,21 @@ export const RepeatPage = () => {
         // setHand(!hand);
     }
 
-    const handleClick = () => {
-        setEasy(!isEasy);
-        setEasyHard(easyHard === 'проще' ? 'сложнее' : 'проще')
+    const handleClick = (e) => {
+        // setEasy(!isEasy);
+        // console.log(e.target)
+        switch (e.target.name) {
+            case 'hard':
+                document.querySelector(".btn_hard").classList.add('--th-active');
+                document.querySelector(".btn_easy").classList.remove('--th-active');
+                setEasy(false);
+                break;
+            default:
+                document.querySelector(".btn_easy").classList.add('--th-active');
+                document.querySelector(".btn_hard").classList.remove('--th-active');
+                setEasy(true);
+        }
+        // setEasyHard(easyHard === 'проще' ? 'сложнее' : 'проще')
     };
 
     return (
@@ -218,14 +232,27 @@ export const RepeatPage = () => {
 
                                         <ul className="quiz-tabs">
                                             <li className="quiz-tabs__item">
-                                                <button className="quiz-tabs__btn ">Сложнее</button>
+                                                <button className="quiz-tabs__btn btn_hard" name="hard" onClick={handleClick}>Сложнее</button>
                                             </li>
                                             <li className="quiz-tabs__item">
-                                                <button className="quiz-tabs__btn --th-active">Проще</button>
+                                                <button className="quiz-tabs__btn btn_easy --th-active" name="easy" onClick={handleClick}>Проще</button>
                                             </li>
                                         </ul>
                                     </div>}
                                     {/* Mid */}
+
+                                    {((!wordsInit || !categories) && !loading) &&
+                                        <div className="app-quiz__mid quiz-empty">
+                                            <img
+                                                src={logoWhite}
+                                                alt="empty-secondary"
+                                                className="quiz-empty__img"
+                                            />
+                                            <h2 className="quiz-empty__title">В выбранной категории недостаточно слов для повторения</h2>
+                                        </div>
+
+                                    }
+
                                     {((wordsInit && categories) && !loading) && <>
                                         {/* <input className="button button__change-test" type="button" value={`Сделать ${easyHard}`} onClick={handleClick} /> */}
 

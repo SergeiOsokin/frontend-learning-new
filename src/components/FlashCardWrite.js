@@ -31,19 +31,19 @@ export const FlashCardWrite = ({ wordsArr }) => {
         const regexp = /[(,)\s\. ]\/*/gi; // удалим лишнее
         const answer = userAnswer.toUpperCase().trim().replace(regexp, '');
         const right = word.foreignWord.toUpperCase().replace(regexp, '');
-        
+
         if (answer === right) {
             setRightAnswer(rightAnswers + 1);
-            setStyle({
-                shadow: 'inset 0px 0px 15px 0px #32CD32'
-            });
+            // setStyle({
+            //     shadow: 'inset 0px 0px 15px 0px #32CD32'
+            // });
             setTimeout(() => { setStyle({ shadow: 'none' }) }, 100);
             changeWord();
         } else if (answer !== right) {
             setWrongAnswer(wrongAnswers + 1);
-            setStyle({
-                shadow: 'inset 0px 0px 15px 0px #f56262'
-            });
+            // setStyle({
+            //     shadow: 'inset 0px 0px 15px 0px #f56262'
+            // });
             setTimeout(() => { setStyle({ shadow: 'none' }) }, 100);
 
             countWrong === 1 ?
@@ -69,7 +69,7 @@ export const FlashCardWrite = ({ wordsArr }) => {
 
     return (
         <>
-            <section className="section-card section-write-word" >
+            {/* <section className="section-card section-write-word" >
                 <main className="card" >
                     <h1 className="card__title">Напишите правильный перевод</h1>
                     <div className="card__counts">
@@ -100,7 +100,49 @@ export const FlashCardWrite = ({ wordsArr }) => {
                         </button>
                     </div>
                 </main>
-            </section>
+            </section> */}
+            <>
+                {/* Mid */}
+                <div className="app-quiz__mid quiz-questions">
+                    <h2 className="quiz-questions__title" translate={word.foreignWord}>{word.russianWord}</h2>
+                    <input
+                        type="text"
+                        className="quiz-response-input"
+                        placeholder="Перевод"
+                        value={userAnswer}
+                        onChange={hadleChange}
+                        onKeyDown={onKeyDown}
+                        disabled={disable}
+                        autoComplete={'off'}
+                    />
+                    {/* <input
+                        type="text"
+                        className="quiz-response-input --th-green"
+                        placeholder="Перевод"
+
+
+                    />
+                    <input
+                        type="text"
+                        className="quiz-response-input --th-red"
+                        placeholder="Перевод"
+                    /> */}
+                    <button className="quiz-response-next btn btn-dark" onClick={handleBtn} disabled={disable}>Продолжить</button>
+                </div>
+                {/* Footer */}
+                <div className="app-quiz__footer">
+                    <div className="quiz-progress">
+                        <div className="quiz-progress__line">
+                            <div className="quiz-progress__line-inner" style={{ width: (rightAnswers + wrongAnswers) + '%' }} />
+                        </div>
+                        <div className="quiz-progress__labels">
+                            <p className="quiz-progress__label">{1 + rightAnswers + wrongAnswers} из {wordsArr.length}</p>
+                            <p className="quiz-progress__label">{rightAnswers} правильных ответов</p>
+                        </div>
+                    </div>
+                </div>
+            </>
+
         </>
     )
 }
