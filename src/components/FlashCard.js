@@ -17,9 +17,6 @@ export const FlashCard = ({ wordsArr }) => {
     const [rightAnswers, setRightAnswer] = useState(0);
     const [wrongAnswers, setWrongAnswer] = useState(0);
     let btnArr = ['foreignWord1', 'foreignWord2', 'foreignWord3', 'foreignWord4'];
-    const [style, setStyle] = useState({
-        shadow: 'none'
-    })
     const [words, setWords] = useState({
         russianWord: arrayWords[0].russian_word,
         foreignWord: arrayWords[0].foreign_word,

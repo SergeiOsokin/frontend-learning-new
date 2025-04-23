@@ -1,57 +1,80 @@
 import React, { useCallback, useState } from 'react';
 
 export const FlashCardWrite = ({ wordsArr }) => {
-    const randomIndexWord = Math.floor(Math.random() * (wordsArr.length - 0) + 0);
-    const [word, setWord] = useState({
-        russianWord: wordsArr[randomIndexWord].russian_word,
-        foreignWord: wordsArr[randomIndexWord].foreign_word,
+    // тусуем массив
+    const mixArray = (array) => {
+        var i = 0, j = 0, temp = null
+        for (i = array.length - 1; i > 0; i -= 1) {
+            j = Math.floor(Math.random() * (i + 1))
+            temp = array[i]
+            array[i] = array[j]
+            array[j] = temp
+        }
+        return array;
+    }
+    const [arrayWords, setArrayWords] = useState(mixArray(wordsArr).slice());
+
+    const [words, setWords] = useState({
+        russianWord: arrayWords[0].russian_word,
+        foreignWord: arrayWords[0].foreign_word,
     });
+
     const [userAnswer, setUserAnswer] = useState('');
     const [rightAnswers, setRightAnswer] = useState(0);
     const [wrongAnswers, setWrongAnswer] = useState(0);
     const [countWrong, setCountWrong] = useState(3);
     const [disable, setDisable] = useState(false);
-    const [style, setStyle] = useState({
-        shadow: 'none'
-    })
 
     const changeWord = useCallback(() => {
-        const randomIndexWordSecond = Math.floor(Math.random() * (wordsArr.length - 0) + 0);
-        setCountWrong(3);
-        setWord({
-            russianWord: wordsArr[randomIndexWordSecond].russian_word,
-            foreignWord: wordsArr[randomIndexWordSecond].foreign_word,
+        // setCountWrong(3);
+        setWords({
+            russianWord: arrayWords[0].russian_word,
+            foreignWord: arrayWords[0].foreign_word,
         });
         setUserAnswer('');
         setDisable(false);
-    }, [wordsArr]);
+    }, []);
 
-    const checkAnswer = useCallback(() => {
+    // обновим массив, если осталось мало элементов
+    if (arrayWords.length === 4) {
+        setArrayWords(mixArray(wordsArr.slice()));
+    }
+
+    const checkAnswer = useCallback((e) => {
         // eslint-disable-next-line no-useless-escape
         const regexp = /[(,)\s\. ]\/*/gi; // удалим лишнее
         const answer = userAnswer.toUpperCase().trim().replace(regexp, '');
-        const right = word.foreignWord.toUpperCase().replace(regexp, '');
+        const right = words.foreignWord.toUpperCase().replace(regexp, '');
 
         if (answer === right) {
             setRightAnswer(rightAnswers + 1);
-            // setStyle({
-            //     shadow: 'inset 0px 0px 15px 0px #32CD32'
-            // });
-            setTimeout(() => { setStyle({ shadow: 'none' }) }, 100);
-            changeWord();
+
+            document.querySelector('.quiz-response-input').classList.add('--th-green');
+            setTimeout(() => {
+                arrayWords.shift();
+                changeWord();
+                document.querySelector('.quiz-response-input').classList.remove('--th-green');
+            }, 100);
         } else if (answer !== right) {
             setWrongAnswer(wrongAnswers + 1);
-            // setStyle({
-            //     shadow: 'inset 0px 0px 15px 0px #f56262'
-            // });
-            setTimeout(() => { setStyle({ shadow: 'none' }) }, 100);
+
+            document.querySelector('.quiz-response-input').classList.add('--th-red');
+            setTimeout(() => { document.querySelector('.quiz-response-input').classList.remove('--th-red'); }, 100);
 
             countWrong === 1 ?
-                setCountWrong(word.foreignWord) :
+                setCountWrong(words.foreignWord) :
                 isNaN(countWrong) ?
-                    setCountWrong(word.foreignWord) : setCountWrong(countWrong - 1);
+                    setCountWrong(words.foreignWord) : setCountWrong(countWrong - 1);
         }
-    }, [changeWord, countWrong, rightAnswers, userAnswer, word.foreignWord, wrongAnswers])
+        // обновим слова
+        setTimeout(() => {
+            setWords({
+                russianWord: arrayWords[0].russian_word,
+                foreignWord: arrayWords[0].foreign_word,
+            })
+        }, 200);
+
+    }, [changeWord, countWrong, rightAnswers, userAnswer, words.foreignWord, wrongAnswers])
 
     const hadleChange = useCallback((e) => {
         setUserAnswer(e.target.value)
@@ -104,7 +127,7 @@ export const FlashCardWrite = ({ wordsArr }) => {
             <>
                 {/* Mid */}
                 <div className="app-quiz__mid quiz-questions">
-                    <h2 className="quiz-questions__title" translate={word.foreignWord}>{word.russianWord}</h2>
+                    <h2 className="quiz-questions__title" translate={words.foreignWord}>{words.russianWord}</h2>
                     <input
                         type="text"
                         className="quiz-response-input"
@@ -115,19 +138,7 @@ export const FlashCardWrite = ({ wordsArr }) => {
                         disabled={disable}
                         autoComplete={'off'}
                     />
-                    {/* <input
-                        type="text"
-                        className="quiz-response-input --th-green"
-                        placeholder="Перевод"
-
-
-                    />
-                    <input
-                        type="text"
-                        className="quiz-response-input --th-red"
-                        placeholder="Перевод"
-                    /> */}
-                    <button className="quiz-response-next btn btn-dark" onClick={handleBtn} disabled={disable}>Продолжить</button>
+                    <button className="quiz-response-next btn btn-dark" onClick={handleBtn}>Продолжить</button>
                 </div>
                 {/* Footer */}
                 <div className="app-quiz__footer">
