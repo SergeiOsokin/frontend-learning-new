@@ -48,6 +48,18 @@ export const RepeatPage = () => {
             }
         });
 
+        console.log(isEasy)
+
+        // switch (isEasy) {
+        //     case true:
+        //         document.querySelector(".btn_easy").classList.add('--th-active');
+        //         document.querySelector(".btn_hard").classList.remove('--th-active');
+        //         break;
+        //     default:
+        //         document.querySelector(".btn_hard").classList.add('--th-active');
+        //         document.querySelector(".btn_easy").classList.remove('--th-active');
+        // }
+
         fetchCategory();
         getWords(null);
     }, [message, request]);
@@ -82,8 +94,8 @@ export const RepeatPage = () => {
                 document.querySelector(".btn_hard").classList.remove('--th-active');
                 setEasy(true);
         }
-        // setEasyHard(easyHard === 'проще' ? 'сложнее' : 'проще')
-    };
+        // setEasyHard(easyHard === 'проще' ? 'сложнее' : 'проще') 
+    }; 
 
     return (
         // <>

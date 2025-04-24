@@ -13,17 +13,15 @@ export const Categories = ({ setActive }) => {
     const [active, setModalActive] = useState(false);
     const [categoryInfo, setCategoryInfo] = useState({});
 
-    const deleteCategory = useCallback(async (e) => {
-        const decision = window.confirm('Удалить категорию?');
-        const [id] = e.target.closest(".category-string").getAttribute('info').split('+');
-        if (decision) {
-            try {
-                const data = await request(`/category/delete/${id}`, 'DELETE', {});
-                message(data.message);
-                e.target.closest(".category-string").parentElement.removeChild(e.target.closest(".category-string"));
-            } catch (e) {
-                message(e);
-            }
+    const handleConfirmDeleteCategory = useCallback(async (e, categoryInfo) => {
+
+        try {
+            const data = await request(`/category/delete/${categoryInfo.id}`, 'DELETE', {});
+            message(data.message);
+            document.querySelector(".categories-edit").parentElement.removeChild(document.getElementById(categoryInfo.id));
+            document.querySelector(".confirm-category-delete-actions").classList.remove('--th-active');
+        } catch (e) {
+            message(e);
         }
     }, [message, request]);
 
@@ -86,9 +84,9 @@ export const Categories = ({ setActive }) => {
         setCategoryInfo(element)
         // console.log(element)
         e.target.closest(".edit-wrapper").classList.add('--th-delete-category');
-        
+
         // кнопки базовые для редактировани категории
-        document.querySelector(".categories-edit-actions").classList.add('--th-disabled'); 
+        document.querySelector(".categories-edit-actions").classList.add('--th-disabled');
         // кнопки подтверждения удаления
         document.querySelector(".confirm-category-delete-actions").classList.add('--th-active');
     }
@@ -154,7 +152,7 @@ export const Categories = ({ setActive }) => {
                             .sort((a, b) => a.id - b.id)
                             .map((element, index) => {
                                 return (
-                                    <li className="categories-edit " info={`${element.id}+${element.category}`} key={element.id}>
+                                    <li className="categories-edit " id={`${element.id}`} key={element.id}>
                                         <div className="categories-edit__checkbox app-checkbox --th-dark">
                                             <input type="checkbox" className="app-checkbox__input" />
                                             <div className="app-checkbox__elem">
@@ -204,7 +202,7 @@ export const Categories = ({ setActive }) => {
                         <p className="confirm-category-delete__lower">
                             Это действие будет нельзя отменить
                         </p>
-                        <p className="confirm-category-delete__board">{categoryInfo.category}</p>
+                        <p className="confirm-category-delete__board" info={categoryInfo.id}>{categoryInfo.category}</p>
                     </div>
 
                 </div>
@@ -227,7 +225,7 @@ export const Categories = ({ setActive }) => {
                 {/* Тупой, но быстрый вариант заменить кнопки */}
                 <div className="confirm-category-delete-actions">
                     <div className="categories-edit-actions__left">
-                        <button className="categories-edit-actions__delete btn btn-red-outline">
+                        <button className="categories-edit-actions__delete btn btn-red-outline" onClick={(e) => { handleConfirmDeleteCategory(e, categoryInfo) }}>
                             <svg className="icon" viewBox="0 0 24 24" fill="none">
                                 <path d="M5 7H19M10 10V18M14 10V18M10 3H14C14.2652 3 14.5196 3.10536 14.7071 3.29289C14.8946 3.48043 15 3.73478 15 4V7H9V4C9 3.73478 9.10536 3.48043 9.29289 3.29289C9.48043 3.10536 9.73478 3 10 3ZM6 7H18V20C18 20.2652 17.8946 20.5196 17.7071 20.7071C17.5196 20.8946 17.2652 21 17 21H7C6.73478 21 6.48043 20.8946 6.29289 20.7071C6.10536 20.5196 6 20.2652 6 20V7Z"
                                     stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />

@@ -144,10 +144,10 @@ export const FlashCardWrite = ({ wordsArr }) => {
                 <div className="app-quiz__footer">
                     <div className="quiz-progress">
                         <div className="quiz-progress__line">
-                            <div className="quiz-progress__line-inner" style={{ width: (rightAnswers + wrongAnswers) + '%' }} />
+                            <div className="quiz-progress__line-inner" style={{ width: (rightAnswers) + '%' }} />
                         </div>
                         <div className="quiz-progress__labels">
-                            <p className="quiz-progress__label">{1 + rightAnswers + wrongAnswers} из {wordsArr.length}</p>
+                            <p className="quiz-progress__label">{1 + rightAnswers} из {wordsArr.length}</p>
                             <p className="quiz-progress__label">{rightAnswers} правильных ответов</p>
                         </div>
                     </div>
