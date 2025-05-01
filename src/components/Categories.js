@@ -4,9 +4,14 @@ import { WordFormChange } from './WordFormChange';
 import { useMessage } from '../hooks/message.hook';
 import { Loader } from './Loader';
 import trashIcon from '../../src/img/trash_icon.png';
+import { validation } from '../hooks/validation.hook';
 
 export const Categories = ({ setActive }) => {
     const { loading, request } = useHttp();
+    const [category, setCategory] = useState({
+        categoryWord: ''
+    });
+    const { validationInputs } = validation();
     const [categories, setCategories] = useState([]);
     const message = useMessage();
     const [wordInfo, setWordInfo] = useState({});
@@ -18,6 +23,8 @@ export const Categories = ({ setActive }) => {
         try {
             const data = await request(`/category/delete/${categoryInfo.id}`, 'DELETE', {});
             message(data.message);
+            document.querySelector(".edit-wrapper").classList.remove('--th-delete-category');
+            document.querySelector(".categories-edit-actions").classList.remove('--th-disabled');
             document.querySelector(".categories-edit").parentElement.removeChild(document.getElementById(categoryInfo.id));
             document.querySelector(".confirm-category-delete-actions").classList.remove('--th-active');
         } catch (e) {
@@ -53,31 +60,21 @@ export const Categories = ({ setActive }) => {
     });
 
     const handleCancel = (async (e) => {
-        // setActive(false);
+        console.log(e.target.name)
+        // console.log(e.target.name === 'categories-edit-remove')
 
-        // console.log(e.target.classList)
+        switch (e.target.name) {
+            case 'categories-edit-remove':
+                document.querySelector(".categories-edit-new").classList.remove('--th-disabled');
+                document.querySelector(".categories-create").classList.add('--th-disabled');
+                document.querySelector(".categories-edit-input__elem").value = ''
+                break;
+            default:
+                document.querySelector(".categories-edit-actions").classList.remove('--th-disabled');
+                document.querySelector(".confirm-category-delete-actions").classList.remove('--th-active');
+                document.querySelector(".edit-wrapper").classList.remove('--th-delete-category');
+        }
 
-        document.querySelector(".categories-edit-actions").classList.remove('--th-disabled');
-        document.querySelector(".confirm-category-delete-actions").classList.remove('--th-active');
-
-        document.querySelector(".edit-wrapper").classList.remove('--th-delete-category');
-
-        // e.preventDefault();
-        // try {
-        //     const data = await request('/words/add', 'POST', word);
-        //     if (data === undefined) {
-        //         return
-        //     }
-        //     message(data.message);
-        //     setWords({
-        //         russianWord: '',
-        //         foreignWord: '',
-        //         categoryWord: '',
-        //     })
-        //     document.querySelector(".form__select").value = ""
-        // } catch (err) {
-        //     message(err);
-        // }
     });
 
     const handleDelCat = (e, element) => {
@@ -90,6 +87,33 @@ export const Categories = ({ setActive }) => {
         // кнопки подтверждения удаления
         document.querySelector(".confirm-category-delete-actions").classList.add('--th-active');
     }
+
+    const handleNewCategory = (e) => {
+        console.log(e.target.closest(".categories-edit-new"))
+        e.target.closest(".categories-edit-new").classList.add('--th-disabled');
+        document.querySelector(".categories-create").classList.remove('--th-disabled');
+    }
+
+    const handleSaveNewCategory = (async (e) => {
+        // validationInputs(e);
+        let category = document.querySelector('.categories-edit-input__elem').value
+
+        console.log(document.querySelector('.categories-edit-input__elem').value)
+
+        e.preventDefault()
+        try {
+            const data = await request('/category/add', 'POST', { categoryWord: category });
+            if (data === undefined) {
+                return
+            }
+            message(data.message);
+            document.querySelector(".categories-edit-input__elem").value = '';
+            setCategory({ ...category, categoryWord: '' });
+            // clearError();
+        } catch (err) {
+            message(err);
+        }
+    });
 
 
     useEffect(() => {
@@ -115,7 +139,7 @@ export const Categories = ({ setActive }) => {
             }
         }
         fetchData();
-    }, [request, message, active]);
+    }, [request, message, active, category]);
 
     return (
         <div className="edit-modal">
@@ -135,7 +159,7 @@ export const Categories = ({ setActive }) => {
                 <div className="edit-wrapper">
                     <ul className="categories-edit-list">
                         <li className="categories-edit-new">
-                            <button className="categories-edit-new__btn btn btn-grey">
+                            <button className="categories-edit-new__btn btn btn-grey" onClick={handleNewCategory}>
                                 <svg className="icon" viewBox="0 0 24 24" fill="none">
                                     <path
                                         d="M5 12H19M12 19V5"
@@ -148,6 +172,43 @@ export const Categories = ({ setActive }) => {
                                 <span>Новая категория</span>
                             </button>
                         </li>
+                        <li className="categories-create --th-disabled">
+                            <div className="categories-create__checkbox app-checkbox --th-disabled --th-dark">
+                                <div className="app-checkbox__elem" />
+                            </div>
+                            <div className="categories-edit-input">
+                                <input
+                                    defaultValue={''}
+                                    type="text"
+                                    className="categories-edit-input__elem"
+                                    placeholder='Название категории'
+                                />
+                            </div>
+                            <button className="categories-edit-save btn btn-green-outline" onClick={handleSaveNewCategory}>
+                                <svg className="icon" viewBox="0 0 24 24" fill="none">
+                                    <path
+                                        d="M5 11.917L9.724 16.5L19 7.5"
+                                        stroke="currentColor"
+                                        strokeWidth={2}
+                                        strokeLinecap="round"
+                                        strokeLinejoin="round"
+                                    />
+                                </svg>
+                            </button>
+                            <button className="categories-edit-remove btn btn-grey-red-outline" name='categories-edit-remove' onClick={handleCancel}>
+                                <svg className="icon" viewBox="0 0 24 24" fill="none" name='categories-edit-remove'>
+                                    <path
+                                        d="M5 7H19M10 10V18M14 10V18M10 3H14C14.2652 3 14.5196 3.10536 14.7071 3.29289C14.8946 3.48043 15 3.73478 15 4V7H9V4C9 3.73478 9.10536 3.48043 9.29289 3.29289C9.48043 3.10536 9.73478 3 10 3ZM6 7H18V20C18 20.2652 17.8946 20.5196 17.7071 20.7071C17.5196 20.8946 17.2652 21 17 21H7C6.73478 21 6.48043 20.8946 6.29289 20.7071C6.10536 20.5196 6 20.2652 6 20V7Z"
+                                        stroke="currentColor"
+                                        strokeWidth={2}
+                                        strokeLinecap="round"
+                                        strokeLinejoin="round"
+                                        name='categories-edit-remove'
+                                    />
+                                </svg>
+                            </button>
+                        </li>
+
                         {categories
                             .sort((a, b) => a.id - b.id)
                             .map((element, index) => {

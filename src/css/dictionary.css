@@ -760,6 +760,10 @@ tbody tr:nth-child(2n+2) .table__ceil {
   grid-column-gap: 4.8rem;
   grid-row-gap: 1.6rem;
 }
+
+.categories-edit-new.--th-disabled {
+  display: none;
+}
 @media screen and (max-width: 550px) {
   .categories-edit-list {
     grid-template-columns: 1fr;
@@ -934,6 +938,9 @@ tbody tr:nth-child(2n+2) .table__ceil {
   grid-template-columns: 2rem auto 5.2rem 5.2rem;
   grid-gap: 1.2rem;
   align-items: center;
+}
+.categories-create.--th-disabled {
+  display: none;
 }
 
 .confirm-category-delete-actions {

@@ -18,12 +18,12 @@ export const WordForm = ({ wordInfo, setActive }) => {
 
     const changeHandler = (e) => {
         if (e.target.name === 'categoryWord') {
-            const idCategory = e.target.closest(".form__select").selectedOptions[0].getAttribute('info');
+            const idCategory = e.target.closest(".dropdown-categories__row").getAttribute('info');
             setWords({ ...word, [e.target.name]: idCategory });
         } else {
             setWords({ ...word, [e.target.name]: e.target.value });
         }
-        validationInputs(e);
+        // validationInputs(e);
     }
 
     const handleClose = (async (e) => {
@@ -102,31 +102,31 @@ export const WordForm = ({ wordInfo, setActive }) => {
         //                 <div>
         //                     <label className="form__label" htmlFor="russianWord">Слово на русском</label>
         //                     <input
-        //                         id="russianWord"
-        //                         type="text"
-        //                         placeholder="Введите слово"
-        //                         name="russianWord"
-        //                         onChange={changeHandler}
-        //                         className="input"
-        //                         required maxLength="30" minLength="1"
-        //                         value={word.russianWord}
-        //                         autoComplete="off"
-        //                         disabled={loading}
+        // id="russianWord"
+        // type="text"
+        // placeholder="Введите слово"
+        // name="russianWord"
+        // onChange={changeHandler}
+        // className="input"
+        // required maxLength="30" minLength="1"
+        // value={word.russianWord}
+        // autoComplete="off"
+        // disabled={loading}
         //                     />
         //                 </div>
         //                 <div>
         //                     <label className="form__label" htmlFor="foreignWord">Слово на иностранном</label>
         //                     <input
-        //                         id="foreignWord"
-        //                         type="text"
-        //                         placeholder="Введите слово"
-        //                         name="foreignWord"
-        //                         onChange={changeHandler}
-        //                         value={word.foreignWord}
-        //                         className="input"
-        //                         autoComplete="off"
-        //                         disabled={loading}
-        //                         required maxLength="30" minLength="1"
+        // id="foreignWord"
+        // type="text"
+        // placeholder="Введите слово"
+        // name="foreignWord"
+        // onChange={changeHandler}
+        // value={word.foreignWord}
+        // className="input"
+        // autoComplete="off"
+        // disabled={loading}
+        // required maxLength="30" minLength="1"
         //                     />
         //                 </div>
         //                 <div>
@@ -177,6 +177,13 @@ export const WordForm = ({ wordInfo, setActive }) => {
                                                 placeholder="Слово"
                                                 type="text"
                                                 className="create-word__input"
+                                                id="russianWord"
+                                                name="russianWord"
+                                                onChange={changeHandler}
+                                                required maxLength="30" minLength="1"
+                                                value={word.russianWord}
+                                                autoComplete="off"
+                                                disabled={loading}
                                             />
                                             <button className="word-delete btn btn-grey">
                                                 <svg className="icon" viewBox="0 0 24 24" fill="none">
@@ -195,6 +202,13 @@ export const WordForm = ({ wordInfo, setActive }) => {
                                                 placeholder="Перевод"
                                                 type="text"
                                                 className="create-word__input"
+                                                id="foreignWord"
+                                                name="foreignWord"
+                                                onChange={changeHandler}
+                                                value={word.foreignWord}
+                                                autoComplete="off"
+                                                disabled={loading}
+                                                required maxLength="30" minLength="1"
                                             />
                                         </div>
                                         <div className="create-word__col" onClick={handleCheckCat}>
@@ -216,40 +230,44 @@ export const WordForm = ({ wordInfo, setActive }) => {
                                                         fill="currentColor"
                                                     />
                                                 </svg>
-                                                <div className="dropdown-categories --th-create-word checkCatAdd">
-                                                    <ul className="dropdown-categories__list">
-                                                        <li className="dropdown-categories__row">
-                                                            <div className="dropdown-categories__name">
-                                                                Выбрать все
-                                                            </div>
-                                                            <div className="dropdown-categories__checkbox">
-                                                                <div className="app-checkbox">
-                                                                    <input
-                                                                        type="checkbox"
-                                                                        className="app-checkbox__input"
-                                                                    />
-                                                                    <div className="app-checkbox__elem">
-                                                                        <svg
-                                                                            className="app-checkbox__icon"
-                                                                            viewBox="0 0 14 10"
-                                                                            fill="none"
-                                                                        >
-                                                                            <path
-                                                                                d="M1.16699 4.93083L5.10366 8.75L12.8337 1.25"
-                                                                                stroke="#F6F6F1"
-                                                                                strokeWidth={2}
-                                                                                strokeLinecap="round"
-                                                                                strokeLinejoin="round"
-                                                                            />
-                                                                        </svg>
+                                                <div className="dropdown-categories --th-create-word checkCatAdd" >
+                                                    <ul className="dropdown-categories__list" >
+                                                        {/* <li className="dropdown-categories__row">
+                                                                <div className="dropdown-categories__name">
+                                                                    Выбрать все
+                                                                </div>
+                                                                <div className="dropdown-categories__checkbox">
+                                                                    <div className="app-checkbox">
+                                                                        <input
+                                                                            type="checkbox"
+                                                                            className="app-checkbox__input"
+                                                                        />
+                                                                        <div className="app-checkbox__elem">
+                                                                            <svg
+                                                                                className="app-checkbox__icon"
+                                                                                viewBox="0 0 14 10"
+                                                                                fill="none"
+                                                                            >
+                                                                                <path
+                                                                                    d="M1.16699 4.93083L5.10366 8.75L12.8337 1.25"
+                                                                                    stroke="#F6F6F1"
+                                                                                    strokeWidth={2}
+                                                                                    strokeLinecap="round"
+                                                                                    strokeLinejoin="round"
+                                                                                />
+                                                                            </svg>
+                                                                        </div>
                                                                     </div>
                                                                 </div>
-                                                            </div>
-                                                        </li>
+                                                            </li> */}
                                                         {
                                                             category.map((element, index) => {
                                                                 return (
-                                                                    <li className="dropdown-categories__row" key={index.toString()} info={element.id}>
+                                                                    <li
+                                                                        className="dropdown-categories__row"
+                                                                        key={index.toString()}
+                                                                        info={element.id}
+                                                                    >
                                                                         <div className="dropdown-categories__name">
                                                                             {element.category}
                                                                         </div>
@@ -258,6 +276,10 @@ export const WordForm = ({ wordInfo, setActive }) => {
                                                                                 <input
                                                                                     type="checkbox"
                                                                                     className="app-checkbox__input"
+                                                                                    name="categoryWord"
+                                                                                    onChange={changeHandler}
+                                                                                    disabled={loading}
+                                                                                    required
                                                                                 />
                                                                                 <div className="app-checkbox__elem">
                                                                                     <svg
