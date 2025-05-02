@@ -15,11 +15,15 @@ export const WordForm = ({ wordInfo, setActive }) => {
     });
     const [category, setCategory] = useState([]);
     const message = useMessage();
+    const {disable, setDisable} = useState(true);
+    const [activeCategory, setActiveCategory] = useState('Выберите значение');
 
     const changeHandler = (e) => {
+        // --th-disabled --th-dark
         if (e.target.name === 'categoryWord') {
             const idCategory = e.target.closest(".dropdown-categories__row").getAttribute('info');
             setWords({ ...word, [e.target.name]: idCategory });
+            // console.log(document.querySelectorAll('.dropdown-categories__row .dropdown-categories__checkbox .app-checkbox'))
         } else {
             setWords({ ...word, [e.target.name]: e.target.value });
         }
@@ -47,27 +51,33 @@ export const WordForm = ({ wordInfo, setActive }) => {
     });
 
     const handleSubmit = (async (e) => {
-
-        e.preventDefault();
-        try {
-            const data = await request('/words/add', 'POST', word);
-            if (data === undefined) {
-                return
-            }
-            message(data.message);
-            setWords({
-                russianWord: '',
-                foreignWord: '',
-                categoryWord: '',
-            })
-            document.querySelector(".form__select").value = ""
-        } catch (err) {
-            message(err);
-        }
+        console.log(word)
+        // e.preventDefault();
+        // try {
+        //     const data = await request('/words/add', 'POST', word);
+        //     if (data === undefined) {
+        //         return
+        //     }
+        //     message(data.message);
+        //     setWords({
+        //         russianWord: '',
+        //         foreignWord: '',
+        //         categoryWord: '',
+        //     })
+        //     document.querySelector(".form__select").value = ""
+        // } catch (err) {
+        //     message(err);
+        // }
     });
 
-    const handleCheckCat = () => {
-        document.querySelector(".checkCatAdd").classList.add('--th-active');
+    const handleCheckCat = (e) => {
+        
+        if(e.target.classList.contains('create-word-select')) {
+            document.querySelector(".checkCatAdd .dropdown-categories").classList.toggle('--th-active');
+        } else if (e.target.classList.contains('app-checkbox__input')) {
+            setActiveCategory(e.target.closest('.dropdown-categories__checkbox').getAttribute('info'));
+            document.querySelector(".checkCatAdd .dropdown-categories").classList.toggle('--th-active');
+        }
     }
 
     useEffect(() => {
@@ -211,7 +221,7 @@ export const WordForm = ({ wordInfo, setActive }) => {
                                                 required maxLength="30" minLength="1"
                                             />
                                         </div>
-                                        <div className="create-word__col" onClick={handleCheckCat}>
+                                        <div className="create-word__col checkCatAdd" onClick={handleCheckCat}>
                                             <div className="create-word-select">
                                                 <div
                                                     style={{ display: "none" }}
@@ -220,7 +230,7 @@ export const WordForm = ({ wordInfo, setActive }) => {
                                                     Выберите значение
                                                 </div>
                                                 <div className="create-word-select__value">
-                                                    Общая категория
+                                                    {activeCategory}
                                                 </div>
                                                 <svg className="icon" viewBox="0 0 12 12" fill="none">
                                                     <path
@@ -230,7 +240,7 @@ export const WordForm = ({ wordInfo, setActive }) => {
                                                         fill="currentColor"
                                                     />
                                                 </svg>
-                                                <div className="dropdown-categories --th-create-word checkCatAdd" >
+                                                <div className="dropdown-categories --th-create-word " >
                                                     <ul className="dropdown-categories__list" >
                                                         {/* <li className="dropdown-categories__row">
                                                                 <div className="dropdown-categories__name">
@@ -271,14 +281,14 @@ export const WordForm = ({ wordInfo, setActive }) => {
                                                                         <div className="dropdown-categories__name">
                                                                             {element.category}
                                                                         </div>
-                                                                        <div className="dropdown-categories__checkbox">
-                                                                            <div className="app-checkbox">
+                                                                        <div className="dropdown-categories__checkbox" info={element.category}>
+                                                                            <div className="app-checkbox" >
                                                                                 <input
                                                                                     type="checkbox"
                                                                                     className="app-checkbox__input"
                                                                                     name="categoryWord"
                                                                                     onChange={changeHandler}
-                                                                                    disabled={loading}
+                                                                                    disabled={disable}
                                                                                     required
                                                                                 />
                                                                                 <div className="app-checkbox__elem">
@@ -386,7 +396,7 @@ export const WordForm = ({ wordInfo, setActive }) => {
                     <button disabled="" className="create-word__cancel btn btn-dark-outline" onClick={handleClose}>
                         Отменить
                     </button>
-                    <button disabled="" className="create-word__save btn btn-dark">
+                    <button disabled="" className="create-word__save btn btn-dark" onClick={handleSubmit}>
                         Сохранить
                     </button>
                 </div>

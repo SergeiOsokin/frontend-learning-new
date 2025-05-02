@@ -57,7 +57,7 @@ export const WordsList = () => {
     };
 
     const handleWordBtn = (e) => {
-        e.target.closest(".more-btn").classList.add('--th-active');
+        e.target.closest(".more-btn").classList.toggle('--th-active');
     }
 
     const logoutHandler = (event) => {
