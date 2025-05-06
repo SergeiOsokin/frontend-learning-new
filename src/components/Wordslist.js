@@ -1,4 +1,4 @@
-import React, { useEffect, useCallback, useState, useContext } from 'react';
+import React, { useEffect, useCallback, useState, useContext, useLayoutEffect } from 'react';
 import { AuthContext } from '../context/AuthContext';
 import { useHistory, Link } from 'react-router-dom';
 import { useHttp } from '../hooks/http.hook';
@@ -23,6 +23,7 @@ export const WordsList = () => {
     const [activeModalAdd, setActiveModalAdd] = useState(false);
     const [countItems, setCountItems] = useState(30);
     const [activeModalEdit, setActiveModalEdit] = useState(false);
+    let newSet = new Set([]);
 
     const {
         firstContentIndex,
@@ -37,7 +38,7 @@ export const WordsList = () => {
     });
 
     const handleItems = (e) => {
-        document.querySelector('.pagination__settings-dropdown').classList.add('--th-active');
+        document.querySelector('.pagination__settings-dropdown').classList.toggle('--th-active');
         console.log('work');
     }
 
@@ -66,9 +67,25 @@ export const WordsList = () => {
         history.push('/authorization');
     };
 
+    const handleCategoryFilter = (e) => {
+        // filters-categories
+        // document.querySelector('.dropdown-categories').classList.toggle('--th-active');
+
+        // wordsArr.forEach(elem => {
+        //     newSet.add(`${elem.category}`);
+        // });
+
+        // console.log(newSet);
+        // if (e.target.classList.contains('filters-categories__select')) {
+        //     document.querySelector('.dropdown-categories').classList.toggle('--th-active');
+        // } else if (e.target.classList.contains('app-checkbox__input')) {
+
+        // }
+    }
+
     const tableSearch = () => {
-        let phrase = document.querySelector('.words-section__input-search');
-        let table = document.querySelector('.words-section__table-words');
+        let phrase = document.querySelector('.app-search__elem');
+        let table = document.querySelector('.app-dictionary__table');
         let regPhrase = new RegExp(phrase.value, 'i');
         let flag = false;
         for (let i = 1; i < table.rows.length; i++) {
@@ -87,12 +104,24 @@ export const WordsList = () => {
     }
 
     const handleChange = (e) => {
+
+        switch (e.target.value.length) {
+            case 0:
+                document.querySelector('.app-search').classList.add('--th-active');
+                break;
+            default:
+                document.querySelector('.app-search').classList.remove('--th-active');
+        }
+        
         setInputValue(e.target.value)
         tableSearch();
     }
 
     const handleClose = () => {
         setInputValue('');
+
+        document.querySelector('.app-search').classList.add('--th-active');
+
         setTimeout(() => {
             tableSearch();
         }, 1)
@@ -135,7 +164,7 @@ export const WordsList = () => {
     //     }
     // }
 
-    useEffect(() => {
+    useLayoutEffect(() => {
         document.addEventListener('scroll', () => {
             // console.log(history.location.pathname === '/wordslist')
             // if (history.location.pathname === '/wordslist') {
@@ -162,7 +191,11 @@ export const WordsList = () => {
                     return message(data.message)
                 } else {
                     setWordsArr(data.data);
+
                 }
+                data.data.forEach(elem => {
+                    newSet.add(`${elem.category}`);
+                });
             } catch (err) {
                 message(err);
             }
@@ -181,14 +214,14 @@ export const WordsList = () => {
         //     <>
         //         <div className="words-section__input-container">
         //             <div className="input-container">
-        //                 <input
-        //                     placeholder="Поиск слова"
-        //                     className="words-section__input-search input"
-        //                     id="search" type="text"
-        //                     autoComplete="off"
-        //                     onChange={handleChange}
-        //                     value={inputValue}
-        //                 />
+        // <input
+        //     placeholder="Поиск слова"
+        //     className="words-section__input-search input"
+        //     id="search" type="text"
+        //     autoComplete="off"
+        //     onChange={handleChange}
+        //     value={inputValue}
+        // />
         //                 <span
         //                     className="words-section__button-clean"
         //                     onClick={handleClose}
@@ -278,20 +311,25 @@ export const WordsList = () => {
             {loading && <Loader />}
 
             <div className="app-inner">
-                <Aside/>
+                <Aside />
                 <main className="app-main">
                     <header className="app-main__top">
                         <div className="app-main__left">
                             <h1 className="app-main__title">Словарь</h1>
                         </div>
                         <div className="app-main__right">
-                            <div className="app-main__search app-search --th-empty">
+                            {/*  --th-empty для app-search */}
+                            <div className="app-main__search app-search --th-active">
                                 <input
                                     type="text"
                                     placeholder="Text"
                                     className="app-search__elem"
+                                    id="search"
+                                    autoComplete="off"
+                                    onChange={handleChange}
+                                    value={inputValue}
                                 />
-                                <button className="app-search__delete line-btn-dark">
+                                <button className="app-search__delete line-btn-dark" onClick={handleClose}>
                                     <svg className="icon" viewBox="0 0 24 24" fill="none">
                                         <path
                                             d="M5 19L18.93 5M19 19L5.07 5"
@@ -321,7 +359,7 @@ export const WordsList = () => {
                             <div className="app-dictionary__top">
                                 <div className="filters-top">
                                     <div className="filters-top__left">
-                                        <div className="filters-categories --th-desktop">
+                                        <div className="filters-categories --th-desktop" onClick={handleCategoryFilter}>
                                             <button className="filters-categories__select">
                                                 <span>Категории:</span>
                                                 <span>все</span>
@@ -334,7 +372,7 @@ export const WordsList = () => {
                                                     />
                                                 </svg>
                                             </button>
-                                            <div className="dropdown-categories --th-dictionary">
+                                            {/* <div className="dropdown-categories --th-dictionary">
                                                 <ul className="dropdown-categories__list">
                                                     <li className="dropdown-categories__row">
                                                         <div className="dropdown-categories__name">
@@ -364,216 +402,45 @@ export const WordsList = () => {
                                                             </div>
                                                         </div>
                                                     </li>
-                                                    <li className="dropdown-categories__row">
-                                                        <div className="dropdown-categories__name">Слова</div>
-                                                        <div className="dropdown-categories__checkbox">
-                                                            <div className="app-checkbox">
-                                                                <input
-                                                                    type="checkbox"
-                                                                    className="app-checkbox__input"
-                                                                />
-                                                                <div className="app-checkbox__elem">
-                                                                    <svg
-                                                                        className="app-checkbox__icon"
-                                                                        viewBox="0 0 14 10"
-                                                                        fill="none"
-                                                                    >
-                                                                        <path
-                                                                            d="M1.16699 4.93083L5.10366 8.75L12.8337 1.25"
-                                                                            stroke="#F6F6F1"
-                                                                            strokeWidth={2}
-                                                                            strokeLinecap="round"
-                                                                            strokeLinejoin="round"
-                                                                        />
-                                                                    </svg>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </li>
-                                                    <li className="dropdown-categories__row">
-                                                        <div className="dropdown-categories__name">Слова</div>
-                                                        <div className="dropdown-categories__checkbox">
-                                                            <div className="app-checkbox">
-                                                                <input
-                                                                    type="checkbox"
-                                                                    className="app-checkbox__input"
-                                                                />
-                                                                <div className="app-checkbox__elem">
-                                                                    <svg
-                                                                        className="app-checkbox__icon"
-                                                                        viewBox="0 0 14 10"
-                                                                        fill="none"
-                                                                    >
-                                                                        <path
-                                                                            d="M1.16699 4.93083L5.10366 8.75L12.8337 1.25"
-                                                                            stroke="#F6F6F1"
-                                                                            strokeWidth={2}
-                                                                            strokeLinecap="round"
-                                                                            strokeLinejoin="round"
-                                                                        />
-                                                                    </svg>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </li>
-                                                    <li className="dropdown-categories__row">
-                                                        <div className="dropdown-categories__name">Слова</div>
-                                                        <div className="dropdown-categories__checkbox">
-                                                            <div className="app-checkbox">
-                                                                <input
-                                                                    type="checkbox"
-                                                                    className="app-checkbox__input"
-                                                                />
-                                                                <div className="app-checkbox__elem">
-                                                                    <svg
-                                                                        className="app-checkbox__icon"
-                                                                        viewBox="0 0 14 10"
-                                                                        fill="none"
-                                                                    >
-                                                                        <path
-                                                                            d="M1.16699 4.93083L5.10366 8.75L12.8337 1.25"
-                                                                            stroke="#F6F6F1"
-                                                                            strokeWidth={2}
-                                                                            strokeLinecap="round"
-                                                                            strokeLinejoin="round"
-                                                                        />
-                                                                    </svg>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </li>
-                                                    <li className="dropdown-categories__row">
-                                                        <div className="dropdown-categories__name">Слова</div>
-                                                        <div className="dropdown-categories__checkbox">
-                                                            <div className="app-checkbox">
-                                                                <input
-                                                                    type="checkbox"
-                                                                    className="app-checkbox__input"
-                                                                />
-                                                                <div className="app-checkbox__elem">
-                                                                    <svg
-                                                                        className="app-checkbox__icon"
-                                                                        viewBox="0 0 14 10"
-                                                                        fill="none"
-                                                                    >
-                                                                        <path
-                                                                            d="M1.16699 4.93083L5.10366 8.75L12.8337 1.25"
-                                                                            stroke="#F6F6F1"
-                                                                            strokeWidth={2}
-                                                                            strokeLinecap="round"
-                                                                            strokeLinejoin="round"
-                                                                        />
-                                                                    </svg>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </li>
-                                                    <li className="dropdown-categories__row">
-                                                        <div className="dropdown-categories__name">Слова</div>
-                                                        <div className="dropdown-categories__checkbox">
-                                                            <div className="app-checkbox">
-                                                                <input
-                                                                    type="checkbox"
-                                                                    className="app-checkbox__input"
-                                                                />
-                                                                <div className="app-checkbox__elem">
-                                                                    <svg
-                                                                        className="app-checkbox__icon"
-                                                                        viewBox="0 0 14 10"
-                                                                        fill="none"
-                                                                    >
-                                                                        <path
-                                                                            d="M1.16699 4.93083L5.10366 8.75L12.8337 1.25"
-                                                                            stroke="#F6F6F1"
-                                                                            strokeWidth={2}
-                                                                            strokeLinecap="round"
-                                                                            strokeLinejoin="round"
-                                                                        />
-                                                                    </svg>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </li>
-                                                    <li className="dropdown-categories__row">
-                                                        <div className="dropdown-categories__name">Слова</div>
-                                                        <div className="dropdown-categories__checkbox">
-                                                            <div className="app-checkbox">
-                                                                <input
-                                                                    type="checkbox"
-                                                                    className="app-checkbox__input"
-                                                                />
-                                                                <div className="app-checkbox__elem">
-                                                                    <svg
-                                                                        className="app-checkbox__icon"
-                                                                        viewBox="0 0 14 10"
-                                                                        fill="none"
-                                                                    >
-                                                                        <path
-                                                                            d="M1.16699 4.93083L5.10366 8.75L12.8337 1.25"
-                                                                            stroke="#F6F6F1"
-                                                                            strokeWidth={2}
-                                                                            strokeLinecap="round"
-                                                                            strokeLinejoin="round"
-                                                                        />
-                                                                    </svg>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </li>
-                                                    <li className="dropdown-categories__row">
-                                                        <div className="dropdown-categories__name">Слова</div>
-                                                        <div className="dropdown-categories__checkbox">
-                                                            <div className="app-checkbox">
-                                                                <input
-                                                                    type="checkbox"
-                                                                    className="app-checkbox__input"
-                                                                />
-                                                                <div className="app-checkbox__elem">
-                                                                    <svg
-                                                                        className="app-checkbox__icon"
-                                                                        viewBox="0 0 14 10"
-                                                                        fill="none"
-                                                                    >
-                                                                        <path
-                                                                            d="M1.16699 4.93083L5.10366 8.75L12.8337 1.25"
-                                                                            stroke="#F6F6F1"
-                                                                            strokeWidth={2}
-                                                                            strokeLinecap="round"
-                                                                            strokeLinejoin="round"
-                                                                        />
-                                                                    </svg>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </li>
-                                                    <li className="dropdown-categories__row">
-                                                        <div className="dropdown-categories__name">Слова</div>
-                                                        <div className="dropdown-categories__checkbox">
-                                                            <div className="app-checkbox">
-                                                                <input
-                                                                    type="checkbox"
-                                                                    className="app-checkbox__input"
-                                                                />
-                                                                <div className="app-checkbox__elem">
-                                                                    <svg
-                                                                        className="app-checkbox__icon"
-                                                                        viewBox="0 0 14 10"
-                                                                        fill="none"
-                                                                    >
-                                                                        <path
-                                                                            d="M1.16699 4.93083L5.10366 8.75L12.8337 1.25"
-                                                                            stroke="#F6F6F1"
-                                                                            strokeWidth={2}
-                                                                            strokeLinecap="round"
-                                                                            strokeLinejoin="round"
-                                                                        />
-                                                                    </svg>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </li>
+                                                    {newSet
+                                                        .sort((a, b) => a.id - b.id)
+                                                        .slice(firstContentIndex, lastContentIndex)
+                                                        .map((word, index) => {
+                                                            return (
+                                                                <li className="dropdown-categories__row"
+                                                                    info={`${word.category_word_id}`}
+                                                                    key={word.id}
+                                                                >
+                                                                    <div className="dropdown-categories__name">{word.category}</div>
+                                                                    <div className="dropdown-categories__checkbox">
+                                                                        <div className="app-checkbox">
+                                                                            <input
+                                                                                type="checkbox"
+                                                                                className="app-checkbox__input"
+                                                                            />
+                                                                            <div className="app-checkbox__elem">
+                                                                                <svg
+                                                                                    className="app-checkbox__icon"
+                                                                                    viewBox="0 0 14 10"
+                                                                                    fill="none"
+                                                                                >
+                                                                                    <path
+                                                                                        d="M1.16699 4.93083L5.10366 8.75L12.8337 1.25"
+                                                                                        stroke="#F6F6F1"
+                                                                                        strokeWidth={2}
+                                                                                        strokeLinecap="round"
+                                                                                        strokeLinejoin="round"
+                                                                                    />
+                                                                                </svg>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </li>
+                                                            )
+                                                        })}
+                                                    }
                                                 </ul>
-                                            </div>
+                                            </div> */}
                                         </div>
                                         <button className="filters-top__add-word --th-mobile btn btn-dark" onClick={handleAddWord}>
                                             <svg className="icon" viewBox="0 0 25 24" fill="none">
@@ -1529,7 +1396,7 @@ export const WordsList = () => {
                                     </div>
                                     <ul className="pagination__dots">
                                         <li className="pagination__dot">
-                                            <button className="pagination__dot-btn --th-prev">
+                                            <button className="pagination__dot-btn --th-prev" onClick={prevPage}>
                                                 <svg viewBox="0 0 25 24" fill="none">
                                                     <path
                                                         d="M14.5 16L10.5 12L14.5 8"
@@ -1541,7 +1408,20 @@ export const WordsList = () => {
                                                 </svg>
                                             </button>
                                         </li>
+
+                                        {/* Сделать нормальную пагинацию */}
+
                                         <li className="pagination__dot">
+                                            <button className="pagination__dot-btn">{page}</button>
+                                        </li>
+                                        <li className="pagination__dot">
+                                            <button className="pagination__dot-btn">из</button>
+                                        </li>
+                                        <li className="pagination__dot">
+                                            <button className="pagination__dot-btn">{totalPages}</button>
+                                        </li>
+
+                                        {/* <li className="pagination__dot">
                                             <button className="pagination__dot-btn">1</button>
                                         </li>
                                         <li className="pagination__dot">
@@ -1557,9 +1437,9 @@ export const WordsList = () => {
                                         </li>
                                         <li className="pagination__dot">
                                             <button className="pagination__dot-btn">12</button>
-                                        </li>
+                                        </li> */}
                                         <li className="pagination__dot">
-                                            <button className="pagination__dot-btn --th-next">
+                                            <button className="pagination__dot-btn --th-next" onClick={nextPage}>
                                                 <svg viewBox="0 0 25 24" fill="none">
                                                     <path
                                                         d="M14.5 16L10.5 12L14.5 8"

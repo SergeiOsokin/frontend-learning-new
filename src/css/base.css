@@ -720,6 +720,7 @@ button:disabled {
   width: 37.2rem;
   position: relative;
   transition: all 0.1s ease-in-out;
+  border-color: transparent;
 }
 @media screen and (max-width: 768px) {
   .app-search {
@@ -748,15 +749,20 @@ button:disabled {
   opacity: 0;
   visibility: hidden;
 }
-.app-search.--th-empty .app-search__icon {
+/* .app-search.--th-empty .app-search__icon {
+  opacity: 1;
+  visibility: visible;
+} */
+.app-search.--th-active .app-search__icon {
   opacity: 1;
   visibility: visible;
 }
 .app-search__elem {
   height: 5.2rem;
   border-radius: 8px;
-  border: 1px solid #1F1E30;
+  /* border: 1px solid #1F1E30; */
   background-color: #F6F6F1;
+  border: none;
   /* Text/Main */
   font-family: "Golos Text", serif;
   font-size: 1.8rem;
@@ -798,6 +804,9 @@ button:disabled {
   padding: 0;
   margin: 0;
   transition: all 0.1s ease-in-out;
+}
+.app-search.--th-active .app-search__delete {
+  display: none;
 }
 .app-search__delete .icon {
   width: 2.4rem;
