@@ -15,6 +15,7 @@ import { HomeworkPage } from './pages/HomeworkPage';
 import { TaskPage } from './pages/TasksPage';
 import { NotFoundPage } from './pages/NotFoundPage';
 import { EducationPage } from './pages/EducationPage';
+import { NoteForm } from './components/NoteForm';
 
 const Main = () => {
     var pjson = require('../package.json');
@@ -35,6 +36,7 @@ const Main = () => {
             <Route exact path='/tasks' component={TaskPage} /> 
             <Route exact path='/homework' component={HomeworkPage} />
             <Route exact path='/education' component={EducationPage} />
+            <Route exact path='/notes/new' component={NoteForm} />
             <Route exact path='/*' component={NotFoundPage} statusCode={404} />
         </Switch>
     )

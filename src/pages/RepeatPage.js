@@ -65,7 +65,7 @@ export const RepeatPage = () => {
     }, [message, request]);
 
     const selectHandler = (e) => {
-        document.querySelector(".dropdown-categories").classList.add('--th-active');
+        document.querySelector(".dropdown-categories").classList.toggle('--th-active');
         // const categoryName = e.target.closest(".form__select").selectedOptions[0].getAttribute('value');
         // console.log(categoryName)
         // setCategory(e.target.value);

@@ -760,9 +760,9 @@ button:disabled {
 .app-search__elem {
   height: 5.2rem;
   border-radius: 8px;
-  /* border: 1px solid #1F1E30; */
+  border: 0px solid #1F1E30;
   background-color: #F6F6F1;
-  border: none;
+  /* border: none; */
   /* Text/Main */
   font-family: "Golos Text", serif;
   font-size: 1.8rem;

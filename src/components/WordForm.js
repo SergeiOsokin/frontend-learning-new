@@ -52,22 +52,22 @@ export const WordForm = ({ wordInfo, setActive }) => {
 
     const handleSubmit = (async (e) => {
         console.log(word)
-        // e.preventDefault();
-        // try {
-        //     const data = await request('/words/add', 'POST', word);
-        //     if (data === undefined) {
-        //         return
-        //     }
-        //     message(data.message);
-        //     setWords({
-        //         russianWord: '',
-        //         foreignWord: '',
-        //         categoryWord: '',
-        //     })
-        //     document.querySelector(".form__select").value = ""
-        // } catch (err) {
-        //     message(err);
-        // }
+        e.preventDefault();
+        try {
+            const data = await request('/words/add', 'POST', word);
+            if (data === undefined) {
+                return
+            }
+            message(data.message);
+            setWords({
+                russianWord: '',
+                foreignWord: '',
+                categoryWord: '',
+            })
+            // document.querySelector(".form__select").value = ""
+        } catch (err) {
+            message(err);
+        }
     });
 
     const handleCheckCat = (e) => {
@@ -312,7 +312,9 @@ export const WordForm = ({ wordInfo, setActive }) => {
                                                                 )
                                                             })
                                                         }
-                                                        <li className="dropdown-categories__row --th-button">
+                                                        {/* Реализовать создание новой категории */}
+                                                        
+                                                        {/* <li className="dropdown-categories__row --th-button">
                                                             <button className="dropdown-categories-add btn btn-grey">
                                                                 Новая категория
                                                             </button>
@@ -356,7 +358,7 @@ export const WordForm = ({ wordInfo, setActive }) => {
                                                                     </button>
                                                                 </div>
                                                             </div>
-                                                        </li>
+                                                        </li> */}
                                                     </ul>
                                                 </div>
                                             </div>

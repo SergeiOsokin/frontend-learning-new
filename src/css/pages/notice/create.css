@@ -112,14 +112,14 @@
   border: 1px solid #CDCDCD;
   border-radius: 0.8rem;
 }
-.notice-example-add:hover:after {
+/* .notice-example-add:hover:after {
   opacity: 1;
   visibility: visible;
 }
 .notice-example-add:hover .notice-example-add__menu {
   opacity: 1;
   visibility: visible;
-}
+} */
 .notice-example-add:after {
   content: "";
   display: block;

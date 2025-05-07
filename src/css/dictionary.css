@@ -393,6 +393,7 @@ tbody tr:nth-child(2n+2) .table__ceil {
 .pagination__settings .current {
   color: #1F1E30;
   text-decoration: underline;
+  cursor: pointer;
 }
 .pagination__settings .icon {
   width: 1.2rem;

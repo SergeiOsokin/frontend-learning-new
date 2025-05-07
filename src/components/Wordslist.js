@@ -112,7 +112,7 @@ export const WordsList = () => {
             default:
                 document.querySelector('.app-search').classList.remove('--th-active');
         }
-        
+
         setInputValue(e.target.value)
         tableSearch();
     }
@@ -1356,15 +1356,15 @@ export const WordsList = () => {
                                 <div className="pagination">
                                     <div className="pagination__settings">
                                         <span className="label">На странице</span>
-                                        <span className="current">{countItems} слов</span>
-                                        <svg className="icon" viewBox="0 0 12 12" fill="none" onClick={handleItems}>
+                                        <span className="current" onClick={handleItems}>{countItems} слов</span >
+                                        {/* <svg className="icon" viewBox="0 0 12 12" fill="none" onClick={handleItems}>
                                             <path
                                                 fillRule="evenodd"
                                                 clipRule="evenodd"
                                                 d="M9.21292 5.1355C9.74992 4.4835 9.28542 3.5 8.44042 3.5H3.56042C2.71542 3.5 2.25142 4.4835 2.78842 5.1355L5.22892 8.099C5.32273 8.21294 5.44061 8.30471 5.57408 8.36771C5.70756 8.43071 5.85332 8.46338 6.00092 8.46338C6.14852 8.46338 6.29428 8.43071 6.42776 8.36771C6.56123 8.30471 6.6791 8.21294 6.77292 8.099L9.21292 5.1355Z"
                                                 fill="#1F1E30"
                                             />
-                                        </svg>
+                                        </svg> */}
                                         {/* Добавить --th-active для pagination__settings-dropdown */}
 
                                         <ul className="pagination__settings-dropdown">
