@@ -8,11 +8,13 @@ import { Aside } from './Aside';
 
 export const NoteForm = () => {
     const { loading, request, clearError } = useHttp();
+    const history = useHistory()
     const { validationInputs } = validation();
     const [note, setNote] = useState({
         theme: '',
         text: '',
         example: '',
+        date: `${new Date().getFullYear()}-${new Date().getMonth()}-${new Date().getDate()}`
     });
     const message = useMessage();
 
@@ -25,14 +27,22 @@ export const NoteForm = () => {
         switch (e.target.id) {
             case 'add__text':
                 document.querySelector('.notice-text-add').classList.remove('--th-disabled');
-            break;
+                break;
+                case 'add__example':
+                    document.querySelector('.notice-example-add').classList.remove('--th-disabled');
+                    break;
             default:
-                document.querySelector('.notice-example-add').classList.remove('--th-disabled');
+                
         }
     }
 
+    const handleCancel = () => {
+        history.push('/notes')
+    }
+
     const handleSubmit = (async (e) => {
-        e.preventDefault()
+        // console.log(note)
+        e.preventDefault();
         try {
             const data = await request('/notes/add', 'POST', note);
             if (data === undefined) {
@@ -66,46 +76,46 @@ export const NoteForm = () => {
         //                 <div>
         //                     <label className="form__label" htmlFor="theme">Тема</label>
         //                     <input
-                                // id="theme"
-                                // type="text"
-                                // placeholder="Введите тему"
-                                // name="theme"
-                                // onChange={changeHandler}
-                                // className="input"
-                                // required maxLength="20"
-                                // value={note.theme}
-                                // autoComplete="off"
-                                // disabled={loading}
+        // id="theme"
+        // type="text"
+        // placeholder="Введите тему"
+        // name="theme"
+        // onChange={changeHandler}
+        // className="input"
+        // required maxLength="20"
+        // value={note.theme}
+        // autoComplete="off"
+        // disabled={loading}
         //                     />
         //                 </div>
         //                 <div>
         //                     <label className="form__label" htmlFor="text">Текст</label>
         //                     <textarea
-                                // id="text"
-                                // type="text"
-                                // placeholder="Максимум 1200 символов"
-                                // name="text"
-                                // onChange={changeHandler}
-                                // value={note.text}
-                                // className="textarea"
-                                // autoComplete="off"
-                                // disabled={loading}
-                                // required maxLength="1200"
+        // id="text"
+        // type="text"
+        // placeholder="Максимум 1200 символов"
+        // name="text"
+        // onChange={changeHandler}
+        // value={note.text}
+        // className="textarea"
+        // autoComplete="off"
+        // disabled={loading}
+        // required maxLength="1200"
         //                     />
         //                 </div>
         //                 <div>
         //                     <label className="form__label" htmlFor="example">Примеры</label>
         //                     <textarea
-                                // id="example"
-                                // type="text"
-                                // placeholder="Максимум 100 символов."
-                                // name="example"
-                                // onChange={changeHandler}
-                                // value={note.example}
-                                // className="textarea"
-                                // autoComplete="off"
-                                // disabled={loading}
-                                // required maxLength="150"
+        // id="example"
+        // type="text"
+        // placeholder="Максимум 100 символов."
+        // name="example"
+        // onChange={changeHandler}
+        // value={note.example}
+        // className="textarea"
+        // autoComplete="off"
+        // disabled={loading}
+        // required maxLength="150"
         //                     />
         //                 </div>
         //             </fieldset>
@@ -160,6 +170,20 @@ export const NoteForm = () => {
                                 />
                             </div>
                             <div className="app-create-notice__added">
+
+                                <button className="notice-add btn btn-grey" id='add__text' onClick={handleAdd}>
+                                    <svg className="notice-add__icon" viewBox="0 0 24 24">
+                                        <path
+                                            d="M5 12H19M12 19V5"
+                                            stroke="currentColor"
+                                            strokeWidth={2}
+                                            strokeLinecap="round"
+                                            strokeLinejoin="round"
+                                        />
+                                    </svg>
+                                    <span className="notice-add__text">Описание</span>
+                                </button>
+
                                 <div className="notice-text-add --th-empty --th-disabled">
                                     {/* Стили при наведении закомментированы .notice-example-add:hover */}
                                     <svg
@@ -177,16 +201,30 @@ export const NoteForm = () => {
                                     <textarea
                                         className="app-area-text"
                                         placeholder="Текст заметки"
-                                        id="example"
+                                        id="text"
                                         type="text"
-                                        name="example"
+                                        name="text"
                                         onChange={changeHandler}
-                                        value={note.example}
+                                        value={note.text}
                                         autoComplete="off"
                                         disabled={loading}
                                         required maxLength="150"
                                     />
                                 </div>
+
+                                <button className="notice-add btn btn-grey" id='add__example' onClick={handleAdd}>
+                                    <svg className="notice-add__icon" viewBox="0 0 24 24">
+                                        <path
+                                            d="M5 12H19M12 19V5"
+                                            stroke="currentColor"
+                                            strokeWidth={2}
+                                            strokeLinecap="round"
+                                            strokeLinejoin="round"
+                                        />
+                                    </svg>
+                                    <span className="notice-add__text">Примеры</span>
+                                </button>
+
                                 <div className="notice-example-add --th-disabled">
                                     <svg
                                         className="notice-example-add__menu"
@@ -203,11 +241,11 @@ export const NoteForm = () => {
                                     <textarea
                                         className="app-area-text"
                                         placeholder="Пример заметки"
-                                        id="text"
+                                        id="example"
                                         type="text"
-                                        name="text"
+                                        name="example"
                                         onChange={changeHandler}
-                                        value={note.text}
+                                        value={note.example}
                                         autoComplete="off"
                                         disabled={loading}
                                         required maxLength="1200"
@@ -215,7 +253,8 @@ export const NoteForm = () => {
                                 </div>
                             </div>
                         </div>
-                        <div className="app-create-notice__mid">
+                        {/* Кнопки перенес в app-create-notice__added чтобы блоки текста отображались под соответствующей кнопкой */}
+                        {/* <div className="app-create-notice__mid">
                             <button className="notice-add btn btn-grey" id='add__text' onClick={handleAdd}>
                                 <svg className="notice-add__icon" viewBox="0 0 24 24">
                                     <path
@@ -240,9 +279,9 @@ export const NoteForm = () => {
                                 </svg>
                                 <span className="notice-add__text">Примеры</span>
                             </button>
-                        </div>
+                        </div> */}
                         <div className="app-create-notice__bot">
-                            <button className="app-create-notice__remove btn btn-red">
+                            <button className="app-create-notice__remove btn btn-red" onClick={handleCancel}>
                                 <svg className="icon" viewBox="0 0 24 24">
                                     <path
                                         d="M5 7H19M10 10V18M14 10V18M10 3H14C14.2652 3 14.5196 3.10536 14.7071 3.29289C14.8946 3.48043 15 3.73478 15 4V7H9V4C9 3.73478 9.10536 3.48043 9.29289 3.29289C9.48043 3.10536 9.73478 3 10 3ZM6 7H18V20C18 20.2652 17.8946 20.5196 17.7071 20.7071C17.5196 20.8946 17.2652 21 17 21H7C6.73478 21 6.48043 20.8946 6.29289 20.7071C6.10536 20.5196 6 20.2652 6 20V7Z"
@@ -255,7 +294,7 @@ export const NoteForm = () => {
                                 </svg>
                                 <span>Забыть</span>
                             </button>
-                            <button className="app-create-notice__save btn btn-dark">
+                            <button className="app-create-notice__save btn btn-dark" onClick={handleSubmit}>
                                 Запомнить
                             </button>
                         </div>
