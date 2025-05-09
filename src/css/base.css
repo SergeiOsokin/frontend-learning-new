@@ -364,6 +364,14 @@ body {
   border-radius: 10rem;
   padding: 1.2rem 1.6rem;
 }
+
+.nav__link.--th-active {
+  text-decoration: none;
+  background-color: #DAFB59;
+  color: #1F1E30;
+}
+
+/*  */
 .nav__link:hover {
   text-decoration: none;
   background-color: #DAFB59;

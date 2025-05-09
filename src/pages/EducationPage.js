@@ -1,15 +1,29 @@
-import React from 'react';
+import { React, useEffect } from 'react';
 import { NoteForm } from '../components/NoteForm';
+import { useHistory } from 'react-router-dom/cjs/react-router-dom.min';
+import { useHttp } from '../hooks/http.hook';
 import { Aside } from '../components/Aside';
 import { MobileMenu } from '../components/MobileMenu'
 
 export const EducationPage = () => {
+    const history = useHistory();
 
+    const handleCheckRole = (e) => {
+        switch (e.target.name) {
+            case 'teacher':
+                history.push('/education/teacher')
+                break;
+            case 'student':
+                history.push('/education/student')
+                break;
+            default:
+        }
+    }
 
     return (
         <>
             <div className="app-inner">
-                <Aside/>
+                <Aside />
                 {/* <aside className="app-aside">
                     <div className="app-aside__top">
                         <div className="app-aside__logo logo">
@@ -143,7 +157,7 @@ export const EducationPage = () => {
                         <section className="app-role-select">
                             <ul className="app-role-select__grid">
                                 <li className="role-card --th-teacher">
-                                    <button className="role-card__btn">
+                                    <button className="role-card__btn" name='teacher' onClick={handleCheckRole}>
                                         <span className="role-card__img" />
                                         <span className="role-card__title">Преподаватель</span>
                                         <span className="role-card__text">
@@ -152,11 +166,11 @@ export const EducationPage = () => {
                                     </button>
                                 </li>
                                 <li className="role-card --th-student">
-                                    <button className="role-card__btn">
+                                    <button className="role-card__btn" name='student' onClick={handleCheckRole}>
                                         <span className="role-card__img" />
-                                        <span className="role-card__title">Преподаватель</span>
+                                        <span className="role-card__title">Ученик</span>
                                         <span className="role-card__text">
-                                            Создать и назначить задачи
+                                            Выполнить задачи
                                         </span>
                                     </button>
                                 </li>

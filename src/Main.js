@@ -17,6 +17,8 @@ import { NotFoundPage } from './pages/NotFoundPage';
 import { EducationPage } from './pages/EducationPage';
 import { NoteForm } from './components/NoteForm';
 import { NoteCard } from './components/NoteCard';
+import { TaskForm } from './components/TaskForm';
+import { TaskCard } from './components/TaskCard';
 
 const Main = () => {
     var pjson = require('../package.json');
@@ -25,20 +27,27 @@ const Main = () => {
     return (
         <Switch>
             <Route exact path='/' component={MainPage} />
+
             <Route exact path='/notes' component={NotesPage} />
             <Route exact path='/notes/new' component={NoteForm} />
             <Route exact path='/notes/open/:id' component={NoteCard} />
+
             <Route exact path='/flashcards' component={RepeatPage} />
             <Route exact path='/wordslist' component={WordsPage} />
-            <Route exact path='/addword' component={AddWord} />
-            <Route exact path='/addnote' component={AddNote} />
-            <Route exact path='/category' component={CategoryPage} />
+            {/* <Route exact path='/addword' component={AddWord} /> */}
+            {/* <Route exact path='/addnote' component={AddNote} /> */}
+            {/* <Route exact path='/category' component={CategoryPage} /> */}
             <Route exact path='/authorization' component={FormAuth} />
             <Route exact path='/registration' component={FormReg} />
             <Route exact path='/categories' component={Categories} />
-            <Route exact path='/tasks' component={TaskPage} /> 
-            <Route exact path='/homework' component={HomeworkPage} />
+
             <Route exact path='/education' component={EducationPage} />
+
+            <Route exact path='/education/teacher' component={TaskPage} /> 
+            <Route exact path='/education/teacher/new' component={TaskForm} />
+            <Route exact path='/education/teacher/open/:id' component={TaskCard} />
+
+            <Route exact path='/education/student' component={HomeworkPage} />
             <Route exact path='/*' component={NotFoundPage} statusCode={404} />
         </Switch>
     )

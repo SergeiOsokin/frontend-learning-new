@@ -1,10 +1,11 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link, useHistory } from 'react-router-dom';
 import { useHttp } from '../hooks/http.hook';
 import { useMessage } from '../hooks/message.hook';
 import { Loader } from './Loader';
 import { validation } from '../hooks/validation.hook';
 import { Aside } from './Aside';
+import { autoResize } from '../hooks/autoResize.hook';
 
 export const NoteForm = () => {
     const { loading, request, clearError } = useHttp();
@@ -20,6 +21,7 @@ export const NoteForm = () => {
 
     const changeHandler = (e) => {
         setNote({ ...note, [e.target.name]: e.target.value });
+        autoResize();
         // validationInputs(e);
     }
 
@@ -60,10 +62,11 @@ export const NoteForm = () => {
         }
     });
 
-    // useEffect(() => {
-    //     message(error);
-    //     clearError(); // очищаем ошибку (сделали в http.hook)
-    // }, [error, message, clearError]);
+    useEffect(() => {
+        window.addEventListener('input', autoResize())
+        // message(error);
+        // clearError(); // очищаем ошибку (сделали в http.hook)
+    }, []);
 
     return (
         // <section className="notice-section commonClass">
@@ -156,14 +159,14 @@ export const NoteForm = () => {
                     <div className="app-create-notice">
                         <div className="app-create-notice__top">
                             <div className="app-create-notice__title create-notice-title">
-                                <textarea
+                                <input
                                     placeholder="Название"
                                     className="create-notice-title__elem"
                                     id="theme"
                                     type="text"
                                     name="theme"
                                     onChange={changeHandler}
-                                    required maxLength="20"
+                                    required maxLength="30"
                                     value={note.theme}
                                     autoComplete="off"
                                     disabled={loading}
@@ -208,7 +211,7 @@ export const NoteForm = () => {
                                         value={note.text}
                                         autoComplete="off"
                                         disabled={loading}
-                                        required maxLength="150"
+                                        required maxLength="1500"
                                     />
                                 </div>
 

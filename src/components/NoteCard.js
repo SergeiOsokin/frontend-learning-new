@@ -6,6 +6,7 @@ import { useMessage } from '../hooks/message.hook';
 import trashIcon from '../../src/img/trash_icon.png';
 import { NoteFormChange } from './NoteFormChange';
 import { Aside } from '../components/Aside';
+import { autoResize } from '../hooks/autoResize.hook';
 // setChanged, change меняем, чтобы заставить navnotetheme вызывать useEffect 
 // и обновлять динамично пункты меню после изменения заметки { props, setChanged, change, noteCard, setNoteCardActive }
 export const NoteCard = () => {
@@ -13,8 +14,6 @@ export const NoteCard = () => {
     const { loading, request } = useHttp();
     const history = useHistory();
     const [deleteModal, setDeleteModal] = useState(false);
-
-
     // const [noteForm, setNoteFormActive] = useState(false);
     const [note, setNote] = useState({
         id: '',
@@ -25,6 +24,7 @@ export const NoteCard = () => {
 
     const changeHandler = (e) => {
         setNote({ ...note, [e.target.name]: e.target.value });
+        autoResize();
         // validationInputs(e);
     }
 
@@ -52,8 +52,10 @@ export const NoteCard = () => {
         setDeleteModal(true);
     }
 
+
+
     const handleSubmitDelete = useCallback(async (e) => {
-        console.log(note.id);
+        // console.log(note.id);
         try {
             const data = await request(`/notes/delete/${note.id}`, 'DELETE', {});
             message(data.message);
@@ -104,6 +106,9 @@ export const NoteCard = () => {
                     text: data[0].text,
                     example: data[0].example,
                 })
+
+                window.addEventListener('input', autoResize())
+
             } catch (e) {
                 message(e);
             }
@@ -117,7 +122,7 @@ export const NoteCard = () => {
         <>
             {loading && <Loader />}
 
-            <div class="app-inner">
+            <div className="app-inner">
                 <Aside />
                 <main className="app-main">
                     <header className="app-main__top">
@@ -149,7 +154,7 @@ export const NoteCard = () => {
                                         {/* <div className="create-title__elem">
                                     {note.theme}
                                 </div> */}
-                                        <textarea
+                                        <input
                                             placeholder="Название"
                                             className="create-notice-title__elem"
                                             id="theme"
@@ -176,11 +181,11 @@ export const NoteCard = () => {
                                                     strokeLinecap="round"
                                                 />
                                             </svg>
-                                            {/* <div className="app-area-text">
+                                            {/* <div className="app-area-notice-text">
                                         {note.text}
                                     </div> */}
                                             <textarea
-                                                className="app-area-text"
+                                                className="app-area-notice-text"
                                                 placeholder="Текст заметки"
                                                 id="text"
                                                 type="text"
@@ -189,7 +194,7 @@ export const NoteCard = () => {
                                                 value={note.text}
                                                 autoComplete="off"
                                                 disabled={loading}
-                                                required maxLength="150"
+                                                required maxLength="1200"
                                             />
                                         </div>
                                         <div className="notice-example-add">
@@ -205,11 +210,11 @@ export const NoteCard = () => {
                                                     strokeLinecap="round"
                                                 />
                                             </svg>
-                                            {/* <div className="app-area-text">
+                                            {/* <div className="app-area-notice-text">
                                         {note.example}
                                     </div> */}
                                             <textarea
-                                                className="app-area-text"
+                                                className="app-area-notice-text"
                                                 placeholder="Пример заметки"
                                                 id="example"
                                                 type="text"

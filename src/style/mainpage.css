@@ -393,7 +393,7 @@ body {
     line-height: 150%;
 }
 
-.nav__link {
+/* .nav__link {
     display: flex;
     align-items: center;
     justify-content: flex-start;
@@ -403,13 +403,13 @@ body {
     transition: all 0.1s linear;
     border-radius: 10rem;
     padding: 1.2rem 1.6rem;
-}
+} */
 
-.nav__link:hover {
+/* .nav__link:hover {
     text-decoration: none;
     background-color: #DAFB59;
     color: #1F1E30;
-}
+} */
 
 .nav__icon {
     width: 3.2rem;

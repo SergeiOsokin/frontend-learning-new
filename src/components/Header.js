@@ -20,16 +20,6 @@ export const Header = ({ simple: simple }) => {
 
     return (
         <>
-            {/* <header className="header">
-                <img className="header__logo header__logo_white" src={logoWhite} alt="Логотип белый"></img>
-                <nav className="header__menu">
-                    {!authorization && <div className="header__menu-in">
-                        <img className="header__user-white" src={iconUserWhite} alt="Символ пользователя"></img>
-                        <Link className="header__menu-enter" to="/authorization">Войти</Link>
-                    </div>}
-                    {!authorization && <Link className="header__menu-registration" to="/registration">Зарегистрироваться</Link>}
-                </nav> --th-simple
-            </header> */}
             <header className={`o-header ${simple && "--th-simple"}`} >
                 <div className="container o-header__inner">
                     <Link className="" to="/">
