@@ -1,4 +1,5 @@
 import React, { useState, useCallback, useEffect } from 'react';
+import { Link, useHistory } from 'react-router-dom';
 import { useHttp } from '../hooks/http.hook';
 import { Loader } from './Loader';
 import { useMessage } from '../hooks/message.hook';
@@ -8,8 +9,9 @@ import { TaskFormChange } from './TaskFormChange';
 import { AppointForm } from './AppointForm';
 // setChanged, change меняем, чтобы заставить navnotetheme вызывать useEffect 
 // и обновлять динамично пункты меню после изменения
-export const TaskCard = ({ props, set, chan, taskCard, setTaskCardActive }) => {
+export const TaskCard = () => {
     const message = useMessage();
+    const history = useHistory();
     const { loading, request } = useHttp();
     const [taskForm, setTaskFormActive] = useState(false);
     const [appointForm, setAppointFormActive] = useState(false);
@@ -25,19 +27,19 @@ export const TaskCard = ({ props, set, chan, taskCard, setTaskCardActive }) => {
     });
     //  
     const deleteTask = useCallback(async (e) => {
-        const [id] = e.target.closest(".main-content").getAttribute('info').split('+');
-        const decision = window.confirm('Удалить задание?');
+        // const [id] = e.target.closest(".main-content").getAttribute('info').split('+');
+        // const decision = window.confirm('Удалить задание?');
 
-        if (decision) {
-            try {
-                const data = await request(`/task/delete/${id}`, 'DELETE', {});
-                set(!chan);
-                setTaskCardActive(!taskCard)
-                message(data.message);
-            } catch (e) {
-                message(e);
-            }
-        }
+        // if (decision) {
+        //     try {
+        //         const data = await request(`/task/delete/${id}`, 'DELETE', {});
+        //         set(!chan);
+        //         setTaskCardActive(!taskCard)
+        //         message(data.message);
+        //     } catch (e) {
+        //         message(e);
+        //     }
+        // }
     }, [message, request]);
 
     function patchTask() {
@@ -51,7 +53,7 @@ export const TaskCard = ({ props, set, chan, taskCard, setTaskCardActive }) => {
     useEffect(() => {
         async function fetchData() {
             try {
-                const data = await request(`/task/theme/${props.id}`, 'GET', {});
+                const data = await request(`/task/theme/${parseInt(history.location.pathname.match(/\d+/))}`, 'GET', {});
                 if (data === undefined) {
                     return
                 }
@@ -71,12 +73,12 @@ export const TaskCard = ({ props, set, chan, taskCard, setTaskCardActive }) => {
             }
         }
         fetchData();
-    }, [taskForm, props.id, appointForm])
+    }, [])
 
     return (
         <>
             {loading && <Loader />}
-            {!loading &&
+            {/* {!loading &&
                 <main className="main-content" info={`${task.id}`}>
                     <div className="main-content__control-panel">
                         <button className="control-panel__appoint-button button" onClick={appointTask}>Назначить</button>
@@ -120,7 +122,9 @@ export const TaskCard = ({ props, set, chan, taskCard, setTaskCardActive }) => {
                 </main>
             }
             {taskForm && <TaskFormChange props={task} setActive={setTaskFormActive} set={set} chan={chan} />}
-            {appointForm && <AppointForm props={task} setActive={setAppointFormActive} />}
+            {appointForm && <AppointForm props={task} setActive={setAppointFormActive} />} */}
+
+
         </>
     )
 }

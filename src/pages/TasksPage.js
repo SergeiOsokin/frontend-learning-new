@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useLayoutEffect, useCallback } from 'react';
 
 import { useHttp } from '../hooks/http.hook';
 import { useMessage } from '../hooks/message.hook';
@@ -14,16 +14,12 @@ export const TaskPage = () => {
     const [tasks, setTasks] = useState([]);
     const history = useHistory();
 
-    const [taskId, setTaskId] = useState();
+    const [taskId, setTaskId] = useState(false);
     const [taskCard, setTaskCardActive] = useState(false);
     const [taskForm, setTaskFormActive] = useState(false);
     const [change, setChanged] = useState(false);
+    const [deleteModal, setDeleteModal] = useState(false);
 
-    const message = useMessage();
-
-    const handleMoreBtn = (e) => {
-        e.target.closest(".more-btn").classList.toggle('--th-active');
-    }
 
     const getTasks = async function fetchData() {
         try {
@@ -37,21 +33,53 @@ export const TaskPage = () => {
         }
     }
 
+    const message = useMessage();
+
+    const handleMoreBtn = (e) => {
+        e.target.closest(".more-btn").classList.toggle('--th-active');
+    }
+
+    const handleAppoint = (e) => {
+        console.log(e)
+    }
+
+    const handleDelele = (e) => {
+        setTaskId(e.target.closest('.app-cards__item').getAttribute('info'));
+        setDeleteModal(true);
+    }
+
+    const handleSubmitDelete = useCallback(async (e) => {
+        try {
+            const data = await request(`/task/delete/${taskId}`, 'DELETE', {});
+            setDeleteModal(false);
+            getTasks();
+            message(data.message);
+        } catch (e) {
+            message(e);
+        }
+    }, [taskId]);
+
+    const handleEdit = (e) => {
+        history.push(`/education/teacher/open/${e.target.closest('.app-cards__item').getAttribute('info')}`);
+    }
+
+
+
     useEffect(() => {
         getTasks();
     }, []);
 
-    const handleClickGet = (e) => {
-        const taskId = e.target.getAttribute('info');
-        setTaskId({
-            id: taskId,
-        });
-        setTaskCardActive(true);
-    }
+    // const handleClickGet = (e) => {
+    //     const taskId = e.target.getAttribute('info');
+    //     setTaskId({
+    //         id: taskId,
+    //     });
+    //     setTaskCardActive(true);
+    // }
 
-    const openTaskForm = () => {
-        setTaskFormActive(true)
-    }
+    // const openTaskForm = () => {
+    //     setTaskFormActive(true)
+    // }
 
     function menuSearch() {
         let phrase = document.querySelector('.input_tasks');
@@ -165,7 +193,7 @@ export const TaskPage = () => {
                                 .sort((a, b) => a.id - b.id)
                                 .map((task, index) => {
                                     return (
-                                        <li className="app-cards__item" key={task.id}>
+                                        <li className="app-cards__item" key={task.id} info={task.id}>
                                             <div className="card card-note --th-no-text">
                                                 <div className="card-note__top">
                                                     <p className="card-note__date">
@@ -186,7 +214,7 @@ export const TaskPage = () => {
                                                             </button>
                                                             <ul className="more-btn__menu">
                                                                 <li className="more-btn__item">
-                                                                    <button className="more-btn__item-btn line-btn-dark">
+                                                                    <button className="more-btn__item-btn line-btn-dark" onClick={handleAppoint}>
                                                                         <svg className="icon" viewBox="0 0 24 24" fill="none">
                                                                             <path
                                                                                 d="M16 12H20M18 14V10M4 18V17C4 16.2044 4.31607 15.4413 4.87868 14.8787C5.44129 14.3161 6.20435 14 7 14H11C11.7956 14 12.5587 14.3161 13.1213 14.8787C13.6839 15.4413 14 16.2044 14 17V18C14 18.2652 13.8946 18.5196 13.7071 18.7071C13.5196 18.8946 13.2652 19 13 19H5C4.73478 19 4.48043 18.8946 4.29289 18.7071C4.10536 18.5196 4 18.2652 4 18ZM12 8C12 8.79565 11.6839 9.55871 11.1213 10.1213C10.5587 10.6839 9.79565 11 9 11C8.20435 11 7.44129 10.6839 6.87868 10.1213C6.31607 9.55871 6 8.79565 6 8C6 7.20435 6.31607 6.44129 6.87868 5.87868C7.44129 5.31607 8.20435 5 9 5C9.79565 5 10.5587 5.31607 11.1213 5.87868C11.6839 6.44129 12 7.20435 12 8Z"
@@ -200,7 +228,7 @@ export const TaskPage = () => {
                                                                     </button>
                                                                 </li>
                                                                 <li className="more-btn__item">
-                                                                    <button className="more-btn__item-btn line-btn-dark">
+                                                                    <button className="more-btn__item-btn line-btn-dark" onClick={handleEdit}>
                                                                         <svg className="icon" viewBox="0 0 24 24">
                                                                             <path
                                                                                 fill="none"
@@ -215,7 +243,7 @@ export const TaskPage = () => {
                                                                     </button>
                                                                 </li>
                                                                 <li className="more-btn__item">
-                                                                    <button className="more-btn__item-btn line-btn-red">
+                                                                    <button className="more-btn__item-btn line-btn-red" onClick={handleDelele}>
                                                                         <svg className="icon" viewBox="0 0 24 24">
                                                                             <path
                                                                                 d="M5 7H19M10 10V18M14 10V18M10 3H14C14.2652 3 14.5196 3.10536 14.7071 3.29289C14.8946 3.48043 15 3.73478 15 4V7H9V4C9 3.73478 9.10536 3.48043 9.29289 3.29289C9.48043 3.10536 9.73478 3 10 3ZM6 7H18V20C18 20.2652 17.8946 20.5196 17.7071 20.7071C17.5196 20.8946 17.2652 21 17 21H7C6.73478 21 6.48043 20.8946 6.29289 20.7071C6.10536 20.5196 6 20.2652 6 20V7Z"
@@ -317,6 +345,48 @@ export const TaskPage = () => {
                                 </div>
                             </li> */}
                         </ul>
+                        {deleteModal &&
+                            <div className="app-modal">
+                                <div className="app-modal__overlay" />
+                                <div className="app-modal__inner">
+                                    <button className="app-modal__close btn line-btn-grey" onClick={() => { setDeleteModal(false); }}>
+                                        <svg className="icon" viewBox="0 0 24 24" fill="none">
+                                            <path
+                                                d="M5 19L18.93 5M19 19L5.07 5"
+                                                stroke="currentColor"
+                                                strokeWidth={2}
+                                                strokeLinecap="round"
+                                                strokeLinejoin="round"
+                                            />
+                                        </svg>
+                                    </button>
+                                    <div className="confirm-delete">
+                                        <h3 className="confirm-delete__title">
+                                            Вы уверены, что хотите <br /> удалить задание?
+                                        </h3>
+                                        <p className="confirm-delete__text">Это действие будет нельзя отменить</p>
+                                        <div className="confirm-delete__actions">
+                                            <button className="confirm-delete__yes btn btn-red-outline" onClick={handleSubmitDelete}>
+                                                <svg className="icon" viewBox="0 0 24 24" fill="none">
+                                                    <path
+                                                        d="M5 7H19M10 10V18M14 10V18M10 3H14C14.2652 3 14.5196 3.10536 14.7071 3.29289C14.8946 3.48043 15 3.73478 15 4V7H9V4C9 3.73478 9.10536 3.48043 9.29289 3.29289C9.48043 3.10536 9.73478 3 10 3ZM6 7H18V20C18 20.2652 17.8946 20.5196 17.7071 20.7071C17.5196 20.8946 17.2652 21 17 21H7C6.73478 21 6.48043 20.8946 6.29289 20.7071C6.10536 20.5196 6 20.2652 6 20V7Z"
+                                                        stroke="currentColor"
+                                                        strokeWidth={2}
+                                                        strokeLinecap="round"
+                                                        strokeLinejoin="round"
+                                                    />
+                                                </svg>
+                                                <span>Удалить</span>
+                                            </button>
+                                            <button className="confirm-delete__no btn btn-dark" onClick={() => { setDeleteModal(false); }}>
+                                                <span>Вернуться назад</span>
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                        }
                     </section>
                 </main>
                 <footer className="app-main__bot">
@@ -342,7 +412,7 @@ export const TaskPage = () => {
                     </ul>
                 </footer>
             </main>
-        </div>
+        </div >
 
     )
 };

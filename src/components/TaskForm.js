@@ -1,31 +1,69 @@
 import React, { useState, useEffect } from 'react';
-import { useHistory, Link } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
 import { useHttp } from '../hooks/http.hook';
 import { useMessage } from '../hooks/message.hook';
 import { Loader } from './Loader';
 import { validation } from '../hooks/validation.hook';
 import { Aside } from './Aside';
+import { autoResize } from '../hooks/autoResize.hook';
 
 export const TaskForm = ({ set, chan, setActive }) => {
     const { loading, request } = useHttp();
+    const history = useHistory()
     const { validationInputs } = validation();
-    const [task, setTaskForm] = useState({
+    const [task, setTask] = useState({
         theme: '',
         words: '',
         rules: '',
         read: '',
         translate: '',
         other: '',
+        user: '',
+        date: `${new Date().getFullYear()}-${new Date().getMonth() + 1}-${new Date().getDate()}`
     });
     const message = useMessage();
 
-
     const changeHandler = (e) => {
-        setTaskForm({ ...task, [e.target.name]: e.target.value });
-        validationInputs(e);
+        setTask({ ...task, [e.target.name]: e.target.value });
+        if (e.target.type === 'textarea') { autoResize(e.target.name) }
+        // autoResize(e.target.name)
+        // validationInputs(e);
+    }
+
+    const handleEdit = (e) => {
+        // console.log(e.target.id)
+        switch (e.target.id) {
+            case 'rules':
+                document.querySelector('.body_rules').classList.toggle('--th-disabled');
+                e.target.closest('.task-step').classList.toggle('--th-edited');
+                break;
+            case 'words':
+                document.querySelector('.body_words').classList.toggle('--th-disabled');
+                e.target.closest('.task-step').classList.toggle('--th-edited');
+                break;
+            case 'read':
+                document.querySelector('.body_read').classList.toggle('--th-disabled');
+                e.target.closest('.task-step').classList.toggle('--th-edited');
+                break;
+            case 'translate':
+                document.querySelector('.body_translate').classList.toggle('--th-disabled');
+                e.target.closest('.task-step').classList.toggle('--th-edited');
+                break;
+            case 'other':
+                document.querySelector('.body_other').classList.toggle('--th-disabled');
+                e.target.closest('.task-step').classList.toggle('--th-edited');
+                break;
+            case 'users':
+                document.querySelector('.body_users').classList.toggle('--th-disabled');
+                e.target.closest('.task-step').classList.toggle('--th-edited');
+                break;
+            default:
+
+        }
     }
 
     const handleSubmit = (async (e) => {
+        console.log(task);
         e.preventDefault()
         try {
             const data = await request(`/task/create`, 'POST', task);
@@ -33,27 +71,33 @@ export const TaskForm = ({ set, chan, setActive }) => {
                 return
             }
             message(data.message);
-            setActive(false);
-            set(!chan);
-            setTaskForm({
+            // setActive(false);
+            // set(!chan);
+            setTask({
                 theme: '',
                 words: '',
                 rules: '',
                 read: '',
                 translate: '',
                 other: '',
+                user: ''
             });
         } catch (err) {
             message(err);
         }
     });
 
+    const handleCancel = () => {
+        history.push('/education/teacher')
+    }
+
     useEffect(() => {
-        window.addEventListener('keydown', (event) => {
-            if (event.key === 'Escape') {
-                setActive(false);
-            }
-        });
+        // window.addEventListener('input', autoResize())
+        // window.addEventListener('keydown', (event) => {
+        //     if (event.key === 'Escape') {
+        //         setActive(false);
+        //     }
+        // });
     }, [setActive]);
 
     return (
@@ -83,20 +127,28 @@ export const TaskForm = ({ set, chan, setActive }) => {
                 <main className="app-main__mid">
                     <section className="task-more">
                         <div className="task-more__date date-status">
-                            <span>18.11.2025</span>
+                            <span>{task.date}</span>
                         </div>
                         <div className="task-more__title">
-                            <textarea
+                            <input
                                 className="task-more__area app-area-text --th-bold"
                                 placeholder="Название"
-                                defaultValue={""}
+                                
+                                id="theme"
+                                type="text"
+                                name="theme"
+                                onChange={changeHandler}
+                                required maxLength="30"
+                                value={task.theme}
+                                autoComplete="off"
+                                disabled={loading}
                             />
                         </div>
                         <ul className="task-more__list">
-                            <li className="task-step --th-creator --th-edited">
+                            {/* <li className="task-step --th-creator">
                                 <div className="task-step__header">
                                     <h4 className="task-step__title">Назначить учеников</h4>
-                                    <svg className=" task-step__icon" viewBox="0 0 24 24" fill="none">
+                                    <svg className=" task-step__icon" viewBox="0 0 24 24" fill="none"  id='users' onClick={handleEdit}>
                                         <path
                                             d="M5 7H19M10 10V18M14 10V18M10 3H14C14.2652 3 14.5196 3.10536 14.7071 3.29289C14.8946 3.48043 15 3.73478 15 4V7H9V4C9 3.73478 9.10536 3.48043 9.29289 3.29289C9.48043 3.10536 9.73478 3 10 3ZM6 7H18V20C18 20.2652 17.8946 20.5196 17.7071 20.7071C17.5196 20.8946 17.2652 21 17 21H7C6.73478 21 6.48043 20.8946 6.29289 20.7071C6.10536 20.5196 6 20.2652 6 20V7Z"
                                             stroke="currentColor"
@@ -106,7 +158,7 @@ export const TaskForm = ({ set, chan, setActive }) => {
                                         />
                                     </svg>
                                 </div>
-                                <div className="task-step__body">
+                                <div className="task-step__body users --th-disabled">
                                     <ul className="task-step__pins pins-wrapper">
                                         <li className="pin --th-focus --th-creator">
                                             <svg className="pin__icon" viewBox="0 0 20 20" fill="none">
@@ -122,6 +174,13 @@ export const TaskForm = ({ set, chan, setActive }) => {
                                                 className="pin__input"
                                                 placeholder="Введите почту"
                                                 type="text"
+                                                id="users"
+                                                name="users"
+                                                onChange={changeHandler}
+                                                value={task.users}
+                                                autoComplete="off"
+                                                disabled={loading}
+                                                required maxLength="300"
                                             />
                                             <button className="pin__delete">
                                                 <svg className="pin__icon " viewBox="0 0 20 20" fill="none">
@@ -163,8 +222,8 @@ export const TaskForm = ({ set, chan, setActive }) => {
                                         </li>
                                     </ul>
                                 </div>
-                            </li>
-                            <li className="task-step --th-creator --th-edited">
+                            </li> */}
+                            <li className="task-step --th-creator" id='rules' onClick={handleEdit}>
                                 <div className="task-step__header">
                                     <h4 className="task-step__title">Грамматика</h4>
                                     <svg className="task-step__icon" viewBox="0 0 24 24" fill="none">
@@ -177,20 +236,27 @@ export const TaskForm = ({ set, chan, setActive }) => {
                                         />
                                     </svg>
                                 </div>
-                                <div className="task-step__body">
+                                <div className="task-step__body body_rules --th-disabled">
                                     <p className="task-step__text">
                                         <textarea
-                                            className=" app-area-text "
+                                            className=" app-area-text rules"
                                             placeholder="Название"
-                                            defaultValue={""}
+                                            
+                                            type="text"
+                                            name="rules"
+                                            onChange={changeHandler}
+                                            value={task.rules}
+                                            autoComplete="off"
+                                            disabled={loading}
+                                            required maxLength="2000"
                                         />
                                     </p>
                                 </div>
                             </li>
-                            <li className="task-step --th-creator">
+                            <li className="task-step --th-creator" id='words' onClick={handleEdit}>
                                 <div className="task-step__header">
                                     <h4 className="task-step__title">Лексика</h4>
-                                    <svg className="task-step__icon" viewBox="0 0 24 24" fill="none">
+                                    <svg className="task-step__icon" viewBox="0 0 24 24" fill="none" >
                                         <path
                                             d="M5 12H19M12 19V5"
                                             stroke="currentColor"
@@ -200,11 +266,27 @@ export const TaskForm = ({ set, chan, setActive }) => {
                                         />
                                     </svg>
                                 </div>
+                                <div className="task-step__body body_words --th-disabled">
+                                    <p className="task-step__text">
+                                        <textarea
+                                            className=" app-area-text words"
+                                            placeholder="Название"
+                                            
+                                            type="text"
+                                            name="words"
+                                            onChange={changeHandler}
+                                            value={task.words}
+                                            autoComplete="off"
+                                            disabled={loading}
+                                            required maxLength="200"
+                                        />
+                                    </p>
+                                </div>
                             </li>
-                            <li className="task-step --th-creator ">
+                            <li className="task-step  --th-creator " id='read' onClick={handleEdit}>
                                 <div className="task-step__header">
                                     <h4 className="task-step__title">Чтение и письмо</h4>
-                                    <svg className="task-step__icon" viewBox="0 0 24 24" fill="none">
+                                    <svg className="task-step__icon" viewBox="0 0 24 24" fill="none" >
                                         <path
                                             d="M5 12H19M12 19V5"
                                             stroke="currentColor"
@@ -214,11 +296,27 @@ export const TaskForm = ({ set, chan, setActive }) => {
                                         />
                                     </svg>
                                 </div>
+                                <div className="task-step__body body_read --th-disabled">
+                                    <p className="task-step__text">
+                                        <textarea
+                                            className=" app-area-text read"
+                                            placeholder="Название"
+                                            
+                                            type="text"
+                                            name="read"
+                                            onChange={changeHandler}
+                                            value={task.read}
+                                            autoComplete="off"
+                                            disabled={loading}
+                                            required maxLength="500"
+                                        />
+                                    </p>
+                                </div>
                             </li>
-                            <li className="task-step --th-creator">
+                            <li className="task-step --th-creator" id='translate' onClick={handleEdit}>
                                 <div className="task-step__header">
                                     <h4 className="task-step__title">Аудирование и видео</h4>
-                                    <svg className="task-step__icon" viewBox="0 0 24 24" fill="none">
+                                    <svg className="task-step__icon" viewBox="0 0 24 24" fill="none" >
                                         <path
                                             d="M5 12H19M12 19V5"
                                             stroke="currentColor"
@@ -228,11 +326,27 @@ export const TaskForm = ({ set, chan, setActive }) => {
                                         />
                                     </svg>
                                 </div>
+                                <div className="task-step__body body_translate --th-disabled">
+                                    <p className="task-step__text">
+                                        <textarea
+                                            className=" app-area-text translate"
+                                            placeholder="Название"
+                                            
+                                            type="text"
+                                            name="translate"
+                                            onChange={changeHandler}
+                                            value={task.translate}
+                                            autoComplete="off"
+                                            disabled={loading}
+                                            required maxLength="500"
+                                        />
+                                    </p>
+                                </div>
                             </li>
-                            <li className="task-step --th-creator">
+                            <li className="task-step --th-creator" id='other' onClick={handleEdit}>
                                 <div className="task-step__header">
                                     <h4 className="task-step__title">Дополнительные материалы</h4>
-                                    <svg className="task-step__icon" viewBox="0 0 24 24" fill="none">
+                                    <svg className="task-step__icon" viewBox="0 0 24 24" fill="none" >
                                         <path
                                             d="M5 12H19M12 19V5"
                                             stroke="currentColor"
@@ -241,11 +355,27 @@ export const TaskForm = ({ set, chan, setActive }) => {
                                             strokeLinejoin="round"
                                         />
                                     </svg>
+                                </div>
+                                <div className="task-step__body body_other --th-disabled">
+                                    <p className="task-step__text">
+                                        <textarea
+                                            className=" app-area-text other"
+                                            placeholder="Название"
+                                            
+                                            type="text"
+                                            name="other"
+                                            onChange={changeHandler}
+                                            value={task.other}
+                                            autoComplete="off"
+                                            disabled={loading}
+                                            required maxLength="300"
+                                        />
+                                    </p>
                                 </div>
                             </li>
                         </ul>
                         <div className="task-more__actions">
-                            <button className="task-more__remove btn btn-red">
+                            <button className="task-more__remove btn btn-red" onClick={handleCancel}>
                                 <svg className="icon" viewBox="0 0 24 24">
                                     <path
                                         d="M5 7H19M10 10V18M14 10V18M10 3H14C14.2652 3 14.5196 3.10536 14.7071 3.29289C14.8946 3.48043 15 3.73478 15 4V7H9V4C9 3.73478 9.10536 3.48043 9.29289 3.29289C9.48043 3.10536 9.73478 3 10 3ZM6 7H18V20C18 20.2652 17.8946 20.5196 17.7071 20.7071C17.5196 20.8946 17.2652 21 17 21H7C6.73478 21 6.48043 20.8946 6.29289 20.7071C6.10536 20.5196 6 20.2652 6 20V7Z"
@@ -258,7 +388,7 @@ export const TaskForm = ({ set, chan, setActive }) => {
                                 </svg>
                                 <span>Удалить</span>
                             </button>
-                            <button disabled="" className="btn btn-dark">
+                            <button disabled="" className="btn btn-dark" onClick={handleSubmit}>
                                 <span>Сохранить</span>
                             </button>
                         </div>
@@ -300,106 +430,106 @@ export const TaskForm = ({ set, chan, setActive }) => {
         //                     <div>
         //                         <label className="form__label" htmlFor="theme">Тема:</label>
         //                         <input
-        //                             id="theme"
-        //                             type="text"
-        //                             placeholder="Максимум 20 символов"
-        //                             name="theme"
-        //                             onChange={changeHandler}
-        //                             className="input"
-        //                             required maxLength="20"
-        //                             value={task.theme}
-        //                             autoComplete="off"
-        //                             disabled={loading}
+        //                                 id = "theme"
+        // type = "text"
+        // placeholder = "Максимум 20 символов"
+        // name = "theme"
+        // onChange = { changeHandler }
+        // className = "input"
+        //                                 required maxLength = "20"
+        // value = { task.theme }
+        // autoComplete = "off"
+        // disabled = { loading }
         //                         />
         //                     </div>
         //                     <div>
         //                         <label className="form__label" htmlFor="rules">Грамматика:</label>
         //                         <textarea
-        //                             id="rules"
-        //                             type="text"
-        //                             placeholder="Максимум 2000 символов"
-        //                             name="rules"
-        //                             onChange={changeHandler}
-        //                             value={task.rules}
-        //                             className="textarea"
-        //                             autoComplete="off"
-        //                             disabled={loading}
-        //                             required maxLength="2000"
+        // id="rules"
+        // type="text"
+        // placeholder="Максимум 2000 символов"
+        // name="rules"
+        // onChange={changeHandler}
+        // value={task.rules}
+        // className="textarea"
+        // autoComplete="off"
+        // disabled={loading}
+        // required maxLength="2000"
         //                         />
         //                     </div>
         //                     <div>
         //                         <label className="form__label" htmlFor="words">Лексика:</label>
         //                         <textarea
-        //                             id="words"
-        //                             type="text"
-        //                             placeholder="Максимум 1000 символов."
-        //                             name="words"
-        //                             onChange={changeHandler}
-        //                             value={task.words}
-        //                             className="textarea"
-        //                             autoComplete="off"
-        //                             disabled={loading}
-        //                             required maxLength="200"
+        // id="words"
+        // type="text"
+        // placeholder="Максимум 1000 символов."
+        // name="words"
+        // onChange={changeHandler}
+        // value={task.words}
+        // className="textarea"
+        // autoComplete="off"
+        // disabled={loading}
+        // required maxLength="200"
         //                         />
         //                     </div>
         //                     <div>
         //                         <label className="form__label" htmlFor="read">Чтение и Письмо:</label>
         //                         <textarea
-        //                             id="read"
-        //                             type="text"
-        //                             placeholder="Максимум 500 символов."
-        //                             name="read"
-        //                             onChange={changeHandler}
-        //                             value={task.read}
-        //                             className="textarea"
-        //                             autoComplete="off"
-        //                             disabled={loading}
-        //                             required maxLength="500"
+        // id="read"
+        // type="text"
+        // placeholder="Максимум 500 символов."
+        // name="read"
+        // onChange={changeHandler}
+        // value={task.read}
+        // className="textarea"
+        // autoComplete="off"
+        // disabled={loading}
+        // required maxLength="500"
         //                         />
         //                     </div>
         //                     <div>
         //                         <label className="form__label" htmlFor="translate">Аудирование и Видео:</label>
         //                         <textarea
-        //                             id="translate"
-        //                             type="text"
-        //                             placeholder="Максимум 500 символов."
-        //                             name="translate"
-        //                             onChange={changeHandler}
-        //                             value={task.translate}
-        //                             className="textarea"
-        //                             autoComplete="off"
-        //                             disabled={loading}
-        //                             required maxLength="500"
+        // id="translate"
+        // type="text"
+        // placeholder="Максимум 500 символов."
+        // name="translate"
+        // onChange={changeHandler}
+        // value={task.translate}
+        // className="textarea"
+        // autoComplete="off"
+        // disabled={loading}
+        // required maxLength="500"
         //                         />
         //                     </div>
         //                     <div>
         //                         <label className="form__label" htmlFor="other">Дополнительные материалы:</label>
         //                         <textarea
-        //                             id="other"
-        //                             type="text"
-        //                             placeholder="Максимум 300 символов."
-        //                             name="other"
-        //                             onChange={changeHandler}
-        //                             value={task.other}
-        //                             className="textarea"
-        //                             autoComplete="off"
-        //                             disabled={loading}
-        //                             required maxLength="300"
+        // id="other"
+        // type="text"
+        // placeholder="Максимум 300 символов."
+        // name="other"
+        // onChange={changeHandler}
+        // value={task.other}
+        // className="textarea"
+        // autoComplete="off"
+        // disabled={loading}
+        // required maxLength="300"
         //                         />
         //                     </div>
         //                     {/* <div>
         //                         <label className="form__label" htmlFor="users">Назначить на:</label>
         //                         <textarea
-        //                             id="users"
-        //                             type="text"
-        //                             placeholder="Добавьте логины через запятую"
-        //                             name="users"
-        //                             onChange={changeHandler}
-        //                             value={task.users}
-        //                             className="textarea"
-        //                             autoComplete="off"
-        //                             disabled={loading}
-        //                             required maxLength="300"
+        // id="users"
+        // type="text"
+        // placeholder="Добавьте логины через запятую"
+        // name="users"
+        // onChange={changeHandler}
+        // value={task.users}
+        // className="textarea"
+        // autoComplete="off"
+        // disabled={loading}
+        // required maxLength="300"
         //                         />
         //                     </div> */}
         //                 </fieldset>

@@ -51,7 +51,6 @@ export const NotesPage = () => {
     }
 
     const handleOpenDeleteModal = (e) => {
-        console.log(e.target.closest('.app-cards__item').getAttribute('info'));
         setNoteId(e.target.closest('.app-cards__item').getAttribute('info'));
         setDeleteModal(true)
     }

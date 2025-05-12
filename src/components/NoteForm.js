@@ -15,26 +15,26 @@ export const NoteForm = () => {
         theme: '',
         text: '',
         example: '',
-        date: `${new Date().getFullYear()}-${new Date().getMonth()}-${new Date().getDate()}`
+        date: `${new Date().getFullYear()}-${new Date().getMonth() + 1}-${new Date().getDate()}`
     });
     const message = useMessage();
 
     const changeHandler = (e) => {
         setNote({ ...note, [e.target.name]: e.target.value });
-        autoResize();
+        if (e.target.type === 'textarea') { autoResize(e.target.name) }
         // validationInputs(e);
     }
 
     const handleAdd = (e) => {
         switch (e.target.id) {
             case 'add__text':
-                document.querySelector('.notice-text-add').classList.remove('--th-disabled');
+                document.querySelector('.notice-text-add').classList.toggle('--th-disabled');
                 break;
-                case 'add__example':
-                    document.querySelector('.notice-example-add').classList.remove('--th-disabled');
-                    break;
+            case 'add__example':
+                document.querySelector('.notice-example-add').classList.toggle('--th-disabled');
+                break;
             default:
-                
+
         }
     }
 
@@ -63,7 +63,7 @@ export const NoteForm = () => {
     });
 
     useEffect(() => {
-        window.addEventListener('input', autoResize())
+        // window.addEventListener('input', autoResize())
         // message(error);
         // clearError(); // очищаем ошибку (сделали в http.hook)
     }, []);
@@ -202,7 +202,7 @@ export const NoteForm = () => {
                                         />
                                     </svg>
                                     <textarea
-                                        className="app-area-text"
+                                        className="app-area-text text"
                                         placeholder="Текст заметки"
                                         id="text"
                                         type="text"
@@ -242,7 +242,7 @@ export const NoteForm = () => {
                                         />
                                     </svg>
                                     <textarea
-                                        className="app-area-text"
+                                        className="app-area-text example"
                                         placeholder="Пример заметки"
                                         id="example"
                                         type="text"
