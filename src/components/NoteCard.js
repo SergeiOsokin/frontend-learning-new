@@ -24,19 +24,19 @@ export const NoteCard = () => {
 
     const changeHandler = (e) => {
         setNote({ ...note, [e.target.name]: e.target.value });
-        autoResize();
+        autoResize(e.target.name);
         // validationInputs(e);
     }
 
     const handleSubmit = (async (e) => {
-        console.log(note)
         e.preventDefault();
         try {
-            const data = await request('/notes/add', 'POST', note);
+            const data = await request(`/notes/patch/${note.id}`, 'PATCH', note);
             if (data === undefined) {
                 return
             }
             message(data.message);
+            console.log(data.message)
             // clearError();
             // setNote({
             //     theme: '',
@@ -139,7 +139,7 @@ export const NoteCard = () => {
                                 </svg>
                                 <span>Все заметки</span>
                             </Link>
-                            <h1 className="app-main__title">Заметки</h1>
+                            <h1 className="app-main__title">Заметка: {note.theme}</h1>
                         </div>
                         <div className="app-main__right">
                             <div className="app-main__search search" />
@@ -156,7 +156,7 @@ export const NoteCard = () => {
                                 </div> */}
                                         <input
                                             placeholder="Название"
-                                            className="create-notice-title__elem"
+                                            className="create-notice-title__elem theme"
                                             id="theme"
                                             type="text"
                                             name="theme"
@@ -185,7 +185,7 @@ export const NoteCard = () => {
                                         {note.text}
                                     </div> */}
                                             <textarea
-                                                className="app-area-notice-text"
+                                                className="app-area-notice-text text"
                                                 placeholder="Текст заметки"
                                                 id="text"
                                                 type="text"
@@ -214,7 +214,7 @@ export const NoteCard = () => {
                                         {note.example}
                                     </div> */}
                                             <textarea
-                                                className="app-area-notice-text"
+                                                className="app-area-notice-text example"
                                                 placeholder="Пример заметки"
                                                 id="example"
                                                 type="text"
