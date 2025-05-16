@@ -39,6 +39,28 @@ export const TaskCard = () => {
         user: ''
     });
 
+    const getTask = async function fetchData() {
+        try {
+            const data = await request(`/task/theme/${parseInt(history.location.pathname.match(/\d+/))}`, 'GET', {});
+            if (data === undefined) {
+                return
+            }
+            message(data.message);
+            setTask({
+                id: data[0].id,
+                theme: data[0].theme,
+                words: data[0].words,
+                rules: data[0].rules,
+                read: data[0].read,
+                translate: data[0].translate,
+                other: data[0].other,
+                users: data[0].users,
+                date: `${new Date().getFullYear()}-${new Date().getMonth() + 1}-${new Date().getDate()}`
+            })
+        } catch (e) {
+            message(e);
+        }
+    }
 
     const handleSubmitDelete = useCallback(async (e) => {
         try {
@@ -59,27 +81,26 @@ export const TaskCard = () => {
             if (data === undefined) {
                 return
             }
+            getTask();
         } catch (err) {
             message(err);
         }
     });
 
     const handleDeleteUser = useCallback(async (e) => {
-        console.log();
-        // setUserDelete({
-        //     user: e.target.closest('.pin').getAttribute('user')
-        // })
-
         e.preventDefault();
         try {
-            const data = await request(`/task/unappoint/${task.id}`, 'POST', userDelete);
+            const data = await request(`/task/unappoint/${task.id}`, 'POST', {
+                user: e.target.closest('.pin').getAttribute('user')
+            });
             if (data === undefined) {
                 return
             }
+            getTask();
         } catch (err) {
             message(err);
         }
-    }, [userDelete])
+    }, [task])
 
     const changeHandler = (e) => {
         setTask({ ...task, [e.target.name]: e.target.value });
@@ -146,29 +167,7 @@ export const TaskCard = () => {
     }
 
     useEffect(() => {
-        async function fetchData() {
-            try {
-                const data = await request(`/task/theme/${parseInt(history.location.pathname.match(/\d+/))}`, 'GET', {});
-                if (data === undefined) {
-                    return
-                }
-                message(data.message);
-                setTask({
-                    id: data[0].id,
-                    theme: data[0].theme,
-                    words: data[0].words,
-                    rules: data[0].rules,
-                    read: data[0].read,
-                    translate: data[0].translate,
-                    other: data[0].other,
-                    users: data[0].users,
-                    date: `${new Date().getFullYear()}-${new Date().getMonth() + 1}-${new Date().getDate()}`
-                })
-            } catch (e) {
-                message(e);
-            }
-        }
-        fetchData();
+        getTask();
     }, [])
 
     return (
@@ -263,7 +262,7 @@ export const TaskCard = () => {
                                     />
                                 </div>
                                 <ul className="task-more__list">
-                                    <li className="task-step --th-creator" id='users' onClick={handleEdit}>
+                                    <li className="task-step --th-creator --th-edited" id='users' onClick={handleEdit}>
                                         <div className="task-step__header">
                                             <h4 className="task-step__title">Назначить учеников</h4>
                                             {/* <svg className=" task-step__icon" viewBox="0 0 24 24" fill="none">
@@ -276,7 +275,8 @@ export const TaskCard = () => {
                                                     />
                                                 </svg> */}
                                         </div>
-                                        <div className="task-step__body body_users --th-disabled">
+                                        {/* --th-disabled */}
+                                        <div className="task-step__body body_users ">
                                             <ul className="task-step__pins pins-wrapper">
                                                 <li className="pin --th-focus --th-creator">
 
