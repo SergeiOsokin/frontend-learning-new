@@ -20,6 +20,10 @@ export const TaskPage = () => {
     const [change, setChanged] = useState(false);
     const [deleteModal, setDeleteModal] = useState(false);
     const [appointModal, setAppointModal] = useState(false);
+    const [currentTask, setCurrentTask] = useState();
+    const [user, setUser] = useState({
+        users: ''
+    });
 
 
     const getTasks = async function fetchData() {
@@ -34,6 +38,23 @@ export const TaskPage = () => {
         }
     }
 
+    const getTask = async function fetchData() {
+        try {
+            const data = await request(`/task/theme/${parseInt(history.location.pathname.match(/\d+/))}`, 'GET', {});
+            if (data === undefined) {
+                return
+            }
+            message(data.message);
+            setUser({
+                id: data[0].id,
+                users: data[0].users,
+            })
+        } catch (e) {
+            message(e);
+        }
+    }
+    console.log(tasks);
+
     const message = useMessage();
 
     const handleMoreBtn = (e) => {
@@ -41,9 +62,10 @@ export const TaskPage = () => {
     }
 
     const handleAppoint = (e) => {
-        console.log(e);
-        setAppointModal(true);
-    }
+        setCurrentTask(e.target.closest('.app-cards__item').getAttribute('info'))
+        // getTask()
+            setAppointModal(true);
+    };
 
     const appointTask = (async (e) => {
         e.preventDefault()
@@ -57,6 +79,13 @@ export const TaskPage = () => {
         //     message(err);
         // }
     });
+
+    const changeHandlerUser = (e) => {
+        setUser({ ...user, [e.target.name]: e.target.value });
+        // if (e.target.type === 'textarea') { autoResize(e.target.name) }
+        // autoResize(e.target.name)
+        // validationInputs(e);
+    }
 
     const handleDelele = (e) => {
         setTaskId(e.target.closest('.app-cards__item').getAttribute('info'));
@@ -210,7 +239,7 @@ export const TaskPage = () => {
                                     .sort((a, b) => a.id - b.id)
                                     .map((task, index) => {
                                         return (
-                                            <li className="app-cards__item" key={task.id} info={task.id}>
+                                            <li className="app-cards__item" key={index + task.id} info={task.id}>
                                                 <div className="card card-note --th-no-text">
                                                     <div className="card-note__top">
                                                         <p className="card-note__date">
@@ -402,7 +431,6 @@ export const TaskPage = () => {
                                         </div>
                                     </div>
                                 </div>
-
                             }
 
                             {appointModal &&
@@ -422,7 +450,7 @@ export const TaskPage = () => {
                                         </button>
                                         <div className="confirm-delete">
                                             <ul className="task-more__list">
-                                                <li className="task-step --th-creator --th-edited" id='users' onClick={handleEdit}>
+                                                <li className="task-step --th-creator --th-edited" id='users'>
                                                     <div className="task-step__header">
                                                         <h4 className="task-step__title">Назначить учеников</h4>
                                                         {/* <svg className=" task-step__icon" viewBox="0 0 24 24" fill="none">
@@ -458,13 +486,16 @@ export const TaskPage = () => {
                                                                     type="text"
 
                                                                     name="users"
-                                                                    // onChange={changeHandlerUser}
-                                                                    // value={user.user}
+                                                                    onChange={changeHandlerUser}
+                                                                    value={user.user}
                                                                     autoComplete="off"
                                                                     disabled={loading}
                                                                     required maxLength="300"
                                                                 />
-                                                                <button className="pin__delete" onClick={() => { console.log('ksfdjklj')}}>
+                                                                <button className="pin__delete" onClick={() => {
+                                                                    setUser({ users: '' });
+                                                                    setCurrentTask();
+                                                                }}>
                                                                     <svg className="pin__icon " viewBox="0 0 20 20" fill="none">
                                                                         <path
                                                                             d="M5.83203 14.1667L12.4654 7.5M12.4987 14.1667L5.86536 7.5"
@@ -476,7 +507,7 @@ export const TaskPage = () => {
                                                                     </svg>
                                                                 </button>
                                                             </li>
-                                                            <li className="pin">
+                                                            {/* <li className="pin">
                                                                 <svg className="pin__icon" viewBox="0 0 20 20" fill="none">
                                                                     <path
                                                                         d="M4.16797 9.99935H15.8346M10.0013 15.8327V4.16602"
@@ -487,25 +518,30 @@ export const TaskPage = () => {
                                                                     />
                                                                 </svg>
                                                                 <span className="pin__text">Сергей Соколов</span>
-                                                            </li>
-                                                            {/* {task.users.map((user, index) => {
-                                                                return (
-                                                                    <li className="pin --th-new" key={index} user={user} >
-                                                                        <span className="pin__text">{user}</span>
-                                                                        <button className="pin__delete" onClick={handleDeleteUser}>
-                                                                            <svg className="pin__icon" viewBox="0 0 20 20" fill="none">
-                                                                                <path
-                                                                                    d="M5.83203 14.1667L12.4654 7.5M12.4987 14.1667L5.86536 7.5"
-                                                                                    stroke="currentColor"
-                                                                                    strokeWidth={2}
-                                                                                    strokeLinecap="round"
-                                                                                    strokeLinejoin="round"
-                                                                                />
-                                                                            </svg>
-                                                                        </button>
-                                                                    </li>
-                                                                )
-                                                            })} */}
+                                                            </li> */}
+                                                            {tasks.find((task, index) => {
+                                                                return task.id = currentTask;
+                                                            })
+                                                                .users.map((user, index) => {
+                                                                    console.log(user)
+                                                                    return (
+                                                                        <li className="pin --th-new" key={user} user={user} >
+                                                                            <span className="pin__text">{user}</span>
+                                                                            <button className="pin__delete" onClick={() => { }}>
+                                                                                <svg className="pin__icon" viewBox="0 0 20 20" fill="none">
+                                                                                    <path
+                                                                                        d="M5.83203 14.1667L12.4654 7.5M12.4987 14.1667L5.86536 7.5"
+                                                                                        stroke="currentColor"
+                                                                                        strokeWidth={2}
+                                                                                        strokeLinecap="round"
+                                                                                        strokeLinejoin="round"
+                                                                                    />
+                                                                                </svg>
+                                                                            </button>
+                                                                        </li>
+                                                                    )
+                                                                })
+                                                            }
 
                                                         </ul>
                                                     </div>
@@ -531,7 +567,6 @@ export const TaskPage = () => {
                                         </div>
                                     </div>
                                 </div>
-
                             }
                         </section>
                     </main>
