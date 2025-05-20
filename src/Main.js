@@ -19,6 +19,7 @@ import { NoteForm } from './components/NoteForm';
 import { NoteCard } from './components/NoteCard';
 import { TaskForm } from './components/TaskForm';
 import { TaskCard } from './components/TaskCard';
+import { HomeworkCard } from './components/HomeworkCard';
 
 const Main = () => {
     var pjson = require('../package.json');
@@ -48,6 +49,7 @@ const Main = () => {
             <Route exact path='/education/teacher/open/:id' component={TaskCard} />
 
             <Route exact path='/education/student' component={HomeworkPage} />
+            <Route exact path='/education/student/open/:id' component={HomeworkCard} />
             <Route exact path='/*' component={NotFoundPage} statusCode={404} />
         </Switch>
     )
