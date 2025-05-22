@@ -6,6 +6,8 @@ import { Loader } from '../components/Loader';
 import { HomeworkCard } from '../components/HomeworkCard';
 import { Aside } from '../components/Aside';
 import { useHistory } from 'react-router-dom/cjs/react-router-dom.min';
+import timerImg from '../images/statuses/timer.webp';
+import yesImg from "../images/statuses/yes.webp"
 
 export const HomeworkPage = () => {
     const { loading, request } = useHttp();
@@ -149,11 +151,11 @@ export const HomeworkPage = () => {
                     <main className="app-main__mid">
                         <section className="app-cards">
                             <ul className="app-cards__inner">
-                                <li className="app-cards__item">
+                                {/* <li className="app-cards__item">
                                     <div className="card card-note --th-no-text">
                                         <div className="card-note__top">
                                             <p className="card-note__date">
-                                                <img src="../../../../src/images/statuses/timer.webp" alt="" />
+                                                <img src={timerImg} alt="" />
                                                 <span>18.11.2025</span>
                                             </p>
                                             <div className="card-note__actions">
@@ -181,7 +183,7 @@ export const HomeworkPage = () => {
                                     <div className="card card-note --th-no-text">
                                         <div className="card-note__top">
                                             <p className="card-note__date">
-                                                <img src="../../../../images/statuses/yes.webp" alt="" />
+                                                <img src={yesImg} alt="" />
                                                 <span>18.11.2025</span>
                                             </p>
                                             <div className="card-note__actions">
@@ -204,14 +206,15 @@ export const HomeworkPage = () => {
                                             </h3>
                                         </div>
                                     </div>
-                                </li>
+                                </li> */}
                                 {tasks.map((task, index) => {
                                     return (
                                         <li className="app-cards__item" key={task.id} info={task.id}>
                                             <div className="card card-note --th-no-text">
                                                 <div className="card-note__top">
                                                     <p className="card-note__date">
-                                                        <img src="../../../../images/statuses/yes.webp" alt="" />
+                                                        <img src={yesImg } alt="" />
+                                                        <img src={timerImg } alt="" />
                                                         <span>18.11.2025</span>
                                                     </p>
                                                     <div className="card-note__actions">

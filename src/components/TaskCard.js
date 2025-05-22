@@ -121,26 +121,32 @@ export const TaskCard = () => {
             case 'rules':
                 document.querySelector('.body_rules').classList.toggle('--th-disabled');
                 e.target.closest('.task-step').classList.toggle('--th-edited');
+                autoResize(e.target.id);
                 break;
             case 'words':
                 document.querySelector('.body_words').classList.toggle('--th-disabled');
                 e.target.closest('.task-step').classList.toggle('--th-edited');
+                autoResize(e.target.id);
                 break;
             case 'read':
                 document.querySelector('.body_read').classList.toggle('--th-disabled');
                 e.target.closest('.task-step').classList.toggle('--th-edited');
+                autoResize(e.target.id);
                 break;
             case 'translate':
                 document.querySelector('.body_translate').classList.toggle('--th-disabled');
                 e.target.closest('.task-step').classList.toggle('--th-edited');
+                autoResize(e.target.id);
                 break;
             case 'other':
                 document.querySelector('.body_other').classList.toggle('--th-disabled');
                 e.target.closest('.task-step').classList.toggle('--th-edited');
+                autoResize(e.target.id);
                 break;
             case 'users':
                 document.querySelector('.body_users').classList.toggle('--th-disabled');
                 e.target.closest('.task-step').classList.toggle('--th-edited');
+                autoResize(e.target.id);
                 break;
             default:
 

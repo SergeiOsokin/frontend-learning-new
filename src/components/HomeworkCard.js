@@ -3,11 +3,12 @@ import { Link, useHistory } from 'react-router-dom';
 import { useHttp } from '../hooks/http.hook';
 import { Loader } from './Loader';
 import { useMessage } from '../hooks/message.hook';
-import trashIcon from '../../src/img/trash_icon.png';
+import timerImg from '../images/statuses/timer.webp';
 import { AppointForm } from './AppointForm';
 
 import linkifyHtml from 'linkify-html';
 import { Aside } from './Aside';
+import { autoResize } from '../hooks/autoResize.hook';
 
 // setChanged, change меняем, чтобы заставить navnotetheme вызывать useEffect 
 // и обновлять динамично пункты меню после изменения
@@ -33,26 +34,32 @@ export const HomeworkCard = () => {
 
     // --th-opened --th-opened
     const handleEdit = (e) => {
+        console.log(e.target.id)
         switch (e.target.id) {
             case 'rules':
                 document.querySelector('.body_rules').classList.toggle('--th-disabled');
                 e.target.closest('.task-step').classList.toggle('--th-edited');
+                autoResize(e.target.id);
                 break;
             case 'words':
                 document.querySelector('.body_words').classList.toggle('--th-disabled');
                 e.target.closest('.task-step').classList.toggle('--th-edited');
+                autoResize(e.target.id);
                 break;
             case 'read':
                 document.querySelector('.body_read').classList.toggle('--th-disabled');
                 e.target.closest('.task-step').classList.toggle('--th-edited');
+                autoResize(e.target.id);
                 break;
             case 'translate':
                 document.querySelector('.body_translate').classList.toggle('--th-disabled');
                 e.target.closest('.task-step').classList.toggle('--th-edited');
+                autoResize(e.target.id);
                 break;
             case 'other':
                 document.querySelector('.body_other').classList.toggle('--th-disabled');
                 e.target.closest('.task-step').classList.toggle('--th-edited');
+                autoResize(e.target.id);
                 break;
             default:
 
@@ -60,11 +67,18 @@ export const HomeworkCard = () => {
     }
 
     function searchLink() {
-        // console.log(document.querySelector('.gramma').textContent);
-        const beforeEl = linkifyHtml(document.querySelector('.gramma').textContent)
-        const afterEl = document.querySelector('.gramma')
+        document.querySelectorAll('.task-step__text').forEach((el, ind) => {
+            // console.log(el.textContent);
+            let beforeEl = linkifyHtml(el.textContent)
+            let afterEl = el
 
-        afterEl.innerHTML = beforeEl;
+            afterEl.innerHTML = beforeEl;
+        });
+
+        // const beforeEl = linkifyHtml(document.querySelector('.task-step__text').textContent)
+        // const afterEl = document.querySelector('.task-step__text')
+
+        // afterEl.innerHTML = beforeEl;
     };
 
     const getTask = async function fetchData() {
@@ -81,7 +95,7 @@ export const HomeworkCard = () => {
                 rules: data[0].rules,
                 read: data[0].read,
                 translate: data[0].translate,
-                other: data[0].other,        
+                other: data[0].other,
                 date: data[0].date,
                 finished: data[0].finished,
             });
@@ -162,7 +176,7 @@ export const HomeworkCard = () => {
                         <main className="app-main__mid">
                             <section className="task-more">
                                 <div className="task-more__date date-status">
-                                    <img src="../../../../images/statuses/timer.webp" alt="" />
+                                    <img src={timerImg} alt="" />
                                     <span>18.11.2025 {task.date}</span>
                                 </div>
                                 <h3 className="task-more__title">{task.theme}</h3>
@@ -182,7 +196,17 @@ export const HomeworkCard = () => {
                                         </div>
                                         <div className="task-step__body body_rules --th-disabled">
                                             <p className="task-step__text">
-                                                {task.rules}
+                                                <textarea
+                                                    className=" app-area-text rules"
+                                                    placeholder="Название"
+
+                                                    type="text"
+                                                    name="rules"
+                                                    value={task.rules}
+                                                    autoComplete="off"
+                                                    disabled={loading}
+                                                    required maxLength="2000"
+                                                />
                                             </p>
                                         </div>
                                     </li>
@@ -201,7 +225,17 @@ export const HomeworkCard = () => {
                                         </div>
                                         <div className="task-step__body body_words --th-disabled">
                                             <p className="task-step__text">
-                                                {task.words}
+                                            <textarea
+                                                    className=" app-area-text words"
+                                                    placeholder="Название"
+
+                                                    type="text"
+                                                    name="words"
+                                                    value={task.words}
+                                                    autoComplete="off"
+                                                    disabled={loading}
+                                                    required maxLength="200"
+                                                />
                                             </p>
                                         </div>
                                     </li>
@@ -220,7 +254,17 @@ export const HomeworkCard = () => {
                                         </div>
                                         <div className="task-step__body body_read --th-disabled">
                                             <p className="task-step__text">
-                                                {task.read}
+                                            <textarea
+                                                    className=" app-area-text read"
+                                                    placeholder="Название"
+
+                                                    type="text"
+                                                    name="read"
+                                                    value={task.read}
+                                                    autoComplete="off"
+                                                    disabled={loading}
+                                                    required maxLength="500"
+                                                />
                                             </p>
                                         </div>
                                     </li>
@@ -239,7 +283,17 @@ export const HomeworkCard = () => {
                                         </div>
                                         <div className="task-step__body body_translate --th-disabled">
                                             <p className="task-step__text">
-                                                {task.translate}
+                                            <textarea
+                                                    className=" app-area-text translate"
+                                                    placeholder="Название"
+
+                                                    type="text"
+                                                    name="translate"
+                                                    value={task.translate}
+                                                    autoComplete="off"
+                                                    disabled={loading}
+                                                    required maxLength="500"
+                                                />
                                             </p>
                                         </div>
                                     </li>
@@ -258,7 +312,17 @@ export const HomeworkCard = () => {
                                         </div>
                                         <div className="task-step__body body_other --th-disabled">
                                             <p className="task-step__text">
-                                                {task.other}
+                                            <textarea
+                                                    className=" app-area-text other"
+                                                    placeholder="Название"
+
+                                                    type="text"
+                                                    name="other"
+                                                    value={task.other}
+                                                    autoComplete="off"
+                                                    disabled={loading}
+                                                    required maxLength="300"
+                                                />
                                             </p>
                                         </div>
                                     </li>
@@ -290,7 +354,33 @@ export const HomeworkCard = () => {
                                             Выполнено
                                         </label>
                                     </div>
+                                    <div className="app-toggle-wrapper" onClick={searchLink}>
+                                        <div className="app-toggle">
+                                            <input
+                                                id="checkbox"
+                                                type="checkbox"
+                                                className="app-toggle__input"
+                                            />
+                                            <div className="app-toggle__elem" />
+                                        </div>
+                                        <label className="app-toggle-label" htmlFor="checkbox">
+                                            Показать ссылки
+                                        </label>
+                                    </div>
                                 </div>
+                                {/* <button className="task-more__remove btn btn-red">
+                                    <svg className="icon" viewBox="0 0 24 24">
+                                        <path
+                                            d="M5 7H19M10 10V18M14 10V18M10 3H14C14.2652 3 14.5196 3.10536 14.7071 3.29289C14.8946 3.48043 15 3.73478 15 4V7H9V4C9 3.73478 9.10536 3.48043 9.29289 3.29289C9.48043 3.10536 9.73478 3 10 3ZM6 7H18V20C18 20.2652 17.8946 20.5196 17.7071 20.7071C17.5196 20.8946 17.2652 21 17 21H7C6.73478 21 6.48043 20.8946 6.29289 20.7071C6.10536 20.5196 6 20.2652 6 20V7Z"
+                                            stroke="currentColor"
+                                            fill="none"
+                                            strokeWidth={2}
+                                            strokeLinecap="round"
+                                            strokeLinejoin="round"
+                                        />
+                                    </svg>
+                                    <span>Удалить</span>
+                                </button> */}
                             </section>
                         </main>
                         <footer className="app-main__bot">

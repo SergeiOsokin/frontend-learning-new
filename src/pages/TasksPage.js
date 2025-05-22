@@ -64,7 +64,7 @@ export const TaskPage = () => {
     const handleAppoint = (e) => {
         setCurrentTask(e.target.closest('.app-cards__item').getAttribute('info'))
         // getTask()
-            setAppointModal(true);
+        setAppointModal(true);
     };
 
     const appointTask = (async (e) => {
@@ -248,6 +248,7 @@ export const TaskPage = () => {
                                                         <div className="card-note__actions" onClick={handleMoreBtn}>
                                                             {/*  --th-active */}
                                                             <div className="more-btn">
+
                                                                 <button className="card-note__btn more-btn__btn">
                                                                     <svg viewBox="0 0 4 16">
                                                                         <path
