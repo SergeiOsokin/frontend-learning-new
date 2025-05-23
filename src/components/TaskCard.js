@@ -146,7 +146,7 @@ export const TaskCard = () => {
             case 'users':
                 document.querySelector('.body_users').classList.toggle('--th-disabled');
                 e.target.closest('.task-step').classList.toggle('--th-edited');
-                autoResize(e.target.id);
+                // autoResize(e.target.id);
                 break;
             default:
 

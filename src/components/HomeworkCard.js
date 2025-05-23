@@ -34,7 +34,6 @@ export const HomeworkCard = () => {
 
     // --th-opened --th-opened
     const handleEdit = (e) => {
-        console.log(e.target.id)
         switch (e.target.id) {
             case 'rules':
                 document.querySelector('.body_rules').classList.toggle('--th-disabled');
