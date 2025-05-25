@@ -33,8 +33,8 @@ export const FormAuth = () => {
             }
             history.push('/wordslist');
             auth.login(req); // передаем полученные данные в auth.hook
-        } catch (e) {
-            message(e);
+        } catch (error) {
+            message(error, false);
         }
     };
     const moveHandler = (event) => {

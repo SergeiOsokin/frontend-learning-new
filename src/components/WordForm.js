@@ -23,7 +23,7 @@ export const WordForm = ({ wordInfo, setActive }) => {
         if (e.target.name === 'categoryWord') {
             const idCategory = e.target.closest(".dropdown-categories__row").getAttribute('info');
             setWords({ ...word, [e.target.name]: idCategory });
-            // console.log(document.querySelectorAll('.dropdown-categories__row .dropdown-categories__checkbox .app-checkbox'))
+            // document.querySelectorAll('.dropdown-categories__row .dropdown-categories__checkbox .app-checkbox'))
         } else {
             setWords({ ...word, [e.target.name]: e.target.value });
         }
@@ -38,7 +38,7 @@ export const WordForm = ({ wordInfo, setActive }) => {
         //     if (data === undefined) {
         //         return
         //     }
-        //     message(data.message);
+        //     message(data.message, true);
         //     setWords({
         //         russianWord: '',
         //         foreignWord: '',
@@ -46,19 +46,19 @@ export const WordForm = ({ wordInfo, setActive }) => {
         //     })
         //     document.querySelector(".form__select").value = ""
         // } catch (err) {
-        //     message(err);
+        //     message(err, false);
         // }
     });
 
     const handleSubmit = (async (e) => {
-        console.log(word)
         e.preventDefault();
         try {
             const data = await request('/words/add', 'POST', word);
-            if (data === undefined) {
-                return
+            if (data.hasOwnProperty('error')) {
+                message(data.message, false);
+                return;
             }
-            message(data.message);
+            message(data.message, true);
             setWords({
                 russianWord: '',
                 foreignWord: '',
@@ -66,7 +66,7 @@ export const WordForm = ({ wordInfo, setActive }) => {
             })
             // document.querySelector(".form__select").value = ""
         } catch (err) {
-            message(err);
+            message(err, false);
         }
     });
 
@@ -91,16 +91,16 @@ export const WordForm = ({ wordInfo, setActive }) => {
             try {
                 const data = await request('/category/get', 'GET', {});
                 if (data === undefined) {
-                    return
+                    message(data.message, true);
+                    return;
                 }
-                message(data.message);
                 setCategory(data.data)
             } catch (err) {
-                message(err);
+                message(err, false);
             }
         }
         fetchData();
-    }, [request, message]);
+    }, []);
 
     return (
         // <section className="add-word-section commonClass">

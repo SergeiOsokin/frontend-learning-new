@@ -59,8 +59,8 @@ export const NavNoteThemes = () => {
     //                 return
     //             }
     //             setThemes(data);
-    //         } catch (e) {
-    //             message(e)
+    //         } catch (error) {
+    //             message(error, false)
     //         }
     //     }
     //     fetchData();
@@ -73,14 +73,14 @@ export const NavNoteThemes = () => {
                 if (data === undefined) {
                     return
                 }
-                message(data.message);
+                message(data.message, true);
                 setNotes(data.data)
-            } catch (e) {
-                message(e);
+            } catch (error) {
+                message(error, false);
             }
         }
         fetchData();
-    }, [request, message, active])
+    }, [request, active])
 
 
     return (

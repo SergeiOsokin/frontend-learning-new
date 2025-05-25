@@ -39,14 +39,12 @@ export const WordsList = () => {
 
     const handleItems = (e) => {
         document.querySelector('.pagination__settings-dropdown').classList.toggle('--th-active');
-        console.log('work');
     }
 
     const handleItems2 = (e) => {
         document.querySelector('.pagination__settings-dropdown').classList.remove('--th-active');
         // document.querySelector('.pagination__settings-btn').classList.add('--th-current'); - найти "ближайший" с таким свойством
         setCountItems(e.target.value);
-        console.log(e.target.value);
     }
 
     const handleAddWord = () => {
@@ -75,7 +73,7 @@ export const WordsList = () => {
         //     newSet.add(`${elem.category}`);
         // });
 
-        // console.log(newSet);
+        // newSet);
         // if (e.target.classList.contains('filters-categories__select')) {
         //     document.querySelector('.dropdown-categories').classList.toggle('--th-active');
         // } else if (e.target.classList.contains('app-checkbox__input')) {
@@ -142,13 +140,13 @@ export const WordsList = () => {
                 const data = await request(`/words/delete/${id}`, 'DELETE', {}, {
                     credentials: 'include'
                 });
-                message(data.message);
+                message(data.message, true);
                 e.target.closest(".word-string").parentElement.removeChild(e.target.closest(".word-string"));
-            } catch (e) {
-                message(e);
+            } catch (error) {
+                message(error, false);
             }
         }
-    }, [message, request]);
+    }, [request]);
 
     const changeWord = (e) => {
         const [id, foreign_word, russian_word, category, category_word_id] = e.target.closest(".word-string").getAttribute('info').split('+');
@@ -166,7 +164,7 @@ export const WordsList = () => {
 
     useLayoutEffect(() => {
         document.addEventListener('scroll', () => {
-            // console.log(history.location.pathname === '/wordslist')
+            // history.location.pathname === '/wordslist')
             // if (history.location.pathname === '/wordslist') {
             //     scroll();
             // }
@@ -184,24 +182,24 @@ export const WordsList = () => {
         async function fetchData() {
             try {
                 const data = await request(`/words/list?category=null`, 'GET');
+                console.log('true')
                 if (data === undefined) {
-                    return
+                    return message(data, false)
                 }
                 if (data.data.length === 0) {
-                    return message(data.message)
+                    return message(data.message, true)
                 } else {
                     setWordsArr(data.data);
-
                 }
                 data.data.forEach(elem => {
                     newSet.add(`${elem.category}`);
                 });
             } catch (err) {
-                message(err);
+                message(err, false);
             }
         }
         fetchData();
-    }, [request, message, activeModalAdd]);
+    }, [request, activeModalAdd]);
 
     return (
         // <section className="words-section commonClass">
@@ -742,7 +740,6 @@ export const WordsList = () => {
                                     <thead className="table__head">
                                         <tr className="table__row">
                                             <td className="table__ceil">
-                                                {" "}
                                                 <div className="app-checkbox">
                                                     <input type="checkbox" className="app-checkbox__input" />
                                                     <div className="app-checkbox__elem">
@@ -760,8 +757,8 @@ export const WordsList = () => {
                                                             />
                                                         </svg>
                                                     </div>
-                                                </div>{" "}
-                                                Слово
+                                                </div>
+
                                             </td>
                                             <td className="table__ceil">Перевод</td>
                                             <td className="table__ceil">Категория</td>
@@ -778,7 +775,6 @@ export const WordsList = () => {
                                                         info={`${word.id}+${word.foreign_word}+${word.russian_word}+${word.category}+${word.category_word_id}`}
                                                         key={word.id}
                                                     >
-                                                        {" "}
                                                         <th className="table__ceil">
                                                             {" "}
                                                             <div className="app-checkbox">

@@ -45,7 +45,6 @@ export const TaskCard = () => {
             if (data === undefined) {
                 return
             }
-            message(data.message);
             setTask({
                 id: data[0].id,
                 theme: data[0].theme,
@@ -57,20 +56,19 @@ export const TaskCard = () => {
                 users: data[0].users,
                 date: `${new Date().getFullYear()}-${new Date().getMonth() + 1}-${new Date().getDate()}`
             })
-        } catch (e) {
-            message(e);
+        } catch (error) {
+            message(error, false);
         }
     }
 
     const handleSubmitDelete = useCallback(async (e) => {
         try {
             const data = await request(`/task/delete/${task.id}`, 'DELETE', {});
-            message(data.message);
-            console.log(data.message)
+            message(data.message, true);
             setDeleteModal(false);
             history.push('/education/teacher')
-        } catch (e) {
-            message(e);
+        } catch (error) {
+            message(error, false);
         }
     }, [task]);
 
@@ -83,7 +81,7 @@ export const TaskCard = () => {
             }
             getTask();
         } catch (err) {
-            message(err);
+            message(err, false);
         }
     });
 
@@ -98,7 +96,7 @@ export const TaskCard = () => {
             }
             getTask();
         } catch (err) {
-            message(err);
+            message(err, false);
         }
     }, [task])
 
@@ -154,17 +152,15 @@ export const TaskCard = () => {
     }
 
     const handleSubmit = (async (e) => {
-        console.log(task.id)
         e.preventDefault()
         try {
             const data = await request(`/task/patch/${task.id}`, 'PATCH', task);
             if (data === undefined) {
                 return
             }
-            message(data.message);
-            console.log(data.message)
+            message(data.message, true);
         } catch (err) {
-            message(err);
+            message(err, false);
         }
     });
 
@@ -310,7 +306,7 @@ export const TaskCard = () => {
                                                         disabled={loading}
                                                         required maxLength="300"
                                                     />
-                                                    <button className="pin__delete" onClick={() => { console.log('ksfdjklj'); setUser({ users: '' }) }}>
+                                                    <button className="pin__delete" onClick={() => { setUser({ users: '' }) }}>
                                                         <svg className="pin__icon " viewBox="0 0 20 20" fill="none">
                                                             <path
                                                                 d="M5.83203 14.1667L12.4654 7.5M12.4987 14.1667L5.86536 7.5"

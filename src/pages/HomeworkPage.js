@@ -32,13 +32,12 @@ export const HomeworkPage = () => {
                 return
             }
             setTasks(data);
-        } catch (e) {
-            message(e)
+        } catch (error) {
+            message(error, false)
         }
     }
 
     const handleOpenTask = (e) => {
-        console.log(e.target.closest('.app-cards__item').getAttribute('info'));
         history.push(`/education/student/open/${e.target.closest('.app-cards__item').getAttribute('info')}`);
     }
 

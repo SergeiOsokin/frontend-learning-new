@@ -62,11 +62,11 @@ export const NotesPage = () => {
     const handleSubmitDelete = useCallback(async (e) => {
         try {
             const data = await request(`/notes/delete/${noteId}`, 'DELETE', {});
-            message(data.message);
+            message(data.message, true);
             setDeleteModal(false);
             getNotes();
-        } catch (e) {
-            message(e);
+        } catch (error) {
+            message(error, false);
         }
     }, [noteId]);
 
@@ -78,8 +78,8 @@ export const NotesPage = () => {
     //                 return
     //             }
     //             setThemes(data);
-    //         } catch (e) {
-    //             message(e)
+    //         } catch (error) {
+    //             message(error, false)
     //         }
     //     }
     //     fetchData();
@@ -91,10 +91,9 @@ export const NotesPage = () => {
             if (data === undefined) {
                 return
             }
-            message(data.message);
             setNotes(data.data)
-        } catch (e) {
-            message(e);
+        } catch (error) {
+            message(error, false);
         }
     }
 
@@ -105,14 +104,14 @@ export const NotesPage = () => {
         //         if (data === undefined) {
         //             return
         //         }
-        //         message(data.message);
+        //         message(data.message, true);
         //         setNotes(data.data)
-        //     } catch (e) {
-        //         message(e);
+        //     } catch (error) {
+        //         message(error, false);
         //     }
         // }
         getNotes();
-    }, [request, message, active])
+    }, [request, active])
 
 
     return (

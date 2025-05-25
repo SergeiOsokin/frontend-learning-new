@@ -24,11 +24,11 @@ export const CategoryForm = () => {
             if(data === undefined) {
                 return
             }
-            message(data.message);
+            message(data.message, true);
             setCategory({ ...category, categoryWord: '' });
             clearError();
         } catch (err) {
-            message(err);
+            message(err, false);
         }
     });
     // тут потом реализовать возможность подружать категории, для дальнейшего редактирования / удаления

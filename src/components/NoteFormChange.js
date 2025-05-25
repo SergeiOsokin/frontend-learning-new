@@ -28,7 +28,7 @@ export const NoteFormChange = ({ props, setActive, setChanged, change }) => {
             if (data === undefined) {
                 return
             }
-            message(data.message);
+            message(data.message, true);
             setActive(false);
             setChanged(!change)
             setNoteForm({
@@ -38,7 +38,7 @@ export const NoteFormChange = ({ props, setActive, setChanged, change }) => {
                 example: '',
             })
         } catch (err) {
-            message(err);
+            message(err, false);
         }
     });
 

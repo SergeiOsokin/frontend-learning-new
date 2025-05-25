@@ -43,14 +43,14 @@ export const NoteForm = () => {
     }
 
     const handleSubmit = (async (e) => {
-        // console.log(note)
+        // note)
         e.preventDefault();
         try {
             const data = await request('/notes/add', 'POST', note);
             if (data === undefined) {
                 return
             }
-            message(data.message);
+            message(data.message, true);
             clearError();
             setNote({
                 theme: '',
@@ -58,7 +58,7 @@ export const NoteForm = () => {
                 example: '',
             })
         } catch (err) {
-            message(err);
+            message(err, false);
         }
     });
 

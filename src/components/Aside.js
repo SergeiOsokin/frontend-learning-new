@@ -17,7 +17,7 @@ export const Aside = () => {
     };
 
     useEffect(() => {
-        // console.log(history.location.pathname);
+        // history.location.pathname);
         document.getElementById("root").classList.replace("o-wrapper", "app-wrapper");
     }, []);
 

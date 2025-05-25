@@ -67,7 +67,7 @@ export const HomeworkCard = () => {
 
     function searchLink() {
         document.querySelectorAll('.task-step__text').forEach((el, ind) => {
-            // console.log(el.textContent);
+            // el.textContent);
             let beforeEl = linkifyHtml(el.textContent)
             let afterEl = el
 
@@ -86,7 +86,6 @@ export const HomeworkCard = () => {
             if (data === undefined) {
                 return
             }
-            message(data.message);
             setTask({
                 id: data[0].id,
                 theme: data[0].theme,
@@ -98,8 +97,8 @@ export const HomeworkCard = () => {
                 date: data[0].date,
                 finished: data[0].finished,
             });
-        } catch (e) {
-            message(e);
+        } catch (error) {
+            message(error, false);
         }
     }
 
@@ -201,7 +200,7 @@ export const HomeworkCard = () => {
 
                                                     type="text"
                                                     name="rules"
-                                                    value={task.rules}
+                                                    defaultValue={task.rules}
                                                     autoComplete="off"
                                                     disabled={loading}
                                                     required maxLength="2000"
@@ -230,7 +229,7 @@ export const HomeworkCard = () => {
 
                                                     type="text"
                                                     name="words"
-                                                    value={task.words}
+                                                    defaultValue={task.words}
                                                     autoComplete="off"
                                                     disabled={loading}
                                                     required maxLength="200"
@@ -259,7 +258,7 @@ export const HomeworkCard = () => {
 
                                                     type="text"
                                                     name="read"
-                                                    value={task.read}
+                                                    defaultValue={task.read}
                                                     autoComplete="off"
                                                     disabled={loading}
                                                     required maxLength="500"
@@ -288,7 +287,7 @@ export const HomeworkCard = () => {
 
                                                     type="text"
                                                     name="translate"
-                                                    value={task.translate}
+                                                    defaultValue={task.translate}
                                                     autoComplete="off"
                                                     disabled={loading}
                                                     required maxLength="500"
@@ -317,7 +316,7 @@ export const HomeworkCard = () => {
 
                                                     type="text"
                                                     name="other"
-                                                    value={task.other}
+                                                    defaultValue={task.other}
                                                     autoComplete="off"
                                                     disabled={loading}
                                                     required maxLength="300"

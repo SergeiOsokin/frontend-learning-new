@@ -28,7 +28,7 @@ export const RepeatPage = () => {
                 setWordsInit(data.data);
             }
         } catch (err) {
-            message(err);
+            message(err, false);
         }
     };
 
@@ -37,7 +37,7 @@ export const RepeatPage = () => {
             const data = await request(`/category/get`, 'GET');
             setCategories(data.data)
         } catch (err) {
-            message(err);
+            message(err, false);
         }
     }
 
@@ -47,8 +47,6 @@ export const RepeatPage = () => {
                 document.querySelector(".dropdown-categories").classList.remove('--th-active');
             }
         });
-
-        console.log(isEasy)
 
         // switch (isEasy) {
         //     case true:
@@ -62,12 +60,12 @@ export const RepeatPage = () => {
 
         fetchCategory();
         getWords(null);
-    }, [message, request]);
+    }, [request]);
 
     const selectHandler = (e) => {
         document.querySelector(".dropdown-categories").classList.toggle('--th-active');
         // const categoryName = e.target.closest(".form__select").selectedOptions[0].getAttribute('value');
-        // console.log(categoryName)
+        // categoryName)
         // setCategory(e.target.value);
         // setHand(!hand);
     };
@@ -82,7 +80,7 @@ export const RepeatPage = () => {
 
     const handleClick = (e) => {
         // setEasy(!isEasy);
-        // console.log(e.target)
+        // e.target)
         switch (e.target.name) {
             case 'hard':
                 document.querySelector(".btn_hard").classList.add('--th-active');
@@ -219,7 +217,7 @@ export const RepeatPage = () => {
                                                         <div className="dropdown-categories__name">Для теста в коде</div>
                                                         <div className="dropdown-categories__checkbox">
                                                             <div className="app-checkbox">
-                                                                <input type="checkbox" className="app-checkbox__input" on />
+                                                                <input type="checkbox" className="app-checkbox__input" />
                                                                 <div className="app-checkbox__elem">
                                                                     <svg
                                                                         className="app-checkbox__icon"

@@ -1,5 +1,5 @@
 import './App.css';
-import 'materialize-css'; // для всплывабщих сообшений. См.message.hook
+// import 'materialize-css'; // для всплывабщих сообшений. См.message.hook
 import React from 'react';
 import { Header } from './components/Header';
 import Main from './Main';

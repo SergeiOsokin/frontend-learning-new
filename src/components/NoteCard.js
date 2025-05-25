@@ -28,41 +28,37 @@ export const NoteCard = () => {
         // validationInputs(e);
     }
 
-    const handleSubmit = (async (e) => {
+    const handleSubmit = useCallback(async (e) => {
         e.preventDefault();
         try {
             const data = await request(`/notes/patch/${note.id}`, 'PATCH', note);
-            if (data === undefined) {
-                return
+            if (data.hasOwnProperty('error')) {
+                message(data.message, false);
+                return;
             }
-            message(data.message);
-            console.log(data.message)
-            // clearError();
-            // setNote({
-            //     theme: '',
-            //     text: '',
-            //     example: '',
-            // })
+            return message(data.message, true);
         } catch (err) {
-            message(err);
+            message(err, false);
         }
-    });
+    }, [note]);
 
     const handleOpenDeleteModal = (e) => {
         setDeleteModal(true);
     }
 
-
-
     const handleSubmitDelete = useCallback(async (e) => {
-        // console.log(note.id);
+        // note.id);
+        e.preventDefault();
         try {
             const data = await request(`/notes/delete/${note.id}`, 'DELETE', {});
-            message(data.message);
-            setDeleteModal(false);
+            if (data.hasOwnProperty('error')) {
+                message(data.message, false);
+                return;
+            }
+            message(data.message, true);
             history.push('/notes')
-        } catch (e) {
-            message(e);
+        } catch (error) {
+            message(error, false);
         }
     }, [note]);
 
@@ -70,36 +66,14 @@ export const NoteCard = () => {
         setDeleteModal(false);
     }
 
-    // console.log(note);
-
-    // const deleteNote = useCallback(async (e) => {
-    //     const [id] = e.target.closest(".main-content").getAttribute('noteinfo').split('+');
-    //     const decision = window.confirm('Удалить заметку?');
-
-    //     if (decision) {
-    //         try {
-    //             const data = await request(`/notes/delete/${id}`, 'DELETE', {});
-    //             message(data.message);
-    //             setChanged(!change);
-    //             setNoteCardActive(!noteCard);
-    //         } catch (e) {
-    //             message(e);
-    //         }
-    //     }
-    // }, [message, request, setChanged, change]);
-
-    // const patchNote = () => {
-    //     setNoteFormActive(true);
-    // }
-
     useLayoutEffect(() => {
         async function fetchData() {
             try {
                 const data = await request(`/notes/get/${parseInt(history.location.pathname.match(/\d+/))}`, 'GET', {});
-                if (data === undefined) {
-                    return
+                if (data.hasOwnProperty('error')) {
+                    message(data.message, false);
+                    return;
                 }
-                message(data.message);
                 setNote({
                     id: data[0].id,
                     theme: data[0].theme,
@@ -107,10 +81,10 @@ export const NoteCard = () => {
                     example: data[0].example,
                 })
 
-                window.addEventListener('input', autoResize())
+                window.addEventListener('textarea', autoResize('text'))
 
-            } catch (e) {
-                message(e);
+            } catch (error) {
+                message(error, false);
             }
         }
         fetchData();

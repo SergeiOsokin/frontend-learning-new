@@ -33,8 +33,8 @@ export const TaskPage = () => {
                 return
             }
             setTasks(data);
-        } catch (e) {
-            message(e)
+        } catch (error) {
+            message(error, false)
         }
     }
 
@@ -44,16 +44,15 @@ export const TaskPage = () => {
             if (data === undefined) {
                 return
             }
-            message(data.message);
+            message(data.message, true);
             setUser({
                 id: data[0].id,
                 users: data[0].users,
             })
-        } catch (e) {
-            message(e);
+        } catch (error) {
+            message(error, false);
         }
     }
-    console.log(tasks);
 
     const message = useMessage();
 
@@ -76,7 +75,7 @@ export const TaskPage = () => {
         //     }
         //     getTask();
         // } catch (err) {
-        //     message(err);
+        //     message(err, false);
         // }
     });
 
@@ -97,9 +96,9 @@ export const TaskPage = () => {
             const data = await request(`/task/delete/${taskId}`, 'DELETE', {});
             setDeleteModal(false);
             getTasks();
-            message(data.message);
-        } catch (e) {
-            message(e);
+            message(data.message, true);
+        } catch (error) {
+            message(error, false);
         }
     }, [taskId]);
 
@@ -524,7 +523,6 @@ export const TaskPage = () => {
                                                                 return task.id = currentTask;
                                                             })
                                                                 .users.map((user, index) => {
-                                                                    console.log(user)
                                                                     return (
                                                                         <li className="pin --th-new" key={user} user={user} >
                                                                             <span className="pin__text">{user}</span>

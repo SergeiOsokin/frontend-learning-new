@@ -6,7 +6,7 @@ import { Loader } from './Loader';
 import { validation } from '../hooks/validation.hook';
 import { Header } from './Header';
 import { Footer } from './Footer';
-import { Messages } from '../hooks/message.hook';
+// import { useMessage } from '../hooks/message.hook';
 
 export const FormReg = () => {
     const message = useMessage();
@@ -33,13 +33,12 @@ export const FormReg = () => {
                 if (data === undefined) {
                     return
                 }
-                message(data.message);
-            } catch (e) {
-                message(e);
+                message(data.message, true);
+            } catch (error) {
+                message(error, false);
             }
         } else {
-            console.log('Пароли не совпадают')
-            message('Пароли не совпадают');
+            message('Пароли не совпадают', false);
         }
 
     };
@@ -137,7 +136,6 @@ export const FormReg = () => {
             </main>
             <Footer />
 
-            <Messages />
         </>
 
     )

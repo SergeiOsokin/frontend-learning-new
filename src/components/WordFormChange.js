@@ -35,10 +35,10 @@ export const WordFormChange = ({ wordInfo, setActive }) => {
             if (data === undefined) {
                 return
             }
-            message(data.message);
+            message(data.message, true);
             setActive(false);
         } catch (err) {
-            message('Ошибка:', err);
+            message(`'Ошибка:' ${err}`, false);
         }
     });
 
@@ -54,7 +54,7 @@ export const WordFormChange = ({ wordInfo, setActive }) => {
                 if (data === undefined) {
                     return
                 }
-                message(data.message);
+                message(data.message, true);
                 setWords({
                     id: wordInfo.id,
                     russianWord: wordInfo.russian_word,
@@ -64,11 +64,11 @@ export const WordFormChange = ({ wordInfo, setActive }) => {
                 })
                 setCategory(data.data)
             } catch (err) {
-                message(err);
+                message(err, false);
             }
         }
         fetchData();
-    }, [message, request, setActive, wordInfo.category, wordInfo.category_word_id, wordInfo.foreign_word, wordInfo.id, wordInfo.russian_word]);
+    }, [request, setActive, wordInfo.category, wordInfo.category_word_id, wordInfo.foreign_word, wordInfo.id, wordInfo.russian_word]);
 
     return (
         <section className="change-word-section commonClass">

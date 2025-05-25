@@ -1,5 +1,5 @@
 import './App.css';
-// import 'materialize-css'; // для всплывабщих сообшений. См.message.hook
+import 'materialize-css'; // для всплывабщих сообшений. См.message.hook
 import { Route, Switch } from 'react-router-dom';
 import { NotesPage } from './pages/NotesPage';
 import { RepeatPage } from './pages/RepeatPage';

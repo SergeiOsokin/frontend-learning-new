@@ -22,13 +22,13 @@ export const Categories = ({ setActive }) => {
 
         try {
             const data = await request(`/category/delete/${categoryInfo.id}`, 'DELETE', {});
-            message(data.message);
+            message(data.message, true);
             document.querySelector(".edit-wrapper").classList.remove('--th-delete-category');
             document.querySelector(".categories-edit-actions").classList.remove('--th-disabled');
             document.querySelector(".categories-edit").parentElement.removeChild(document.getElementById(categoryInfo.id));
             document.querySelector(".confirm-category-delete-actions").classList.remove('--th-active');
-        } catch (e) {
-            message(e);
+        } catch (error) {
+            message(error, false);
         }
     }, [message, request]);
 
@@ -47,7 +47,7 @@ export const Categories = ({ setActive }) => {
         //     if (data === undefined) {
         //         return
         //     }
-        //     message(data.message);
+        //     message(data.message, true);
         //     setWords({
         //         russianWord: '',
         //         foreignWord: '',
@@ -55,14 +55,11 @@ export const Categories = ({ setActive }) => {
         //     })
         //     document.querySelector(".form__select").value = ""
         // } catch (err) {
-        //     message(err);
+        //     message(err, false);
         // }
     });
 
     const handleCancel = (async (e) => {
-        console.log(e.target.name)
-        // console.log(e.target.name === 'categories-edit-remove')
-
         switch (e.target.name) {
             case 'categories-edit-remove':
                 document.querySelector(".categories-edit-new").classList.remove('--th-disabled');
@@ -79,7 +76,7 @@ export const Categories = ({ setActive }) => {
 
     const handleDelCat = (e, element) => {
         setCategoryInfo(element)
-        // console.log(element)
+        // element)
         e.target.closest(".edit-wrapper").classList.add('--th-delete-category');
 
         // кнопки базовые для редактировани категории
@@ -89,7 +86,6 @@ export const Categories = ({ setActive }) => {
     }
 
     const handleNewCategory = (e) => {
-        console.log(e.target.closest(".categories-edit-new"))
         e.target.closest(".categories-edit-new").classList.add('--th-disabled');
         document.querySelector(".categories-create").classList.remove('--th-disabled');
     }
@@ -98,20 +94,17 @@ export const Categories = ({ setActive }) => {
         // validationInputs(e);
         let category = document.querySelector('.categories-edit-input__elem').value
 
-        console.log(document.querySelector('.categories-edit-input__elem').value)
-
         e.preventDefault()
         try {
             const data = await request('/category/add', 'POST', { categoryWord: category });
             if (data === undefined) {
                 return
             }
-            message(data.message);
+            message(data.message, true);
             document.querySelector(".categories-edit-input__elem").value = '';
             setCategory({ ...category, categoryWord: '' });
-            // clearError();
         } catch (err) {
-            message(err);
+            message(err, false);
         }
     });
 
@@ -130,16 +123,16 @@ export const Categories = ({ setActive }) => {
                     return
                 }
                 if (data.data.length === 0) {
-                    return message(data.message)
+                    return message(data.message, true)
                 } else {
                     setCategories(data.data);
                 }
             } catch (err) {
-                message(err);
+                message(err, false);
             }
         }
         fetchData();
-    }, [request, message, active, category]);
+    }, [request, active, category]);
 
     return (
         <div className="edit-modal">

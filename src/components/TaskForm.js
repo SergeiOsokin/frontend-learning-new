@@ -31,7 +31,7 @@ export const TaskForm = ({ set, chan, setActive }) => {
     }
 
     const handleEdit = (e) => {
-        // console.log(e.target.id)
+        // e.target.id)
         switch (e.target.id) {
             case 'rules':
                 document.querySelector('.body_rules').classList.toggle('--th-disabled');
@@ -63,14 +63,13 @@ export const TaskForm = ({ set, chan, setActive }) => {
     }
 
     const handleSubmit = (async (e) => {
-        console.log(task);
         e.preventDefault()
         try {
             const data = await request(`/task/create`, 'POST', task);
             if (data === undefined) {
                 return
             }
-            message(data.message);
+            message(data.message, true);
             // setActive(false);
             // set(!chan);
             setTask({
@@ -83,7 +82,7 @@ export const TaskForm = ({ set, chan, setActive }) => {
                 user: ''
             });
         } catch (err) {
-            message(err);
+            message(err, false);
         }
     });
 
