@@ -42,8 +42,9 @@ export const TaskCard = () => {
     const getTask = async function fetchData() {
         try {
             const data = await request(`/task/theme/${parseInt(history.location.pathname.match(/\d+/))}`, 'GET', {});
-            if (data === undefined) {
-                return
+            if (data.hasOwnProperty('error')) {
+                message(data.message || data.error, false);
+                return;
             }
             setTask({
                 id: data[0].id,
@@ -54,7 +55,7 @@ export const TaskCard = () => {
                 translate: data[0].translate,
                 other: data[0].other,
                 users: data[0].users,
-                date: `${new Date().getFullYear()}-${new Date().getMonth() + 1}-${new Date().getDate()}`
+                date: data[0].date_create || `${new Date().getFullYear()}-${new Date().getMonth() + 1}-${new Date().getDate()}`,
             })
         } catch (error) {
             message(error, false);
@@ -64,6 +65,10 @@ export const TaskCard = () => {
     const handleSubmitDelete = useCallback(async (e) => {
         try {
             const data = await request(`/task/delete/${task.id}`, 'DELETE', {});
+            if (data.hasOwnProperty('error')) {
+                message(data.message || data.error, false);
+                return;
+            }
             message(data.message, true);
             setDeleteModal(false);
             history.push('/education/teacher')
@@ -76,9 +81,11 @@ export const TaskCard = () => {
         e.preventDefault()
         try {
             const data = await request(`/task/appoint/${task.id}`, 'POST', user);
-            if (data === undefined) {
-                return
+            if (data.hasOwnProperty('error')) {
+                message(data.message || data.error, false);
+                return;
             }
+            message(data.message, true);
             getTask();
         } catch (err) {
             message(err, false);
@@ -91,8 +98,9 @@ export const TaskCard = () => {
             const data = await request(`/task/unappoint/${task.id}`, 'POST', {
                 user: e.target.closest('.pin').getAttribute('user')
             });
-            if (data === undefined) {
-                return
+            if (data.hasOwnProperty('error')) {
+                message(data.message || data.error, false);
+                return;
             }
             getTask();
         } catch (err) {
@@ -155,8 +163,9 @@ export const TaskCard = () => {
         e.preventDefault()
         try {
             const data = await request(`/task/patch/${task.id}`, 'PATCH', task);
-            if (data === undefined) {
-                return
+            if (data.hasOwnProperty('error')) {
+                message(data.message || data.error, false);
+                return;
             }
             message(data.message, true);
         } catch (err) {

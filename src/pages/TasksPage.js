@@ -29,8 +29,9 @@ export const TaskPage = () => {
     const getTasks = async function fetchData() {
         try {
             const data = await request('/task/all', 'GET', {});
-            if (data === undefined) {
-                return
+            if (data.hasOwnProperty('error')) {
+                message(data.message || data.error, false);
+                return;
             }
             setTasks(data);
         } catch (error) {
@@ -41,8 +42,9 @@ export const TaskPage = () => {
     const getTask = async function fetchData() {
         try {
             const data = await request(`/task/theme/${parseInt(history.location.pathname.match(/\d+/))}`, 'GET', {});
-            if (data === undefined) {
-                return
+            if (data.hasOwnProperty('error')) {
+                message(data.message || data.error, false);
+                return;
             }
             message(data.message, true);
             setUser({
@@ -242,7 +244,7 @@ export const TaskPage = () => {
                                                 <div className="card card-note --th-no-text">
                                                     <div className="card-note__top">
                                                         <p className="card-note__date">
-                                                            <span>18.11.2025</span>
+                                                            <span>{task.date_create}</span>
                                                         </p>
                                                         <div className="card-note__actions" onClick={handleMoreBtn}>
                                                             {/*  --th-active */}

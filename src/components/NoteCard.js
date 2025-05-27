@@ -33,7 +33,7 @@ export const NoteCard = () => {
         try {
             const data = await request(`/notes/patch/${note.id}`, 'PATCH', note);
             if (data.hasOwnProperty('error')) {
-                message(data.message, false);
+                message(data.message || data.error, false);
                 return;
             }
             return message(data.message, true);

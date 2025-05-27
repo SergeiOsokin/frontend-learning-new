@@ -18,7 +18,6 @@ export const TaskForm = ({ set, chan, setActive }) => {
         read: '',
         translate: '',
         other: '',
-        user: '',
         date: `${new Date().getFullYear()}-${new Date().getMonth() + 1}-${new Date().getDate()}`
     });
     const message = useMessage();
@@ -66,8 +65,9 @@ export const TaskForm = ({ set, chan, setActive }) => {
         e.preventDefault()
         try {
             const data = await request(`/task/create`, 'POST', task);
-            if (data === undefined) {
-                return
+            if (data.hasOwnProperty('error')) {
+                message(data.message || data.error, false);
+                return;
             }
             message(data.message, true);
             // setActive(false);
@@ -79,7 +79,7 @@ export const TaskForm = ({ set, chan, setActive }) => {
                 read: '',
                 translate: '',
                 other: '',
-                user: ''
+                date: `${new Date().getFullYear()}-${new Date().getMonth() + 1}-${new Date().getDate()}`
             });
         } catch (err) {
             message(err, false);
