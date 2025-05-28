@@ -47,8 +47,9 @@ export const NoteForm = () => {
         e.preventDefault();
         try {
             const data = await request('/notes/add', 'POST', note);
-            if (data === undefined) {
-                return
+            if (data.hasOwnProperty('error')) {
+                message(data.message || data.error, false);
+                return;
             }
             message(data.message, true);
             clearError();

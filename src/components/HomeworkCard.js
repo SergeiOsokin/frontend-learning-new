@@ -4,7 +4,7 @@ import { useHttp } from '../hooks/http.hook';
 import { Loader } from './Loader';
 import { useMessage } from '../hooks/message.hook';
 import timerImg from '../images/statuses/timer.webp';
-import { AppointForm } from './AppointForm';
+import yesImg from "../images/statuses/yes.webp"
 
 import linkifyHtml from 'linkify-html';
 import { Aside } from './Aside';
@@ -17,8 +17,6 @@ export const HomeworkCard = () => {
     const history = useHistory();
     const message = useMessage();
     const { loading, request } = useHttp();
-    const [taskForm, setTaskFormActive] = useState(false);
-    const [appointForm, setAppointFormActive] = useState(false);
     const [task, setTask] = useState({
         id: '',
         theme: '',
@@ -28,7 +26,7 @@ export const HomeworkCard = () => {
         translate: '',
         other: '',
         date: '',
-        finished: false
+        finished: ''
     });
     //  
 
@@ -65,6 +63,24 @@ export const HomeworkCard = () => {
         }
     }
 
+    const handleFinished = (async (e) => {
+        console.log(task.id)
+        e.preventDefault();
+        try {
+            const data = await request(`/homework/finised/${task.id}`, 'POST');
+            if (data.hasOwnProperty('error')) {
+                message(data.message || data.error, false);
+                return;
+            }
+            message(data.message, true);
+            setTask({
+                finished: true
+            })
+        } catch (err) {
+            message(err, false);
+        }
+    });
+
     function searchLink() {
         document.querySelectorAll('.task-step__text').forEach((el, ind) => {
             // el.textContent);
@@ -83,8 +99,9 @@ export const HomeworkCard = () => {
     const getTask = async function fetchData() {
         try {
             const data = await request(`/homework/theme/${parseInt(history.location.pathname.match(/\d+/))}`, 'GET', {});
-            if (data === undefined) {
-                return
+            if (data.hasOwnProperty('error')) {
+                message(data.message || data.error, false);
+                return;
             }
             setTask({
                 id: data[0].id,
@@ -94,7 +111,7 @@ export const HomeworkCard = () => {
                 read: data[0].read,
                 translate: data[0].translate,
                 other: data[0].other,
-                date: data[0].date,
+                date: data[0].date_appoint,
                 finished: data[0].finished,
             });
         } catch (error) {
@@ -109,43 +126,6 @@ export const HomeworkCard = () => {
     return (
         <>
             {loading && <Loader />}
-            {/* {!loading &&
-                <main className="main-content" info={`${task.id}`}>
-                    <h1 className="note__title"> <span>{task.theme} </span></h1>
-
-                    <p className="">Грамматика:</p>
-                    <div className="note__example gramma after">
-                        {task.rules}
-                    </div>
-
-                    <p className="">Лексика:</p>
-                    <div className="note__example">
-                        {task.words}
-                    </div>
-
-                    <p className="">Чтение и Письмо:</p>
-                    <div className="note__example">
-                        {task.read}
-                    </div>
-
-                    <p className="">Аудирование и Видео:</p>
-                    <div className="note__example">
-                        {task.translate}
-                    </div>
-
-                    <p className="">Дополнительные материалы:</p>
-                    <div className="note__example">
-                        {task.other}
-                    </div>
-
-                    <button
-                        className="control-panel__delete-button"
-                        onClick={searchLink}
-                    >Показать ссылки</button>
-
-                </main>
-            } */}
-            {/* {appointForm && <AppointForm props={task} setActive={setAppointFormActive} />} */}
             <>
                 <div className="app-inner">
                     <Aside />
@@ -174,8 +154,8 @@ export const HomeworkCard = () => {
                         <main className="app-main__mid">
                             <section className="task-more">
                                 <div className="task-more__date date-status">
-                                    <img src={timerImg} alt="" />
-                                    <span>18.11.2025 {task.date}</span>
+                                    <img src={task.finished === true ? yesImg : timerImg} alt="" />
+                                    <span>{task.date}</span>
                                 </div>
                                 <h3 className="task-more__title">{task.theme}</h3>
                                 <ul className="task-more__list">
@@ -223,7 +203,7 @@ export const HomeworkCard = () => {
                                         </div>
                                         <div className="task-step__body body_words --th-disabled">
                                             <p className="task-step__text">
-                                            <textarea
+                                                <textarea
                                                     className=" app-area-text words"
                                                     placeholder="Название"
 
@@ -252,7 +232,7 @@ export const HomeworkCard = () => {
                                         </div>
                                         <div className="task-step__body body_read --th-disabled">
                                             <p className="task-step__text">
-                                            <textarea
+                                                <textarea
                                                     className=" app-area-text read"
                                                     placeholder="Название"
 
@@ -281,7 +261,7 @@ export const HomeworkCard = () => {
                                         </div>
                                         <div className="task-step__body body_translate --th-disabled">
                                             <p className="task-step__text">
-                                            <textarea
+                                                <textarea
                                                     className=" app-area-text translate"
                                                     placeholder="Название"
 
@@ -310,7 +290,7 @@ export const HomeworkCard = () => {
                                         </div>
                                         <div className="task-step__body body_other --th-disabled">
                                             <p className="task-step__text">
-                                            <textarea
+                                                <textarea
                                                     className=" app-area-text other"
                                                     placeholder="Название"
 
@@ -340,17 +320,23 @@ export const HomeworkCard = () => {
                                         <span>Удалить</span>
                                     </button> */}
                                     <div className="app-toggle-wrapper">
-                                        <div className="app-toggle">
-                                            <input
-                                                id="checkbox"
-                                                type="checkbox"
-                                                className="app-toggle__input"
-                                            />
-                                            <div className="app-toggle__elem" />
-                                        </div>
-                                        <label className="app-toggle-label" htmlFor="checkbox">
-                                            Выполнено
-                                        </label>
+                                        {(task.translate !== true) &&
+                                            <>
+                                                <div className="app-toggle">
+                                                    <input
+                                                        id="checkbox"
+                                                        type="checkbox"
+                                                        className="app-toggle__input"
+                                                        onClick={handleFinished}
+                                                    />
+                                                    <div className="app-toggle__elem" />
+                                                </div>
+                                                <label className="app-toggle-label" htmlFor="checkbox">
+                                                    Выполнено
+                                                </label>
+                                            </>
+                                        }
+
                                     </div>
                                     <div className="app-toggle-wrapper" onClick={searchLink}>
                                         <div className="app-toggle">

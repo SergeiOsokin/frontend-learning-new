@@ -28,8 +28,9 @@ export const HomeworkPage = () => {
     const getTasks = async function fetchData() {
         try {
             const data = await request('/homework/themes/all', 'GET', {});
-            if (data === undefined) {
-                return
+            if (data.hasOwnProperty('error')) {
+                message(data.message || data.error, false);
+                return;
             }
             setTasks(data);
         } catch (error) {
@@ -76,40 +77,6 @@ export const HomeworkPage = () => {
 
     return (
         <>
-            {/* <div className="section-tasks">
-                <input id="section-tasks-menu__toggle" type="checkbox" />
-                <label className="section-tasks-menu__btn" htmlFor="section-tasks-menu__toggle">
-                    <span></span>
-                </label>
-                <section className="section-nav-tasks">
-
-                    <input
-                        className="input input_tasks"
-                        type="input"
-                        placeholder="поиск задания"
-                        onChange={menuSearch}
-                    />
-                    <nav className="nav-tasks">
-                        <ul className="nav__items_tasks nav__items_tasks">
-                            {tasks.sort((a, b) => a.id - b.id).map((task, index) => {
-                                return (
-                                    <li className="nav__item-li_tasks nav__item-li_tasks" key={index + task.id}>
-                                        <button
-                                            className="nav__item-button_tasks"
-                                            info={task.id}
-                                            onClick={handleClickGet}
-                                        >{task.theme}</button>
-                                    </li>
-                                )
-                            })}
-                        </ul>
-                    </nav>
-                </section>
-
-                {!taskCard && <div className="section-tasks__info">Для начала работы выберите задание</div>}
-
-                {taskCard && <HomeworkCard props={taskId} set={setChanged} chan={change} />}
-            </div> */}
             <div className="app-inner">
                 <Aside />
 
@@ -212,9 +179,8 @@ export const HomeworkPage = () => {
                                             <div className="card card-note --th-no-text">
                                                 <div className="card-note__top">
                                                     <p className="card-note__date">
-                                                        <img src={yesImg } alt="" />
-                                                        <img src={timerImg } alt="" />
-                                                        <span>18.11.2025</span>
+                                                        <img src={ task.finished === true ? yesImg : timerImg} alt="" />
+                                                        <span>{task.date_appoint}</span>
                                                     </p>
                                                     <div className="card-note__actions">
                                                         <button className="card-note__btn" onClick={handleOpenTask}>
@@ -232,7 +198,7 @@ export const HomeworkPage = () => {
                                                 </div>
                                                 <div className="card-note__content">
                                                     <h3 className="card-note__title">
-                                                        { task.theme }
+                                                        {task.theme}
                                                     </h3>
                                                 </div>
                                             </div>

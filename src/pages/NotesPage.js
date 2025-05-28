@@ -62,6 +62,10 @@ export const NotesPage = () => {
     const handleSubmitDelete = useCallback(async (e) => {
         try {
             const data = await request(`/notes/delete/${noteId}`, 'DELETE', {});
+            if (data.hasOwnProperty('error')) {
+                message(data.message || data.error, false);
+                return;
+            }
             message(data.message, true);
             setDeleteModal(false);
             getNotes();
@@ -88,8 +92,9 @@ export const NotesPage = () => {
     const getNotes = async function fetchData() {
         try {
             const data = await request(`/notes/get`, 'GET', {});
-            if (data === undefined) {
-                return
+            if (data.hasOwnProperty('error')) {
+                message(data.message || data.error, false);
+                return;
             }
             setNotes(data.data)
         } catch (error) {
@@ -214,7 +219,7 @@ export const NotesPage = () => {
                                                 <li className="app-cards__item" key={index + note.id} info={note.id}>
                                                     <div className="card card-note">
                                                         <div className="card-note__top">
-                                                            <p className="card-note__date">18.11.2025</p>
+                                                            <p className="card-note__date">{note.date_create}</p>
                                                             <div className="card-note__actions">
                                                                 <button className="card-note__btn" onClick={handleOpenNotice}>
                                                                     <svg viewBox="0 0 24 24" fill="none">
