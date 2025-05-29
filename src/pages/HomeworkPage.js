@@ -8,6 +8,8 @@ import { Aside } from '../components/Aside';
 import { useHistory } from 'react-router-dom/cjs/react-router-dom.min';
 import timerImg from '../images/statuses/timer.webp';
 import yesImg from "../images/statuses/yes.webp"
+import emptyImg from "../images/empty/empty-primary.webp"
+import { FooterInner } from '../components/Footer';
 
 export const HomeworkPage = () => {
     const { loading, request } = useHttp();
@@ -33,6 +35,7 @@ export const HomeworkPage = () => {
                 return;
             }
             setTasks(data);
+            console.log(data.length)
         } catch (error) {
             message(error, false)
         }
@@ -87,7 +90,7 @@ export const HomeworkPage = () => {
                         <div className="app-main__left">
                             <h1 className="app-main__title">Обучение</h1>
                         </div>
-                        <div className="app-main__right">
+                        {/* <div className="app-main__right">
                             <div className="app-main__search app-search --th-empty">
                                 <input type="text" placeholder="Text" className="app-search__elem" />
                                 <button className="app-search__delete line-btn-dark">
@@ -112,9 +115,20 @@ export const HomeworkPage = () => {
                                     </svg>
                                 </div>
                             </div>
-                        </div>
+                        </div> */}
                     </header>
                     <main className="app-main__mid">
+                        {!tasks.length && !loading &&
+                            <section className="tasks-empty">
+                                <img
+                                    src={emptyImg}
+                                    className="tasks-empty__img"
+                                    alt="Empty"
+                                />
+                                <h2 className="tasks-empty__title">Здесь пока пусто</h2>
+                            </section>
+
+                        }
                         <section className="app-cards">
                             <ul className="app-cards__inner">
                                 {/* <li className="app-cards__item">
@@ -179,16 +193,23 @@ export const HomeworkPage = () => {
                                             <div className="card card-note --th-no-text">
                                                 <div className="card-note__top">
                                                     <p className="card-note__date">
-                                                        <img src={ task.finished === true ? yesImg : timerImg} alt="" />
+                                                        <img src={task.finished === true ? yesImg : timerImg} alt="" />
                                                         <span>{task.date_appoint}</span>
                                                     </p>
                                                     <div className="card-note__actions">
                                                         <button className="card-note__btn" onClick={handleOpenTask}>
-                                                            <svg viewBox="0 0 24 24" fill="none">
+                                                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
                                                                 <path
-                                                                    d="M5 7H19M10 10V18M14 10V18M10 3H14C14.2652 3 14.5196 3.10536 14.7071 3.29289C14.8946 3.48043 15 3.73478 15 4V7H9V4C9 3.73478 9.10536 3.48043 9.29289 3.29289C9.48043 3.10536 9.73478 3 10 3ZM6 7H18V20C18 20.2652 17.8946 20.5196 17.7071 20.7071C17.5196 20.8946 17.2652 21 17 21H7C6.73478 21 6.48043 20.8946 6.29289 20.7071C6.10536 20.5196 6 20.2652 6 20V7Z"
+                                                                    d="M21 12C21 13.2 16.97 18 12 18C7.03 18 3 13.2 3 12C3 10.8 7.03 6 12 6C16.97 6 21 10.8 21 12Z"
                                                                     stroke="currentColor"
-                                                                    strokeWidth={2}
+                                                                    stroke-width="2"
+                                                                    strokeLinecap="round"
+                                                                    strokeLinejoin="round"
+                                                                />
+                                                                <path
+                                                                    d="M15 12C15 12.7956 14.6839 13.5587 14.1213 14.1213C13.5587 14.6839 12.7956 15 12 15C11.2044 15 10.4413 14.6839 9.87868 14.1213C9.31607 13.5587 9 12.7956 9 12C9 11.2044 9.31607 10.4413 9.87868 9.87868C10.4413 9.31607 11.2044 9 12 9C12.7956 9 13.5587 9.31607 14.1213 9.87868C14.6839 10.4413 15 11.2044 15 12Z"
+                                                                    stroke="currentColor"
+                                                                    stroke-width="2"
                                                                     strokeLinecap="round"
                                                                     strokeLinejoin="round"
                                                                 />
@@ -208,28 +229,7 @@ export const HomeworkPage = () => {
                             </ul>
                         </section>
                     </main>
-                    <footer className="app-main__bot">
-                        <p className="app-main__copyright app-main__text">
-                            © 2025 Learnew. <br /> Все права защищены.
-                        </p>
-                        <ul className="app-main__links">
-                            <li className="app-main__link-wrapper">
-                                <a href="#" className="app-main__link app-main__text">
-                                    Поддержка
-                                </a>
-                            </li>
-                            <li className="app-main__link-wrapper">
-                                <a href="#" className="app-main__link app-main__text">
-                                    Условия использования
-                                </a>
-                            </li>
-                            <li className="app-main__link-wrapper">
-                                <a href="#" className="app-main__link app-main__text">
-                                    Политика конфиденциальности
-                                </a>
-                            </li>
-                        </ul>
-                    </footer>
+                    <FooterInner />
                 </main>
             </div>
 

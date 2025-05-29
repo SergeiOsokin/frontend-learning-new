@@ -15,7 +15,7 @@ export const WordForm = ({ wordInfo, setActive }) => {
     });
     const [category, setCategory] = useState([]);
     const message = useMessage();
-    const {disable, setDisable} = useState(true);
+    const { disable, setDisable } = useState(true);
     const [activeCategory, setActiveCategory] = useState('Выберите значение');
 
     const changeHandler = (e) => {
@@ -55,7 +55,7 @@ export const WordForm = ({ wordInfo, setActive }) => {
         try {
             const data = await request('/words/add', 'POST', word);
             if (data.hasOwnProperty('error')) {
-                message(data.message, false);
+                message(data.message || data.error, false);
                 return;
             }
             message(data.message, true);
@@ -71,8 +71,8 @@ export const WordForm = ({ wordInfo, setActive }) => {
     });
 
     const handleCheckCat = (e) => {
-        
-        if(e.target.classList.contains('create-word-select')) {
+
+        if (e.target.classList.contains('create-word-select')) {
             document.querySelector(".checkCatAdd .dropdown-categories").classList.toggle('--th-active');
         } else if (e.target.classList.contains('app-checkbox__input')) {
             setActiveCategory(e.target.closest('.dropdown-categories__checkbox').getAttribute('info'));
@@ -90,8 +90,8 @@ export const WordForm = ({ wordInfo, setActive }) => {
         async function fetchData() {
             try {
                 const data = await request('/category/get', 'GET', {});
-                if (data === undefined) {
-                    message(data.message, true);
+                if (data.hasOwnProperty('error')) {
+                    message(data.message || data.error, false);
                     return;
                 }
                 setCategory(data.data)
@@ -187,11 +187,11 @@ export const WordForm = ({ wordInfo, setActive }) => {
                                                 placeholder="Слово"
                                                 type="text"
                                                 className="create-word__input"
-                                                id="russianWord"
-                                                name="russianWord"
+                                                id="foreignWord"
+                                                name="foreignWord"
                                                 onChange={changeHandler}
                                                 required maxLength="30" minLength="1"
-                                                value={word.russianWord}
+                                                value={word.foreignWord}
                                                 autoComplete="off"
                                                 disabled={loading}
                                             />
@@ -212,10 +212,10 @@ export const WordForm = ({ wordInfo, setActive }) => {
                                                 placeholder="Перевод"
                                                 type="text"
                                                 className="create-word__input"
-                                                id="foreignWord"
-                                                name="foreignWord"
+                                                id="russianWord"
+                                                name="russianWord"
                                                 onChange={changeHandler}
-                                                value={word.foreignWord}
+                                                value={word.russianWord}
                                                 autoComplete="off"
                                                 disabled={loading}
                                                 required maxLength="30" minLength="1"
@@ -313,7 +313,7 @@ export const WordForm = ({ wordInfo, setActive }) => {
                                                             })
                                                         }
                                                         {/* Реализовать создание новой категории */}
-                                                        
+
                                                         {/* <li className="dropdown-categories__row --th-button">
                                                             <button className="dropdown-categories-add btn btn-grey">
                                                                 Новая категория
@@ -378,7 +378,7 @@ export const WordForm = ({ wordInfo, setActive }) => {
                                         </div>
                                     </li>
                                 </ul>
-                                <button className="create-word__add btn btn-grey">
+                                {/* <button className="create-word__add btn btn-grey">
                                     <svg className="icon" viewBox="0 0 25 24" fill="none">
                                         <path
                                             d="M5.5 12H19.5M12.5 19V5"
@@ -389,7 +389,7 @@ export const WordForm = ({ wordInfo, setActive }) => {
                                         />
                                     </svg>
                                     <span>Ещё одно слово </span>
-                                </button>
+                                </button> */}
                             </div>
                         </div>
                     </section>

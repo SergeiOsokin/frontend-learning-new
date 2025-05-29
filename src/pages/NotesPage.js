@@ -7,6 +7,7 @@ import { Aside } from '../components/Aside';
 import { MobileMenu } from '../components/MobileMenu';
 import { useHistory } from 'react-router-dom/cjs/react-router-dom.min';
 import { Loader } from '../components/Loader';
+import { FooterInner } from '../components/Footer';
 
 export const NotesPage = () => {
     const message = useMessage();
@@ -160,7 +161,7 @@ export const NotesPage = () => {
                         <div className="app-main__left">
                             <h1 className="app-main__title">Заметки</h1>
                         </div>
-                        <div className="app-main__right">
+                        {/* <div className="app-main__right">
                             <div className="app-main__search app-search --th-empty">
                                 <input
                                     type="text"
@@ -189,7 +190,7 @@ export const NotesPage = () => {
                                     </svg>
                                 </div>
                             </div>
-                        </div>
+                        </div> */}
                     </header>
                     {loading && <Loader />}
 
@@ -302,34 +303,10 @@ export const NotesPage = () => {
                             </section>
                         </main>
                     }
-
-
-
-                    <footer className="app-main__bot">
-                        <p className="app-main__copyright app-main__text">
-                            © 2025 Learnew. <br /> Все права защищены.
-                        </p>
-                        <ul className="app-main__links">
-                            <li className="app-main__link-wrapper">
-                                <a href="#" className="app-main__link app-main__text">
-                                    Поддержка
-                                </a>
-                            </li>
-                            <li className="app-main__link-wrapper">
-                                <a href="#" className="app-main__link app-main__text">
-                                    Условия использования
-                                </a>
-                            </li>
-                            <li className="app-main__link-wrapper">
-                                <a href="#" className="app-main__link app-main__text">
-                                    Политика конфиденциальности
-                                </a>
-                            </li>
-                        </ul>
-                    </footer>
+                    <FooterInner />
                 </main>
             </div>
-            <MobileMenu />
+            {/* <MobileMenu /> */}
         </>
 
     )

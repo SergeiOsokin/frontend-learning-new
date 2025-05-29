@@ -6,6 +6,7 @@ import Main from './Main';
 import { AuthContext } from './context/AuthContext';
 import { useAuth } from './hooks/auth.hook';
 import { Footer } from './components/Footer';
+import { MobileMenu } from './components/MobileMenu';
 
 const App = () => {
   const { login, logout, authorization } = useAuth();
@@ -15,6 +16,7 @@ const App = () => {
       {/* <Header /> */}
       <Main />
       {/* <Footer /> */}
+      <MobileMenu />
     </AuthContext.Provider>
   )
 }

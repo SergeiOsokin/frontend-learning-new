@@ -22,6 +22,10 @@ export const Categories = ({ setActive }) => {
 
         try {
             const data = await request(`/category/delete/${categoryInfo.id}`, 'DELETE', {});
+            if (data.hasOwnProperty('error')) {
+                message(data.message || data.error, false);
+                return;
+            }
             message(data.message, true);
             document.querySelector(".edit-wrapper").classList.remove('--th-delete-category');
             document.querySelector(".categories-edit-actions").classList.remove('--th-disabled');
@@ -97,8 +101,9 @@ export const Categories = ({ setActive }) => {
         e.preventDefault()
         try {
             const data = await request('/category/add', 'POST', { categoryWord: category });
-            if (data === undefined) {
-                return
+            if (data.hasOwnProperty('error')) {
+                message(data.message || data.error, false);
+                return;
             }
             message(data.message, true);
             document.querySelector(".categories-edit-input__elem").value = '';
@@ -119,11 +124,9 @@ export const Categories = ({ setActive }) => {
         async function fetchData() {
             try {
                 const data = await request(`/category/get`, 'GET');
-                if (data === undefined) {
-                    return
-                }
-                if (data.data.length === 0) {
-                    return message(data.message, true)
+                if (data.hasOwnProperty('error')) {
+                    message(data.message || data.error, false);
+                    return;
                 } else {
                     setCategories(data.data);
                 }
@@ -267,9 +270,9 @@ export const Categories = ({ setActive }) => {
                         </button>
                     </div>
                     <div className="categories-edit-actions__right">
-                        <button className="categories-edit-actions__combine btn btn-dark-outline">
+                        {/* <button className="categories-edit-actions__combine btn btn-dark-outline">
                             Объединить категории
-                        </button>
+                        </button> */}
                         <button className="categories-edit-actions__save btn btn-dark">
                             Сохранить и закрыть
                         </button>

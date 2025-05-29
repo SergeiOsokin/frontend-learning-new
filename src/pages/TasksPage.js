@@ -8,6 +8,7 @@ import { TaskFormOld } from '../components/TaskFormChange';
 import { TaskCard } from '../components/TaskCard';
 import { Aside } from '../components/Aside';
 import { useHistory } from 'react-router-dom/cjs/react-router-dom.min';
+import { FooterInner } from '../components/Footer';
 
 export const TaskPage = () => {
     const { loading, request } = useHttp();
@@ -192,7 +193,7 @@ export const TaskPage = () => {
                         <div className="app-main__left">
                             <h1 className="app-main__title">Обучение - Преподаватель</h1>
                         </div>
-                        <div className="app-main__right">
+                        {/* <div className="app-main__right">
                             <div className="app-main__search app-search --th-empty">
                                 <input type="text" placeholder="Text" className="app-search__elem" />
                                 <button className="app-search__delete line-btn-dark">
@@ -217,7 +218,7 @@ export const TaskPage = () => {
                                     </svg>
                                 </div>
                             </div>
-                        </div>
+                        </div> */}
                     </header>
                     <main className="app-main__mid">
                         <section className="app-cards">
@@ -261,7 +262,7 @@ export const TaskPage = () => {
                                                                     </svg>
                                                                 </button>
                                                                 <ul className="more-btn__menu">
-                                                                    <li className="more-btn__item">
+                                                                    {/* <li className="more-btn__item">
                                                                         <button className="more-btn__item-btn line-btn-dark" onClick={handleAppoint}>
                                                                             <svg className="icon" viewBox="0 0 24 24" fill="none">
                                                                                 <path
@@ -274,7 +275,7 @@ export const TaskPage = () => {
                                                                             </svg>
                                                                             <span>Назначить</span>
                                                                         </button>
-                                                                    </li>
+                                                                    </li> */}
                                                                     <li className="more-btn__item">
                                                                         <button className="more-btn__item-btn line-btn-dark" onClick={handleEdit}>
                                                                             <svg className="icon" viewBox="0 0 24 24">
@@ -559,28 +560,7 @@ export const TaskPage = () => {
                             }
                         </section>
                     </main>
-                    <footer className="app-main__bot">
-                        <p className="app-main__copyright app-main__text">
-                            © 2025 Learnew. <br /> Все права защищены.
-                        </p>
-                        <ul className="app-main__links">
-                            <li className="app-main__link-wrapper">
-                                <a href="#" className="app-main__link app-main__text">
-                                    Поддержка
-                                </a>
-                            </li>
-                            <li className="app-main__link-wrapper">
-                                <a href="#" className="app-main__link app-main__text">
-                                    Условия использования
-                                </a>
-                            </li>
-                            <li className="app-main__link-wrapper">
-                                <a href="#" className="app-main__link app-main__text">
-                                    Политика конфиденциальности
-                                </a>
-                            </li>
-                        </ul>
-                    </footer>
+                    <FooterInner />
                 </main>
             </div >
         </>

@@ -30,8 +30,9 @@ export const FormReg = () => {
         if (form.password === form.passwordConfirm) {
             try {
                 const data = await request('/signup', 'POST', form);
-                if (data === undefined) {
-                    return
+                if (data.hasOwnProperty('error')) {
+                    message(data.message || data.error, false);
+                    return;
                 }
                 message(data.message, true);
             } catch (error) {

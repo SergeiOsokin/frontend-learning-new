@@ -10,6 +10,7 @@ import { AppointForm } from './AppointForm';
 import { validation } from '../hooks/validation.hook';
 import { Aside } from '../components/Aside';
 import { autoResize } from '../hooks/autoResize.hook';
+import { FooterInner } from './Footer';
 // setChanged, change меняем, чтобы заставить navnotetheme вызывать useEffect 
 // и обновлять динамично пункты меню после изменения
 export const TaskCard = () => {
@@ -291,7 +292,7 @@ export const TaskCard = () => {
                                             <ul className="task-step__pins pins-wrapper">
                                                 <li className="pin --th-focus --th-creator">
 
-                                                    <button className="" onClick={appointTask}>
+                                                    <button className="button__user" onClick={appointTask}>
                                                         <svg className="pin__icon" viewBox="0 0 20 20" fill="none">
                                                             <path
                                                                 d="M13.332 9.99935H16.6654M14.9987 11.666V8.33268M3.33203 14.9993V14.166C3.33203 13.503 3.59542 12.8671 4.06426 12.3982C4.53311 11.9294 5.16899 11.666 5.83203 11.666H9.16536C9.82841 11.666 10.4643 11.9294 10.9331 12.3982C11.402 12.8671 11.6654 13.503 11.6654 14.166V14.9993C11.6654 15.2204 11.5776 15.4323 11.4213 15.5886C11.265 15.7449 11.053 15.8327 10.832 15.8327H4.16536C3.94435 15.8327 3.73239 15.7449 3.57611 15.5886C3.41983 15.4323 3.33203 15.2204 3.33203 14.9993ZM9.9987 6.66602C9.9987 7.32906 9.73531 7.96494 9.26647 8.43378C8.79762 8.90262 8.16174 9.16602 7.4987 9.16602C6.83566 9.16602 6.19977 8.90262 5.73093 8.43378C5.26209 7.96494 4.9987 7.32906 4.9987 6.66602C4.9987 6.00297 5.26209 5.36709 5.73093 4.89825C6.19977 4.42941 6.83566 4.16602 7.4987 4.16602C8.16174 4.16602 8.79762 4.42941 9.26647 4.89825C9.73531 5.36709 9.9987 6.00297 9.9987 6.66602Z"
@@ -327,7 +328,7 @@ export const TaskCard = () => {
                                                         </svg>
                                                     </button>
                                                 </li>
-                                                <li className="pin">
+                                                {/* <li className="pin">
                                                     <svg className="pin__icon" viewBox="0 0 20 20" fill="none">
                                                         <path
                                                             d="M4.16797 9.99935H15.8346M10.0013 15.8327V4.16602"
@@ -338,7 +339,7 @@ export const TaskCard = () => {
                                                         />
                                                     </svg>
                                                     <span className="pin__text">Сергей Соколов</span>
-                                                </li>
+                                                </li> */}
                                                 {task.users.map((user, index) => {
                                                     return (
                                                         <li className="pin --th-new" key={index} user={user} >
@@ -576,28 +577,7 @@ export const TaskCard = () => {
                                 }
                             </section>
                         </main>
-                        <footer className="app-main__bot">
-                            <p className="app-main__copyright app-main__text">
-                                © 2025 Learnew. <br /> Все права защищены.
-                            </p>
-                            <ul className="app-main__links">
-                                <li className="app-main__link-wrapper">
-                                    <a href="#" className="app-main__link app-main__text">
-                                        Поддержка
-                                    </a>
-                                </li>
-                                <li className="app-main__link-wrapper">
-                                    <a href="#" className="app-main__link app-main__text">
-                                        Условия использования
-                                    </a>
-                                </li>
-                                <li className="app-main__link-wrapper">
-                                    <a href="#" className="app-main__link app-main__text">
-                                        Политика конфиденциальности
-                                    </a>
-                                </li>
-                            </ul>
-                        </footer>
+                        <FooterInner />
                     </main>
                 }
             </div>

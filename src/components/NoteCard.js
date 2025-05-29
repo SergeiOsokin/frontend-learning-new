@@ -7,6 +7,7 @@ import trashIcon from '../../src/img/trash_icon.png';
 import { NoteFormChange } from './NoteFormChange';
 import { Aside } from '../components/Aside';
 import { autoResize } from '../hooks/autoResize.hook';
+import { FooterInner } from './Footer';
 // setChanged, change меняем, чтобы заставить navnotetheme вызывать useEffect 
 // и обновлять динамично пункты меню после изменения заметки { props, setChanged, change, noteCard, setNoteCardActive }
 export const NoteCard = () => {
@@ -269,28 +270,7 @@ export const NoteCard = () => {
                         </div>
                     }
 
-                    <footer className="app-main__bot">
-                        <p className="app-main__copyright app-main__text">
-                            © 2025 Learnew. <br /> Все права защищены.
-                        </p>
-                        <ul className="app-main__links">
-                            <li className="app-main__link-wrapper">
-                                <a href="#" className="app-main__link app-main__text">
-                                    Поддержка
-                                </a>
-                            </li>
-                            <li className="app-main__link-wrapper">
-                                <a href="#" className="app-main__link app-main__text">
-                                    Условия использования
-                                </a>
-                            </li>
-                            <li className="app-main__link-wrapper">
-                                <a href="#" className="app-main__link app-main__text">
-                                    Политика конфиденциальности
-                                </a>
-                            </li>
-                        </ul>
-                    </footer>
+                    <FooterInner />
                 </main>
             </div>
 

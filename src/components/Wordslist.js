@@ -11,6 +11,7 @@ import { Aside } from './Aside';
 import { MobileMenu } from './MobileMenu';
 import { WordForm } from './WordForm';
 import { Categories } from './Categories';
+import { FooterInner } from '../components/Footer';
 
 export const WordsList = () => {
     const { authorization, logout } = useContext(AuthContext); // получаем контекст в объекте auth
@@ -140,6 +141,10 @@ export const WordsList = () => {
                 const data = await request(`/words/delete/${id}`, 'DELETE', {}, {
                     credentials: 'include'
                 });
+                if (data.hasOwnProperty('error')) {
+                    message(data.message || data.error, false);
+                    return;
+                }
                 message(data.message, true);
                 e.target.closest(".word-string").parentElement.removeChild(e.target.closest(".word-string"));
             } catch (error) {
@@ -183,17 +188,13 @@ export const WordsList = () => {
             try {
                 const data = await request(`/words/list?category=null`, 'GET');
                 console.log('true')
-                if (data === undefined) {
-                    return message(data, false)
-                }
-                if (data.data.length === 0) {
-                    return message(data.message, true)
+                if (data.hasOwnProperty('error')) {
+                    message(data.message || data.error, false);
+                    return;
                 } else {
                     setWordsArr(data.data);
+                    return;
                 }
-                data.data.forEach(elem => {
-                    newSet.add(`${elem.category}`);
-                });
             } catch (err) {
                 message(err, false);
             }
@@ -202,109 +203,6 @@ export const WordsList = () => {
     }, [request, activeModalAdd]);
 
     return (
-        // <section className="words-section commonClass">
-        //     {active &&
-        //         <WordFormChange wordInfo={wordInfo} setActive={setModalActive} />
-        //     }
-
-        //     {loading && <Loader />}
-
-        //     <>
-        //         <div className="words-section__input-container">
-        //             <div className="input-container">
-        // <input
-        //     placeholder="Поиск слова"
-        //     className="words-section__input-search input"
-        //     id="search" type="text"
-        //     autoComplete="off"
-        //     onChange={handleChange}
-        //     value={inputValue}
-        // />
-        //                 <span
-        //                     className="words-section__button-clean"
-        //                     onClick={handleClose}
-        //                 ></span>
-        //             </div>
-        //             <div className="pagination">
-        //                 <p className='pagination__text-count'>Отображать:
-        //                     <select className="count-items" defaultValue={countItems} onChange={handleItems}>
-        //                         <option value='30'>30</option>
-        //                         <option value='50'>50</option>
-        //                         <option value='100'>100</option>
-        //                         <option value={wordsArr.length}>{wordsArr.length}</option>
-        //                     </select>
-        //                     слов
-        //                 </p>
-        //                 <button onClick={prevPage} className="pagination__page-previous">
-        //                     &#60;
-        //                 </button>
-        //                 <p className="pagination__page-count">
-        //                     Страница {page} из {totalPages}
-        //                 </p>
-        //                 <button onClick={nextPage} className="pagination__page-next">
-        //                     &#62;
-        //                 </button>
-        //             </div>
-        //         </div>
-
-        //         <table className="words-section__table-words" >
-        //             <caption>
-        //                 Ваши слова
-        //             </caption>
-        //             <thead>
-        //                 <tr>
-        //                     {/* <th>№ п/п</th> */}
-        //                     <th>Слово</th>
-        //                     <th>Перевод</th>
-        //                     <th className="category">Категория</th>
-        //                     <th></th>
-        //                     <th></th>
-        //                 </tr>
-        //             </thead>
-
-        //             <tbody>
-        //                 {wordsArr
-        //                     .sort((a, b) => a.id - b.id)
-        //                     .slice(firstContentIndex, lastContentIndex)
-        //                     .map((word, index) => {
-        //                         return (
-        //                             <tr className="word-string"
-        //                                 info={`${word.id}+${word.foreign_word}+${word.russian_word}+${word.category}+${word.category_word_id}`}
-        //                                 key={word.id}
-        //                             >
-        //                                 {/* <td>{index + 1}</td> */}
-        //                                 <td>{word.foreign_word}</td>
-        //                                 <td>{word.russian_word}</td>
-        //                                 <td className="category">{word.category}</td>
-        //                                 <td>
-        //                                     <button
-        //                                         className="button button_table"
-        //                                         onClick={changeWord}
-        //                                     >
-        //                                         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" className="bi bi-pencil-square" viewBox="0 0 16 16">
-        //                                             <path d="M15.502 1.94a.5.5 0 0 1 0 .706L14.459 3.69l-2-2L13.502.646a.5.5 0 0 1 .707 0l1.293 1.293zm-1.75 2.456-2-2L4.939 9.21a.5.5 0 0 0-.121.196l-.805 2.414a.25.25 0 0 0 .316.316l2.414-.805a.5.5 0 0 0 .196-.12l6.813-6.814z" />
-        //                                             <path fillRule="evenodd" d="M1 13.5A1.5 1.5 0 0 0 2.5 15h11a1.5 1.5 0 0 0 1.5-1.5v-6a.5.5 0 0 0-1 0v6a.5.5 0 0 1-.5.5h-11a.5.5 0 0 1-.5-.5v-11a.5.5 0 0 1 .5-.5H9a.5.5 0 0 0 0-1H2.5A1.5 1.5 0 0 0 1 2.5v11z" />
-        //                                         </svg>
-        //                                     </button>
-        //                                 </td>
-        //                                 <td>
-        //                                     <button
-        //                                         className="button button_table-delete"
-        //                                         onClick={deleteWord}
-        //                                     ><img className="trash-icon" src={trashIcon} alt="Удалить"></img></button>
-        //                                 </td>
-        //                             </tr>
-        //                         )
-        //                     })}
-        //             </tbody>
-        //         </table>
-
-        //         <button
-        //             className="button button-back_to_top"
-        //             onClick={handleScrollUp}
-        //         >↑</button>
-        //     </>
-        // </section>
         <>
             {loading && <Loader />}
 
@@ -357,7 +255,7 @@ export const WordsList = () => {
                             <div className="app-dictionary__top">
                                 <div className="filters-top">
                                     <div className="filters-top__left">
-                                        <div className="filters-categories --th-desktop" onClick={handleCategoryFilter}>
+                                        {/* <div className="filters-categories --th-desktop" onClick={handleCategoryFilter}>
                                             <button className="filters-categories__select">
                                                 <span>Категории:</span>
                                                 <span>все</span>
@@ -370,7 +268,7 @@ export const WordsList = () => {
                                                     />
                                                 </svg>
                                             </button>
-                                            {/* <div className="dropdown-categories --th-dictionary">
+                                            <div className="dropdown-categories --th-dictionary">
                                                 <ul className="dropdown-categories__list">
                                                     <li className="dropdown-categories__row">
                                                         <div className="dropdown-categories__name">
@@ -438,8 +336,8 @@ export const WordsList = () => {
                                                         })}
                                                     }
                                                 </ul>
-                                            </div> */}
-                                        </div>
+                                            </div>
+                                        </div> */}
                                         <button className="filters-top__add-word --th-mobile btn btn-dark" onClick={handleAddWord}>
                                             <svg className="icon" viewBox="0 0 25 24" fill="none">
                                                 <path
@@ -477,7 +375,7 @@ export const WordsList = () => {
                                             </svg>
                                             <span>Добавить слова</span>
                                         </button>
-                                        <div className="filters-categories --th-mobile">
+                                        {/* <div className="filters-categories --th-mobile">
                                             <button className="filters-categories__select">
                                                 <span>Категории:</span>
                                                 <span>все</span>
@@ -730,7 +628,7 @@ export const WordsList = () => {
                                                     </li>
                                                 </ul>
                                             </div>
-                                        </div>
+                                        </div> */}
                                     </div>
                                 </div>
                             </div>
@@ -740,6 +638,7 @@ export const WordsList = () => {
                                     <thead className="table__head">
                                         <tr className="table__row">
                                             <td className="table__ceil">
+                                                Слово
                                                 <div className="app-checkbox">
                                                     <input type="checkbox" className="app-checkbox__input" />
                                                     <div className="app-checkbox__elem">
@@ -758,7 +657,6 @@ export const WordsList = () => {
                                                         </svg>
                                                     </div>
                                                 </div>
-
                                             </td>
                                             <td className="table__ceil">Перевод</td>
                                             <td className="table__ceil">Категория</td>
@@ -961,7 +859,7 @@ export const WordsList = () => {
                                 < ul className="app-dictionary__list dictionary-mob">
                                     {wordsArr
                                         .sort((a, b) => a.id - b.id)
-                                        .slice(firstContentIndex, lastContentIndex)
+                                        // .slice(firstContentIndex, lastContentIndex)
                                         .map((word, index) => {
                                             return (
                                                 <li className="dictionary-mob__item"
@@ -978,7 +876,7 @@ export const WordsList = () => {
                                                         </p>
                                                         <div className="dictionary-mob__btn">
                                                             <div className="more-btn ">
-                                                                <button className="more-btn__btn">
+                                                                <button className="more-btn__btn" onClick={handleWordBtn}>
                                                                     <svg className="icon" viewBox="0 0 24 24" fill="none">
                                                                         <path
                                                                             d="M12 6H12.01M12 12H12.01M12 18H12.01"
@@ -1044,306 +942,6 @@ export const WordsList = () => {
                                                 </li>
                                             )
                                         })}
-                                    <li className="dictionary-mob__item">
-                                        <div className="dictionary-mob__item-inner">
-                                            <p className="dictionary-mob__categories">IT</p>
-                                            <h3 className="dictionary-mob__title">
-                                                Object linking and embedding
-                                            </h3>
-                                            <p className="dictionary-mob__text">
-                                                Связь и внедрение объекта
-                                            </p>
-                                            <div className="dictionary-mob__btn">
-                                                <div className="more-btn --th-active">
-                                                    <button className="more-btn__btn">
-                                                        <svg className="icon" viewBox="0 0 24 24" fill="none">
-                                                            <path
-                                                                d="M12 6H12.01M12 12H12.01M12 18H12.01"
-                                                                stroke="currentColor"
-                                                                strokeWidth={3}
-                                                                strokeLinecap="round"
-                                                            />
-                                                        </svg>
-                                                    </button>
-                                                    <ul className="more-btn__menu">
-                                                        <li className="more-btn__item">
-                                                            <button className="more-btn__item-btn line-btn-dark">
-                                                                <svg
-                                                                    className="icon"
-                                                                    viewBox="0 0 24 24"
-                                                                    fill="none"
-                                                                >
-                                                                    <path
-                                                                        d="M8.5 11.5L11 14L15 10M21 12C21 13.1819 20.7672 14.3522 20.3149 15.4442C19.8626 16.5361 19.1997 17.5282 18.364 18.364C17.5282 19.1997 16.5361 19.8626 15.4442 20.3149C14.3522 20.7672 13.1819 21 12 21C10.8181 21 9.64778 20.7672 8.55585 20.3149C7.46392 19.8626 6.47177 19.1997 5.63604 18.364C4.80031 17.5282 4.13738 16.5361 3.68508 15.4442C3.23279 14.3522 3 13.1819 3 12C3 9.61305 3.94821 7.32387 5.63604 5.63604C7.32387 3.94821 9.61305 3 12 3C14.3869 3 16.6761 3.94821 18.364 5.63604C20.0518 7.32387 21 9.61305 21 12Z"
-                                                                        stroke="currentColor"
-                                                                        strokeWidth={2}
-                                                                        strokeLinecap="round"
-                                                                        strokeLinejoin="round"
-                                                                    />
-                                                                </svg>
-                                                                <span>Выбрать</span>
-                                                            </button>
-                                                        </li>
-                                                        <li className="more-btn__item">
-                                                            <button className="more-btn__item-btn line-btn-dark">
-                                                                <svg className="icon" viewBox="0 0 24 24">
-                                                                    <path
-                                                                        fill="none"
-                                                                        d="M15.717 4.07486L18.9255 7.28329M7.49999 6.5003H4.125C3.82663 6.5003 3.54048 6.61883 3.3295 6.8298C3.11853 7.04078 3 7.32692 3 7.62528V18.875C3 19.1734 3.11853 19.4595 3.3295 19.6705C3.54048 19.8815 3.82663 20 4.125 20H16.5C16.7983 20 17.0845 19.8815 17.2955 19.6705C17.5064 19.4595 17.625 19.1734 17.625 18.875V13.8126M20.3351 2.66414C20.5459 2.87485 20.7131 3.12503 20.8272 3.40038C20.9413 3.67574 21 3.97087 21 4.26892C21 4.56697 20.9413 4.8621 20.8272 5.13745C20.7131 5.4128 20.5459 5.66298 20.3351 5.87369L12.6356 13.573L8.62499 14.3751L9.42711 10.3646L17.1266 2.66527C17.3371 2.45437 17.5872 2.28706 17.8625 2.17291C18.1378 2.05876 18.4328 2 18.7308 2C19.0289 2 19.3239 2.05876 19.5992 2.17291C19.8745 2.28706 20.1245 2.45437 20.3351 2.66527V2.66414Z"
-                                                                        stroke="currentColor"
-                                                                        strokeWidth={2}
-                                                                        strokeLinecap="round"
-                                                                        strokeLinejoin="round"
-                                                                    />
-                                                                </svg>
-                                                                <span>Редактировать</span>
-                                                            </button>
-                                                        </li>
-                                                        <li className="more-btn__item">
-                                                            <button className="more-btn__item-btn line-btn-red">
-                                                                <svg className="icon" viewBox="0 0 24 24">
-                                                                    <path
-                                                                        d="M5 7H19M10 10V18M14 10V18M10 3H14C14.2652 3 14.5196 3.10536 14.7071 3.29289C14.8946 3.48043 15 3.73478 15 4V7H9V4C9 3.73478 9.10536 3.48043 9.29289 3.29289C9.48043 3.10536 9.73478 3 10 3ZM6 7H18V20C18 20.2652 17.8946 20.5196 17.7071 20.7071C17.5196 20.8946 17.2652 21 17 21H7C6.73478 21 6.48043 20.8946 6.29289 20.7071C6.10536 20.5196 6 20.2652 6 20V7Z"
-                                                                        stroke="currentColor"
-                                                                        strokeWidth={2}
-                                                                        fill="none"
-                                                                        strokeLinecap="round"
-                                                                        strokeLinejoin="round"
-                                                                    />
-                                                                </svg>
-                                                                <span>Удалить</span>
-                                                            </button>
-                                                        </li>
-                                                    </ul>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </li>
-                                    <li className="dictionary-mob__item">
-                                        <div className="dictionary-mob__item-inner">
-                                            <p className="dictionary-mob__categories">Длинные слова</p>
-                                            <h3 className="dictionary-mob__title">
-                                                Supercalifragilisticexpialidocious
-                                            </h3>
-                                            <p className="dictionary-mob__text">Фантастический</p>
-                                            <div className="dictionary-mob__btn">
-                                                <div className="more-btn">
-                                                    <button className="more-btn__btn">
-                                                        <svg className="icon" viewBox="0 0 24 24" fill="none">
-                                                            <path
-                                                                d="M12 6H12.01M12 12H12.01M12 18H12.01"
-                                                                stroke="currentColor"
-                                                                strokeWidth={3}
-                                                                strokeLinecap="round"
-                                                            />
-                                                        </svg>
-                                                    </button>
-                                                    <ul className="more-btn__menu">
-                                                        <li className="more-btn__item">
-                                                            <button className="more-btn__item-btn line-btn-dark">
-                                                                <svg
-                                                                    className="icon"
-                                                                    viewBox="0 0 24 24"
-                                                                    fill="none"
-                                                                >
-                                                                    <path
-                                                                        d="M8.5 11.5L11 14L15 10M21 12C21 13.1819 20.7672 14.3522 20.3149 15.4442C19.8626 16.5361 19.1997 17.5282 18.364 18.364C17.5282 19.1997 16.5361 19.8626 15.4442 20.3149C14.3522 20.7672 13.1819 21 12 21C10.8181 21 9.64778 20.7672 8.55585 20.3149C7.46392 19.8626 6.47177 19.1997 5.63604 18.364C4.80031 17.5282 4.13738 16.5361 3.68508 15.4442C3.23279 14.3522 3 13.1819 3 12C3 9.61305 3.94821 7.32387 5.63604 5.63604C7.32387 3.94821 9.61305 3 12 3C14.3869 3 16.6761 3.94821 18.364 5.63604C20.0518 7.32387 21 9.61305 21 12Z"
-                                                                        stroke="currentColor"
-                                                                        strokeWidth={2}
-                                                                        strokeLinecap="round"
-                                                                        strokeLinejoin="round"
-                                                                    />
-                                                                </svg>
-                                                                <span>Выбрать</span>
-                                                            </button>
-                                                        </li>
-                                                        <li className="more-btn__item">
-                                                            <button className="more-btn__item-btn line-btn-dark">
-                                                                <svg className="icon" viewBox="0 0 24 24">
-                                                                    <path
-                                                                        fill="none"
-                                                                        d="M15.717 4.07486L18.9255 7.28329M7.49999 6.5003H4.125C3.82663 6.5003 3.54048 6.61883 3.3295 6.8298C3.11853 7.04078 3 7.32692 3 7.62528V18.875C3 19.1734 3.11853 19.4595 3.3295 19.6705C3.54048 19.8815 3.82663 20 4.125 20H16.5C16.7983 20 17.0845 19.8815 17.2955 19.6705C17.5064 19.4595 17.625 19.1734 17.625 18.875V13.8126M20.3351 2.66414C20.5459 2.87485 20.7131 3.12503 20.8272 3.40038C20.9413 3.67574 21 3.97087 21 4.26892C21 4.56697 20.9413 4.8621 20.8272 5.13745C20.7131 5.4128 20.5459 5.66298 20.3351 5.87369L12.6356 13.573L8.62499 14.3751L9.42711 10.3646L17.1266 2.66527C17.3371 2.45437 17.5872 2.28706 17.8625 2.17291C18.1378 2.05876 18.4328 2 18.7308 2C19.0289 2 19.3239 2.05876 19.5992 2.17291C19.8745 2.28706 20.1245 2.45437 20.3351 2.66527V2.66414Z"
-                                                                        stroke="currentColor"
-                                                                        strokeWidth={2}
-                                                                        strokeLinecap="round"
-                                                                        strokeLinejoin="round"
-                                                                    />
-                                                                </svg>
-                                                                <span>Редактировать</span>
-                                                            </button>
-                                                        </li>
-                                                        <li className="more-btn__item">
-                                                            <button className="more-btn__item-btn line-btn-red">
-                                                                <svg className="icon" viewBox="0 0 24 24">
-                                                                    <path
-                                                                        d="M5 7H19M10 10V18M14 10V18M10 3H14C14.2652 3 14.5196 3.10536 14.7071 3.29289C14.8946 3.48043 15 3.73478 15 4V7H9V4C9 3.73478 9.10536 3.48043 9.29289 3.29289C9.48043 3.10536 9.73478 3 10 3ZM6 7H18V20C18 20.2652 17.8946 20.5196 17.7071 20.7071C17.5196 20.8946 17.2652 21 17 21H7C6.73478 21 6.48043 20.8946 6.29289 20.7071C6.10536 20.5196 6 20.2652 6 20V7Z"
-                                                                        stroke="currentColor"
-                                                                        strokeWidth={2}
-                                                                        fill="none"
-                                                                        strokeLinecap="round"
-                                                                        strokeLinejoin="round"
-                                                                    />
-                                                                </svg>
-                                                                <span>Удалить</span>
-                                                            </button>
-                                                        </li>
-                                                    </ul>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </li>
-                                    <li className="dictionary-mob__item">
-                                        <div className="dictionary-mob__item-inner">
-                                            <p className="dictionary-mob__categories">Идиомы</p>
-                                            <h3 className="dictionary-mob__title">
-                                                They're cherry picking examples to support their argument
-                                            </h3>
-                                            <p className="dictionary-mob__text">
-                                                Когда пришло время отличных разнообразных аргументов в
-                                                пользу своего мнения, кто-то отчаянно не может их подобрать,
-                                                и буквально выдумывает на ходу, использует повторяющиеся
-                                            </p>
-                                            <div className="dictionary-mob__btn">
-                                                <div className="more-btn">
-                                                    <button className="more-btn__btn">
-                                                        <svg className="icon" viewBox="0 0 24 24" fill="none">
-                                                            <path
-                                                                d="M12 6H12.01M12 12H12.01M12 18H12.01"
-                                                                stroke="currentColor"
-                                                                strokeWidth={3}
-                                                                strokeLinecap="round"
-                                                            />
-                                                        </svg>
-                                                    </button>
-                                                    <ul className="more-btn__menu">
-                                                        <li className="more-btn__item">
-                                                            <button className="more-btn__item-btn line-btn-dark">
-                                                                <svg
-                                                                    className="icon"
-                                                                    viewBox="0 0 24 24"
-                                                                    fill="none"
-                                                                >
-                                                                    <path
-                                                                        d="M8.5 11.5L11 14L15 10M21 12C21 13.1819 20.7672 14.3522 20.3149 15.4442C19.8626 16.5361 19.1997 17.5282 18.364 18.364C17.5282 19.1997 16.5361 19.8626 15.4442 20.3149C14.3522 20.7672 13.1819 21 12 21C10.8181 21 9.64778 20.7672 8.55585 20.3149C7.46392 19.8626 6.47177 19.1997 5.63604 18.364C4.80031 17.5282 4.13738 16.5361 3.68508 15.4442C3.23279 14.3522 3 13.1819 3 12C3 9.61305 3.94821 7.32387 5.63604 5.63604C7.32387 3.94821 9.61305 3 12 3C14.3869 3 16.6761 3.94821 18.364 5.63604C20.0518 7.32387 21 9.61305 21 12Z"
-                                                                        stroke="currentColor"
-                                                                        strokeWidth={2}
-                                                                        strokeLinecap="round"
-                                                                        strokeLinejoin="round"
-                                                                    />
-                                                                </svg>
-                                                                <span>Выбрать</span>
-                                                            </button>
-                                                        </li>
-                                                        <li className="more-btn__item">
-                                                            <button className="more-btn__item-btn line-btn-dark">
-                                                                <svg className="icon" viewBox="0 0 24 24">
-                                                                    <path
-                                                                        fill="none"
-                                                                        d="M15.717 4.07486L18.9255 7.28329M7.49999 6.5003H4.125C3.82663 6.5003 3.54048 6.61883 3.3295 6.8298C3.11853 7.04078 3 7.32692 3 7.62528V18.875C3 19.1734 3.11853 19.4595 3.3295 19.6705C3.54048 19.8815 3.82663 20 4.125 20H16.5C16.7983 20 17.0845 19.8815 17.2955 19.6705C17.5064 19.4595 17.625 19.1734 17.625 18.875V13.8126M20.3351 2.66414C20.5459 2.87485 20.7131 3.12503 20.8272 3.40038C20.9413 3.67574 21 3.97087 21 4.26892C21 4.56697 20.9413 4.8621 20.8272 5.13745C20.7131 5.4128 20.5459 5.66298 20.3351 5.87369L12.6356 13.573L8.62499 14.3751L9.42711 10.3646L17.1266 2.66527C17.3371 2.45437 17.5872 2.28706 17.8625 2.17291C18.1378 2.05876 18.4328 2 18.7308 2C19.0289 2 19.3239 2.05876 19.5992 2.17291C19.8745 2.28706 20.1245 2.45437 20.3351 2.66527V2.66414Z"
-                                                                        stroke="currentColor"
-                                                                        strokeWidth={2}
-                                                                        strokeLinecap="round"
-                                                                        strokeLinejoin="round"
-                                                                    />
-                                                                </svg>
-                                                                <span>Редактировать</span>
-                                                            </button>
-                                                        </li>
-                                                        <li className="more-btn__item">
-                                                            <button className="more-btn__item-btn line-btn-red">
-                                                                <svg className="icon" viewBox="0 0 24 24">
-                                                                    <path
-                                                                        d="M5 7H19M10 10V18M14 10V18M10 3H14C14.2652 3 14.5196 3.10536 14.7071 3.29289C14.8946 3.48043 15 3.73478 15 4V7H9V4C9 3.73478 9.10536 3.48043 9.29289 3.29289C9.48043 3.10536 9.73478 3 10 3ZM6 7H18V20C18 20.2652 17.8946 20.5196 17.7071 20.7071C17.5196 20.8946 17.2652 21 17 21H7C6.73478 21 6.48043 20.8946 6.29289 20.7071C6.10536 20.5196 6 20.2652 6 20V7Z"
-                                                                        stroke="currentColor"
-                                                                        strokeWidth={2}
-                                                                        fill="none"
-                                                                        strokeLinecap="round"
-                                                                        strokeLinejoin="round"
-                                                                    />
-                                                                </svg>
-                                                                <span>Удалить</span>
-                                                            </button>
-                                                        </li>
-                                                    </ul>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </li>
-                                    <li className="dictionary-mob__item">
-                                        <div className="dictionary-mob__item-inner">
-                                            <p className="dictionary-mob__categories">IT</p>
-                                            <h3 className="dictionary-mob__title">
-                                                We'll cross that bridge when we come to it
-                                            </h3>
-                                            <p className="dictionary-mob__text">
-                                                Давай не будем прямо сейчас говорить об этой проблеме
-                                            </p>
-                                            <div className="dictionary-mob__btn">
-                                                <div className="more-btn">
-                                                    <button className="more-btn__btn">
-                                                        <svg className="icon" viewBox="0 0 24 24" fill="none">
-                                                            <path
-                                                                d="M12 6H12.01M12 12H12.01M12 18H12.01"
-                                                                stroke="currentColor"
-                                                                strokeWidth={3}
-                                                                strokeLinecap="round"
-                                                            />
-                                                        </svg>
-                                                    </button>
-                                                    <ul className="more-btn__menu">
-                                                        <li className="more-btn__item">
-                                                            <button className="more-btn__item-btn line-btn-dark">
-                                                                <svg
-                                                                    className="icon"
-                                                                    viewBox="0 0 24 24"
-                                                                    fill="none"
-                                                                >
-                                                                    <path
-                                                                        d="M8.5 11.5L11 14L15 10M21 12C21 13.1819 20.7672 14.3522 20.3149 15.4442C19.8626 16.5361 19.1997 17.5282 18.364 18.364C17.5282 19.1997 16.5361 19.8626 15.4442 20.3149C14.3522 20.7672 13.1819 21 12 21C10.8181 21 9.64778 20.7672 8.55585 20.3149C7.46392 19.8626 6.47177 19.1997 5.63604 18.364C4.80031 17.5282 4.13738 16.5361 3.68508 15.4442C3.23279 14.3522 3 13.1819 3 12C3 9.61305 3.94821 7.32387 5.63604 5.63604C7.32387 3.94821 9.61305 3 12 3C14.3869 3 16.6761 3.94821 18.364 5.63604C20.0518 7.32387 21 9.61305 21 12Z"
-                                                                        stroke="currentColor"
-                                                                        strokeWidth={2}
-                                                                        strokeLinecap="round"
-                                                                        strokeLinejoin="round"
-                                                                    />
-                                                                </svg>
-                                                                <span>Выбрать</span>
-                                                            </button>
-                                                        </li>
-                                                        <li className="more-btn__item">
-                                                            <button className="more-btn__item-btn line-btn-dark">
-                                                                <svg className="icon" viewBox="0 0 24 24">
-                                                                    <path
-                                                                        fill="none"
-                                                                        d="M15.717 4.07486L18.9255 7.28329M7.49999 6.5003H4.125C3.82663 6.5003 3.54048 6.61883 3.3295 6.8298C3.11853 7.04078 3 7.32692 3 7.62528V18.875C3 19.1734 3.11853 19.4595 3.3295 19.6705C3.54048 19.8815 3.82663 20 4.125 20H16.5C16.7983 20 17.0845 19.8815 17.2955 19.6705C17.5064 19.4595 17.625 19.1734 17.625 18.875V13.8126M20.3351 2.66414C20.5459 2.87485 20.7131 3.12503 20.8272 3.40038C20.9413 3.67574 21 3.97087 21 4.26892C21 4.56697 20.9413 4.8621 20.8272 5.13745C20.7131 5.4128 20.5459 5.66298 20.3351 5.87369L12.6356 13.573L8.62499 14.3751L9.42711 10.3646L17.1266 2.66527C17.3371 2.45437 17.5872 2.28706 17.8625 2.17291C18.1378 2.05876 18.4328 2 18.7308 2C19.0289 2 19.3239 2.05876 19.5992 2.17291C19.8745 2.28706 20.1245 2.45437 20.3351 2.66527V2.66414Z"
-                                                                        stroke="currentColor"
-                                                                        strokeWidth={2}
-                                                                        strokeLinecap="round"
-                                                                        strokeLinejoin="round"
-                                                                    />
-                                                                </svg>
-                                                                <span>Редактировать</span>
-                                                            </button>
-                                                        </li>
-                                                        <li className="more-btn__item">
-                                                            <button className="more-btn__item-btn line-btn-red">
-                                                                <svg className="icon" viewBox="0 0 24 24">
-                                                                    <path
-                                                                        d="M5 7H19M10 10V18M14 10V18M10 3H14C14.2652 3 14.5196 3.10536 14.7071 3.29289C14.8946 3.48043 15 3.73478 15 4V7H9V4C9 3.73478 9.10536 3.48043 9.29289 3.29289C9.48043 3.10536 9.73478 3 10 3ZM6 7H18V20C18 20.2652 17.8946 20.5196 17.7071 20.7071C17.5196 20.8946 17.2652 21 17 21H7C6.73478 21 6.48043 20.8946 6.29289 20.7071C6.10536 20.5196 6 20.2652 6 20V7Z"
-                                                                        stroke="currentColor"
-                                                                        strokeWidth={2}
-                                                                        fill="none"
-                                                                        strokeLinecap="round"
-                                                                        strokeLinejoin="round"
-                                                                    />
-                                                                </svg>
-                                                                <span>Удалить</span>
-                                                            </button>
-                                                        </li>
-                                                    </ul>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </li>
                                 </ul>
                             </div>
                             {/* Footer */}
@@ -1453,31 +1051,10 @@ export const WordsList = () => {
                             </div>
                         </section>
                     </main>
-                    <footer className="app-main__bot">
-                        <p className="app-main__copyright app-main__text">
-                            © 2025 Learnew. <br /> Все права защищены.
-                        </p>
-                        <ul className="app-main__links">
-                            <li className="app-main__link-wrapper">
-                                <a href="#" className="app-main__link app-main__text">
-                                    Поддержка
-                                </a>
-                            </li>
-                            <li className="app-main__link-wrapper">
-                                <a href="#" className="app-main__link app-main__text">
-                                    Условия использования
-                                </a>
-                            </li>
-                            <li className="app-main__link-wrapper">
-                                <a href="#" className="app-main__link app-main__text">
-                                    Политика конфиденциальности
-                                </a>
-                            </li>
-                        </ul>
-                    </footer>
+                    <FooterInner />
                 </main>
             </div >
-            <MobileMenu />
+            {/* <MobileMenu /> */}
             < div className="app-selected" >
                 <div className="app-selected__inner">
                     <p className="app-selected__left">Выбрано 3 из 79</p>

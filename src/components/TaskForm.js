@@ -6,6 +6,7 @@ import { Loader } from './Loader';
 import { validation } from '../hooks/validation.hook';
 import { Aside } from './Aside';
 import { autoResize } from '../hooks/autoResize.hook';
+import { FooterInner } from '../components/Footer';
 
 export const TaskForm = ({ set, chan, setActive }) => {
     const { loading, request } = useHttp();
@@ -393,28 +394,9 @@ export const TaskForm = ({ set, chan, setActive }) => {
                         </div>
                     </section>
                 </main>
-                <footer className="app-main__bot">
-                    <p className="app-main__copyright app-main__text">
-                        © 2025 Learnew. <br /> Все права защищены.
-                    </p>
-                    <ul className="app-main__links">
-                        <li className="app-main__link-wrapper">
-                            <a href="#" className="app-main__link app-main__text">
-                                Поддержка
-                            </a>
-                        </li>
-                        <li className="app-main__link-wrapper">
-                            <a href="#" className="app-main__link app-main__text">
-                                Условия использования
-                            </a>
-                        </li>
-                        <li className="app-main__link-wrapper">
-                            <a href="#" className="app-main__link app-main__text">
-                                Политика конфиденциальности
-                            </a>
-                        </li>
-                    </ul>
-                </footer>
+                
+                <FooterInner />
+
             </main>
         </div>
 
