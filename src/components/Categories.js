@@ -211,7 +211,7 @@ export const Categories = ({ setActive }) => {
                                 return (
                                     <li className="categories-edit " id={`${element.id}`} key={element.id}>
                                         <div className="categories-edit__checkbox app-checkbox --th-dark">
-                                            <input type="checkbox" className="app-checkbox__input" />
+                                            {/* <input type="checkbox" className="app-checkbox__input" />
                                             <div className="app-checkbox__elem">
                                                 <svg
                                                     className="app-checkbox__icon"
@@ -226,15 +226,16 @@ export const Categories = ({ setActive }) => {
                                                         strokeLinejoin="round"
                                                     />
                                                 </svg>
-                                            </div>
+                                            </div> */}
                                         </div>
                                         <div className="categories-edit-input">
                                             <input
                                                 defaultValue={element.category}
                                                 type="text"
                                                 className="categories-edit-input__elem"
+                                                disabled={true}
                                             />
-                                            <div className="categories-edit-input__label">10 слов</div>
+                                            {/* <div className="categories-edit-input__label">10 слов</div> */}
                                         </div>
                                         <button className="categories-edit-remove btn btn-grey-red-outline" onClick={(e) => { handleDelCat(e, element) }}>
                                             <svg className="icon" viewBox="0 0 24 24" fill="none">
@@ -273,7 +274,7 @@ export const Categories = ({ setActive }) => {
                         {/* <button className="categories-edit-actions__combine btn btn-dark-outline">
                             Объединить категории
                         </button> */}
-                        <button className="categories-edit-actions__save btn btn-dark">
+                        <button className="categories-edit-actions__save btn btn-dark" onClick={handleClose}>
                             Сохранить и закрыть
                         </button>
                     </div>
@@ -296,61 +297,5 @@ export const Categories = ({ setActive }) => {
                 </div>
             </div>
         </div>
-
-        // <section className="category-section commonClass">
-        //     {active &&
-        //         <WordFormChange wordInfo={wordInfo} setActive={setModalActive} />
-        //     }
-        //     {loading && <Loader />}
-        //     <>
-        //         <table className="category-section__table" >
-        //             <caption>
-        //                 Ваши категории
-        //             </caption>
-        //             {/* <thead>
-        //                 <tr>
-        //                     <th>№ п/п</th>
-        //                     <th>Категория</th>
-        //                     <th></th>
-        //                     <th></th>
-        //                 </tr>
-        //             </thead> */}
-
-        //             <tbody>
-        // {categories
-        //     .sort((a, b) => a.id - b.id)
-        //     .map((element, index) => {
-        //         return (
-        //             <tr className="category-string"
-        //                 info={`${element.id}+${element.category}`}
-        //                 key={element.id}
-        //             >
-        //                 {/* <td>{index + 1}</td> */}
-        //                 <td>{element.category}</td>
-        //                 {/* <td>
-        //                     <button
-        //                         className="button button_table"
-        //                         onClick={changeWord}
-        //                     >
-        //                         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" className="bi bi-pencil-square" viewBox="0 0 16 16">
-        //                             <path d="M15.502 1.94a.5.5 0 0 1 0 .706L14.459 3.69l-2-2L13.502.646a.5.5 0 0 1 .707 0l1.293 1.293zm-1.75 2.456-2-2L4.939 9.21a.5.5 0 0 0-.121.196l-.805 2.414a.25.25 0 0 0 .316.316l2.414-.805a.5.5 0 0 0 .196-.12l6.813-6.814z" />
-        //                             <path fillRule="evenodd" d="M1 13.5A1.5 1.5 0 0 0 2.5 15h11a1.5 1.5 0 0 0 1.5-1.5v-6a.5.5 0 0 0-1 0v6a.5.5 0 0 1-.5.5h-11a.5.5 0 0 1-.5-.5v-11a.5.5 0 0 1 .5-.5H9a.5.5 0 0 0 0-1H2.5A1.5 1.5 0 0 0 1 2.5v11z" />
-        //                         </svg>
-        //                     </button>
-        //                 </td> */}
-        //                 <td>
-        //                     <button
-        //                         className="button button_table-delete"
-        //                         onClick={deleteCategory}
-        //                     ><img className="trash-icon" src={trashIcon} alt="Удалить"></img></button>
-        //                 </td>
-        //             </tr>
-        //         )
-        //     })}
-        //             </tbody>
-        //         </table>
-
-        //     </>
-        // </section>
     )
 }

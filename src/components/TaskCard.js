@@ -1,4 +1,4 @@
-import React, { useState, useCallback, useEffect } from 'react';
+import React, { useState, useCallback, useEffect, useLayoutEffect } from 'react';
 import { Link, useHistory } from 'react-router-dom';
 import { useHttp } from '../hooks/http.hook';
 import { Loader } from './Loader';
@@ -178,58 +178,14 @@ export const TaskCard = () => {
         history.push('/education/teacher')
     }
 
-    useEffect(() => {
+    useLayoutEffect(() => {
         getTask();
     }, [])
 
     return (
         <>
             {loading && <Loader />}
-            {/* {!loading &&
-                <main className="main-content" info={`${task.id}`}>
-                    <div className="main-content__control-panel">
-                        <button className="control-panel__appoint-button button" onClick={appointTask}>Назначить</button>
-                        <button className="control-panel__edit-button button" onClick={patchTask}>Редактировать</button>
-                        <button
-                            className="control-panel__delete-button"
-                            onClick={deleteTask}
-                        ><img className="trash-icon" src={trashIcon} alt="Удалить"></img></button>
-                    </div>
-                    <h1 className="note__title"> <span>{task.theme} </span></h1>
 
-                    <p className="">Грамматика:</p>
-                    <div className="note__example">
-                        {task.rules}
-                    </div>
-
-                    <p className="">Лексика:</p>
-                    <div className="note__example">
-                        {task.words}
-                    </div>
-
-                    <p className="">Чтение и Письмо:</p>
-                    <div className="note__example">
-                        {task.read}
-                    </div>
-
-                    <p className="">Аудирование и Видео:</p>
-                    <div className="note__example">
-                        {task.translate}
-                    </div>
-
-                    <p className="">Дополнительные материалы:</p>
-                    <div className="note__example">
-                        {task.other}
-                    </div>
-                    <p className="">Назначено:</p>
-                    <div className="note__example">
-                        {task.users.join(', ')}
-                    </div>
-
-                </main>
-            }
-            {taskForm && <TaskFormChange props={task} setActive={setTaskFormActive} set={set} chan={chan} />}
-            {appointForm && <AppointForm props={task} setActive={setAppointFormActive} />} */}
             <div className="app-inner">
                 <Aside />
                 {!loading &&
@@ -308,7 +264,6 @@ export const TaskCard = () => {
                                                         className="pin__input"
                                                         placeholder="Введите почту"
                                                         type="text"
-
                                                         name="users"
                                                         onChange={changeHandlerUser}
                                                         value={user.user}
@@ -340,24 +295,29 @@ export const TaskCard = () => {
                                                     </svg>
                                                     <span className="pin__text">Сергей Соколов</span>
                                                 </li> */}
-                                                {task.users.map((user, index) => {
-                                                    return (
-                                                        <li className="pin --th-new" key={index} user={user} >
-                                                            <span className="pin__text">{user}</span>
-                                                            <button className="pin__delete" onClick={handleDeleteUser}>
-                                                                <svg className="pin__icon" viewBox="0 0 20 20" fill="none">
-                                                                    <path
-                                                                        d="M5.83203 14.1667L12.4654 7.5M12.4987 14.1667L5.86536 7.5"
-                                                                        stroke="currentColor"
-                                                                        strokeWidth={2}
-                                                                        strokeLinecap="round"
-                                                                        strokeLinejoin="round"
-                                                                    />
-                                                                </svg>
-                                                            </button>
-                                                        </li>
-                                                    )
-                                                })}
+
+                                                {
+
+                                                    task.users.map((user, index) => {
+                                                        return (
+                                                            <li className="pin --th-new" key={index} user={user} >
+                                                                <span className="pin__text">{user}</span>
+                                                                <button className="pin__delete" onClick={handleDeleteUser}>
+                                                                    <svg className="pin__icon" viewBox="0 0 20 20" fill="none">
+                                                                        <path
+                                                                            d="M5.83203 14.1667L12.4654 7.5M12.4987 14.1667L5.86536 7.5"
+                                                                            stroke="currentColor"
+                                                                            strokeWidth={2}
+                                                                            strokeLinecap="round"
+                                                                            strokeLinejoin="round"
+                                                                        />
+                                                                    </svg>
+                                                                </button>
+                                                            </li>
+                                                        )
+                                                    })
+
+                                                }
 
                                             </ul>
                                         </div>

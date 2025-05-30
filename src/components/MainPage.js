@@ -23,7 +23,7 @@ export const MainPage = () => {
 
     useEffect(() => {
         // document.getElementById("root").classList.add("o-wrapper");
-        document.getElementById("root").classList.replace("app-wrapper" ,"o-wrapper");
+        document.getElementById("root").classList.replace("app-wrapper", "o-wrapper");
     }, []);
 
     return (
@@ -126,7 +126,9 @@ export const MainPage = () => {
                                                 strokeLinecap="round"
                                             />
                                         </svg>
-                                        <Link className="board-link__elem" to="/">Обратная связь</Link>
+                                        <a href="mailto:sergei.osokin.rf@mail.ru?subject=Вопрос с learnew" className="board-link__elem">
+                                            Обратная связь
+                                        </a>
                                         {/* <a href="#" className="board-link__elem">
                                             Обратная связь
                                         </a> */}

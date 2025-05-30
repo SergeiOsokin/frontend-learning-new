@@ -37,6 +37,8 @@ export const NoteCard = () => {
                 message(data.message || data.error, false);
                 return;
             }
+            autoResize('text');
+            autoResize('example');
             return message(data.message, true);
         } catch (err) {
             message(err, false);
@@ -82,7 +84,8 @@ export const NoteCard = () => {
                     example: data[0].example,
                 })
 
-                window.addEventListener('textarea', autoResize('text'))
+                autoResize('text');
+                autoResize('example');
 
             } catch (error) {
                 message(error, false);

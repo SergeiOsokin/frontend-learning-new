@@ -394,6 +394,7 @@
   background: url("../images/home-image.webp") center no-repeat;
   background-size: cover;
   border-radius: 2.4rem;
+  /* filter: blur(10px);   */
 }
 @media screen and (max-width: 768px) {
   .image-board {

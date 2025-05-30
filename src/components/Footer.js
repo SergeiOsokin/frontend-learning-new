@@ -10,9 +10,9 @@ export const Footer = () => {
           © 2025 Learnew. <br /> Все права защищены.
         </p>
         <div className="o-footer__links">
-          <Link to="#" className="o-footer__label o-footer__link" >
+          <a href="mailto:sergei.osokin.rf@mail.ru?subject=Вопрос с learnew" className="app-main__link app-main__text">
             Поддержка
-          </Link>
+          </a>
           <Link to="#" className="o-footer__label o-footer__link">
             Условия использования
           </Link>
