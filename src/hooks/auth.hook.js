@@ -19,23 +19,26 @@ export const useAuth = (data) => {
     // что делаем при разлогинивании
     const logout = useCallback(async () => {
         const req = await request('/deletecookie', 'DELETE');
-        message('Выход выполнен')
+        message('Выход выполнен', true)
         setAuthorization(false);
     }, []);
     // проверим, нет ли данных в cookie сейчас, чтобы сделать пользователя авторизованным. 
     useEffect(() => {
         async function fetchData() {
             try {
-                const req = await request('/words/list?category=null', 'GET');
-                if (req.message === 'Не авторизованы') {
+                const data = await request('/words/list?category=null', 'GET');
+
+                if (data.message === 'Не авторизованы') {
+                    message(message, false)
                     return setAuthorization(false);
                 }
                 setAuthorization(true);
             } catch (error) {
-
+                message(error, false)
             }
         }
         fetchData();
+
     }, [request])
 
     return {

@@ -32,7 +32,7 @@ export const TaskFormChange = ({ props, setActive, set, chan }) => {
             if (data === undefined) {
                 return
             }
-            message(data.message);
+            message(data.message, true);
             setActive(false);
             set(!chan);
             setTaskForm({
@@ -46,7 +46,7 @@ export const TaskFormChange = ({ props, setActive, set, chan }) => {
                 users: '',
             })
         } catch (err) {
-            message(err);
+            message(err, false);
         }
     });
 

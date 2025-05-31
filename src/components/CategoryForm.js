@@ -21,14 +21,15 @@ export const CategoryForm = () => {
         e.preventDefault()
         try {
             const data = await request('/category/add', 'POST', category);
-            if(data === undefined) {
-                return
+            if (data.hasOwnProperty('error')) {
+                message(data.message || data.error, false);
+                return;
             }
-            message(data.message);
+            message(data.message, true);
             setCategory({ ...category, categoryWord: '' });
             clearError();
         } catch (err) {
-            message(err);
+            message(err, false);
         }
     });
     // тут потом реализовать возможность подружать категории, для дальнейшего редактирования / удаления

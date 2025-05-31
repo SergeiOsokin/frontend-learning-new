@@ -39,7 +39,7 @@
     opacity: 0;
 }
 
-#section-tasks-menu__toggle:checked~.section-tasks-menu__btn>span {
+/* #section-tasks-menu__toggle:checked~.section-tasks-menu__btn>span {
     transform: rotate(45deg);
 }
 
@@ -56,7 +56,7 @@
 #section-tasks-menu__toggle:checked~.section-nav-tasks {
     position: relative;
     left: 0px;
-}
+} */
 
 .section-tasks-menu__btn {
     display: flex;

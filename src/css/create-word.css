@@ -1,0 +1,332 @@
+.app-checkbox {
+  width: 2rem;
+  height: 2rem;
+  position: relative;
+}
+.app-checkbox__input {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  width: 100%;
+  height: 100%;
+  opacity: 0;
+  margin: 0;
+  padding: 0;
+  cursor: pointer;
+}
+.app-checkbox__input:checked + .app-checkbox__elem {
+  background-color: #4ABE63;
+}
+.app-checkbox__input:checked + .app-checkbox__elem .app-checkbox__icon {
+  display: block;
+}
+.app-checkbox.--th-dark .app-checkbox__elem {
+  border-color: #CDCDCD;
+}
+.app-checkbox.--th-disabled {
+  background-color: #E7E7E7;
+}
+.app-checkbox__elem {
+  width: 100%;
+  height: 100%;
+  border-radius: 0.4rem;
+  border: 1px solid #E7E7E7;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.app-checkbox__icon {
+  display: none;
+  width: 1.2rem;
+  height: 0.8rem;
+}
+
+.dropdown-categories {
+  position: absolute;
+  z-index: 10;
+  top: auto;
+  bottom: -1.6rem;
+  transform: translateY(100%);
+  left: 0;
+  right: 0;
+  background-color: #fff;
+  border-radius: 0.8rem;
+  border: 1px solid #E7E7E7;
+  display: grid;
+  grid-template-columns: 1fr;
+  opacity: 0;
+  visibility: hidden;
+}
+.dropdown-categories.--th-active {
+  opacity: 1;
+  visibility: visible;
+}
+.dropdown-categories__row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-size: 1.6rem;
+  padding: 0 1.6rem;
+  height: 2rem;
+  margin-bottom: 1.6rem;
+}
+.dropdown-categories__row:last-child {
+  margin-bottom: 2rem;
+}
+.dropdown-categories__row:first-child {
+  padding: 0 1.6rem;
+  height: 5.2rem;
+  border-bottom: 1px solid #E7E7E7;
+}
+.dropdown-categories__row.--th-button, .dropdown-categories__row.--th-input {
+  height: auto;
+}
+.dropdown-categories.--th-dictionary {
+  bottom: -0.5rem;
+}
+.dropdown-categories.--th-create-word {
+  bottom: -0.5rem;
+}
+.dropdown-categories.--th-create-word .dropdown-categories__row:first-child {
+  height: 2rem;
+  border-bottom: none;
+  margin-top: 2rem;
+}
+
+.dropdown-categories-add {
+  height: 4.4rem;
+  width: 100%;
+}
+
+.dropdown-categories-input {
+  position: relative;
+}
+.dropdown-categories-input__elem {
+  height: 4.4rem;
+  border-radius: 0.8rem;
+  font-size: 1.8rem;
+  padding-left: 1.6rem;
+  color: #1F1E30;
+  border-color: #1F1E30;
+  padding-right: 7rem;
+  outline: none;
+  width: 100%;
+}
+.dropdown-categories-input__actions {
+  position: absolute;
+  top: 50%;
+  left: auto;
+  right: 0.8rem;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  width: max-content;
+  gap: 0.8rem;
+  transform: translateY(-50%);
+}
+.dropdown-categories-input__btn {
+  background-color: transparent;
+  border: none;
+  outline: none;
+  display: block;
+  padding: 0;
+  margin: 0;
+  color: #939393;
+}
+.dropdown-categories-input__btn.--th-delete:hover {
+  color: #E84245;
+}
+.dropdown-categories-input__btn.--th-save:hover {
+  color: #4ABE63;
+}
+.dropdown-categories-input__btn .icon {
+  width: 2.4rem !important;
+  height: 2.4rem !important;
+}
+
+.app-checkbox {
+  width: 2rem;
+  height: 2rem;
+  position: relative;
+}
+.app-checkbox__input {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  width: 100%;
+  height: 100%;
+  opacity: 0;
+  margin: 0;
+  padding: 0;
+  cursor: pointer;
+}
+.app-checkbox__input:checked + .app-checkbox__elem {
+  background-color: #4ABE63;
+}
+.app-checkbox__input:checked + .app-checkbox__elem .app-checkbox__icon {
+  display: block;
+}
+.app-checkbox.--th-dark .app-checkbox__elem {
+  border-color: #CDCDCD;
+}
+.app-checkbox.--th-disabled {
+  background-color: #E7E7E7;
+}
+.app-checkbox__elem {
+  width: 100%;
+  height: 100%;
+  border-radius: 0.4rem;
+  border: 1px solid #E7E7E7;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.app-checkbox__icon {
+  display: none;
+  width: 1.2rem;
+  height: 0.8rem;
+}
+
+.create-word {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: stretch;
+  justify-content: space-between;
+  flex-direction: column;
+}
+.create-word__bot {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+@media screen and (max-width: 768px) {
+  .create-word__bot {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-gap: 1.6rem;
+  }
+}
+.create-word__cancel, .create-word__save {
+  width: 26rem;
+  height: 5.2rem;
+}
+@media screen and (max-width: 768px) {
+  .create-word__cancel, .create-word__save {
+    width: auto;
+  }
+}
+
+.create-word__list {
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-gap: 2.4rem;
+}
+.create-word__add {
+  margin-top: 2.4rem;
+  width: 21rem;
+  height: 5.2rem;
+  background-color: transparent;
+}
+.create-word__add .icon {
+  width: 2.4rem;
+  height: 2.4rem;
+}
+.create-word__row {
+  display: grid;
+  grid-template-columns: 34.6rem 34.6rem 34.6rem auto;
+  grid-gap: 1.6rem;
+}
+@media screen and (max-width: 1440px) {
+  .create-word__row {
+    grid-template-columns: 30.6rem 30.6rem 30.6rem auto;
+  }
+}
+@media screen and (max-width: 1024px) {
+  .create-word__row {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+@media screen and (max-width: 768px) {
+  .create-word__row {
+    grid-template-columns: 1fr;
+  }
+}
+@media screen and (max-width: 768px) {
+  .create-word__col.--th-delete {
+    display: none;
+  }
+}
+@media screen and (max-width: 768px) {
+  .create-word__col.--th-word {
+    display: flex;
+    align-items: center;
+    gap: 1.6rem;
+  }
+}
+.create-word__col.--th-word .word-delete {
+  display: none;
+}
+@media screen and (max-width: 768px) {
+  .create-word__col.--th-word .word-delete {
+    display: block;
+    flex: 0 0 auto;
+  }
+}
+.create-word__input {
+  height: 5.2rem;
+  border-radius: 0.8rem;
+  padding-left: 1.6rem;
+  border: 1px solid #CDCDCD;
+  font-size: 1.8rem;
+  background-color: transparent;
+  width: 100%;
+}
+.create-word__input:focus {
+  border-color: #1F1E30;
+}
+.create-word__input::placeholder {
+  color: #939393;
+}
+
+.create-word-select {
+  height: 5.2rem;
+  border-radius: 0.8rem;
+  padding-left: 1.6rem;
+  padding-right: 1.6rem;
+  border: 1px solid #CDCDCD;
+  font-size: 1.8rem;
+  background-color: transparent;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  cursor: pointer;
+  position: relative;
+}
+.create-word-select__placeholder {
+  color: #939393;
+}
+.create-word-select__value {
+  color: #1F1E30;
+}
+.create-word-select .icon {
+  width: 1.2rem;
+  height: 1.2rem;
+}
+
+.word-delete {
+  height: 5.2rem;
+  width: 5.2rem;
+  padding: 0;
+  margin: 0;
+  background-color: transparent;
+}
+.word-delete .icon {
+  width: 2.4rem;
+  height: 2.4rem;
+}

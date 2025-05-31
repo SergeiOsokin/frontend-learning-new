@@ -3,125 +3,89 @@
   0% {
     transform: scale(1, 0.5);
   }
+
   50% {
     transform: scale(1, 0.0);
   }
+
   100% {
     transform: scale(1);
   }
 }
 
 .authorization {
-    display: flex;
-    flex-direction: row;
-    justify-content: center;
-    align-items: center;
-    height: 80vh;
-  }
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  /* height: 80vh; */
+}
 
-  .animation {
-    -webkit-animation: rotation 0.5s linear;
-    -moz-animation: rotation 0.5s linear;
-    -o-animation: rotation 0.5s linear;
-    animation: rotation 0.5s linear;
-  }
-  
-  .authorization__content {
-    /* border: 1px red solid; */
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    /* padding: 20px; */
-    width: 430px;
-    background-color: #fff;
-    border-radius: 10px;
-    /* position: relative; */
-    box-sizing: border-box;
-    padding: 34px 36px;
-    -webkit-box-shadow: 0px 0px 8px 5px rgba(21, 106, 171, 0.3);
-    -moz-box-shadow: 0px 0px 8px 5px rgba(21, 106, 171, 0.3);
-    box-shadow: 0px 0px 8px 5px rgba(21, 106, 171, 0.3);
-  }
-  
-  .authorization__title {
-    margin: 0 0 15px;
-    font-family: Roboto, Arial, Helvetica, sans-serif;
-    font-style: normal;
-    font-weight: 900;
-    font-size: 24px;
-    line-height: 28px;
-    color: #1A1B22;
-  }
-  
-  .form {
-    width: 360px;
-    position: relative;
-  }
-  
-  .form__label {
-    display:inline-block;
-    font-family: Inter;
-    font-style: normal;
-    font-weight: normal;
-    font-size: 15px;
-    line-height: 15px;
-    color: #2F71E5;
-  }
-  
-  .input {
-    width: 100%;
-    height: 45px;
-    border: 0;
-    border-bottom: 1px solid  rgba(0, 0, 0, .2);
-    font-family: Inter;
-    font-size: 18px;
-    line-height: 17px;
-    box-sizing: border-box;
-    outline-color: transparent;
-  }
-  
-  .input::placeholder {
-    opacity: 0.2;
-  }
-  
-  .input:focus {
-    outline-color: transparent;
-    border-bottom: 1px rgb(177, 226, 202) solid;
-  }
-  
-  .button {
-    border: 1px solid white;
-    display: block;
-    cursor: pointer;
-    border-radius: 100px;
-    font-style: normal;
-    font-weight: 500;
-    font-size: 18px;
-    line-height: 24px;
-    color: #B6BCBF;
-    width:358px;
-    height:50px;
-    margin-top:10px;
-    background: #2F71E5;
-    box-shadow: 0px 5px 15px rgba(14, 26, 57, 0.2);
-  }
-  
-  .button-disable {
-    opacity: 0.5;
-    cursor: default;
-  }
+.animation {
+  -webkit-animation: rotation 0.5s linear;
+  -moz-animation: rotation 0.5s linear;
+  -o-animation: rotation 0.5s linear;
+  animation: rotation 0.5s linear;
+}
 
-  .button:focus {
-    outline-color: transparent;
-  }
+.authorization__content {
+  /* border: 1px red solid; */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  /* padding: 20px; */
+  /* width: 430px; */
+  background-color: #F6F6F1;
+  border-radius: 12px;
+  /* position: relative; */
+  box-sizing: border-box;
+  padding: 34px 36px;
+  -webkit-box-shadow: 0px 0px 8px 5px rgba(21, 106, 171, 0.3);
+  -moz-box-shadow: 0px 0px 8px 5px rgba(21, 106, 171, 0.3);
+  box-shadow: 0px 0px 8px 5px rgba(21, 106, 171, 0.3);
+}
 
-  .button-move {
-    height:35px;
-    width:200px;
-    background: #079100;
-  }
-  
-  @media screen and (max-width:767px) {
+.form__label {
+  display: inline-block;
+  font-family: Inter;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 15px;
+  line-height: 15px;
+  color: #2F71E5;
+}
+
+.button:focus {
+  outline-color: transparent;
+}
+
+.button-move {
+  height: 35px;
+  width: 200px;
+  background: #079100;
+}
+
+.form-text_registration {
+  font-size: 18px;
+  line-height: 27px;
+}
+
+.form-link_registration {
+  font-size: 18px;
+  line-height: 27px;
+}
+
+.form-text_password {
+  font-size: 14px;
+  line-height: 27px;
+} 
+
+.form-link_password {
+  font-size: 14px;
+  line-height: 27px;
+}
+
+@media screen and (max-width:767px) {
 
   .authorization {
     /* height: calc(100vh - 25px - 40px); */
@@ -129,16 +93,20 @@
   }
 
   .button {
-    width:90%;
-    margin:10px auto;
+    width: 90%;
+    margin: 10px auto;
   }
 
   .authorization__content {
-    width: 100%;
-    padding: 10px;
+    /* width: 100%; */
+    padding: 48px 32px 32px 32px;
   }
-  
+
   .form {
     width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
   }
-  }
+}
