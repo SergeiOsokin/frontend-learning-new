@@ -6,12 +6,12 @@
   justify-content: center;
   flex-direction: column;
 }
-.tasks-empty__img {
+/* .tasks-empty__img {
   width: 12rem;
   height: 12rem;
   display: block;
   margin: 0 auto;
-}
+} */
 .tasks-empty__title {
   margin-top: 1.6rem;
   font-size: 2.4rem;

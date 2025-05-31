@@ -11,6 +11,7 @@
   height: 12rem;
   display: block;
   margin: 0 auto;
+  background: url('../images/empty/empty-primary.webp');
 }
 .tasks-empty__title {
   margin-top: 1.6rem;

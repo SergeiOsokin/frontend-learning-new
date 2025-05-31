@@ -921,3 +921,19 @@ button:disabled {
   background: transparent;
   border: none;
 }
+
+.tasks-timer__img {
+  width: 24px;
+  height: 24px;
+  display: block;
+  margin: 0 auto;
+  background: url('../images/statuses/timer.webp');
+}
+
+.tasks-yes__img {
+  width: 24px;
+  height: 24px;
+  display: block;
+  margin: 0 auto;
+  background: url('../images/statuses/yes.webp');
+}

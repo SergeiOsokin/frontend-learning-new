@@ -8,7 +8,6 @@ import { Aside } from '../components/Aside';
 import { useHistory } from 'react-router-dom/cjs/react-router-dom.min';
 import timerImg from '../images/statuses/timer.webp';
 import yesImg from "../images/statuses/yes.webp"
-import emptyImg from "../images/empty/empty-primary.webp"
 import { FooterInner } from '../components/Footer';
 
 export const HomeworkPage = () => {
@@ -120,8 +119,9 @@ export const HomeworkPage = () => {
                     <main className="app-main__mid">
                         {!tasks.length && !loading &&
                             <section className="tasks-empty">
-                                <img
-                                    src={emptyImg}
+                                <div
+                                    // src='./../images/empty/empty-primary.webp'
+                                    // src={'./../../../../images/empty/empty-primary.webp'}
                                     className="tasks-empty__img"
                                     alt="Empty"
                                 />
@@ -193,7 +193,12 @@ export const HomeworkPage = () => {
                                             <div className="card card-note --th-no-text">
                                                 <div className="card-note__top">
                                                     <p className="card-note__date">
-                                                        <img src={task.finished === true ? yesImg : timerImg} alt="" />
+                                                        {
+                                                            task.finished === true ? 
+                                                            <span className="tasks-yes__img" /> : <span className="tasks-timer__img" />
+                                                        }
+                                                        
+                                                        {/* <img src={task.finished === true ? yesImg : timerImg} alt="" /> */}
                                                         <span>{task.date_appoint}</span>
                                                     </p>
                                                     <div className="card-note__actions">
@@ -202,7 +207,7 @@ export const HomeworkPage = () => {
                                                                 <path
                                                                     d="M21 12C21 13.2 16.97 18 12 18C7.03 18 3 13.2 3 12C3 10.8 7.03 6 12 6C16.97 6 21 10.8 21 12Z"
                                                                     stroke="currentColor"
-                                                                    stroke-width="2"
+                                                                    strokeWidth="2"
                                                                     strokeLinecap="round"
                                                                     strokeLinejoin="round"
                                                                 />
