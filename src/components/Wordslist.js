@@ -697,7 +697,7 @@ export const WordsList = () => {
                                                         </th>
                                                         <th className="table__ceil">{word.russian_word}</th>
                                                         <th className="table__ceil">{word.category}</th>
-                                                        <th className="table__ceil">
+                                                        {/* <th className="table__ceil">
                                                             <div className="more-btn ">
                                                                 <button className="more-btn__btn" onClick={handleWordBtn}>
                                                                     <svg className="icon" viewBox="0 0 24 24" fill="none">
@@ -760,7 +760,7 @@ export const WordsList = () => {
                                                                     </li>
                                                                 </ul>
                                                             </div>
-                                                        </th>
+                                                        </th> */}
                                                     </tr>
                                                 )
                                             })}
@@ -874,7 +874,7 @@ export const WordsList = () => {
                                                         <p className="dictionary-mob__text">
                                                             {word.russian_word}
                                                         </p>
-                                                        <div className="dictionary-mob__btn">
+                                                        {/* <div className="dictionary-mob__btn">
                                                             <div className="more-btn ">
                                                                 <button className="more-btn__btn" onClick={handleWordBtn}>
                                                                     <svg className="icon" viewBox="0 0 24 24" fill="none">
@@ -886,7 +886,7 @@ export const WordsList = () => {
                                                                         />
                                                                     </svg>
                                                                 </button>
-                                                                {/* <ul className="more-btn__menu">
+                                                                <ul className="more-btn__menu">
                                                                     <li className="more-btn__item">
                                                                         <button className="more-btn__item-btn line-btn-dark">
                                                                             <svg
@@ -935,9 +935,9 @@ export const WordsList = () => {
                                                                             <span>Удалить</span>
                                                                         </button>
                                                                     </li>
-                                                                </ul> */}
+                                                                </ul>
                                                             </div>
-                                                        </div>
+                                                        </div> */}
                                                     </div>
                                                 </li>
                                             )

@@ -184,7 +184,7 @@
   .app-quiz__inner {
     padding-left: 2.4rem;
     padding-right: 2.4rem;
-    width: auto;
+    /* width: auto; */
     margin-left: -2rem;
     margin-right: -2rem;
     min-height: 0;
@@ -206,6 +206,9 @@
 .app-quiz__mid {
   margin-top: 8rem;
 }
+.app-quiz__footer {
+  margin-top: 11rem;
+}
 @media screen and (max-width: 768px) {
   .app-quiz__mid {
     flex: 1 1 auto;
@@ -221,9 +224,8 @@
   }
 
 }
-.app-quiz__footer {
-  margin-top: 11rem;
-}
+
+
 .app-quiz__lower {
   font-size: 1.8rem;
   text-align: center;
