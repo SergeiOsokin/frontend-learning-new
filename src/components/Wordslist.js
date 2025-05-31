@@ -886,7 +886,7 @@ export const WordsList = () => {
                                                                         />
                                                                     </svg>
                                                                 </button>
-                                                                <ul className="more-btn__menu">
+                                                                {/* <ul className="more-btn__menu">
                                                                     <li className="more-btn__item">
                                                                         <button className="more-btn__item-btn line-btn-dark">
                                                                             <svg
@@ -935,7 +935,7 @@ export const WordsList = () => {
                                                                             <span>Удалить</span>
                                                                         </button>
                                                                     </li>
-                                                                </ul>
+                                                                </ul> */}
                                                             </div>
                                                         </div>
                                                     </div>

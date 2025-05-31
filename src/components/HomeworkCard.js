@@ -154,7 +154,10 @@ export const HomeworkCard = () => {
                         <main className="app-main__mid">
                             <section className="task-more">
                                 <div className="task-more__date date-status">
-                                    <img src={task.finished === true ? yesImg : timerImg} alt="" />
+                                    {
+                                        task.finished === true ?
+                                            <span className="tasks-yes__img" /> : <span className="tasks-timer__img" />
+                                    }
                                     <span>{task.date}</span>
                                 </div>
                                 <h3 className="task-more__title">{task.theme}</h3>

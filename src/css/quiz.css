@@ -160,7 +160,7 @@
 }
 @media screen and (max-width: 550px) {
   .app-quiz {
-    display: block;
+    /* display: block; */
   }
 }
 .app-quiz__inner {
@@ -213,7 +213,13 @@
     align-items: stretch;
     justify-content: center;
     flex-direction: column;
+    margin-top: 2rem;
   }
+
+  .app-quiz__footer {
+    margin-top: 2rem;
+  }
+
 }
 .app-quiz__footer {
   margin-top: 11rem;

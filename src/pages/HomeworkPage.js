@@ -3,11 +3,8 @@ import React, { useEffect, useState } from 'react';
 import { useHttp } from '../hooks/http.hook';
 import { useMessage } from '../hooks/message.hook';
 import { Loader } from '../components/Loader';
-import { HomeworkCard } from '../components/HomeworkCard';
 import { Aside } from '../components/Aside';
 import { useHistory } from 'react-router-dom/cjs/react-router-dom.min';
-import timerImg from '../images/statuses/timer.webp';
-import yesImg from "../images/statuses/yes.webp"
 import { FooterInner } from '../components/Footer';
 
 export const HomeworkPage = () => {
@@ -120,8 +117,6 @@ export const HomeworkPage = () => {
                         {!tasks.length && !loading &&
                             <section className="tasks-empty">
                                 <div
-                                    // src='./../images/empty/empty-primary.webp'
-                                    // src={'./../../../../images/empty/empty-primary.webp'}
                                     className="tasks-empty__img"
                                     alt="Empty"
                                 />
@@ -198,7 +193,6 @@ export const HomeworkPage = () => {
                                                             <span className="tasks-yes__img" /> : <span className="tasks-timer__img" />
                                                         }
                                                         
-                                                        {/* <img src={task.finished === true ? yesImg : timerImg} alt="" /> */}
                                                         <span>{task.date_appoint}</span>
                                                     </p>
                                                     <div className="card-note__actions">
