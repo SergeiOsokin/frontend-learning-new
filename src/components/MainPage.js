@@ -1,21 +1,6 @@
 // import React from 'react';
-import React, { useEffect, useCallback, useState } from 'react';
-// import { useHttp } from '../hooks/http.hook';
-// import { WordFormChange } from './WordFormChange';
-// import { useMessage } from '../hooks/message.hook';
-// import { Loader } from './Loader';
-
-import { Link, useHistory } from 'react-router-dom';
-import book_black from '../../src/img/book_black.svg';
-import bulb_black from '../../src/img/bulb_black.svg';
-import letter_black from '../../src/img/letter_black.svg';
-import close_book_black from '../../src/img/close_book_black.svg';
-import check_black from '../../src/img/check_black.svg';
-import check_round_black from '../../src/img/check_round_black.svg';
-import two_users_black from '../../src/img/two_users_black.svg';
-import user_black from '../../src/img/user_black.svg';
-import arrow_black from '../../src/img/arrow_black.svg';
-import envelope_white from '../../src/img/envelope_white.svg';
+import React, { useEffect } from 'react';
+import { Link } from 'react-router-dom';
 import { Header } from './Header';
 import { Footer } from './Footer';
 

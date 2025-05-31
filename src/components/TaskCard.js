@@ -3,10 +3,6 @@ import { Link, useHistory } from 'react-router-dom';
 import { useHttp } from '../hooks/http.hook';
 import { Loader } from './Loader';
 import { useMessage } from '../hooks/message.hook';
-import trashIcon from '../../src/img/trash_icon.png';
-import { NoteFormChange } from './NoteFormChange';
-import { TaskFormChange } from './TaskFormChange';
-import { AppointForm } from './AppointForm';
 import { validation } from '../hooks/validation.hook';
 import { Aside } from '../components/Aside';
 import { autoResize } from '../hooks/autoResize.hook';
@@ -17,9 +13,6 @@ export const TaskCard = () => {
     const message = useMessage();
     const history = useHistory();
     const { loading, request } = useHttp();
-    const { validationInputs } = validation();
-    const [taskForm, setTaskFormActive] = useState(false);
-    const [appointForm, setAppointFormActive] = useState(false);
     const [deleteModal, setDeleteModal] = useState(false);
     const [task, setTask] = useState({
         id: '',
