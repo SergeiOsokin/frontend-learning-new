@@ -50,7 +50,7 @@ const Main = () => {
 
             <Route exact path='/education/student' component={HomeworkPage} />
             <Route exact path='/education/student/open/:id' component={HomeworkCard} />
-            <Route exact path='/*' component={NotFoundPage} statusCode={404} />
+            <Route exact path='/*' component={NotFoundPage} />
         </Switch>
     )
 }
