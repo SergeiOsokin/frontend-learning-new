@@ -11,7 +11,7 @@ export const useMessage = () => {
                 html: `
                     <div class="app-toast-list">
                         <div class="app-toast --th-green">
-                            <h3 class="app-toast__title">${text}</h3>
+                            <p class="app-toast__title">${text}</p>
                             <button class="line-btn-grey app-toast__close">
                                 <svg class="icon" viewBox="0 0 24 24" fill="none">
                                     <path
@@ -31,7 +31,7 @@ export const useMessage = () => {
                 html: `
                 <div class="app-toast-list">
                     <div class="app-toast --th-red">
-                        <h3 class="app-toast__title">${text}</h3>
+                        <p class="app-toast__title">${text}</p>
                         <button class="line-btn-grey app-toast__close">
                             <svg class="icon" viewBox="0 0 24 24" fill="none">
                                 <path
