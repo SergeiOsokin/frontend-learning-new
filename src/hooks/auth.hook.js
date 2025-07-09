@@ -11,7 +11,7 @@ export const useAuth = (data) => {
     const [ready, setReady] = useState(false); // для "модуля" авторизации
     const message = useMessage();
     const { request } = useHttp();
-    // const history = useHistory();
+    const history = useHistory();
     // что происходит после успешной авторизации
     const login = useCallback(() => {
         setAuthorization(true);
@@ -28,8 +28,9 @@ export const useAuth = (data) => {
             try {
                 const data = await request('/words/list?category=null', 'GET');
 
-                if (data.message === 'Не авторизованы') {
-                    message(message, false)
+                if (data.error) {
+                    message('Вход в аккаунт не выполнен.', false);
+                    history.push('/');
                     return setAuthorization(false);
                 }
                 setAuthorization(true);
