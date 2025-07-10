@@ -185,7 +185,7 @@ export const HomeworkCard = () => {
                                                     name="rules"
                                                     defaultValue={task.rules}
                                                     autoComplete="off"
-                                                    disabled={loading}
+                                                    disabled={true}
                                                     required maxLength="2000"
                                                 />
                                             </p>
@@ -214,7 +214,7 @@ export const HomeworkCard = () => {
                                                     name="words"
                                                     defaultValue={task.words}
                                                     autoComplete="off"
-                                                    disabled={loading}
+                                                    disabled={true}
                                                     required maxLength="200"
                                                 />
                                             </p>
@@ -243,7 +243,7 @@ export const HomeworkCard = () => {
                                                     name="read"
                                                     defaultValue={task.read}
                                                     autoComplete="off"
-                                                    disabled={loading}
+                                                    disabled={true}
                                                     required maxLength="500"
                                                 />
                                             </p>
@@ -272,7 +272,7 @@ export const HomeworkCard = () => {
                                                     name="translate"
                                                     defaultValue={task.translate}
                                                     autoComplete="off"
-                                                    disabled={loading}
+                                                    disabled={true}
                                                     required maxLength="500"
                                                 />
                                             </p>
@@ -301,7 +301,7 @@ export const HomeworkCard = () => {
                                                     name="other"
                                                     defaultValue={task.other}
                                                     autoComplete="off"
-                                                    disabled={loading}
+                                                    disabled={true}
                                                     required maxLength="300"
                                                 />
                                             </p>

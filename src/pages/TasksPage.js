@@ -3,9 +3,6 @@ import React, { useEffect, useState, useLayoutEffect, useCallback } from 'react'
 import { useHttp } from '../hooks/http.hook';
 import { useMessage } from '../hooks/message.hook';
 import { Loader } from '../components/Loader';
-import { TaskFormNew } from '../components/TaskForm';
-import { TaskFormOld } from '../components/TaskFormChange';
-import { TaskCard } from '../components/TaskCard';
 import { Aside } from '../components/Aside';
 import { useHistory } from 'react-router-dom/cjs/react-router-dom.min';
 import { FooterInner } from '../components/Footer';
@@ -16,9 +13,6 @@ export const TaskPage = () => {
     const history = useHistory();
 
     const [taskId, setTaskId] = useState(false);
-    const [taskCard, setTaskCardActive] = useState(false);
-    const [taskForm, setTaskFormActive] = useState(false);
-    const [change, setChanged] = useState(false);
     const [deleteModal, setDeleteModal] = useState(false);
     const [appointModal, setAppointModal] = useState(false);
     const [currentTask, setCurrentTask] = useState();
