@@ -34,31 +34,33 @@ export const HomeworkCard = () => {
 
     // --th-opened --th-opened
     const handleEdit = (e) => {
-        switch (e.target.id) {
+        const target = e.target.closest('.task-step')
+
+        switch (target.id) {
             case 'rules':
                 document.querySelector('.body_rules').classList.toggle('--th-disabled');
-                e.target.closest('.task-step').classList.toggle('--th-edited');
-                autoResize(e.target.id);
+                target.classList.toggle('--th-edited');
+                autoResize(target.id);
                 break;
             case 'words':
                 document.querySelector('.body_words').classList.toggle('--th-disabled');
-                e.target.closest('.task-step').classList.toggle('--th-edited');
-                autoResize(e.target.id);
+                target.classList.toggle('--th-edited');
+                autoResize(target.id);
                 break;
             case 'read':
                 document.querySelector('.body_read').classList.toggle('--th-disabled');
-                e.target.closest('.task-step').classList.toggle('--th-edited');
-                autoResize(e.target.id);
+                target.classList.toggle('--th-edited');
+                autoResize(target.id);
                 break;
             case 'translate':
                 document.querySelector('.body_translate').classList.toggle('--th-disabled');
-                e.target.closest('.task-step').classList.toggle('--th-edited');
-                autoResize(e.target.id);
+                target.classList.toggle('--th-edited');
+                autoResize(target.id);
                 break;
             case 'other':
                 document.querySelector('.body_other').classList.toggle('--th-disabled');
-                e.target.closest('.task-step').classList.toggle('--th-edited');
-                autoResize(e.target.id);
+                target.classList.toggle('--th-edited');
+                autoResize(target.id);
                 break;
             default:
 
