@@ -24,6 +24,7 @@ export const TaskForm = ({ set, chan, setActive }) => {
     const message = useMessage();
 
     const changeHandler = (e) => {
+        e.stopPropagation();
         setTask({ ...task, [e.target.name]: e.target.value });
         if (e.target.type === 'textarea') { autoResize(e.target.name) }
         // autoResize(e.target.name)
@@ -31,11 +32,12 @@ export const TaskForm = ({ set, chan, setActive }) => {
     }
 
     const handleEdit = (e) => {
+        const target = e.target.closest('.task-step')
         // e.target.id)
         switch (e.target.id) {
             case 'rules':
                 document.querySelector('.body_rules').classList.toggle('--th-disabled');
-                e.target.closest('.task-step').classList.toggle('--th-edited');
+                target.classList.toggle('--th-edited');
                 break;
             case 'words':
                 document.querySelector('.body_words').classList.toggle('--th-disabled');
