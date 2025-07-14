@@ -220,7 +220,7 @@ export const NotesPage = () => {
                                                 <li className="app-cards__item" key={index + note.id} info={note.id}>
                                                     <div className="card card-note">
                                                         <div className="card-note__top">
-                                                            <p className="card-note__date">{note.date_create}</p>
+                                                            <p className="card-note__date">{note.date_create ? note.date_create.substring(0, 10) : '' }</p>
                                                             <div className="card-note__actions">
                                                                 <button className="card-note__btn" onClick={handleOpenNotice}>
                                                                     <svg viewBox="0 0 24 24" fill="none">

@@ -193,7 +193,7 @@ export const HomeworkPage = () => {
                                                             <span className="tasks-yes__img" /> : <span className="tasks-timer__img" />
                                                         }
                                                         
-                                                        <span>{task.date_appoint}</span>
+                                                        <span>{task.date_appoint ? task.date_appoint.substring(0, 10) : '' }</span>
                                                     </p>
                                                     <div className="card-note__actions">
                                                         <button className="card-note__btn" onClick={handleOpenTask}>

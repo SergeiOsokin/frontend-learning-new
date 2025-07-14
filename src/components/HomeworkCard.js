@@ -160,7 +160,7 @@ export const HomeworkCard = () => {
                                         task.finished === true ?
                                             <span className="tasks-yes__img" /> : <span className="tasks-timer__img" />
                                     }
-                                    <span>{task.date}</span>
+                                    <span>{task.date ? task.date.substring(0, 10) : '' }{}</span>
                                 </div>
                                 <h3 className="task-more__title">{task.theme}</h3>
                                 <ul className="task-more__list">
