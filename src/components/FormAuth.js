@@ -41,6 +41,12 @@ export const FormAuth = () => {
         history.push('/registration');
     }
 
+    const showPass = (e) => {
+        document.getElementById('password').type === 'text' ?
+            document.getElementById('password').type = 'password' :
+            document.getElementById('password').type = 'text'
+    }
+
     useEffect(() => {
         // document.getElementById("root").classList.add("o-wrapper");
         document.getElementById("root").classList.replace("app-wrapper", "o-wrapper");
@@ -137,7 +143,7 @@ export const FormAuth = () => {
                                         value={form.password}
                                         disabled={loading}
                                     />
-                                    <div className="o-form__input-icon">
+                                    <div className="o-form__input-icon" onClick={showPass}>
                                         <svg className="icon" viewBox="0 0 24 24" fill="none">
                                             <path
                                                 d="M3.933 13.909C3.46923 13.3594 3.1487 12.7036 3 12C3 11 7 6 12 6M19.6 9.8C20.2506 10.3987 20.7332 11.1571 21 12C21 13 18 18 12 18C11.686 18 11.38 17.986 11.082 17.96M5 19L19 5M15 12C15 12.7956 14.6839 13.5587 14.1213 14.1213C13.5587 14.6839 12.7956 15 12 15C11.2044 15 10.4413 14.6839 9.87868 14.1213C9.31607 13.5587 9 12.7956 9 12C9 11.2044 9.31607 10.4413 9.87868 9.87868C10.4413 9.31607 11.2044 9 12 9C12.7956 9 13.5587 9.31607 14.1213 9.87868C14.6839 10.4413 15 11.2044 15 12Z"
