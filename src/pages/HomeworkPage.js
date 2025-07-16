@@ -79,7 +79,7 @@ export const HomeworkPage = () => {
             <div className="app-inner">
                 <Aside />
 
-                {loading && <Loader />}
+
 
                 <main className="app-main">
                     <header className="app-main__top">
@@ -113,7 +113,10 @@ export const HomeworkPage = () => {
                             </div>
                         </div> */}
                     </header>
-                    <main className="app-main__mid">
+
+                    {loading && <Loader />}
+
+                    {!loading && <main className="app-main__mid">
                         {!tasks.length && !loading &&
                             <section className="tasks-empty">
                                 <div
@@ -189,11 +192,11 @@ export const HomeworkPage = () => {
                                                 <div className="card-note__top">
                                                     <p className="card-note__date">
                                                         {
-                                                            task.finished === true ? 
-                                                            <span className="tasks-yes__img" /> : <span className="tasks-timer__img" />
+                                                            task.finished === true ?
+                                                                <span className="tasks-yes__img" /> : <span className="tasks-timer__img" />
                                                         }
-                                                        
-                                                        <span>{task.date_appoint ? task.date_appoint.substring(0, 10) : '' }</span>
+
+                                                        <span>{task.date_appoint ? task.date_appoint.substring(0, 10) : ''}</span>
                                                     </p>
                                                     <div className="card-note__actions">
                                                         <button className="card-note__btn" onClick={handleOpenTask}>
@@ -228,6 +231,7 @@ export const HomeworkPage = () => {
                             </ul>
                         </section>
                     </main>
+                    }
                     <FooterInner />
                 </main>
             </div>

@@ -139,47 +139,7 @@ export const TaskPage = () => {
     }
 
     return (
-        // <div className="section-tasks">
-        //     <input id="section-tasks-menu__toggle" type="checkbox" />
-        //     <label className="section-tasks-menu__btn" htmlFor="section-tasks-menu__toggle">
-        //         <span></span>
-        //     </label>
-        //     <section className="section-nav-tasks">
-        //         <button
-        //             className="button button_new-task"
-        //             onClick={openTaskForm}
-        //         >Новое задание</button>
-
-        //         <input
-        //             className="input input_tasks"
-        //             type="input"
-        //             placeholder="поиск задания"
-        //             onChange={menuSearch}
-        //         />
-        //         <nav className="nav-tasks">
-        //             <ul className="nav__items_tasks nav__items_tasks">
-        //                 {tasks.sort((a, b) => a.id - b.id).map((task, index) => {
-        //                     return (
-        //                         <li className="nav__item-li_tasks nav__item-li_tasks" key={index + task.id}>
-        //                             <button
-        //                                 className="nav__item-button_tasks"
-        //                                 info={task.id}
-        //                                 onClick={handleClickGet}
-        //                             >{task.theme}</button>
-        //                         </li>
-        //                     )
-        //                 })}
-        //             </ul>
-        //         </nav>
-        //     </section>
-
-        //     {!taskCard && <div className="section-tasks__info">Для начала работы выберите задание или создайте новое</div>}
-
-        //     {taskCard && <TaskCard props={taskId} set={setChanged} chan={change} taskCard={taskCard} setTaskCardActive={setTaskCardActive} />}
-        //     {taskForm && <TaskFormNew set={setChanged} chan={change} setActive={setTaskFormActive} />}
-        // </div>
         <>
-            {loading && <Loader />}
             <div className="app-inner">
                 <Aside />
                 <main className="app-main">
@@ -214,7 +174,10 @@ export const TaskPage = () => {
                             </div>
                         </div> */}
                     </header>
-                    <main className="app-main__mid">
+
+                    {loading && <Loader />}
+
+                    {!loading && <main className="app-main__mid">
                         <section className="app-cards">
                             <ul className="app-cards__inner">
                                 <li className="app-cards__item">
@@ -554,6 +517,8 @@ export const TaskPage = () => {
                             }
                         </section>
                     </main>
+                    }
+
                     <FooterInner />
                 </main>
             </div >
