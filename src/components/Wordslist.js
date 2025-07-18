@@ -187,7 +187,6 @@ export const WordsList = () => {
         async function fetchData() {
             try {
                 const data = await request(`/words/list?category=null`, 'GET');
-                console.log('true')
                 if (data.hasOwnProperty('error')) {
                     message(data.message || data.error, false);
                     return;
