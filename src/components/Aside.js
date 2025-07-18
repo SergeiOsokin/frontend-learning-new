@@ -16,8 +16,6 @@ export const Aside = () => {
         history.push('/authorization');
     };
 
-    console.log(history.location.pathname.includes('flashcards'))
-
     useEffect(() => {
         // history.location.pathname);
         document.getElementById("root").classList.replace("o-wrapper", "app-wrapper");
