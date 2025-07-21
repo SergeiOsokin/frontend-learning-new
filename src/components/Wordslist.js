@@ -127,10 +127,7 @@ export const WordsList = () => {
     }
 
     const handleScrollUp = () => {
-        if (window.pageYOffset > 0) {
-            window.scrollBy(0, -80);
-            setTimeout(handleScrollUp, 0);
-        }
+        document.querySelector('.app-main').scrollTop = 0;
     }
 
     const deleteWord = useCallback(async (e) => {
@@ -159,22 +156,15 @@ export const WordsList = () => {
         setActiveModalAdd(true);
     };
 
-    // const scroll = () => {
-    //     if (window.scrollY > 50) {
-    //         document.querySelector('.button-back_to_top').classList.add('button-back_to_top-show');
-    //     } else {
-    //         document.querySelector('.button-back_to_top').classList.remove('button-back_to_top-show');
-    //     }
-    // }
+    const scroll = () => {
+        if (document.querySelector('.app-main').scrollTop > 50) {
+            document.querySelector('.button-back_to_top').classList.add('button-back_to_top-show');
+        } else {
+            document.querySelector('.button-back_to_top').classList.remove('button-back_to_top-show');
+        }
+    }
 
     useLayoutEffect(() => {
-        document.addEventListener('scroll', () => {
-            // history.location.pathname === '/wordslist')
-            // if (history.location.pathname === '/wordslist') {
-            //     scroll();
-            // }
-        });
-
         window.addEventListener('keydown', (event) => {
             // if (event.key === 'Escape') {
             //     // handleWordBtn(false);
@@ -192,6 +182,9 @@ export const WordsList = () => {
                     return;
                 } else {
                     setWordsArr(data.data);
+                    document.addEventListener('scroll', () => {
+                        scroll();
+                    }, true);
                     return;
                 }
             } catch (err) {
@@ -857,6 +850,13 @@ export const WordsList = () => {
                                         </tr> */}
                                         </tbody>
                                     </table>
+
+                                    <button
+                                        className="button button-back_to_top"
+                                        // className="button button-back_to_top filters-top__edit-categories btn btn-dark-outline"
+                                        onClick={handleScrollUp}
+                                    >↑</button>
+
                                     < ul className="app-dictionary__list dictionary-mob">
                                         {wordsArr
                                             .sort((a, b) => a.id - b.id)
