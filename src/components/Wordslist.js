@@ -182,9 +182,9 @@ export const WordsList = () => {
                     return;
                 } else {
                     setWordsArr(data.data);
-                    document.addEventListener('scroll', () => {
-                        scroll();
-                    }, true);
+                    // document.addEventListener('scroll', () => {
+                    //     scroll();
+                    // }, true);
                     return;
                 }
             } catch (err) {

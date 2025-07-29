@@ -1,6 +1,12 @@
 import React, { useState } from 'react';
 
 export const FlashCard = ({ wordsArr }) => {
+    const [result, setResult] = useState([{
+        foreignWord: '',
+        translate: '',
+        isRight: true
+    }])
+
     // тусуем массив
     const mixArray = (array) => {
         var i = 0, j = 0, temp = null
@@ -47,6 +53,7 @@ export const FlashCard = ({ wordsArr }) => {
                 e.target.closest('.quiz-responses__btn').classList.remove('--th-green');
 
             }, 200);
+            setResult({ ...result, foreignWord: e.target.value, translate: translateWord, isRight: true })
         } else if (e.target.value !== translateWord) {
             setWrongAnswer(wrongAnswers + 1);
 
@@ -55,6 +62,7 @@ export const FlashCard = ({ wordsArr }) => {
             setTimeout(() => {
                 e.target.closest('.quiz-responses__btn').classList.remove('--th-red');
             }, 200);
+            setResult({ ...result, foreignWord: e.target.value, translate: translateWord, isRight: false })
         }
         // обновим слова
         setTimeout(() => {
@@ -73,25 +81,10 @@ export const FlashCard = ({ wordsArr }) => {
         checkAnswer(e);
     }
 
+    console.log(result)
+
     return (
         <>
-            {/* {arrayWords.length === 4 && <div>Новый круг</div>}
-            <section className="section-card">
-                <main className="card">
-                    <h1 className="card__title">Выберите правильный перевод</h1>
-                    <div className="card__counts">
-                        <p className="card__right-count">Правильных ответов {rightAnswers}</p>
-                        <p className="card__wrong-count">Неправильных ответов {wrongAnswers}</p>
-                    </div>
-                    <p className="card__word" translate={words.foreignWord}>{words.russianWord}</p>
-                    <div className="card__container-button" style={{ boxShadow: style.shadow }}>
-                        <button className="button card-button" name='btn1' value={words.foreignWord1} onClick={handleBtn} >{words.foreignWord1}</button>
-                        <button className="button card-button" name='btn2' value={words.foreignWord2} onClick={handleBtn} >{words.foreignWord2}</button>
-                        <button className="button card-button" name='btn3' value={words.foreignWord3} onClick={handleBtn} >{words.foreignWord3}</button>
-                        <button className="button card-button" name='btn4' value={words.foreignWord4} onClick={handleBtn} >{words.foreignWord4}</button>
-                    </div>
-                </main>
-            </section> */}
             <div className="app-quiz__mid quiz-questions">
                 <h2 className="quiz-questions__title" translate={words.foreignWord}>{words.russianWord}</h2>
                 <ul className="quiz-responses">

@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useLayoutEffect } from 'react';
+import React, { useEffect, useState, useLayoutEffect, useCallback } from 'react';
 import { useHttp } from '../hooks/http.hook';
 import { useMessage } from '../hooks/message.hook';
 import { Loader } from '../components/Loader';
@@ -20,27 +20,28 @@ export const RepeatPage = () => {
     const [hand, setHand] = useState(true);
     const message = useMessage();
 
-    async function getWords(category) {
+    const getWords = useCallback(async (category) => {
         try {
             const data = await request(`/words/list?category=${category}`, 'GET');
             if (data.data.length < 10) {
                 return setWordsInit(null)
             } else {
+                setWordsInit(null);
                 setWordsInit(data.data);
             }
         } catch (err) {
             message(err, false);
         }
-    };
+    }, []);
 
-    async function fetchCategory() {
+    const fetchCategory = useCallback(async () => {
         try {
             const data = await request(`/category/get`, 'GET');
             setCategories(data.data)
         } catch (err) {
             message(err, false);
         }
-    }
+    }, []);
 
     useLayoutEffect(() => {
         window.addEventListener('keydown', (event) => {
@@ -49,19 +50,9 @@ export const RepeatPage = () => {
             }
         });
 
-        // switch (isEasy) {
-        //     case true:
-        //         document.querySelector(".btn_easy").classList.add('--th-active');
-        //         document.querySelector(".btn_hard").classList.remove('--th-active');
-        //         break;
-        //     default:
-        //         document.querySelector(".btn_hard").classList.add('--th-active');
-        //         document.querySelector(".btn_easy").classList.remove('--th-active');
-        // }
-
         fetchCategory();
         getWords(null);
-    }, [request]);
+    }, [hand]);
 
     const selectHandler = (e) => {
         document.querySelector(".dropdown-categories").classList.toggle('--th-active');
@@ -213,10 +204,10 @@ export const RepeatPage = () => {
 
                                     <ul className="quiz-tabs">
                                         <li className="quiz-tabs__item">
-                                            <button className="quiz-tabs__btn btn_hard" name="hard" onClick={handleClick}>Сложнее</button>
+                                            <button className={`quiz-tabs__btn btn_hard ${isEasy ? '' : '--th-active'}`} name="hard" onClick={handleClick}>Сложнее</button>
                                         </li>
                                         <li className="quiz-tabs__item">
-                                            <button className="quiz-tabs__btn btn_easy --th-active" name="easy" onClick={handleClick}>Проще</button>
+                                            <button className={`quiz-tabs__btn btn_easy ${isEasy ? '--th-active' : ''}`} name="easy" onClick={handleClick}>Проще</button>
                                         </li>
                                     </ul>
                                 </div>}
