@@ -1,11 +1,9 @@
 import React, { useState } from 'react';
+import { FinishQuize } from './FinishQuize';
 
 export const FlashCard = ({ wordsArr }) => {
-    const [result, setResult] = useState([{
-        foreignWord: '',
-        translate: '',
-        isRight: true
-    }])
+    const [result, setResult] = useState([])
+    const [isFinish, setFinish] = useState(false);
 
     // тусуем массив
     const mixArray = (array) => {
@@ -35,9 +33,10 @@ export const FlashCard = ({ wordsArr }) => {
     // wordsArr);
 
     // обновим массив, если осталось мало элементов
-    if (arrayWords.length === 4) {
-        setArrayWords(mixArray(wordsArr.slice()));
-    }
+    // if (arrayWords.length === 4) {
+
+    //     setArrayWords(mixArray(wordsArr.slice()));
+    // }
 
     const checkAnswer = (e) => {
         mixArray(btnArr);
@@ -51,9 +50,10 @@ export const FlashCard = ({ wordsArr }) => {
                 // удалим правильный ответ
                 arrayWords.shift();
                 e.target.closest('.quiz-responses__btn').classList.remove('--th-green');
-
             }, 200);
-            setResult({ ...result, foreignWord: e.target.value, translate: translateWord, isRight: true })
+
+            result.push({ foreignWord: e.target.value, translate: translateWord, isRight: true });
+            if (arrayWords.length === 5) { setFinish(true) }
         } else if (e.target.value !== translateWord) {
             setWrongAnswer(wrongAnswers + 1);
 
@@ -62,7 +62,7 @@ export const FlashCard = ({ wordsArr }) => {
             setTimeout(() => {
                 e.target.closest('.quiz-responses__btn').classList.remove('--th-red');
             }, 200);
-            setResult({ ...result, foreignWord: e.target.value, translate: translateWord, isRight: false })
+            result.push({ foreignWord: e.target.value, translate: translateWord, isRight: false });
         }
         // обновим слова
         setTimeout(() => {
@@ -81,35 +81,51 @@ export const FlashCard = ({ wordsArr }) => {
         checkAnswer(e);
     }
 
-    console.log(result)
+    console.log(arrayWords.length)
 
     return (
         <>
-            <div className="app-quiz__mid quiz-questions">
-                <h2 className="quiz-questions__title" translate={words.foreignWord}>{words.russianWord}</h2>
-                <ul className="quiz-responses">
-                    <li className="quiz-responses__item">
-                        <button className="quiz-responses__btn" name='btn1' value={words.foreignWord1} onClick={handleBtn}>
-                            {words.foreignWord1}
-                        </button>
-                    </li>
-                    <li className="quiz-responses__item">
-                        <button className="quiz-responses__btn" name='btn2' value={words.foreignWord2} onClick={handleBtn}>
-                            {words.foreignWord2}
-                        </button>
-                    </li>
-                    <li className="quiz-responses__item">
-                        <button className="quiz-responses__btn" name='btn3' value={words.foreignWord3} onClick={handleBtn}>
-                            {words.foreignWord3}
-                        </button>
-                    </li>
-                    <li className="quiz-responses__item">
-                        <button className="quiz-responses__btn" name='btn4' value={words.foreignWord4} onClick={handleBtn}>
-                            {words.foreignWord4}
-                        </button>
-                    </li>
-                </ul>
-            </div>
+            {isFinish && <FinishQuize result={result} />}
+
+            {!isFinish &&
+
+                <div className="app-quiz__mid quiz-questions">
+                    <h2 className="quiz-questions__title" translate={words.foreignWord}>{words.russianWord}</h2>
+                    <ul className="quiz-responses">
+                        <li className="quiz-responses__item">
+                            <button className="quiz-responses__btn" name='btn1' value={words.foreignWord1} onClick={handleBtn}>
+                                {words.foreignWord1}
+                            </button>
+                        </li>
+                        <li className="quiz-responses__item">
+                            <button className="quiz-responses__btn" name='btn2' value={words.foreignWord2} onClick={handleBtn}>
+                                {words.foreignWord2}
+                            </button>
+                        </li>
+                        <li className="quiz-responses__item">
+                            <button className="quiz-responses__btn" name='btn3' value={words.foreignWord3} onClick={handleBtn}>
+                                {words.foreignWord3}
+                            </button>
+                        </li>
+                        <li className="quiz-responses__item">
+                            <button className="quiz-responses__btn" name='btn4' value={words.foreignWord4} onClick={handleBtn}>
+                                {words.foreignWord4}
+                            </button>
+                        </li>
+                    </ul>
+                </div>
+            }
+            {/* Footer */}
+            {isFinish &&
+                <div className="app-quiz__footer">
+                    <button className="quiz-reset btn btn-dark" onClick={() => {
+                        setFinish(false);
+                        setArrayWords(mixArray(wordsArr.slice()));
+                        setRightAnswer(0);
+                        setWrongAnswer(0);
+                    }}>Новый квиз</button>
+                </div>
+            }
             {/* Footer */}
             <div className="app-quiz__footer">
                 <div className="quiz-progress">

@@ -9,10 +9,12 @@ import { MobileMenu } from '../components/MobileMenu';
 
 import logoWhite from '../../src/images/empty/empty-secondary.png';
 import { FooterInner } from '../components/Footer';
+import { FinishQuize } from '../components/FinishQuize';
 
 export const RepeatPage = () => {
     const { loading, request } = useHttp();
     const [isEasy, setEasy] = useState(true);
+    const [isFinish, setFinish] = useState(false);
     const [easyHard, setEasyHard] = useState('сложнее');
     const [wordsInit, setWordsInit] = useState(null);
     const [categories, setCategories] = useState(null);
@@ -102,9 +104,11 @@ export const RepeatPage = () => {
                     </header>
                     <main className="app-main__mid">
 
+                        {/* {isEasy && <FinishQuize wordsArr={wordsInit} />} */}
+
                         {loading && <Loader />}
 
-                        {!loading && <section className="app-quiz">
+                        {(!loading && !isFinish) && <section className="app-quiz">
                             <div className="app-quiz__inner">
                                 {/* Top */}
                                 {(categories && !loading) && <div className="app-quiz__top">
@@ -222,7 +226,6 @@ export const RepeatPage = () => {
                                         />
                                         <h2 className="quiz-empty__title">В выбранной категории недостаточно слов для повторения</h2>
                                     </div>
-
                                 }
 
                                 {((wordsInit && categories) && !loading) && <>

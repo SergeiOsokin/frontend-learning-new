@@ -165,7 +165,7 @@
 }
 .app-quiz__inner {
   background-color: #fff;
-  padding: 3.2rem 4rem;
+  padding: 2rem 4rem;
   width: 100%;
   max-width: 76rem;
   border-radius: 1.2rem;
@@ -204,10 +204,10 @@
   }
 }
 .app-quiz__mid {
-  margin-top: 8rem;
+  margin-top: 2rem;
 }
 .app-quiz__footer {
-  margin-top: 11rem;
+  margin-top: 2rem;
 }
 @media screen and (max-width: 768px) {
   .app-quiz__mid {
@@ -216,11 +216,11 @@
     align-items: stretch;
     justify-content: center;
     flex-direction: column;
-    margin-top: 2rem;
+    margin-top: 1rem;
   }
 
   .app-quiz__footer {
-    margin-top: 2rem;
+    margin-top: 1rem;
   }
 
 }
@@ -364,7 +364,7 @@
 }
 
 .quiz-responses {
-  margin-top: 4rem;
+  margin-top: 2rem;
   display: grid;
   grid-template-columns: 1fr;
   grid-gap: 1.6rem;
