@@ -25,7 +25,11 @@ export const WordsList = () => {
     const [countItems, setCountItems] = useState(30);
     const [activeModalEdit, setActiveModalEdit] = useState(false);
     const [activeModalDelete, setActiveModalDelete] = useState(false);
-    const [chosenWord, setChosenWord] = useState();
+    const [chosenWord, setChosenWord] = useState({
+        word: '',
+        translate: '',
+        id: null
+    });
     let newSet = new Set([]);
 
     const {
@@ -39,6 +43,25 @@ export const WordsList = () => {
         contentPerPage: countItems,
         count: wordsArr.length || 0,
     });
+
+
+    async function fetchData() {
+        try {
+            const data = await request(`/words/list?category=null`, 'GET');
+            if (data.hasOwnProperty('error')) {
+                message(data.message || data.error, false);
+                return;
+            } else {
+                setWordsArr(data.data);
+                // document.addEventListener('scroll', () => {
+                //     scroll();
+                // }, true);
+                return;
+            }
+        } catch (err) {
+            message(err, false);
+        }
+    };
 
     const handleItems = (e) => {
         document.querySelector('.pagination__settings-dropdown').classList.toggle('--th-active');
@@ -63,9 +86,13 @@ export const WordsList = () => {
     }
 
     const handleDeleteWord = (e) => {
-        console.log(e.target.closest(".table__ceil > .word_russian_word"))
-        setChosenWord(e.target.closest('.word_russian_word'))
-
+        // setChosenWord(`Слово: ${e.target.closest(".table__ceil").getAttribute("ForWord")} Перевод: ${e.target.closest(".table__ceil").getAttribute("rusWord")}`)
+        setChosenWord({
+            ...chosenWord,
+            id: e.target.closest(".table__ceil").getAttribute("info"),
+            word: e.target.closest(".table__ceil").getAttribute("ForWord"),
+            translate: e.target.closest(".table__ceil").getAttribute("rusWord")
+        });
         setActiveModalDelete(true)
     }
 
@@ -139,25 +166,23 @@ export const WordsList = () => {
         document.querySelector('.app-main').scrollTop = 0;
     }
 
-    const deleteWord = useCallback(async (e) => {
-        const decision = window.confirm('Удалить слово?');
-        const [id] = e.target.closest(".word-string").getAttribute('info').split('+');
-        if (decision) {
-            try {
-                const data = await request(`/words/delete/${id}`, 'DELETE', {}, {
-                    credentials: 'include'
-                });
-                if (data.hasOwnProperty('error')) {
-                    message(data.message || data.error, false);
-                    return;
-                }
-                message(data.message, true);
-                e.target.closest(".word-string").parentElement.removeChild(e.target.closest(".word-string"));
-            } catch (error) {
-                message(error, false);
+    const confirmDeleteWord = useCallback(async (e) => {
+        try {
+            const data = await request(`/words/delete/${chosenWord.id}`, 'DELETE', {}, {
+                credentials: 'include'
+            });
+            if (data.hasOwnProperty('error')) {
+                message(data.message || data.error, false);
+                return;
             }
+            setActiveModalDelete(false);
+            message(data.message, true);
+            fetchData();
+            // e.target.closest(".word-string").parentElement.removeChild(e.target.closest(".word-string"));
+        } catch (error) {
+            message(error, false);
         }
-    }, [request]);
+    }, [request, chosenWord]);
 
     const changeWord = (e) => {
         const [id, foreign_word, russian_word, category, category_word_id] = e.target.closest(".word-string").getAttribute('info').split('+');
@@ -183,23 +208,6 @@ export const WordsList = () => {
             // }
         });
 
-        async function fetchData() {
-            try {
-                const data = await request(`/words/list?category=null`, 'GET');
-                if (data.hasOwnProperty('error')) {
-                    message(data.message || data.error, false);
-                    return;
-                } else {
-                    setWordsArr(data.data);
-                    // document.addEventListener('scroll', () => {
-                    //     scroll();
-                    // }, true);
-                    return;
-                }
-            } catch (err) {
-                message(err, false);
-            }
-        }
         fetchData();
     }, [request, activeModalAdd]);
 
@@ -698,9 +706,9 @@ export const WordsList = () => {
                                                                 </div>{" "}
                                                                 {word.foreign_word}
                                                             </th>
-                                                            <th className="table__ceil word_russian_word">{word.russian_word}</th>
-                                                            <th className="table__ceil word_category">{word.category}</th>
-                                                            <th className="table__ceil">
+                                                            <th className="table__ceil ">{word.russian_word}</th>
+                                                            <th className="table__ceil ">{word.category}</th>
+                                                            <th className="table__ceil" info={word.id} rusword={word.russian_word} forword={word.foreign_word}>
                                                                 <div className="more-btn ">
                                                                     <button className="more-btn__btn" onClick={handleWordBtn}>
                                                                         <svg className="icon" viewBox="0 0 24 24" fill="none">
@@ -746,7 +754,7 @@ export const WordsList = () => {
                                                                                 <span>Редактировать</span>
                                                                             </button>
                                                                         </li>
-                                                                        <li className="more-btn__item">
+                                                                        <li className="more-btn__item" >
                                                                             <button className="more-btn__item-btn line-btn-red" onClick={handleDeleteWord}>
                                                                                 <svg className="icon" viewBox="0 0 24 24">
                                                                                     <path
@@ -884,7 +892,7 @@ export const WordsList = () => {
                                                             <p className="dictionary-mob__text">
                                                                 {word.russian_word}
                                                             </p>
-                                                            <div className="dictionary-mob__btn">
+                                                            <div className="dictionary-mob__btn" info={word.id} rusword={word.russian_word} forword={word.foreign_word}>
                                                                 <div className="more-btn ">
                                                                     <button className="more-btn__btn" onClick={handleWordBtn}>
                                                                         <svg className="icon" viewBox="0 0 24 24" fill="none">
@@ -1139,7 +1147,7 @@ export const WordsList = () => {
                 <div className="app-modal">
                     <div className="app-modal__overlay" />
                     <div className="app-modal__inner">
-                        <button className="app-modal__close btn line-btn-grey" onClick={ () => setActiveModalDelete(false)}>
+                        <button className="app-modal__close btn line-btn-grey" onClick={() => setActiveModalDelete(false)}>
                             <svg className="icon" viewBox="0 0 24 24" fill="none">
                                 <path
                                     d="M5 19L18.93 5M19 19L5.07 5"
@@ -1156,10 +1164,10 @@ export const WordsList = () => {
                             </h3>
                             <p className="confirm-delete__text">Это действие будет нельзя отменить</p>
                             <p className="confirm-delete__board">
-                                {chosenWord}
+                                Слово: {chosenWord.word} Перевод: {chosenWord.translate}
                             </p>
                             <div className="confirm-delete__actions">
-                                <button className="confirm-delete__yes btn btn-red-outline">
+                                <button className="confirm-delete__yes btn btn-red-outline" onClick={confirmDeleteWord}>
                                     <svg className="icon" viewBox="0 0 24 24" fill="none">
                                         <path
                                             d="M5 7H19M10 10V18M14 10V18M10 3H14C14.2652 3 14.5196 3.10536 14.7071 3.29289C14.8946 3.48043 15 3.73478 15 4V7H9V4C9 3.73478 9.10536 3.48043 9.29289 3.29289C9.48043 3.10536 9.73478 3 10 3ZM6 7H18V20C18 20.2652 17.8946 20.5196 17.7071 20.7071C17.5196 20.8946 17.2652 21 17 21H7C6.73478 21 6.48043 20.8946 6.29289 20.7071C6.10536 20.5196 6 20.2652 6 20V7Z"
@@ -1171,7 +1179,7 @@ export const WordsList = () => {
                                     </svg>
                                     <span>Удалить</span>
                                 </button>
-                                <button className="confirm-delete__no btn btn-dark" onClick={ () => setActiveModalDelete(false)} >
+                                <button className="confirm-delete__no btn btn-dark" onClick={() => setActiveModalDelete(false)} >
                                     <span>Вернуться назад</span>
                                 </button>
                             </div>
