@@ -24,10 +24,12 @@ export const WordsList = () => {
     const [activeModalAdd, setActiveModalAdd] = useState(false);
     const [countItems, setCountItems] = useState(30);
     const [activeModalEdit, setActiveModalEdit] = useState(false);
+    const [activeModalEditWord, setActiveModalEditWord] = useState(false);
     const [activeModalDelete, setActiveModalDelete] = useState(false);
     const [chosenWord, setChosenWord] = useState({
         word: '',
         translate: '',
+        category: '',
         id: null
     });
     let newSet = new Set([]);
@@ -83,6 +85,18 @@ export const WordsList = () => {
 
     const handleWordBtn = (e) => {
         e.target.closest(".more-btn").classList.toggle('--th-active');
+    }
+
+    const handleEditWord = (e) => {
+        setChosenWord({
+            ...chosenWord,
+            id: e.target.closest(".table__ceil").getAttribute("info"),
+            word: e.target.closest(".table__ceil").getAttribute("ForWord"),
+            translate: e.target.closest(".table__ceil").getAttribute("rusWord"),
+            category: e.target.closest(".table__ceil").getAttribute("category")
+        });
+        // console.log(e.target.closest(".table__ceil").getAttribute("ForWord"))
+        setActiveModalEditWord(true)
     }
 
     const handleDeleteWord = (e) => {
@@ -708,7 +722,7 @@ export const WordsList = () => {
                                                             </th>
                                                             <th className="table__ceil ">{word.russian_word}</th>
                                                             <th className="table__ceil ">{word.category}</th>
-                                                            <th className="table__ceil" info={word.id} rusword={word.russian_word} forword={word.foreign_word}>
+                                                            <th className="table__ceil" info={word.id} rusword={word.russian_word} forword={word.foreign_word} category={word.category}>
                                                                 <div className="more-btn ">
                                                                     <button className="more-btn__btn" onClick={handleWordBtn}>
                                                                         <svg className="icon" viewBox="0 0 24 24" fill="none">
@@ -740,7 +754,7 @@ export const WordsList = () => {
                                                                         </button>
                                                                     </li> */}
                                                                         <li className="more-btn__item">
-                                                                            <button className="more-btn__item-btn line-btn-dark">
+                                                                            <button className="more-btn__item-btn line-btn-dark" onClick={handleEditWord}>
                                                                                 <svg className="icon" viewBox="0 0 24 24">
                                                                                     <path
                                                                                         fill="none"
@@ -892,7 +906,7 @@ export const WordsList = () => {
                                                             <p className="dictionary-mob__text">
                                                                 {word.russian_word}
                                                             </p>
-                                                            <div className="dictionary-mob__btn" info={word.id} rusword={word.russian_word} forword={word.foreign_word}>
+                                                            <div className="dictionary-mob__btn" info={word.id} rusword={word.russian_word} forword={word.foreign_word} category={word.category}>
                                                                 <div className="more-btn ">
                                                                     <button className="more-btn__btn" onClick={handleWordBtn}>
                                                                         <svg className="icon" viewBox="0 0 24 24" fill="none">
@@ -924,7 +938,7 @@ export const WordsList = () => {
                                                                         </button>
                                                                     </li> */}
                                                                         <li className="more-btn__item">
-                                                                            <button className="more-btn__item-btn line-btn-dark">
+                                                                            <button className="more-btn__item-btn line-btn-dark" onClick={handleEditWord}>
                                                                                 <svg className="icon" viewBox="0 0 24 24">
                                                                                     <path
                                                                                         fill="none"
@@ -1190,6 +1204,7 @@ export const WordsList = () => {
 
             {/* Вызываем форму добавления слова */}
             {activeModalAdd && <WordForm wordInfo={wordInfo} setActive={setActiveModalAdd} />}
+            {activeModalEditWord && <WordFormChange wordInfo={chosenWord} setActive={setActiveModalEditWord} />}
             {activeModalEdit && <Categories wordInfo={wordInfo} setActive={setActiveModalEdit} />}
         </>
 
