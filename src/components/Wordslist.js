@@ -29,6 +29,7 @@ export const WordsList = () => {
     const [chosenWord, setChosenWord] = useState({
         word: '',
         translate: '',
+        categoryId: '',
         category: '',
         id: null
     });
@@ -93,6 +94,7 @@ export const WordsList = () => {
             id: e.target.closest(".table__ceil").getAttribute("info"),
             word: e.target.closest(".table__ceil").getAttribute("ForWord"),
             translate: e.target.closest(".table__ceil").getAttribute("rusWord"),
+            categoryId: e.target.closest(".table__ceil").getAttribute("categoryid"),
             category: e.target.closest(".table__ceil").getAttribute("category")
         });
         // console.log(e.target.closest(".table__ceil").getAttribute("ForWord"))
@@ -223,7 +225,7 @@ export const WordsList = () => {
         });
 
         fetchData();
-    }, [request, activeModalAdd]);
+    }, [request, activeModalAdd, activeModalEditWord, activeModalDelete]);
 
     return (
         <>
@@ -722,7 +724,13 @@ export const WordsList = () => {
                                                             </th>
                                                             <th className="table__ceil ">{word.russian_word}</th>
                                                             <th className="table__ceil ">{word.category}</th>
-                                                            <th className="table__ceil" info={word.id} rusword={word.russian_word} forword={word.foreign_word} category={word.category}>
+                                                            <th className="table__ceil"
+                                                                info={word.id}
+                                                                rusword={word.russian_word}
+                                                                forword={word.foreign_word}
+                                                                categoryid={word.category_word_id}
+                                                                category={word.category}
+                                                            >
                                                                 <div className="more-btn ">
                                                                     <button className="more-btn__btn" onClick={handleWordBtn}>
                                                                         <svg className="icon" viewBox="0 0 24 24" fill="none">
@@ -906,7 +914,13 @@ export const WordsList = () => {
                                                             <p className="dictionary-mob__text">
                                                                 {word.russian_word}
                                                             </p>
-                                                            <div className="dictionary-mob__btn" info={word.id} rusword={word.russian_word} forword={word.foreign_word} category={word.category}>
+                                                            <div className="dictionary-mob__btn"
+                                                                info={word.id}
+                                                                rusword={word.russian_word}
+                                                                forword={word.foreign_word}
+                                                                categoryid={word.category_word_id}
+                                                                category={word.category}
+                                                            >
                                                                 <div className="more-btn ">
                                                                     <button className="more-btn__btn" onClick={handleWordBtn}>
                                                                         <svg className="icon" viewBox="0 0 24 24" fill="none">

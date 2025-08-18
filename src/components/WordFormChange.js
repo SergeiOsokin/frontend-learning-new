@@ -6,12 +6,14 @@ import { Loader } from './Loader';
 import { validation } from '../hooks/validation.hook';
 
 export const WordFormChange = ({ wordInfo, setActive }) => {
+    // console.log(wordInfo)
     const { loading, request } = useHttp();
     const { validationInputs } = validation();
     const [word, setWords] = useState({
-        russianWord: wordInfo.word,
-        foreignWord: wordInfo.translate,
-        categoryWordId: '',
+        russianWord: wordInfo.translate,
+        foreignWord: wordInfo.word,
+        categoryWordId: wordInfo.categoryId,
+        categoryWord: wordInfo.category,
         id: wordInfo.id
     });
     const [category, setCategory] = useState([]);
@@ -38,22 +40,25 @@ export const WordFormChange = ({ wordInfo, setActive }) => {
     const handleSubmit = (async (e) => {
         e.preventDefault();
         console.log(word)
-        // try {
-        //     const data = await request('/words/patch', 'PATCH', word);
-        //     if (data.hasOwnProperty('error')) {
-        //         message(data.message || data.error, false);
-        //         return;
-        //     }
-        //     message(data.message, true);
-        //     setWords({
-        //         russianWord: '',
-        //         foreignWord: '',
-        //         categoryWord: '',
-        //     })
-        //     // document.querySelector(".form__select").value = ""
-        // } catch (err) {
-        //     message(err, false);
-        // }
+        try {
+            const data = await request(`/words/patch/${word.id}`, 'PATCH', word);
+            if (data.hasOwnProperty('error')) {
+                message(data.message || data.error, false);
+                return;
+            }
+            message(data.message, true);
+            setActive(false);
+            // setWords({
+            //     russianWord: wordInfo.word,
+            //     foreignWord: wordInfo.translate,
+            //     categoryWordId: wordInfo.categoryId,
+            //     categoryWord: wordInfo.category,
+            //     id: wordInfo.id
+            // })
+            // document.querySelector(".form__select").value = ""
+        } catch (err) {
+            message(err, false);
+        }
     });
 
     // Раскрытие списка категорий
@@ -178,7 +183,8 @@ export const WordFormChange = ({ wordInfo, setActive }) => {
                                                                                     name="categoryWordId"
                                                                                     onChange={changeHandler}
                                                                                     disabled={disable}
-                                                                                    defaultChecked={element.category === wordInfo.category ? true : false}
+                                                                                    // eslint-disable-next-line eqeqeq
+                                                                                    defaultChecked={element.id == wordInfo.categoryId ? true : false}
                                                                                     required
                                                                                 />
                                                                                 <div className="app-checkbox__elem">
