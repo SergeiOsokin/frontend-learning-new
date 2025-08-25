@@ -19,6 +19,8 @@ import { NoteCard } from './components/NoteCard';
 import { TaskForm } from './components/TaskForm';
 import { TaskCard } from './components/TaskCard';
 import { HomeworkCard } from './components/HomeworkCard';
+import Privacy from './pages/Privacy';
+import Agreement from './pages/Agreement';
 
 const Main = () => {
     const { authorization, logout } = useContext(AuthContext); // получаем контекст в объекте auth
@@ -41,6 +43,8 @@ const Main = () => {
     return (
         <Switch>
             <Route exact path='/' component={MainPage} />
+            <Route exact path='/privacy' component={Privacy} />
+            <Route exact path='/agreement' component={Agreement} />
 
             <Route exact path='/notes'  component={NotesPage}  />
             <Route exact path='/notes/new' component={NoteForm} />

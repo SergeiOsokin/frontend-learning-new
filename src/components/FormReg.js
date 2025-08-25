@@ -135,8 +135,8 @@ export const FormReg = () => {
                             </button>
                             <p className="o-form__police ">
                                 Регистрируясь вы соглашаетесь с{" "}
-                                <Link to="/">условиями использования</Link> и{" "}
-                                <Link to="/">политикой конфиденциальности</Link>
+                                <Link to="/agreement">условиями использования</Link> и{" "}
+                                <Link to="/privacy">политикой конфиденциальности</Link>
                             </p>
                         </form>
                         <p className="o-form-wrapper__text">
