@@ -7,6 +7,20 @@ import { Loader } from '../components/Loader';
 import { HomeworkCard } from '../components/HomeworkCard';
 
 export const NotFoundPage = () => {
+    const { loading, request } = useHttp();
+    const message = useMessage();
+
+
+    useEffect(() => {
+        async function fetchData() {
+            try {
+                const data = await request('/404', 'GET', {});
+            } catch (error) {
+                message(error, false)
+            }
+        }
+        fetchData();
+    }, []);
 
     return (
         <section className="not-found">

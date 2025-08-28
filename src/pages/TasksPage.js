@@ -3,9 +3,6 @@ import React, { useEffect, useState, useLayoutEffect, useCallback } from 'react'
 import { useHttp } from '../hooks/http.hook';
 import { useMessage } from '../hooks/message.hook';
 import { Loader } from '../components/Loader';
-import { TaskFormNew } from '../components/TaskForm';
-import { TaskFormOld } from '../components/TaskFormChange';
-import { TaskCard } from '../components/TaskCard';
 import { Aside } from '../components/Aside';
 import { useHistory } from 'react-router-dom/cjs/react-router-dom.min';
 import { FooterInner } from '../components/Footer';
@@ -16,9 +13,6 @@ export const TaskPage = () => {
     const history = useHistory();
 
     const [taskId, setTaskId] = useState(false);
-    const [taskCard, setTaskCardActive] = useState(false);
-    const [taskForm, setTaskFormActive] = useState(false);
-    const [change, setChanged] = useState(false);
     const [deleteModal, setDeleteModal] = useState(false);
     const [appointModal, setAppointModal] = useState(false);
     const [currentTask, setCurrentTask] = useState();
@@ -145,47 +139,7 @@ export const TaskPage = () => {
     }
 
     return (
-        // <div className="section-tasks">
-        //     <input id="section-tasks-menu__toggle" type="checkbox" />
-        //     <label className="section-tasks-menu__btn" htmlFor="section-tasks-menu__toggle">
-        //         <span></span>
-        //     </label>
-        //     <section className="section-nav-tasks">
-        //         <button
-        //             className="button button_new-task"
-        //             onClick={openTaskForm}
-        //         >Новое задание</button>
-
-        //         <input
-        //             className="input input_tasks"
-        //             type="input"
-        //             placeholder="поиск задания"
-        //             onChange={menuSearch}
-        //         />
-        //         <nav className="nav-tasks">
-        //             <ul className="nav__items_tasks nav__items_tasks">
-        //                 {tasks.sort((a, b) => a.id - b.id).map((task, index) => {
-        //                     return (
-        //                         <li className="nav__item-li_tasks nav__item-li_tasks" key={index + task.id}>
-        //                             <button
-        //                                 className="nav__item-button_tasks"
-        //                                 info={task.id}
-        //                                 onClick={handleClickGet}
-        //                             >{task.theme}</button>
-        //                         </li>
-        //                     )
-        //                 })}
-        //             </ul>
-        //         </nav>
-        //     </section>
-
-        //     {!taskCard && <div className="section-tasks__info">Для начала работы выберите задание или создайте новое</div>}
-
-        //     {taskCard && <TaskCard props={taskId} set={setChanged} chan={change} taskCard={taskCard} setTaskCardActive={setTaskCardActive} />}
-        //     {taskForm && <TaskFormNew set={setChanged} chan={change} setActive={setTaskFormActive} />}
-        // </div>
         <>
-            {loading && <Loader />}
             <div className="app-inner">
                 <Aside />
                 <main className="app-main">
@@ -220,7 +174,10 @@ export const TaskPage = () => {
                             </div>
                         </div> */}
                     </header>
-                    <main className="app-main__mid">
+
+                    {loading && <Loader />}
+
+                    {!loading && <main className="app-main__mid">
                         <section className="app-cards">
                             <ul className="app-cards__inner">
                                 <li className="app-cards__item">
@@ -247,8 +204,32 @@ export const TaskPage = () => {
                                                         <p className="card-note__date">
                                                             <span>{task.date_create}</span>
                                                         </p>
-                                                        <div className="card-note__actions" onClick={handleMoreBtn}>
-                                                            {/*  --th-active */}
+                                                        <div className="card-note__actions">
+                                                            <button className="card-note__btn" onClick={handleEdit}>
+                                                                <svg viewBox="0 0 24 24" fill="none">
+                                                                    <path
+                                                                        d="M15.717 4.07486L18.9255 7.28329M7.49999 6.5003H4.125C3.82663 6.5003 3.54048 6.61883 3.3295 6.8298C3.11853 7.04078 3 7.32692 3 7.62528V18.875C3 19.1734 3.11853 19.4595 3.3295 19.6705C3.54048 19.8815 3.82663 20 4.125 20H16.5C16.7983 20 17.0845 19.8815 17.2955 19.6705C17.5064 19.4595 17.625 19.1734 17.625 18.875V13.8126M20.3351 2.66414C20.5459 2.87485 20.7131 3.12503 20.8272 3.40038C20.9413 3.67574 21 3.97087 21 4.26892C21 4.56697 20.9413 4.8621 20.8272 5.13745C20.7131 5.4128 20.5459 5.66298 20.3351 5.87369L12.6356 13.573L8.62499 14.3751L9.42711 10.3646L17.1266 2.66527C17.3371 2.45437 17.5872 2.28706 17.8625 2.17291C18.1378 2.05876 18.4328 2 18.7308 2C19.0289 2 19.3239 2.05876 19.5992 2.17291C19.8745 2.28706 20.1245 2.45437 20.3351 2.66527V2.66414Z"
+                                                                        stroke="currentColor"
+                                                                        strokeWidth={2}
+                                                                        strokeLinecap="round"
+                                                                        strokeLinejoin="round"
+                                                                    />
+                                                                </svg>
+                                                            </button>
+                                                            <button className="card-note__btn delete more-btn__item-btn line-btn-red" onClick={handleDelele}>
+                                                                <svg viewBox="0 0 24 24" fill="none">
+                                                                    <path
+                                                                        d="M5 7H19M10 10V18M14 10V18M10 3H14C14.2652 3 14.5196 3.10536 14.7071 3.29289C14.8946 3.48043 15 3.73478 15 4V7H9V4C9 3.73478 9.10536 3.48043 9.29289 3.29289C9.48043 3.10536 9.73478 3 10 3ZM6 7H18V20C18 20.2652 17.8946 20.5196 17.7071 20.7071C17.5196 20.8946 17.2652 21 17 21H7C6.73478 21 6.48043 20.8946 6.29289 20.7071C6.10536 20.5196 6 20.2652 6 20V7Z"
+                                                                        stroke="currentColor"
+                                                                        strokeWidth={2}
+                                                                        strokeLinecap="round"
+                                                                        strokeLinejoin="round"
+                                                                    />
+                                                                </svg>
+                                                            </button>
+                                                        </div>
+                                                        {/* <div className="card-note__actions" onClick={handleMoreBtn}>
+
                                                             <div className="more-btn">
 
                                                                 <button className="card-note__btn more-btn__btn">
@@ -262,7 +243,7 @@ export const TaskPage = () => {
                                                                     </svg>
                                                                 </button>
                                                                 <ul className="more-btn__menu">
-                                                                    {/* <li className="more-btn__item">
+                                                                    <li className="more-btn__item">
                                                                         <button className="more-btn__item-btn line-btn-dark" onClick={handleAppoint}>
                                                                             <svg className="icon" viewBox="0 0 24 24" fill="none">
                                                                                 <path
@@ -275,7 +256,7 @@ export const TaskPage = () => {
                                                                             </svg>
                                                                             <span>Назначить</span>
                                                                         </button>
-                                                                    </li> */}
+                                                                    </li>
                                                                     <li className="more-btn__item">
                                                                         <button className="more-btn__item-btn line-btn-dark" onClick={handleEdit}>
                                                                             <svg className="icon" viewBox="0 0 24 24">
@@ -308,12 +289,15 @@ export const TaskPage = () => {
                                                                     </li>
                                                                 </ul>
                                                             </div>
-                                                        </div>
+                                                        </div> */}
                                                     </div>
                                                     <div className="card-note__content">
                                                         <h3 className="card-note__title">
                                                             {task.theme}
                                                         </h3>
+                                                        <p className="card-note__text">
+                                                            {task.rules}
+                                                        </p>
                                                     </div>
                                                 </div>
                                             </li>
@@ -560,6 +544,8 @@ export const TaskPage = () => {
                             }
                         </section>
                     </main>
+                    }
+
                     <FooterInner />
                 </main>
             </div >

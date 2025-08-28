@@ -10,13 +10,13 @@ export const Footer = () => {
           © 2025 Learnew. <br /> Все права защищены.
         </p>
         <div className="o-footer__links">
-          <a href="mailto:sergei.osokin.rf@mail.ru?subject=Вопрос с learnew" className="app-main__link app-main__text">
+          <a href="mailto:support@learnew.ru?subject=Вопрос с learnew" className="app-main__link app-main__text">
             Поддержка
           </a>
-          <Link to="#" className="o-footer__label o-footer__link">
+          <Link to="/agreement" className="o-footer__label o-footer__link">
             Условия использования
           </Link>
-          <Link to="#" className="o-footer__label o-footer__link">
+          <Link to="/privacy" className="o-footer__label o-footer__link">
             Политика конфиденциальности
           </Link>
         </div>
@@ -35,17 +35,17 @@ export const FooterInner = () => {
       </p>
       <ul className="app-main__links">
         <li className="app-main__link-wrapper">
-          <a href="mailto:sergei.osokin.rf@mail.ru?subject=Вопрос с learnew" className="app-main__link app-main__text">
+          <a href="mailto:support@learnew.ru?subject=Вопрос с learnew" className="app-main__link app-main__text">
             Поддержка
           </a>
         </li>
         <li className="app-main__link-wrapper">
-          <Link to="#" className="app-main__link app-main__text">
+          <Link to="/agreement" className="app-main__link app-main__text">
             Условия использования
           </Link>
         </li>
         <li className="app-main__link-wrapper">
-          <Link to="#" className="app-main__link app-main__text">
+          <Link to="/privacy" className="app-main__link app-main__text">
             Политика конфиденциальности
           </Link>
         </li>

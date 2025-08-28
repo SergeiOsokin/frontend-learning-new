@@ -24,6 +24,7 @@ export const TaskForm = ({ set, chan, setActive }) => {
     const message = useMessage();
 
     const changeHandler = (e) => {
+        e.stopPropagation();
         setTask({ ...task, [e.target.name]: e.target.value });
         if (e.target.type === 'textarea') { autoResize(e.target.name) }
         // autoResize(e.target.name)
@@ -31,11 +32,12 @@ export const TaskForm = ({ set, chan, setActive }) => {
     }
 
     const handleEdit = (e) => {
+        const target = e.target.closest('.task-step')
         // e.target.id)
         switch (e.target.id) {
             case 'rules':
                 document.querySelector('.body_rules').classList.toggle('--th-disabled');
-                e.target.closest('.task-step').classList.toggle('--th-edited');
+                target.classList.toggle('--th-edited');
                 break;
             case 'words':
                 document.querySelector('.body_words').classList.toggle('--th-disabled');
@@ -124,7 +126,12 @@ export const TaskForm = ({ set, chan, setActive }) => {
                         <div className="app-main__search search" />
                     </div>
                 </header>
-                <main className="app-main__mid">
+
+                {loading && <Loader />}
+
+
+
+                {!loading && <main className="app-main__mid">
                     <section className="task-more">
                         <div className="task-more__date date-status">
                             <span>{task.date}</span>
@@ -133,7 +140,7 @@ export const TaskForm = ({ set, chan, setActive }) => {
                             <input
                                 className="task-more__area app-area-text --th-bold"
                                 placeholder="Название"
-                                
+
                                 id="theme"
                                 type="text"
                                 name="theme"
@@ -241,7 +248,7 @@ export const TaskForm = ({ set, chan, setActive }) => {
                                         <textarea
                                             className=" app-area-text rules"
                                             placeholder="Название"
-                                            
+
                                             type="text"
                                             name="rules"
                                             onChange={changeHandler}
@@ -271,7 +278,7 @@ export const TaskForm = ({ set, chan, setActive }) => {
                                         <textarea
                                             className=" app-area-text words"
                                             placeholder="Название"
-                                            
+
                                             type="text"
                                             name="words"
                                             onChange={changeHandler}
@@ -301,7 +308,7 @@ export const TaskForm = ({ set, chan, setActive }) => {
                                         <textarea
                                             className=" app-area-text read"
                                             placeholder="Название"
-                                            
+
                                             type="text"
                                             name="read"
                                             onChange={changeHandler}
@@ -331,7 +338,7 @@ export const TaskForm = ({ set, chan, setActive }) => {
                                         <textarea
                                             className=" app-area-text translate"
                                             placeholder="Название"
-                                            
+
                                             type="text"
                                             name="translate"
                                             onChange={changeHandler}
@@ -361,7 +368,7 @@ export const TaskForm = ({ set, chan, setActive }) => {
                                         <textarea
                                             className=" app-area-text other"
                                             placeholder="Название"
-                                            
+
                                             type="text"
                                             name="other"
                                             onChange={changeHandler}
@@ -394,7 +401,8 @@ export const TaskForm = ({ set, chan, setActive }) => {
                         </div>
                     </section>
                 </main>
-                
+                }
+
                 <FooterInner />
 
             </main>

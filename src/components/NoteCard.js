@@ -98,11 +98,10 @@ export const NoteCard = () => {
 
     return (
         <>
-            {loading && <Loader />}
-
             <div className="app-inner">
                 <Aside />
                 <main className="app-main">
+
                     <header className="app-main__top">
                         <div className="app-main__left">
                             <Link className="app-main__back" to="/notes">
@@ -123,6 +122,8 @@ export const NoteCard = () => {
                             <div className="app-main__search search" />
                         </div>
                     </header>
+
+                    {loading && <Loader />}
 
                     {!loading &&
                         <main className="app-main__mid">

@@ -1,12 +1,11 @@
 import './App.css';
 import 'materialize-css'; // для всплывабщих сообшений. См.message.hook
-import { Route, Switch } from 'react-router-dom';
+import React, { useContext, useEffect } from 'react';
+import { AuthContext } from './context/AuthContext';
+import { Route, Switch, Redirect } from 'react-router-dom';
 import { NotesPage } from './pages/NotesPage';
 import { RepeatPage } from './pages/RepeatPage';
 import WordsPage from './pages/WordsPage';
-import AddWord from './pages/AddWordPage';
-import AddNote from './pages/AddNotePage';
-import CategoryPage from './pages/CategoryPage';
 import { FormReg } from './components/FormReg';
 import { FormAuth } from './components/FormAuth';
 import { Categories } from './components/Categories';
@@ -20,16 +19,34 @@ import { NoteCard } from './components/NoteCard';
 import { TaskForm } from './components/TaskForm';
 import { TaskCard } from './components/TaskCard';
 import { HomeworkCard } from './components/HomeworkCard';
+import Privacy from './pages/Privacy';
+import Agreement from './pages/Agreement';
 
 const Main = () => {
+    const { authorization, logout } = useContext(AuthContext); // получаем контекст в объекте auth
     var pjson = require('../package.json');
     console.log(pjson.version);
+    console.log(authorization);
+
+    function requireAuth(nextState, replace, next) {
+        console.log('Тута')
+        if (!authorization) {
+            replace({
+                pathname: "/login",
+                state: { nextPathname: nextState.location.pathname }
+            });
+        } 
+        // component={NotesPage}
+        next();
+    }
 
     return (
         <Switch>
             <Route exact path='/' component={MainPage} />
+            <Route exact path='/privacy' component={Privacy} />
+            <Route exact path='/agreement' component={Agreement} />
 
-            <Route exact path='/notes' component={NotesPage} />
+            <Route exact path='/notes'  component={NotesPage}  />
             <Route exact path='/notes/new' component={NoteForm} />
             <Route exact path='/notes/open/:id' component={NoteCard} />
 
@@ -44,13 +61,13 @@ const Main = () => {
 
             <Route exact path='/education' component={EducationPage} />
 
-            <Route exact path='/education/teacher' component={TaskPage} /> 
+            <Route exact path='/education/teacher' component={TaskPage} />
             <Route exact path='/education/teacher/new' component={TaskForm} />
             <Route exact path='/education/teacher/open/:id' component={TaskCard} />
 
             <Route exact path='/education/student' component={HomeworkPage} />
             <Route exact path='/education/student/open/:id' component={HomeworkCard} />
-            <Route exact path='/*' component={NotFoundPage} statusCode={404} />
+            <Route exact path='/*' component={NotFoundPage} />
         </Switch>
     )
 }

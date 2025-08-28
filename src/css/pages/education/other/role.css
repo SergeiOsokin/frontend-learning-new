@@ -386,46 +386,6 @@ h1 {
   height: 100%;
 }
 
-.app-mobile-menu {
-  position: fixed;
-  top: auto;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  z-index: 999;
-  display: none;
-  padding: 1.2rem 1.7rem;
-  background-color: #1F1E30;
-}
-@media screen and (max-width: 550px) {
-  .app-mobile-menu {
-    display: block;
-  }
-}
-.app-mobile-menu__actions {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-}
-.app-mobile-menu__btn {
-  width: 4.8rem;
-  height: 4.8rem;
-  background-color: #1F1E30;
-  border-radius: 10rem;
-  outline: none;
-  border: none;
-  font-family: "Golos Text", serif;
-  font-size: 1.8rem;
-  color: #CDCDCD;
-}
-.app-mobile-menu__btn.--th-active {
-  background-color: #DAFB59;
-  color: #1F1E30;
-}
-.app-mobile-menu__btn * {
-  color: inherit;
-}
-
 button {
   font-family: "Golos Text", serif;
   cursor: pointer;

@@ -177,32 +177,34 @@ export const TaskCard = () => {
 
     return (
         <>
-            {loading && <Loader />}
-
             <div className="app-inner">
                 <Aside />
-                {!loading &&
-                    <main className="app-main">
-                        <header className="app-main__top">
-                            <div className="app-main__left">
-                                <Link to="/education/teacher" className="app-main__back">
-                                    <svg viewBox="0 0 6 10" fill="none">
-                                        <path
-                                            d="M5 9L1 5L5 1"
-                                            stroke="#939393"
-                                            strokeWidth={2}
-                                            strokeLinecap="round"
-                                            strokeLinejoin="round"
-                                        />
-                                    </svg>
-                                    <span>Все задания</span>
-                                </Link>
-                                <h1 className="app-main__title">Задание: {task.theme}</h1>
-                            </div>
-                            <div className="app-main__right">
-                                <div className="app-main__search search" />
-                            </div>
-                        </header>
+
+                <main className="app-main">
+                    <header className="app-main__top">
+                        <div className="app-main__left">
+                            <Link to="/education/teacher" className="app-main__back">
+                                <svg viewBox="0 0 6 10" fill="none">
+                                    <path
+                                        d="M5 9L1 5L5 1"
+                                        stroke="#939393"
+                                        strokeWidth={2}
+                                        strokeLinecap="round"
+                                        strokeLinejoin="round"
+                                    />
+                                </svg>
+                                <span>Все задания</span>
+                            </Link>
+                            <h1 className="app-main__title">Задание: {task.theme}</h1>
+                        </div>
+                        <div className="app-main__right">
+                            <div className="app-main__search search" />
+                        </div>
+                    </header>
+
+                    {loading && <Loader />}
+
+                    {!loading &&
                         <main className="app-main__mid">
                             <section className="task-more">
                                 <div className="task-more__date date-status">
@@ -530,9 +532,9 @@ export const TaskCard = () => {
                                 }
                             </section>
                         </main>
-                        <FooterInner />
-                    </main>
-                }
+                    }
+                    <FooterInner />
+                </main>
             </div>
         </>
     )

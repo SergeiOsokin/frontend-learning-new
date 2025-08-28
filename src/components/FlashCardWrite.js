@@ -1,4 +1,5 @@
 import React, { useCallback, useState } from 'react';
+import { FinishQuize } from './FinishQuize';
 
 export const FlashCardWrite = ({ wordsArr }) => {
     // тусуем массив
@@ -13,6 +14,8 @@ export const FlashCardWrite = ({ wordsArr }) => {
         return array;
     }
     const [arrayWords, setArrayWords] = useState(mixArray(wordsArr).slice());
+    const [result, setResult] = useState([])
+    const [isFinish, setFinish] = useState(false);
 
     const [words, setWords] = useState({
         russianWord: arrayWords[0].russian_word,
@@ -36,9 +39,9 @@ export const FlashCardWrite = ({ wordsArr }) => {
     }, []);
 
     // обновим массив, если осталось мало элементов
-    if (arrayWords.length === 4) {
-        setArrayWords(mixArray(wordsArr.slice()));
-    }
+    // if (arrayWords.length === 4) {
+    //     setArrayWords(mixArray(wordsArr.slice()));
+    // }
 
     const checkAnswer = useCallback((e) => {
         // eslint-disable-next-line no-useless-escape
@@ -50,6 +53,8 @@ export const FlashCardWrite = ({ wordsArr }) => {
             setRightAnswer(rightAnswers + 1);
 
             document.querySelector('.quiz-response-input').classList.add('--th-green');
+            result.push({ foreignWord: answer, translate: right, isRight: true });
+            if (arrayWords.length === 5) { setFinish(true); return }
             setTimeout(() => {
                 arrayWords.shift();
                 changeWord();
@@ -60,11 +65,11 @@ export const FlashCardWrite = ({ wordsArr }) => {
 
             document.querySelector('.quiz-response-input').classList.add('--th-red');
             setTimeout(() => { document.querySelector('.quiz-response-input').classList.remove('--th-red'); }, 100);
-
             countWrong === 1 ?
                 setCountWrong(words.foreignWord) :
                 isNaN(countWrong) ?
                     setCountWrong(words.foreignWord) : setCountWrong(countWrong - 1);
+            result.push({ foreignWord: answer, translate: right, isRight: false });
         }
         // обновим слова
         setTimeout(() => {
@@ -92,40 +97,10 @@ export const FlashCardWrite = ({ wordsArr }) => {
 
     return (
         <>
-            {/* <section className="section-card section-write-word" >
-                <main className="card" >
-                    <h1 className="card__title">Напишите правильный перевод</h1>
-                    <div className="card__counts">
-                        <p className="card__right-count">Правильных ответов {rightAnswers}</p>
-                        <p className="card__wrong-count">Неправильных ответов {wrongAnswers}</p>
-                    </div>
-                    <p className="card__word card__word_write" translate={word.foreignWord}>{word.russianWord}</p>
-                    <div className="card__container-button word-check" style={{ boxShadow: style.shadow }}>
-                        <input
-                            className="input"
-                            name="input "
-                            type="text"
-                            value={userAnswer}
-                            onChange={hadleChange}
-                            onKeyDown={onKeyDown}
-                            placeholder="введите перевод"
-                            disabled={disable}
-                            autoComplete={'off'}
-                        />
-                        <span className="card__hint" >{countWrong}</span>
-                        <button
-                            className="button card-button"
-                            name='btnCheck'
-                            onClick={handleBtn}
-                            disabled={disable}
-                        >
-                            Проверить
-                        </button>
-                    </div>
-                </main>
-            </section> */}
-            <>
-                {/* Mid */}
+
+            {isFinish && <FinishQuize result={result} />}
+            {/* Mid */}
+            {!isFinish &&
                 <div className="app-quiz__mid quiz-questions">
                     <h2 className="quiz-questions__title" translate={words.foreignWord}>{words.russianWord}</h2>
                     <input
@@ -140,20 +115,32 @@ export const FlashCardWrite = ({ wordsArr }) => {
                     />
                     <button className="quiz-response-next btn btn-dark" onClick={handleBtn}>Продолжить</button>
                 </div>
-                {/* Footer */}
+            }
+            {isFinish &&
                 <div className="app-quiz__footer">
-                    <div className="quiz-progress">
-                        <div className="quiz-progress__line">
-                            <div className="quiz-progress__line-inner" style={{ width: (rightAnswers) + '%' }} />
-                        </div>
-                        <div className="quiz-progress__labels">
-                            <p className="quiz-progress__label">{1 + rightAnswers} из {wordsArr.length}</p>
-                            <p className="quiz-progress__label">{rightAnswers} правильных ответов</p>
-                        </div>
+                    <button className="quiz-reset btn btn-dark"
+                        onClick={() => {
+                            setFinish(false);
+                            setArrayWords(mixArray(wordsArr.slice()));
+                            rightAnswers(0);
+                            wrongAnswers(0);
+                            countWrong(3);
+                        }}
+                    >Новый квиз</button>
+                </div>
+            }
+            {/* Footer */}
+            <div className="app-quiz__footer">
+                <div className="quiz-progress">
+                    <div className="quiz-progress__line">
+                        <div className="quiz-progress__line-inner" style={{ width: (rightAnswers) + '%' }} />
+                    </div>
+                    <div className="quiz-progress__labels">
+                        <p className="quiz-progress__label">{1 + rightAnswers} из {wordsArr.length}</p>
+                        <p className="quiz-progress__label">{rightAnswers} правильных ответов</p>
                     </div>
                 </div>
-            </>
-
+            </div>
         </>
     )
 }
