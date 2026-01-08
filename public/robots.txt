@@ -1,0 +1,19 @@
+User-Agent: *
+Allow: /
+Disallow: /wordslist
+Disallow: /wordslist/*
+Disallow: /flashcards
+Disallow: /notes
+Disallow: /notes/*
+Disallow: /education
+Disallow: /education/*
+
+User-agent: Yandex
+Allow: /
+Disallow: /wordslist
+Disallow: /wordslist/*
+Disallow: /flashcards
+Disallow: /notes
+Disallow: /notes/*
+Disallow: /education
+Disallow: /education/*
