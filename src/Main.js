@@ -21,6 +21,7 @@ import { TaskCard } from './components/TaskCard';
 import { HomeworkCard } from './components/HomeworkCard';
 import Privacy from './pages/Privacy';
 import Agreement from './pages/Agreement';
+import { ProfilePage } from './pages/ProfilePage';
 
 const Main = () => {
     const { authorization, logout } = useContext(AuthContext); // получаем контекст в объекте auth
@@ -60,6 +61,8 @@ const Main = () => {
             <Route exact path='/categories' component={Categories} />
 
             <Route exact path='/education' component={EducationPage} />
+
+            <Route exact path='/profile' component={ProfilePage} />
 
             <Route exact path='/education/teacher' component={TaskPage} />
             <Route exact path='/education/teacher/new' component={TaskForm} />
