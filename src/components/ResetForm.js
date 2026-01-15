@@ -14,8 +14,7 @@ export const ResetForm = ({ props, setActive }) => {
     const { loading, request } = useHttp();
     const history = useHistory();
     const [form, setForm] = useState({
-        email: '',
-        password: ''
+        email: ''
     });
     const [passwordReset, setPasswordReset] = useState(false)
 
@@ -27,23 +26,17 @@ export const ResetForm = ({ props, setActive }) => {
     const loginHandler = async (e) => {
         e.preventDefault();
         try {
-            const req = await request('/signin', 'POST', form);
-            if (req === undefined) {
-                return
-            }
-            history.push('/wordslist');
+            const data = await request('/reset', 'POST', form);
+                if (data.hasOwnProperty('error')) {
+                    message(data.message || data.error, false);
+                    return;
+                }
         } catch (error) {
             message(error, false);
         }
     };
     const moveHandler = (event) => {
         history.push('/registration');
-    }
-
-    const showPass = (e) => {
-        document.getElementById('password').type === 'text' ?
-            document.getElementById('password').type = 'password' :
-            document.getElementById('password').type = 'text'
     }
 
     useEffect(() => {
@@ -57,7 +50,7 @@ export const ResetForm = ({ props, setActive }) => {
                 <div className="container">
                     <div className="o-form-wrapper ">
                         <form className="o-form" onSubmit={loginHandler}>
-                            <h1 className="o-form__title">Восстановить пароль</h1>
+                            <h1 className="o-form__title">Сброс пароля</h1>
                             <div className="o-form__inner">
                                 <   div className="o-form__input">
                                     <input

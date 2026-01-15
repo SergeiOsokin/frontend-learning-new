@@ -117,7 +117,7 @@ export const FormAuth = () => {
                                     document.querySelector('.o-form-page').classList.toggle('hidden');
                                     // console.log(document.getElementsByClassName('.o-form-page').classList)
                                 }} >
-                                    Отправить</button>
+                                    Сбросить</button>
                             </p>
 
                         </form>
