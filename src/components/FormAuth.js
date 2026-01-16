@@ -29,12 +29,13 @@ export const FormAuth = () => {
     const loginHandler = async (e) => {
         e.preventDefault();
         try {
-            const req = await request('/signin', 'POST', form);
-            if (req === undefined) {
-                return
+            const data = await request('/signin', 'POST', form);
+            if (data.hasOwnProperty('error')) {
+                message(data.message || data.error, false);
+                return;
             }
             history.push('/wordslist');
-            auth.login(req); // передаем полученные данные в auth.hook
+            auth.login(data); // передаем полученные данные в auth.hook
         } catch (error) {
             message(error, false);
         }

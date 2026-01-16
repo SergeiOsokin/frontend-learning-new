@@ -27,10 +27,12 @@ export const ResetForm = ({ props, setActive }) => {
         e.preventDefault();
         try {
             const data = await request('/reset', 'POST', form);
-                if (data.hasOwnProperty('error')) {
-                    message(data.message || data.error, false);
-                    return;
-                }
+            if (data.hasOwnProperty('error')) {
+                message(data.message || data.error, false);
+                return;
+            }
+            message(data.message, true);
+            history.push('/authorization');
         } catch (error) {
             message(error, false);
         }
