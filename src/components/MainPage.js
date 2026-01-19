@@ -361,6 +361,5 @@ export const MainPage = () => {
             </main>
             <Footer />
         </>
-
     )
 }

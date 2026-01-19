@@ -32,7 +32,8 @@ export const ResetForm = ({ props, setActive }) => {
                 return;
             }
             message(data.message, true);
-            history.push('/authorization');
+            document.querySelector('.o-form-wrapper__text').classList.remove('hidden');
+            document.querySelector('.o-form__action').setAttribute('disabled', true);
         } catch (error) {
             message(error, false);
         }
@@ -51,6 +52,7 @@ export const ResetForm = ({ props, setActive }) => {
             <section className="o-form-reset app-modal">
                 <div className="container">
                     <div className="o-form-wrapper ">
+                        <span className="form__close" onClick={() => { history.push('/authorization') }}></span>
                         <form className="o-form" onSubmit={loginHandler}>
                             <h1 className="o-form__title">Сброс пароля</h1>
                             <div className="o-form__inner">
@@ -76,7 +78,13 @@ export const ResetForm = ({ props, setActive }) => {
                             >
                                 Получить пароль
                             </button>
+                            <p className="o-form-wrapper__text hidden">
+                                Войти с новым паролем: <Link to="/authorization">Вход</Link>
+                            </p>
                         </form>
+                        <p className="o-form-wrapper__text">
+                            Вернуться: <Link to="/authorization">Войти</Link>
+                        </p>
                     </div>
                 </div>
             </section>

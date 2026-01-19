@@ -22,6 +22,7 @@ import { HomeworkCard } from './components/HomeworkCard';
 import Privacy from './pages/Privacy';
 import Agreement from './pages/Agreement';
 import { ProfilePage } from './pages/ProfilePage';
+import { ResetForm } from './components/ResetForm';
 
 const Main = () => {
     const { authorization, logout } = useContext(AuthContext); // получаем контекст в объекте auth
@@ -36,7 +37,7 @@ const Main = () => {
                 pathname: "/login",
                 state: { nextPathname: nextState.location.pathname }
             });
-        } 
+        }
         // component={NotesPage}
         next();
     }
@@ -47,7 +48,7 @@ const Main = () => {
             <Route exact path='/privacy' component={Privacy} />
             <Route exact path='/agreement' component={Agreement} />
 
-            <Route exact path='/notes'  component={NotesPage}  />
+            <Route exact path='/notes' component={NotesPage} />
             <Route exact path='/notes/new' component={NoteForm} />
             <Route exact path='/notes/open/:id' component={NoteCard} />
 
@@ -59,6 +60,7 @@ const Main = () => {
             <Route exact path='/authorization' component={FormAuth} />
             <Route exact path='/registration' component={FormReg} />
             <Route exact path='/categories' component={Categories} />
+            <Route exact path='/recover' component={ResetForm} />
 
             <Route exact path='/education' component={EducationPage} />
 

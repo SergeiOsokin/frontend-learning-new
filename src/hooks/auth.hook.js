@@ -30,7 +30,7 @@ export const useAuth = (data) => {
 
                 if (data.error) {
                     message('Вход в аккаунт не выполнен.', false);
-                    history.push('/');
+                    // history.push('/');
                     return setAuthorization(false);
                 }
                 setAuthorization(true);

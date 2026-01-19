@@ -110,8 +110,10 @@ export const FormAuth = () => {
                             >
                                 Войти
                             </button>
-                            <p className="o-form__police --th-center">
+                            {/* Потом вернуть на кнопку */}
+                            {/* <p className="o-form__police --th-center">
                                 Забыли пароль?
+                                
                                 <button onClick={(e) => {
                                     e.preventDefault();
                                     setPasswordReset(true);
@@ -119,8 +121,10 @@ export const FormAuth = () => {
                                     // console.log(document.getElementsByClassName('.o-form-page').classList)
                                 }} >
                                     Сбросить</button>
+                            </p> */}
+                            <p className="o-form__police --th-center">
+                                Забыли пароль? <Link to="/recover">Восстановить</Link>
                             </p>
-
                         </form>
                         <p className="o-form-wrapper__text">
                             Нет аккаунта? <Link to="/registration">Зарегистрироваться</Link>
@@ -129,7 +133,7 @@ export const FormAuth = () => {
                 </div>
             </main>
 
-            {passwordReset && <ResetForm />}
+            {/* {passwordReset && <ResetForm />} */}
 
             <Footer />
         </>
