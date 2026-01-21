@@ -121,7 +121,8 @@ export const Aside = () => {
                                 <span className="nav__text">Обучение</span>
                             </Link>
                         </li>
-                        <li className="nav__item">
+                        {/* Профиль */}
+                        {/* <li className="nav__item">
                             <Link className={`nav__link ${history.location.pathname.includes('profile') ? '--th-active' : ''}`} to="/profile" >
                                 <svg className="nav__icon" viewBox="0 0 32 32" fill="none">
                                     <path
@@ -132,9 +133,9 @@ export const Aside = () => {
                                         strokeLinejoin="round"
                                     />
                                 </svg>
-                                <span className="nav__text">Кабинет</span>
+                                <span className="nav__text">Профиль</span>
                             </Link>
-                        </li>
+                        </li> */}
                     </ul>
                 </nav>
             </div>
