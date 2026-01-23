@@ -57,6 +57,10 @@ export const FormReg = () => {
     const moveHandler = (event) => {
         history.push('/authorization');
     }
+    useEffect(() => {
+        // document.getElementById("root").classList.add("o-wrapper");
+        document.getElementById("root").classList.replace("app-wrapper", "o-wrapper");
+    }, []);
 
     return (
         <>
