@@ -668,6 +668,10 @@
   color: #1F1E30;
 }
 
+.o-form-wrapper__text .hidden {
+  display: none;
+}
+
 .o-form-wrapper__text {
   margin-top: 2.4rem;
   color: #939393;

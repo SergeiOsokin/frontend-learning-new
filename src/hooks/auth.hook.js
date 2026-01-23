@@ -12,6 +12,7 @@ export const useAuth = (data) => {
     const message = useMessage();
     const { request } = useHttp();
     const history = useHistory();
+    const arr = ['/authorization', '/recover', '/registration']
     // что происходит после успешной авторизации
     const login = useCallback(() => {
         setAuthorization(true);
@@ -30,8 +31,9 @@ export const useAuth = (data) => {
 
                 if (data.error) {
                     message('Вход в аккаунт не выполнен.', false);
-                    history.push('/');
-                    return setAuthorization(false);
+                    setAuthorization(false);
+                    // eslint-disable-next-line no-unused-expressions
+                    return arr.includes(history.location.pathname) ? '' : history.push('/');
                 }
                 setAuthorization(true);
             } catch (error) {
