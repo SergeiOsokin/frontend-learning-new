@@ -19,6 +19,7 @@ export const ProfilePage = () => {
     const [resetPsw, setResetPsw] = useState(false);
     const { validationInputs } = validation();
     const [form, setForm] = useState({
+        email: 'tgb@tgb.ru',
         passwordOld: '',
         passwordNew: '',
         passwordConfirm: ''
@@ -77,19 +78,23 @@ export const ProfilePage = () => {
         }
     }, []);
 
-    const appointTask = (async (e) => {
-        e.preventDefault()
-        try {
-            const data = await request(`/task/appoint/`, 'POST', user);
-            if (data.hasOwnProperty('error')) {
-                message(data.message || data.error, false);
-                return;
+    const newPassword = async e => {
+        console.log(e.preventDefault())
+        e.preventDefault();
+        if (form.passwordNew === form.passwordConfirm) {
+            try {
+                const data = await request('/lk/password', 'POST', form);
+                if (data.hasOwnProperty('error')) {
+                    return message(data.message || data.error, false);
+                }
+                message(data.message, true);
+            } catch (error) {
+                message(error, false);
             }
-            message(data.message, true);
-        } catch (err) {
-            message(err, false);
+        } else {
+            message('Новый пароль и подтверждение пароля не совпадают', false);
         }
-    });
+    };
 
     const handleDeleteUser = useCallback(async (e) => {
         e.preventDefault();
@@ -108,7 +113,7 @@ export const ProfilePage = () => {
 
     const changeHandler = (e) => {
         setForm({ ...form, [e.target.name]: e.target.value });
-        validationInputs(e);
+        // validationInputs(e);
     };
 
     const changeHandlerUser = (e) => {
@@ -129,25 +134,6 @@ export const ProfilePage = () => {
                 document.querySelector('.body_words').classList.toggle('--th-disabled');
                 e.target.closest('.task-step').classList.toggle('--th-edited');
                 // autoResize(e.target.id);
-                break;
-            case 'read':
-                document.querySelector('.body_read').classList.toggle('--th-disabled');
-                e.target.closest('.task-step').classList.toggle('--th-edited');
-                // autoResize(e.target.id);
-                break;
-            case 'translate':
-                document.querySelector('.body_translate').classList.toggle('--th-disabled');
-                e.target.closest('.task-step').classList.toggle('--th-edited');
-                // autoResize(e.target.id);
-                break;
-            case 'other':
-                document.querySelector('.body_other').classList.toggle('--th-disabled');
-                e.target.closest('.task-step').classList.toggle('--th-edited');
-                // autoResize(e.target.id);
-                break;
-            case 'users':
-                document.querySelector('.body_users').classList.toggle('--th-disabled');
-                e.target.closest('.task-step').classList.toggle('--th-edited');
                 break;
             default:
 
@@ -178,8 +164,6 @@ export const ProfilePage = () => {
                 e.type = 'password' :
                 e.type = 'text'
         })
-
-
     }
 
     useLayoutEffect(() => {
@@ -213,7 +197,7 @@ export const ProfilePage = () => {
                                         </div>
                                         <div className="task-step__body body_rules --th-disabled">
                                             <div className="task-step__text">
-                                                <form className="o-form" onSubmit={() => { }} autoComplete='off'>
+                                                <div className="o-form" autoComplete='off'>
                                                     <div className="o-form__inner">
                                                         <div className="o-form__input">
                                                             <input
@@ -249,7 +233,7 @@ export const ProfilePage = () => {
                                                                 name="passwordNew"
                                                                 required minLength="6"
                                                                 onChange={changeHandler}
-                                                                value={form.password}
+                                                                value={form.passwordNew}
                                                                 disabled={loading}
                                                             />
                                                             <div className="o-form__input-icon" onClick={showPass}>
@@ -290,15 +274,15 @@ export const ProfilePage = () => {
                                                             </div>
                                                         </div>
                                                     </div>
-                                                    <button className="o-form__action btn btn-dark">
-                                                        Обновить
-                                                    </button>
-                                                </form>
+                                                </div>
+                                                <button onClick={newPassword} className="sdf">
+                                                    Обновить
+                                                </button>
                                             </div>
 
                                         </div>
                                     </li>
-                                    <li className="task-step --th-creator" id='words' onClick={handleEdit}>
+                                    <li className="task-step" id='words' onClick={handleEdit}>
                                         <div className="task-step__header">
                                             <h4 className="task-step__title">Телеграмм бот</h4>
                                         </div>
@@ -307,7 +291,21 @@ export const ProfilePage = () => {
                                                 Бот для повторения в <a className=" app-area-text words" title="Telegram" href="https://telegram.me/learnewru_bot" target="_blank" rel="noreferrer" >телеграмм</a>
                                             </p>
                                             <p className="task-step__text">
-                                                Ваш токен доступа: {!!token && <i>{token.token}</i>}
+                                                Ваш токен доступа: <br />
+                                                {!!token &&
+                                                    <>
+                                                        <p className="token" >{token.token}</p>
+                                                        <button className="o-form__action btn btn-dark" onClick={() => {
+                                                            navigator.clipboard.writeText(document.querySelector('.token').innerText)
+                                                                .then(() => {
+                                                                    message('Скопировано', true);
+                                                                })
+                                                                .catch(error => {
+                                                                    console.error(`Текст не скопирован ${error}`);
+                                                                    message(`Текст не скопирован ${error}`, false);
+                                                                })
+                                                        }} >Copy</button>
+                                                    </>}
                                             </p>
 
                                             {

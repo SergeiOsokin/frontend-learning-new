@@ -981,3 +981,7 @@ button:disabled {
 .hidden {
   display: none
 }
+
+.token {
+  overflow-wrap: anywhere;
+}
