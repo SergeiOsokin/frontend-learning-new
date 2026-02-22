@@ -48,38 +48,37 @@ export const ProfilePage = () => {
         }
     };
 
-    const getToken = async function fetchData() {
-        try {
-            const data = await request(`/lk/token`, 'GET', {
-                email: 'tgb@tgb.ru'
-            });
-            if (data.hasOwnProperty('error')) {
-                message(data.message || data.error, false);
-                return;
-            };
-            setToken(data);
-        } catch (err) {
-            message(err, false);
-        }
-    }
+    // const getToken = async function fetchData() {
+    //     try {
+    //         const data = await request(`/lk/token`, 'GET', {
+    //             email: 'tgb@tgb.ru'
+    //         });
+    //         if (data.hasOwnProperty('error')) {
+    //             message(data.message || data.error, false);
+    //             return;
+    //         };
+    //         setToken(data);
+    //     } catch (err) {
+    //         message(err, false);
+    //     }
+    // }
 
-    const handleSubmitDelete = useCallback(async (e) => {
-        try {
-            const data = await request(`/task/delete/$id}`, 'DELETE', {});
-            if (data.hasOwnProperty('error')) {
-                message(data.message || data.error, false);
-                return;
-            }
-            message(data.message, true);
-            setDeleteModal(false);
-            history.push('/education/teacher')
-        } catch (error) {
-            message(error, false);
-        }
-    }, []);
+    // const handleSubmitDelete = useCallback(async (e) => {
+    //     try {
+    //         const data = await request(`/task/delete/$id}`, 'DELETE', {});
+    //         if (data.hasOwnProperty('error')) {
+    //             message(data.message || data.error, false);
+    //             return;
+    //         }
+    //         message(data.message, true);
+    //         setDeleteModal(false);
+    //         history.push('/education/teacher')
+    //     } catch (error) {
+    //         message(error, false);
+    //     }
+    // }, []);
 
-    const newPassword = async e => {
-        console.log(e.preventDefault())
+    const newPassword = (async (e) => {
         e.preventDefault();
         if (form.passwordNew === form.passwordConfirm) {
             try {
@@ -94,34 +93,34 @@ export const ProfilePage = () => {
         } else {
             message('Новый пароль и подтверждение пароля не совпадают', false);
         }
-    };
+    });
 
-    const handleDeleteUser = useCallback(async (e) => {
-        e.preventDefault();
-        try {
-            const data = await request(`/task/unappoint/`, 'POST', {
-                user: e.target.closest('.pin').getAttribute('user')
-            });
-            if (data.hasOwnProperty('error')) {
-                message(data.message || data.error, false);
-                return;
-            }
-        } catch (err) {
-            message(err, false);
-        }
-    }, [])
+    // const handleDeleteUser = useCallback(async (e) => {
+    //     e.preventDefault();
+    //     try {
+    //         const data = await request(`/task/unappoint/`, 'POST', {
+    //             user: e.target.closest('.pin').getAttribute('user')
+    //         });
+    //         if (data.hasOwnProperty('error')) {
+    //             message(data.message || data.error, false);
+    //             return;
+    //         }
+    //     } catch (err) {
+    //         message(err, false);
+    //     }
+    // }, [])
 
     const changeHandler = (e) => {
         setForm({ ...form, [e.target.name]: e.target.value });
-        // validationInputs(e);
+        validationInputs(e);
     };
 
-    const changeHandlerUser = (e) => {
-        setUser({ ...user, [e.target.name]: e.target.value });
-        // if (e.target.type === 'textarea') { autoResize(e.target.name) }
-        // autoResize(e.target.name)
-        // validationInputs(e);
-    }
+    // const changeHandlerUser = (e) => {
+    //     setUser({ ...user, [e.target.name]: e.target.value });
+    //     // if (e.target.type === 'textarea') { autoResize(e.target.name) }
+    //     // autoResize(e.target.name)
+    //     // validationInputs(e);
+    // }
 
     const handleEdit = (e) => {
         switch (e.target.id) {
@@ -140,23 +139,23 @@ export const ProfilePage = () => {
         }
     }
 
-    const handleSubmit = (async (e) => {
-        e.preventDefault()
-        try {
-            const data = await request(`/task/patch/`, 'PATCH');
-            if (data.hasOwnProperty('error')) {
-                message(data.message || data.error, false);
-                return;
-            }
-            message(data.message, true);
-        } catch (err) {
-            message(err, false);
-        }
-    });
+    // const handleSubmit = (async (e) => {
+    //     e.preventDefault()
+    //     try {
+    //         const data = await request(`/task/patch/`, 'PATCH');
+    //         if (data.hasOwnProperty('error')) {
+    //             message(data.message || data.error, false);
+    //             return;
+    //         }
+    //         message(data.message, true);
+    //     } catch (err) {
+    //         message(err, false);
+    //     }
+    // });
 
-    const handleCancel = () => {
-        history.push('/education/teacher')
-    }
+    // const handleCancel = () => {
+    //     history.push('/education/teacher')
+    // }
 
     const showPass = (e) => {
         document.querySelectorAll('.password').forEach((e, i) => {
@@ -172,22 +171,23 @@ export const ProfilePage = () => {
 
     return (
         <>
-            <div className="app-inner">
-                <Aside />
+            <>
+                <div className="app-inner">
+                    <Aside />
 
-                <main className="app-main">
-                    <header className="app-main__top">
-                        <div className="app-main__left">
-                            <h1 className="app-main__title">Профиль</h1>
-                        </div>
-                        <div className="app-main__right">
-                            <div className="app-main__search search" />
-                        </div>
-                    </header>
+                    <main className="app-main">
+                        <header className="app-main__top">
+                            <div className="app-main__left">
+                                <h1 className="app-main__title">Профиль</h1>
+                            </div>
+                            <div className="app-main__right">
+                                <div className="app-main__search search" />
+                            </div>
+                        </header>
 
-                    {loading && <Loader />}
+                        {loading && <Loader />}
 
-                    {!loading &&
+                        {/* {!loading && */}
                         <main className="app-main__mid">
                             <section className="task-more">
                                 <ul className="task-more__list">
@@ -197,7 +197,7 @@ export const ProfilePage = () => {
                                         </div>
                                         <div className="task-step__body body_rules --th-disabled">
                                             <div className="task-step__text">
-                                                <div className="o-form" autoComplete='off'>
+                                                <form className="o-form o-form-new-password" autoComplete='off'>
                                                     <div className="o-form__inner">
                                                         <div className="o-form__input">
                                                             <input
@@ -205,6 +205,7 @@ export const ProfilePage = () => {
                                                                 id="password"
                                                                 type="password"
                                                                 placeholder="Старый пароль"
+                                                                autoComplete="off"
                                                                 name="passwordOld"
                                                                 required minLength="6"
                                                                 onChange={changeHandler}
@@ -274,10 +275,10 @@ export const ProfilePage = () => {
                                                             </div>
                                                         </div>
                                                     </div>
-                                                </div>
-                                                <button onClick={newPassword} className="sdf">
-                                                    Обновить
-                                                </button>
+                                                    <button onClick={newPassword} className="o-form__action btn btn-dark">
+                                                        Обновить
+                                                    </button>
+                                                </form>
                                             </div>
 
                                         </div>
@@ -322,10 +323,11 @@ export const ProfilePage = () => {
 
                             </section>
                         </main>
-                    }
-                    <FooterInner />
-                </main>
-            </div>
+                        {/* } */}
+                        <FooterInner />
+                    </main>
+                </div>
+            </>
         </>
     )
 }
