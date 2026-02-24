@@ -18,7 +18,7 @@ export const useHttp = () => {
         try {
             const response = await fetch(`${host}${url}`, params);
             const data = await response.json();
-            
+
             setLoading(false);
             return data;
         } catch (error) {

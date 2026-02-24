@@ -9,13 +9,11 @@ import { Footer } from './components/Footer';
 import { MobileMenu } from './components/MobileMenu';
 
 const App = () => {
-  const { login, logout, authorization } = useAuth();
+  const { userId, login, logout, authorization } = useAuth();
 
   return (
-    <AuthContext.Provider value={{login, logout, authorization}}>
-      {/* <Header /> */}
+    <AuthContext.Provider value={{userId, login, logout, authorization}}>
       <Main />
-      {/* <Footer /> */}
       <MobileMenu />
     </AuthContext.Provider>
   )

@@ -19,7 +19,6 @@ export const ProfilePage = () => {
     const [resetPsw, setResetPsw] = useState(false);
     const { validationInputs } = validation();
     const [form, setForm] = useState({
-        email: 'tgb@tgb.ru',
         passwordOld: '',
         passwordNew: '',
         passwordConfirm: ''
@@ -35,9 +34,7 @@ export const ProfilePage = () => {
 
     const genToken = async function fetchData() {
         try {
-            const data = await request(`/lk/gen/token`, 'POST', {
-                email: 'tgb@tgb.ru'
-            });
+            const data = await request(`/lk/gen/token`, 'POST');
             if (data.hasOwnProperty('error')) {
                 message(data.message || data.error, false);
                 return;
@@ -48,36 +45,6 @@ export const ProfilePage = () => {
         }
     };
 
-    // const getToken = async function fetchData() {
-    //     try {
-    //         const data = await request(`/lk/token`, 'GET', {
-    //             email: 'tgb@tgb.ru'
-    //         });
-    //         if (data.hasOwnProperty('error')) {
-    //             message(data.message || data.error, false);
-    //             return;
-    //         };
-    //         setToken(data);
-    //     } catch (err) {
-    //         message(err, false);
-    //     }
-    // }
-
-    // const handleSubmitDelete = useCallback(async (e) => {
-    //     try {
-    //         const data = await request(`/task/delete/$id}`, 'DELETE', {});
-    //         if (data.hasOwnProperty('error')) {
-    //             message(data.message || data.error, false);
-    //             return;
-    //         }
-    //         message(data.message, true);
-    //         setDeleteModal(false);
-    //         history.push('/education/teacher')
-    //     } catch (error) {
-    //         message(error, false);
-    //     }
-    // }, []);
-
     const newPassword = (async (e) => {
         e.preventDefault();
         if (form.passwordNew === form.passwordConfirm) {
@@ -87,6 +54,9 @@ export const ProfilePage = () => {
                     return message(data.message || data.error, false);
                 }
                 message(data.message, true);
+                setTimeout(() => {
+                    logout()
+                }, 2000)
             } catch (error) {
                 message(error, false);
             }
@@ -95,32 +65,10 @@ export const ProfilePage = () => {
         }
     });
 
-    // const handleDeleteUser = useCallback(async (e) => {
-    //     e.preventDefault();
-    //     try {
-    //         const data = await request(`/task/unappoint/`, 'POST', {
-    //             user: e.target.closest('.pin').getAttribute('user')
-    //         });
-    //         if (data.hasOwnProperty('error')) {
-    //             message(data.message || data.error, false);
-    //             return;
-    //         }
-    //     } catch (err) {
-    //         message(err, false);
-    //     }
-    // }, [])
-
     const changeHandler = (e) => {
         setForm({ ...form, [e.target.name]: e.target.value });
         validationInputs(e);
     };
-
-    // const changeHandlerUser = (e) => {
-    //     setUser({ ...user, [e.target.name]: e.target.value });
-    //     // if (e.target.type === 'textarea') { autoResize(e.target.name) }
-    //     // autoResize(e.target.name)
-    //     // validationInputs(e);
-    // }
 
     const handleEdit = (e) => {
         switch (e.target.id) {
@@ -138,24 +86,6 @@ export const ProfilePage = () => {
 
         }
     }
-
-    // const handleSubmit = (async (e) => {
-    //     e.preventDefault()
-    //     try {
-    //         const data = await request(`/task/patch/`, 'PATCH');
-    //         if (data.hasOwnProperty('error')) {
-    //             message(data.message || data.error, false);
-    //             return;
-    //         }
-    //         message(data.message, true);
-    //     } catch (err) {
-    //         message(err, false);
-    //     }
-    // });
-
-    // const handleCancel = () => {
-    //     history.push('/education/teacher')
-    // }
 
     const showPass = (e) => {
         document.querySelectorAll('.password').forEach((e, i) => {
@@ -185,7 +115,7 @@ export const ProfilePage = () => {
                             </div>
                         </header>
 
-                        {loading && <Loader />}
+                        {/* {loading && <Loader />} */}
 
                         {/* {!loading && */}
                         <main className="app-main__mid">
