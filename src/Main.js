@@ -27,7 +27,7 @@ import { ResetForm } from './components/ResetForm';
 const Main = () => {
     const { authorization, logout } = useContext(AuthContext); // получаем контекст в объекте auth
     var pjson = require('../package.json');
-    // console.log(pjson.version);
+    console.log(pjson.version);
 
     function requireAuth(nextState, replace, next) {
         if (!authorization) {
