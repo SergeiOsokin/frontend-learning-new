@@ -36,6 +36,7 @@ export const FormAuth = () => {
             }
             history.push('/wordslist');
             auth.login(data); // передаем полученные данные в auth.hook
+            auth.userId = data.user;
         } catch (error) {
             message(error, false);
         }

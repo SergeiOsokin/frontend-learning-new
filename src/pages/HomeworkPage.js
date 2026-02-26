@@ -31,7 +31,6 @@ export const HomeworkPage = () => {
                 return;
             }
             setTasks(data);
-            console.log(data.length)
         } catch (error) {
             message(error, false)
         }

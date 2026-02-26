@@ -36,6 +36,9 @@
   width: 100%;
   height: auto;
   position: relative;
+  background-color: #F6F6F1;
+  border-radius: 5px;
+  padding-left: 5px;
 }
 .app-area-text::placeholder {
   color: #939393;

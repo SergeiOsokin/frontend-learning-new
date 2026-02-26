@@ -81,8 +81,6 @@ export const FlashCard = ({ wordsArr }) => {
         checkAnswer(e);
     }
 
-    console.log(arrayWords.length)
-
     return (
         <>
             {isFinish && <FinishQuize result={result} />}
