@@ -30,7 +30,6 @@ const Main = () => {
     // console.log(pjson.version);
 
     function requireAuth(nextState, replace, next) {
-        console.log('Тута')
         if (!authorization) {
             replace({
                 pathname: "/login",

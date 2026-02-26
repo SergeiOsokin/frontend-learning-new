@@ -39,7 +39,6 @@ export const WordFormChange = ({ wordInfo, setActive }) => {
 
     const handleSubmit = (async (e) => {
         e.preventDefault();
-        console.log(word)
         try {
             const data = await request(`/words/patch/${word.id}`, 'PATCH', word);
             if (data.hasOwnProperty('error')) {

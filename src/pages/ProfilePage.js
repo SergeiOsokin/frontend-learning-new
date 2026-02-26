@@ -225,7 +225,7 @@ export const ProfilePage = () => {
                                                 Ваш токен доступа: <br />
                                                 {!!token &&
                                                     <>
-                                                        <p className="token" >{token.token}</p>
+                                                        <i className="token" >{token.token}</i>
                                                         <button className="o-form__action btn btn-dark" onClick={() => {
                                                             navigator.clipboard.writeText(document.querySelector('.token').innerText)
                                                                 .then(() => {

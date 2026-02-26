@@ -68,7 +68,6 @@ export const HomeworkCard = () => {
     }
 
     const handleFinished = (async (e) => {
-        console.log(task.id)
         e.preventDefault();
         try {
             const data = await request(`/homework/finised/${task.id}`, 'POST');
