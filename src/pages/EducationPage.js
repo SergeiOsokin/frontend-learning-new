@@ -17,6 +17,9 @@ export const EducationPage = () => {
             case 'student':
                 history.push('/education/student')
                 break;
+            case 'call':
+                history.push('/education/call')
+                break;
             default:
         }
     }
@@ -52,6 +55,15 @@ export const EducationPage = () => {
                                         <span className="role-card__title">Ученик</span>
                                         <span className="role-card__text">
                                             Выполнить задачи
+                                        </span>
+                                    </button>
+                                </li>
+                                <li className="role-card --th-teacher">
+                                    <button className="role-card__btn" name='call' onClick={handleCheckRole}>
+                                        <span className="role-card__img" />
+                                        <span className="role-card__title">Конференции</span>
+                                        <span className="role-card__text">
+                                            Обучать онлайн
                                         </span>
                                     </button>
                                 </li>

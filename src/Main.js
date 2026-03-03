@@ -63,7 +63,7 @@ const Main = () => {
 
             <Route exact path='/education' component={EducationPage} />
 
-            <Route exact path='/room/:id' component={RoomPage} />
+            <Route exact path='/education/call' component={RoomPage} />
 
             <Route exact path='/profile' component={ProfilePage} />
 
