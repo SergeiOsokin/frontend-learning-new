@@ -16,11 +16,13 @@ export const RoomPage = () => {
     const history = useHistory();
     const [rooms, setRooms] = useState();
 
-    useLayoutEffect(() => {
-        socket.on(ACTIONS.SHARE_ROOMS, ({ rooms = [] } = {}) => {
+    useEffect(() => {
+        socket.on(ACTIONS.SHARE_ROOMS, (rooms) => {
+            console.log(rooms);
             setRooms(rooms)
         });
 
+        console.log(rooms);
         console.log(socket);
     }, [])
 
@@ -44,7 +46,10 @@ export const RoomPage = () => {
 
                         <ul className="app-cards__inner">
                             <li className="app-cards__item">
-                                <button className="card-add" onClick={() => { console.log(rooms) }}>
+                                <button className="card-add" onClick={() => {
+
+                                    history.push(`/room/${v4()}`)
+                                }}>
                                     <svg className="card-add__icon" viewBox="0 0 24 24" fill="none">
                                         <path
                                             d="M5 12H19M12 19V5"
