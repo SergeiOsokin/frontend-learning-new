@@ -10,14 +10,14 @@ export const Room = () => {
     const { id: roomID } = useParams();
     const { clients, provideMediaRef } = useWebRTC(roomID);
 
-    console.log(clients)
+    console.log('clients: ' + clients)
 
 
 
     return (
         <>
             <>
-                <div className="app-inner">
+                <div className="app-inner" >
                     <Aside />
 
                     <main className="app-main">
@@ -38,6 +38,8 @@ export const Room = () => {
                                         //     <div className="card card-note">
                                         <video
                                             // className="card-note__top"
+                                            key={clientID + 1}
+                                            info={clientID}
                                             autoPlay
                                             playsInline
                                             muted={clientID === LOCAL_VIDEO}
@@ -45,7 +47,6 @@ export const Room = () => {
                                                 provideMediaRef(clientID, instance)
                                             }}
                                         >
-                                            asd
                                         </video>
                                         //         <div className="card-note__content">
                                         //             <h3 className="card-note__title">uuid</h3>
