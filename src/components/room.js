@@ -10,9 +10,32 @@ export const Room = () => {
     const { id: roomID } = useParams();
     const { clients, provideMediaRef } = useWebRTC(roomID);
 
-    console.log('clients: ' + clients)
-
-
+    // return (
+    //     <div style={{
+    //         display: 'flex',
+    //         alignItems: 'center',
+    //         justifyContent: 'center',
+    //         flexWrap: 'wrap',
+    //         height: '100vh',
+    //     }}>
+    //         {clients.map((clientID, index) => {
+    //             return (
+    //                 <div key={clientID} id={clientID}>
+    //                     <video
+    //                         width='100%'
+    //                         height='100%'
+    //                         ref={instance => {
+    //                             provideMediaRef(clientID, instance);
+    //                         }}
+    //                         autoPlay
+    //                         playsInline
+    //                         muted={clientID === LOCAL_VIDEO}
+    //                     />
+    //                 </div>
+    //             );
+    //         })}
+    //     </div>
+    // );
 
     return (
         <>
@@ -34,35 +57,32 @@ export const Room = () => {
                             {clients
                                 .map((clientID) => {
                                     return (
-                                        // <li className="app-cards__item" key={clientID}>
-                                        //     <div className="card card-note">
-                                        <video
-                                            // className="card-note__top"
-                                            key={clientID + 1}
-                                            info={clientID}
-                                            autoPlay
-                                            playsInline
-                                            muted={clientID === LOCAL_VIDEO}
-                                            ref={instance => {
-                                                provideMediaRef(clientID, instance)
-                                            }}
-                                        >
-                                        </video>
-                                        //         <div className="card-note__content">
-                                        //             <h3 className="card-note__title">uuid</h3>
-                                        //             <p className="card-note__text">
-                                        //                 {clientID}
-                                        //             </p>
-                                        //         </div>
-                                        //     </div>
-                                        // </li>
+                                        <li className="app-cards__item" key={clientID}>
+                                            <div className="video video-card">
+                                                <video
+                                                    width='100%'
+                                                    height='100%'
+                                                    key={clientID + 1}
+                                                    info={clientID}
+                                                    autoPlay
+                                                    playsInline
+                                                    muted={clientID === LOCAL_VIDEO}
+                                                    ref={instance => {
+                                                        provideMediaRef(clientID, instance)
+                                                    }}
+                                                >
+                                                </video>
+                                                {/* <div className="card-note__content">
+                                                    <h3 className="card-note__title">uuid</h3>
+                                                    <p className="card-note__text">
+                                                        {clientID}
+                                                    </p>
+                                                </div> */}
+                                            </div>
+                                        </li>
                                     )
                                 })}
                         </div>
-
-                        {/* <ul className="app-cards__inner"> */}
-
-                        {/* </ul> */}
 
                         <FooterInner />
                     </main>

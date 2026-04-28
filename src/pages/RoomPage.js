@@ -9,7 +9,7 @@ import { Aside } from '../components/Aside';
 import { autoResize } from '../hooks/autoResize.hook';
 import { FooterInner } from '../components/Footer';
 import { AuthContext } from '../context/AuthContext';
-import { ACTIONS } from '../constants/const';
+import { STEP } from '../constants/const';
 import { v4 } from 'uuid';
 
 export const RoomPage = () => {
@@ -18,16 +18,12 @@ export const RoomPage = () => {
     const rootNode = useRef();
 
     useEffect(() => {
-        socket.on(ACTIONS.SHARE_ROOMS, ({ rooms = [] } = {}) => {
-
+        socket.on(STEP.SHARE_ROOMS, ({ rooms = [] } = {}) => {
             if (rootNode.current) {
                 updateRooms(rooms);
             }
         });
-
-        console.log(rooms);
-        console.log(socket);
-    }, [])
+    }, []);
 
     return (
         <>
@@ -38,7 +34,7 @@ export const RoomPage = () => {
                     <main className="app-main">
                         <header className="app-main__top">
                             <div className="app-main__left">
-                                <h1 className="app-main__title">Видеоча</h1>
+                                <h1 className="app-main__title">Видеочат</h1>
                             </div>
                             <div className="app-main__right">
                                 <div className="app-main__search search" />
@@ -50,7 +46,6 @@ export const RoomPage = () => {
                         <ul className="app-cards__inner">
                             <li className="app-cards__item">
                                 <button className="card-add" onClick={() => {
-
                                     history.push(`/room/${v4()}`)
                                 }}>
                                     <svg className="card-add__icon" viewBox="0 0 24 24" fill="none">

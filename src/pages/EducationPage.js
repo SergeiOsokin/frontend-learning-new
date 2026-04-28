@@ -58,15 +58,6 @@ export const EducationPage = () => {
                                         </span>
                                     </button>
                                 </li>
-                                <li className="role-card --th-teacher">
-                                    <button className="role-card__btn" name='call' onClick={handleCheckRole}>
-                                        <span className="role-card__img" />
-                                        <span className="role-card__title">Конференции</span>
-                                        <span className="role-card__text">
-                                            Обучать онлайн
-                                        </span>
-                                    </button>
-                                </li>
                             </ul>
                         </section>
                     </main>

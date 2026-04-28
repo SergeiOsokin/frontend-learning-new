@@ -2,7 +2,7 @@
 export const host = 'http://localhost:3000/api'
 export const hostWS = 'http://localhost:3001'
 
-export const ACTIONS = {
+export const STEP = {
     JOIN: 'join',
     LEAVE: 'leave',
     SHARE_ROOMS: 'share-rooms',
