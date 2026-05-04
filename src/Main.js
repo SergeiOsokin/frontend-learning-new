@@ -25,6 +25,7 @@ import { ProfilePage } from './pages/ProfilePage';
 import { ResetForm } from './components/ResetForm';
 import { RoomPage } from './pages/RoomPage';
 import { Room } from './components/room';
+import { BasePage } from './pages/BasePage';
 
 const Main = () => {
     const { authorization, logout } = useContext(AuthContext); // получаем контекст в объекте auth
@@ -61,6 +62,8 @@ const Main = () => {
             <Route exact path='/registration' component={FormReg} />
             <Route exact path='/categories' component={Categories} />
             <Route exact path='/recover' component={ResetForm} />
+
+            <Route exact path='/base' component={BasePage} />
 
             <Route exact path='/education' component={EducationPage} />
 
