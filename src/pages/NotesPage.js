@@ -1,10 +1,7 @@
 import React, { useState, useEffect, useLayoutEffect, useCallback } from 'react';
-import { NavNoteThemes } from '../components/NavNoteThemes';
 import { useHttp } from '../hooks/http.hook';
 import { useMessage } from '../hooks/message.hook';
-import { NoteCard } from '../components/NoteCard';
 import { Aside } from '../components/Aside';
-import { MobileMenu } from '../components/MobileMenu';
 import { useHistory } from 'react-router-dom/cjs/react-router-dom.min';
 import { Loader } from '../components/Loader';
 import { FooterInner } from '../components/Footer';
@@ -14,17 +11,14 @@ export const NotesPage = () => {
     const history = useHistory();
     const [deleteModal, setDeleteModal] = useState(false);
     const [noteId, setNoteId] = useState();
-    const [themes, setThemes] = useState([]);
-    const [noteCard, setNoteCardActive] = useState(false);
-    const [change, setChanged] = useState(false);
     const [active, setModalActive] = useState(false);
     const [notes, setNotes] = useState([]);
     const { loading, request } = useHttp();
-
+    const [inputValue, setInputValue] = useState('')
 
     function menuSearch() {
-        let phrase = document.querySelector('.input_topics');
-        let navItemTopics = document.querySelector('.nav__items_topics');
+        let phrase = document.querySelector('.app-search__elem');
+        let navItemTopics = document.querySelector('.app-cards__inner');
         let regPhrase = new RegExp(phrase.value, 'i');
         let flag = false;
         for (let i = 0; i < navItemTopics.children.length; i++) {
@@ -37,14 +31,15 @@ export const NotesPage = () => {
                 navItemTopics.children[i].style.display = "none";
             }
         }
+    };
+
+    const handleChange = (e) => {
+        setInputValue(e.target.value)
+        menuSearch();
     }
+
     const handleOpenNotice = (e) => {
         history.push(`/notes/open/${e.target.closest('.app-cards__item').getAttribute('info')}`);
-        // const idNote = e.target.getAttribute('info');
-        // setNoteId({
-        //     id: idNote,
-        // });
-        // setNoteCardActive(true);
     };
 
     const handleCreateNote = (e) => {
@@ -75,21 +70,6 @@ export const NotesPage = () => {
         }
     }, [noteId]);
 
-    // useEffect(() => {
-    //     async function fetchData() {
-    //         try {
-    //             const data = await request('/notes/themes', 'GET', {});
-    //             if (data === undefined) {
-    //                 return
-    //             }
-    //             setThemes(data);
-    //         } catch (error) {
-    //             message(error, false)
-    //         }
-    //     }
-    //     fetchData();
-    // }, [change]);
-
     const getNotes = async function fetchData() {
         try {
             const data = await request(`/notes/get`, 'GET', {});
@@ -104,55 +84,11 @@ export const NotesPage = () => {
     }
 
     useLayoutEffect(() => {
-        // async function fetchData() {
-        //     try {
-        //         const data = await request(`/notes/get`, 'GET', {});
-        //         if (data === undefined) {
-        //             return
-        //         }
-        //         message(data.message, true);
-        //         setNotes(data.data)
-        //     } catch (error) {
-        //         message(error, false);
-        //     }
-        // }
         getNotes();
     }, [request, active])
 
 
     return (
-        // <>
-        //     <input id="menu__toggle" type="checkbox" />
-        //     <label className="menu__btn" htmlFor="menu__toggle">
-        //         <span></span>
-        //     </label>
-        //     <section className="section-nav-topics">
-        //         <input
-        //             className="input input_topics"
-        //             type="input"
-        //             placeholder="поиск темы"
-        //             onChange={menuSearch}
-        //         />
-        //         <nav className="nav-themes">
-        // <ul className="nav__items_topics nav__items_topics">
-        //     {themes.sort((a, b) => a.id - b.id).map((theme, index) => {
-        //         return (
-        //             <li className="nav__item-li_topics nav__item-li_topics" key={index + theme.id}>
-        //                 <button
-        //                     className="nav__item-button_topics nav__item-button_topics"
-        //                     info={theme.id}
-        //                     onClick={handleClickGetNote}
-        //                 >{theme.theme}</button>
-        //             </li>
-        //         )
-        //     })}
-        // </ul>
-        //         </nav>
-        //     </section>
-
-        //     {!noteCard && <div className="section-tasks__info">Для начала работы выберите заметку или создайте новую</div>}
-        //     {noteCard && <NoteCard props={noteId} setChanged={setChanged} change={change} noteCard={noteCard} setNoteCardActive={setNoteCardActive} />}
-        // </>
         <>
             <div className="app-inner">
                 <Aside />
@@ -161,14 +97,19 @@ export const NotesPage = () => {
                         <div className="app-main__left">
                             <h1 className="app-main__title">Заметки</h1>
                         </div>
-                        {/* <div className="app-main__right">
-                            <div className="app-main__search app-search --th-empty">
+                        <div className="app-main__right">
+                            {/*  --th-empty для app-search */}
+                            <div className="app-main__search app-search --th-active">
                                 <input
                                     type="text"
                                     placeholder="Text"
                                     className="app-search__elem"
+                                    id="search"
+                                    autoComplete="off"
+                                    onChange={handleChange}
+                                    value={inputValue}
                                 />
-                                <button className="app-search__delete line-btn-dark">
+                                <button className="app-search__delete line-btn-dark" onClick={menuSearch}>
                                     <svg className="icon" viewBox="0 0 24 24" fill="none">
                                         <path
                                             d="M5 19L18.93 5M19 19L5.07 5"
@@ -190,7 +131,7 @@ export const NotesPage = () => {
                                     </svg>
                                 </div>
                             </div>
-                        </div> */}
+                        </div>
                     </header>
                     {loading && <Loader />}
 
@@ -220,7 +161,7 @@ export const NotesPage = () => {
                                                 <li className="app-cards__item" key={index + note.id} info={note.id}>
                                                     <div className="card card-note">
                                                         <div className="card-note__top">
-                                                            <p className="card-note__date">{note.date_create ? note.date_create.substring(0, 10) : '' }</p>
+                                                            <p className="card-note__date">{note.date_create ? note.date_create.substring(0, 10) : ''}</p>
                                                             <div className="card-note__actions">
                                                                 <button className="card-note__btn" onClick={handleOpenNotice}>
                                                                     <svg viewBox="0 0 24 24" fill="none">

@@ -11,17 +11,31 @@ export const HomeworkPage = () => {
     const { loading, request } = useHttp();
     const [tasks, setTasks] = useState([]);
     const history = useHistory();
-
-
-    const [taskId, setTaskId] = useState({
-        id: '',
-        theme: ''
-    });
-    const [taskCard, setTaskCardActive] = useState(false);
-    const [taskForm, setTaskFormActive] = useState(false);
-    const [change, setChanged] = useState(false);
+    const [inputValue, setInputValue] = useState('');
 
     const message = useMessage();
+
+    function menuSearch() {
+        let phrase = document.querySelector('.app-search__elem');
+        let navItemTopics = document.querySelector('.app-cards__inner');
+        let regPhrase = new RegExp(phrase.value, 'i');
+        let flag = false;
+        for (let i = 0; i < navItemTopics.children.length; i++) {
+            flag = false;
+            // проверяем, есть ли введенные символы в элемементах меню
+            flag = regPhrase.test(navItemTopics.children[i].innerHTML);
+            if (flag) {
+                navItemTopics.children[i].style.display = "";
+            } else {
+                navItemTopics.children[i].style.display = "none";
+            }
+        }
+    };
+
+    const handleChange = (e) => {
+        setInputValue(e.target.value)
+        menuSearch();
+    };
 
     const getTasks = async function fetchData() {
         try {
@@ -44,51 +58,29 @@ export const HomeworkPage = () => {
         getTasks();
     }, []);
 
-    const handleClickGet = (e) => {
-        const taskId = e.target.getAttribute('info');
-        setTaskId({
-            id: taskId,
-        });
-        setTaskCardActive(true);
-    }
-
-    const openTaskForm = () => {
-        setTaskFormActive(true)
-    }
-
-    function menuSearch() {
-        let phrase = document.querySelector('.input_tasks');
-        let navItemTopics = document.querySelector('.nav__items_tasks');
-        let regPhrase = new RegExp(phrase.value, 'i');
-        let flag = false;
-        for (let i = 0; i < navItemTopics.children.length; i++) {
-            flag = false;
-            // проверяем, есть ли введенные символы в элемементах меню
-            flag = regPhrase.test(navItemTopics.children[i].innerHTML);
-            if (flag) {
-                navItemTopics.children[i].style.display = "";
-            } else {
-                navItemTopics.children[i].style.display = "none";
-            }
-        }
-    }
-
     return (
         <>
             <div className="app-inner">
                 <Aside />
-
-
 
                 <main className="app-main">
                     <header className="app-main__top">
                         <div className="app-main__left">
                             <h1 className="app-main__title">Обучение</h1>
                         </div>
-                        {/* <div className="app-main__right">
-                            <div className="app-main__search app-search --th-empty">
-                                <input type="text" placeholder="Text" className="app-search__elem" />
-                                <button className="app-search__delete line-btn-dark">
+                        <div className="app-main__right">
+                            {/*  --th-empty для app-search */}
+                            <div className="app-main__search app-search --th-active">
+                                <input
+                                    type="text"
+                                    placeholder="Text"
+                                    className="app-search__elem"
+                                    id="search"
+                                    autoComplete="off"
+                                    onChange={handleChange}
+                                    value={inputValue}
+                                />
+                                <button className="app-search__delete line-btn-dark" onClick={menuSearch}>
                                     <svg className="icon" viewBox="0 0 24 24" fill="none">
                                         <path
                                             d="M5 19L18.93 5M19 19L5.07 5"
@@ -110,7 +102,7 @@ export const HomeworkPage = () => {
                                     </svg>
                                 </div>
                             </div>
-                        </div> */}
+                        </div>
                     </header>
 
                     {loading && <Loader />}
@@ -128,62 +120,6 @@ export const HomeworkPage = () => {
                         }
                         <section className="app-cards">
                             <ul className="app-cards__inner">
-                                {/* <li className="app-cards__item">
-                                    <div className="card card-note --th-no-text">
-                                        <div className="card-note__top">
-                                            <p className="card-note__date">
-                                                <img src={timerImg} alt="" />
-                                                <span>18.11.2025</span>
-                                            </p>
-                                            <div className="card-note__actions">
-                                                <button className="card-note__btn">
-                                                    <svg viewBox="0 0 24 24" fill="none">
-                                                        <path
-                                                            d="M5 7H19M10 10V18M14 10V18M10 3H14C14.2652 3 14.5196 3.10536 14.7071 3.29289C14.8946 3.48043 15 3.73478 15 4V7H9V4C9 3.73478 9.10536 3.48043 9.29289 3.29289C9.48043 3.10536 9.73478 3 10 3ZM6 7H18V20C18 20.2652 17.8946 20.5196 17.7071 20.7071C17.5196 20.8946 17.2652 21 17 21H7C6.73478 21 6.48043 20.8946 6.29289 20.7071C6.10536 20.5196 6 20.2652 6 20V7Z"
-                                                            stroke="currentColor"
-                                                            strokeWidth={2}
-                                                            strokeLinecap="round"
-                                                            strokeLinejoin="round"
-                                                        />
-                                                    </svg>
-                                                </button>
-                                            </div>
-                                        </div>
-                                        <div className="card-note__content">
-                                            <h3 className="card-note__title">
-                                                Articles (definite&nbsp;— the, indefinite – a/an, no article){" "}
-                                            </h3>
-                                        </div>
-                                    </div>
-                                </li>
-                                <li className="app-cards__item">
-                                    <div className="card card-note --th-no-text">
-                                        <div className="card-note__top">
-                                            <p className="card-note__date">
-                                                <img src={yesImg} alt="" />
-                                                <span>18.11.2025</span>
-                                            </p>
-                                            <div className="card-note__actions">
-                                                <button className="card-note__btn">
-                                                    <svg viewBox="0 0 24 24" fill="none">
-                                                        <path
-                                                            d="M5 7H19M10 10V18M14 10V18M10 3H14C14.2652 3 14.5196 3.10536 14.7071 3.29289C14.8946 3.48043 15 3.73478 15 4V7H9V4C9 3.73478 9.10536 3.48043 9.29289 3.29289C9.48043 3.10536 9.73478 3 10 3ZM6 7H18V20C18 20.2652 17.8946 20.5196 17.7071 20.7071C17.5196 20.8946 17.2652 21 17 21H7C6.73478 21 6.48043 20.8946 6.29289 20.7071C6.10536 20.5196 6 20.2652 6 20V7Z"
-                                                            stroke="currentColor"
-                                                            strokeWidth={2}
-                                                            strokeLinecap="round"
-                                                            strokeLinejoin="round"
-                                                        />
-                                                    </svg>
-                                                </button>
-                                            </div>
-                                        </div>
-                                        <div className="card-note__content">
-                                            <h3 className="card-note__title">
-                                                Articles (definite&nbsp;— the, indefinite – a/an, no article){" "}
-                                            </h3>
-                                        </div>
-                                    </div>
-                                </li> */}
                                 {tasks.map((task, index) => {
                                     return (
                                         <li className="app-cards__item" key={task.id} info={task.id}>

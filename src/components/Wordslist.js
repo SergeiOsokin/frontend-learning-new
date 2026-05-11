@@ -47,6 +47,22 @@ export const WordsList = () => {
         count: wordsArr.length || 0,
     });
 
+    function menuSearch() {
+        let phrase = document.querySelector('.app-search__elem');
+        let navItemTopics = document.querySelector('.app-dictionary__list');
+        let regPhrase = new RegExp(phrase.value, 'i');
+        let flag = false;
+        for (let i = 0; i < navItemTopics.children.length; i++) {
+            flag = false;
+            // проверяем, есть ли введенные символы в элемементах меню
+            flag = regPhrase.test(navItemTopics.children[i].innerHTML);
+            if (flag) {
+                navItemTopics.children[i].style.display = "";
+            } else {
+                navItemTopics.children[i].style.display = "none";
+            }
+        }
+    };
 
     async function fetchData() {
         try {
@@ -155,7 +171,6 @@ export const WordsList = () => {
     }
 
     const handleChange = (e) => {
-
         switch (e.target.value.length) {
             case 0:
                 document.querySelector('.app-search').classList.add('--th-active');
@@ -166,6 +181,7 @@ export const WordsList = () => {
 
         setInputValue(e.target.value)
         tableSearch();
+        menuSearch();
     }
 
     const handleClose = () => {
@@ -324,6 +340,7 @@ export const WordsList = () => {
                                 </div>
                                 {/* Mid */}
                                 <div className="app-dictionary__mid">
+                                    {/* Десктопный вид */}
                                     <table className="table app-dictionary__table">
                                         <thead className="table__head">
                                             <tr className="table__row">
@@ -468,11 +485,10 @@ export const WordsList = () => {
                                         // className="button button-back_to_top filters-top__edit-categories btn btn-dark-outline"
                                         onClick={handleScrollUp}
                                     >↑</button>
-
+                                    {/* Мобильный вид  */}
                                     < ul className="app-dictionary__list dictionary-mob">
                                         {wordsArr
                                             .sort((a, b) => a.id - b.id)
-                                            // .slice(firstContentIndex, lastContentIndex)
                                             .map((word, index) => {
                                                 return (
                                                     <li className="dictionary-mob__item"

@@ -117,39 +117,16 @@ export const TaskCard = () => {
     }
 
     const handleEdit = (e) => {
-        switch (e.target.id) {
-            case 'rules':
-                document.querySelector('.body_rules').classList.toggle('--th-disabled');
-                e.target.closest('.task-step').classList.toggle('--th-edited');
-                autoResize(e.target.id);
-                break;
-            case 'words':
-                document.querySelector('.body_words').classList.toggle('--th-disabled');
-                e.target.closest('.task-step').classList.toggle('--th-edited');
-                autoResize(e.target.id);
-                break;
-            case 'read':
-                document.querySelector('.body_read').classList.toggle('--th-disabled');
-                e.target.closest('.task-step').classList.toggle('--th-edited');
-                autoResize(e.target.id);
-                break;
-            case 'translate':
-                document.querySelector('.body_translate').classList.toggle('--th-disabled');
-                e.target.closest('.task-step').classList.toggle('--th-edited');
-                autoResize(e.target.id);
-                break;
-            case 'other':
-                document.querySelector('.body_other').classList.toggle('--th-disabled');
-                e.target.closest('.task-step').classList.toggle('--th-edited');
-                autoResize(e.target.id);
-                break;
-            case 'users':
-                document.querySelector('.body_users').classList.toggle('--th-disabled');
-                e.target.closest('.task-step').classList.toggle('--th-edited');
-                // autoResize(e.target.id);
-                break;
-            default:
-
+        if (!(e.target.tagName === ('TEXTAREA'))) {
+            const target = e.target.closest('.task-step');
+            // открыть / закрыть
+            e.target.closest('.task-step').children[1].classList.toggle('--th-disabled')
+            // черная рамка вокруг
+            target.classList.toggle('--th-edited');
+            // автоматическая высота
+            target.querySelector('.app-area-text').style.height = target.querySelector('.app-area-text').scrollHeight + 'px';
+        } else {
+            return;
         }
     }
 
@@ -225,7 +202,8 @@ export const TaskCard = () => {
                                     />
                                 </div>
                                 <ul className="task-more__list">
-                                    <li className="task-step --th-creator --th-edited" id='users' onClick={handleEdit}>
+                                    {/* <li className="task-step --th-creator --th-edited" id='users' onClick={handleEdit}> */}
+                                        <li className="task-step --th-creator --th-edited" id='users' >
                                         <div className="task-step__header">
                                             <h4 className="task-step__title">Назначить учеников</h4>
                                             {/* <svg className=" task-step__icon" viewBox="0 0 24 24" fill="none">
@@ -292,7 +270,6 @@ export const TaskCard = () => {
                                                 </li> */}
 
                                                 {
-
                                                     task.users.map((user, index) => {
                                                         return (
                                                             <li className="pin --th-new" key={index} user={user} >

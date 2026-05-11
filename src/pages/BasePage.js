@@ -1,64 +1,32 @@
 import React, { useEffect, useState } from 'react';
+import { useHistory } from 'react-router-dom/cjs/react-router-dom.min';
 
 import { useHttp } from '../hooks/http.hook';
 import { useMessage } from '../hooks/message.hook';
 import { Loader } from '../components/Loader';
 import { Aside } from '../components/Aside';
-import { useHistory } from 'react-router-dom/cjs/react-router-dom.min';
+import { autoResize } from '../hooks/autoResize.hook';
 import { FooterInner } from '../components/Footer';
+import { Header } from '../components/Header';
 
 export const BasePage = () => {
     const { loading, request } = useHttp();
-    const [tasks, setTasks] = useState([]);
-    const history = useHistory();
+    const [inputValue, setInputValue] = useState('')
 
-
-    const [taskId, setTaskId] = useState({
-        id: '',
-        theme: ''
-    });
-    const [taskCard, setTaskCardActive] = useState(false);
-    const [taskForm, setTaskFormActive] = useState(false);
-    const [change, setChanged] = useState(false);
-
-    const message = useMessage();
-
-    const getTasks = async function fetchData() {
-        try {
-            const data = await request('/homework/themes/all', 'GET', {});
-            if (data.hasOwnProperty('error')) {
-                message(data.message || data.error, false);
-                return;
-            }
-            setTasks(data);
-        } catch (error) {
-            message(error, false)
-        }
-    }
-
-    const handleOpenTask = (e) => {
-        history.push(`/education/student/open/${e.target.closest('.app-cards__item').getAttribute('info')}`);
-    }
-
-    useEffect(() => {
-        getTasks();
-    }, []);
-
-    const handleClickGet = (e) => {
-        const taskId = e.target.getAttribute('info');
-        setTaskId({
-            id: taskId,
-        });
-        setTaskCardActive(true);
-    }
-
-    const openTaskForm = () => {
-        setTaskFormActive(true)
+    // --th-opened --th-opened
+    const handleEdit = (e) => {
+        const target = e.target.closest('.task-step');
+        // открыть / закрыть
+        e.target.closest('.task-step').children[1].classList.toggle('--th-disabled')
+        // черная рамка вокруг
+        target.classList.toggle('--th-edited');
+        // автоматическая высота
+        target.querySelector('.app-area-text').style.height = target.querySelector('.app-area-text').scrollHeight + 'px';
     }
 
     function menuSearch() {
-        let phrase = document.querySelector('.input_tasks');
-        let navItemTopics = document.querySelector('.nav__items_tasks');
+        let phrase = document.querySelector('.app-search__elem');
+        let navItemTopics = document.querySelector('.task-more__list');
         let regPhrase = new RegExp(phrase.value, 'i');
         let flag = false;
         for (let i = 0; i < navItemTopics.children.length; i++) {
@@ -73,13 +41,18 @@ export const BasePage = () => {
         }
     }
 
+    const handleChange = (e) => {
+        setInputValue(e.target.value)
+        menuSearch();
+    }
+
     return (
         <>
             <div className="app-inner">
                 <Aside />
 
                 <main className="app-main">
-                    <header className="app-main__top">
+                    <header className="app-main__top base">
                         <div className="app-main__left">
                             <h1 className="app-main__title">Это база</h1>
                         </div>
@@ -92,10 +65,10 @@ export const BasePage = () => {
                                     className="app-search__elem"
                                     id="search"
                                     autoComplete="off"
-                                    onChange={''}
-                                    value={''}
+                                    onChange={handleChange}
+                                    value={inputValue}
                                 />
-                                <button className="app-search__delete line-btn-dark" onClick={''}>
+                                <button className="app-search__delete line-btn-dark" onClick={menuSearch}>
                                     <svg className="icon" viewBox="0 0 24 24" fill="none">
                                         <path
                                             d="M5 19L18.93 5M19 19L5.07 5"
@@ -123,61 +96,551 @@ export const BasePage = () => {
                     {loading && <Loader />}
 
                     {!loading && <main className="app-main__mid">
-                        {!tasks.length && !loading &&
-                            <section className="tasks-empty">
-                                <div
-                                    className="tasks-empty__img"
-                                    alt="Empty"
-                                />
-                                <h2 className="tasks-empty__title">Здесь пока пусто</h2>
-                            </section>
+                        <section className="task-more">
+                            <h3 className="task-more__title">{ }</h3>
+                            <ul className="task-more__list">
+                                <li className="task-step" id='rules' onClick={handleEdit}>
+                                    <div className="task-step__header">
+                                        <h4 className="task-step__title">Артикли</h4>
+                                        <svg className="task-step__icon" viewBox="0 0 16 9" fill="none">
+                                            <path
+                                                d="M15 1L8 8L1 1"
+                                                stroke="#CDCDCD"
+                                                strokeWidth={2}
+                                                strokeLinecap="round"
+                                                strokeLinejoin="round"
+                                            />
+                                        </svg>
+                                    </div>
+                                    <div className="task-step__body body_rules --th-disabled">
+                                        <p className="task-step__text">
+                                            <textarea
+                                                className=" app-area-text rules"
+                                                placeholder="Название"
 
-                        }
-                        <section className="app-cards">
-                            <ul className="app-cards__inner">
-                                {tasks.map((task, index) => {
-                                    return (
-                                        <li className="app-cards__item" key={task.id} info={task.id}>
-                                            <div className="card card-note --th-no-text">
-                                                <div className="card-note__top">
-                                                    <p className="card-note__date">
-                                                        {
-                                                            task.finished === true ?
-                                                                <span className="tasks-yes__img" /> : <span className="tasks-timer__img" />
-                                                        }
+                                                type="text"
+                                                name="rules"
+                                                defaultValue={`Артикль a/an (an используется перед гласными) может употребляться только с существительными в единственном числе.
+A/an указывает на то, что речь идет о предмете впервые, а the ― на то, что предмет нам уже знаком.
+📝 Если вместо a/an можно сказать "один из" или "какой-то", то используйте a/an, если вместо the можно сказать "тот самый" или "те самые", то используйте the.
+`
+                                                }
+                                                autoComplete="off"
+                                                disabled={true}
+                                                required maxLength="2000"
+                                            />
+                                        </p>
+                                    </div>
+                                </li>
+                                <li className="task-step" id='words' onClick={handleEdit}>
+                                    <div className="task-step__header">
+                                        <h4 className="task-step__title">Present Simple</h4>
+                                        <svg className="task-step__icon" viewBox="0 0 16 9" fill="none">
+                                            <path
+                                                d="M15 1L8 8L1 1"
+                                                stroke="#CDCDCD"
+                                                strokeWidth={2}
+                                                strokeLinecap="round"
+                                                strokeLinejoin="round"
+                                            />
+                                        </svg>
+                                    </div>
+                                    <div className="task-step__body body_words --th-disabled">
+                                        <p className="task-step__text">
+                                            <textarea
+                                                className=" app-area-text words"
+                                                placeholder="Название"
 
-                                                        <span>{task.date_appoint ? task.date_appoint.substring(0, 10) : ''}</span>
-                                                    </p>
-                                                    <div className="card-note__actions">
-                                                        <button className="card-note__btn" onClick={handleOpenTask}>
-                                                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
-                                                                <path
-                                                                    d="M21 12C21 13.2 16.97 18 12 18C7.03 18 3 13.2 3 12C3 10.8 7.03 6 12 6C16.97 6 21 10.8 21 12Z"
-                                                                    stroke="currentColor"
-                                                                    strokeWidth="2"
-                                                                    strokeLinecap="round"
-                                                                    strokeLinejoin="round"
-                                                                />
-                                                                <path
-                                                                    d="M15 12C15 12.7956 14.6839 13.5587 14.1213 14.1213C13.5587 14.6839 12.7956 15 12 15C11.2044 15 10.4413 14.6839 9.87868 14.1213C9.31607 13.5587 9 12.7956 9 12C9 11.2044 9.31607 10.4413 9.87868 9.87868C10.4413 9.31607 11.2044 9 12 9C12.7956 9 13.5587 9.31607 14.1213 9.87868C14.6839 10.4413 15 11.2044 15 12Z"
-                                                                    stroke="currentColor"
-                                                                    strokeWidth="2"
-                                                                    strokeLinecap="round"
-                                                                    strokeLinejoin="round"
-                                                                />
-                                                            </svg>
-                                                        </button>
-                                                    </div>
-                                                </div>
-                                                <div className="card-note__content">
-                                                    <h3 className="card-note__title">
-                                                        {task.theme}
-                                                    </h3>
-                                                </div>
-                                            </div>
-                                        </li>
-                                    )
-                                })}
+                                                type="text"
+                                                name="words"
+                                                defaultValue={`Используется для: 
+●	описания регулярного, повторяющегося действия. 
+👉 Пример: I drink coffee every day. — Я пью кофе каждый день.
+●	рассказа о каком-то факте. 
+👉 Пример: The sea is salty — Море соленое.
+●	будущее время, если речь идёт о чем-то по расписанию 
+👉 Пример: The film starts at 10. — Фильм начинается в 10.
+📝 Маркеры: usually (обычно), often (часто), never (никогда), always (всегда), sometimes (иногда), every day (каждый день), rarely (редко).
+Форма образования: Основная форма глагола V1`}
+                                                autoComplete="off"
+                                                disabled={true}
+                                                required maxLength="200"
+                                            />
+                                        </p>
+                                    </div>
+                                </li>
+                                <li className="task-step" id='read' onClick={handleEdit}>
+                                    <div className="task-step__header">
+                                        <h4 className="task-step__title">Past Simple</h4>
+                                        <svg className="task-step__icon" viewBox="0 0 16 9" fill="none">
+                                            <path
+                                                d="M15 1L8 8L1 1"
+                                                stroke="#CDCDCD"
+                                                strokeWidth={2}
+                                                strokeLinecap="round"
+                                                strokeLinejoin="round"
+                                            />
+                                        </svg>
+                                    </div>
+                                    <div className="task-step__body body_read --th-disabled">
+                                        <p className="task-step__text">
+                                            <textarea
+                                                className=" app-area-text read"
+                                                placeholder="Название"
+
+                                                type="text"
+                                                name="read"
+                                                defaultValue={`Используется для:  
+●	рассказа о прошлом действии, когда известно когда это произошло.  
+👉 Пример: I bought this book yesterday. — Я купила эту книгу вчера. 
+●	рассказ о действии, которое повторялось в прошлом. Например, привычки.
+👉 Пример: I rode my bike to work every day. — Каждый день я ездил на работу на своём велосипеде.
+●	рассказа историй.  
+👉 Пример: He viewed my profile on LinkedIn. Soon afterwards, I received a message with an invitation for an interview. — Он просмотрел мой профиль на LinkedIn. Вскоре после этого я получил сообщение с приглашением на собеседование.
+📝 Маркеры: yesterday (вчера), an hour ago (час назад), last week (на прошлой неделе), the other (day на днях), in 2023 (в 2023 году). 
+Форма образования: V2 (-ed) `}
+                                                autoComplete="off"
+                                                disabled={true}
+                                                required maxLength="500"
+                                            />
+                                        </p>
+                                    </div>
+                                </li>
+                                <li className="task-step" id='translate' onClick={handleEdit}>
+                                    <div className="task-step__header">
+                                        <h4 className="task-step__title">Future Simple</h4>
+                                        <svg className="task-step__icon" viewBox="0 0 16 9" fill="none">
+                                            <path
+                                                d="M15 1L8 8L1 1"
+                                                stroke="#CDCDCD"
+                                                strokeWidth={2}
+                                                strokeLinecap="round"
+                                                strokeLinejoin="round"
+                                            />
+                                        </svg>
+                                    </div>
+                                    <div className="task-step__body body_translate --th-disabled">
+                                        <p className="task-step__text">
+                                            <textarea
+                                                className=" app-area-text translate"
+                                                placeholder="Название"
+
+                                                type="text"
+                                                name="translate"
+                                                defaultValue={`Используется для:  
+●	описания событий, которые будут происходить в будущем.   
+👉 Пример: : I will probably go to Europe next year. — В следующем году я возможно отправлюсь в Европу. 
+●	описания будущего факта.  
+👉 Пример: The sun will rise at 6 a.m. tomorrow. — Солнце взойдёт завтра в 6 утра.
+●	описания предположения или прогнозов.   
+👉 Пример: I think she will win the competition . — Я думаю, она победит в соревновании.
+●	описания намерения возникшее в момент речи (спонтанное решение).   
+👉 Пример: I’m thirsty. I will buy some water - Я хочу пить. Куплю воды.
+📝 Маркеры: tomorrow (завтра), tonight (сегодня вечером), soon (скоро), next time (в следующий раз), in five years (через пять лет), in 2025 (в 2025 году). 
+Форма образования: will + V1 `}
+                                                autoComplete="off"
+                                                disabled={true}
+                                                required maxLength="500"
+                                            />
+                                        </p>
+                                    </div>
+                                </li>
+                                <li className="task-step" id='other' onClick={handleEdit}>
+                                    <div className="task-step__header">
+                                        <h4 className="task-step__title">Present Continuous</h4>
+                                        <svg className="task-step__icon" viewBox="0 0 16 9" fill="none">
+                                            <path
+                                                d="M15 1L8 8L1 1"
+                                                stroke="#CDCDCD"
+                                                strokeWidth={2}
+                                                strokeLinecap="round"
+                                                strokeLinejoin="round"
+                                            />
+                                        </svg>
+                                    </div>
+                                    <div className="task-step__body body_other --th-disabled">
+                                        <p className="task-step__text">
+                                            <textarea
+                                                className=" app-area-text other"
+                                                placeholder="Название"
+
+                                                type="text"
+                                                name="other"
+                                                defaultValue={`Используется для:  
+● описания действий, происходящих в настоящий момент или в текущий период времени. 
+👉 Пример: I'm covering for Lana this week because she's sick. — Я подменяю Лану на неделе, потому что она болеет.
+● сообщить о заранее намеченных планах или твёрдых намерениях на будущее.. 
+👉Пример: I am going on vacation in September. — Я поеду в отпуск в сентябре.
+● обозначения процессов, которые развиваются или меняются прямо сейчас.
+👉 Пример: The edtech market is growing rapidly — EdTech-рынок растёт стремительно.
+● выразить недовольство или раздражение по поводу чьих‑либо повторяющихся действий.. 
+👉 Пример: She's always trying to make me do her job for her. — Она всегда пытается заставить меня делать за неё её работу. 
+📝 Маркеры: all day (весь день), this week (на этой неделе), all the time (всё время), always (всегда), constantly (постоянно). 
+Форма образования: to be + Ving.`}
+                                                autoComplete="off"
+                                                disabled={true}
+                                                required maxLength="300"
+                                            />
+                                        </p>
+                                    </div>
+                                </li>
+                                <li className="task-step" id='other' onClick={handleEdit}>
+                                    <div className="task-step__header">
+                                        <h4 className="task-step__title">Past Continuous</h4>
+                                        <svg className="task-step__icon" viewBox="0 0 16 9" fill="none">
+                                            <path
+                                                d="M15 1L8 8L1 1"
+                                                stroke="#CDCDCD"
+                                                strokeWidth={2}
+                                                strokeLinecap="round"
+                                                strokeLinejoin="round"
+                                            />
+                                        </svg>
+                                    </div>
+                                    <div className="task-step__body body_other --th-disabled">
+                                        <p className="task-step__text">
+                                            <textarea
+                                                className=" app-area-text other"
+                                                placeholder="Название"
+
+                                                type="text"
+                                                name="other"
+                                                defaultValue={`Используется для: 
+●	описания действия, которое продолжалось в течение определённого периода в прошлом.  
+👉 Пример: I was reading this book all day yesterday. — Я вчера целый день читала эту книгу. 
+●	подчеркнуть, что действие находилось в процессе выполнения в конкретный момент в прошлом.  
+👉  Пример: I was eating yesterday at 7 p.m. — Вчера в 7 часов вечера я ел.
+📝 Маркеры: all day (весь день), all the time (всё время). 
+Форма образования: was/were + Ving. `}
+                                                autoComplete="off"
+                                                disabled={true}
+                                                required maxLength="300"
+                                            />
+                                        </p>
+                                    </div>
+                                </li>
+                                <li className="task-step" id='other' onClick={handleEdit}>
+                                    <div className="task-step__header">
+                                        <h4 className="task-step__title">Future Continuous</h4>
+                                        <svg className="task-step__icon" viewBox="0 0 16 9" fill="none">
+                                            <path
+                                                d="M15 1L8 8L1 1"
+                                                stroke="#CDCDCD"
+                                                strokeWidth={2}
+                                                strokeLinecap="round"
+                                                strokeLinejoin="round"
+                                            />
+                                        </svg>
+                                    </div>
+                                    <div className="task-step__body body_other --th-disabled">
+                                        <p className="task-step__text">
+                                            <textarea
+                                                className=" app-area-text other"
+                                                placeholder="Название"
+
+                                                type="text"
+                                                name="other"
+                                                defaultValue={`Используется для:
+●	рассказа о действии, которое будет длиться в определённый момент в будущем. 
+👉 Пример: Tomorrow morning I will be taking the English exam. — Завтра утром я буду сдавать экзамен по английскому языку. 
+📝 Маркеры: tomorrow morning (завтра утром), all day tomorrow (целый день завтра), next week (на следующей неделе).
+Форма образования: will be + Ving.`}
+                                                autoComplete="off"
+                                                disabled={true}
+                                                required maxLength="300"
+                                            />
+                                        </p>
+                                    </div>
+                                </li>
+                                <li className="task-step" id='other' onClick={handleEdit}>
+                                    <div className="task-step__header">
+                                        <h4 className="task-step__title">Present Perfect</h4>
+                                        <svg className="task-step__icon" viewBox="0 0 16 9" fill="none">
+                                            <path
+                                                d="M15 1L8 8L1 1"
+                                                stroke="#CDCDCD"
+                                                strokeWidth={2}
+                                                strokeLinecap="round"
+                                                strokeLinejoin="round"
+                                            />
+                                        </svg>
+                                    </div>
+                                    <div className="task-step__body body_other --th-disabled">
+                                        <p className="task-step__text">
+                                            <textarea
+                                                className=" app-area-text other"
+                                                placeholder="Название"
+
+                                                type="text"
+                                                name="other"
+                                                defaultValue={`Используется для: 
+●	описания личного опыта.   
+👉 Пример: I have been to Italy twice. — Я два раза была в Италии.
+●	рассказа о результате.   
+👉 Пример: My car has broken down. — Моя машина сломалась.
+●	описания достижений.   
+👉 Пример: He has won 15 gold medals. — Он завоевал 15 золотых медалей.
+●	описания действия или состояния, которое началось в прошлом и не закончилось до сих пор.   
+👉 Пример: I've lived here since 2015 — Я живу здесь с 2015 года. 
+📝 Маркеры: never (никогда), yet (ещё), already (уже), recently (недавно).
+Форма образования: have/has + V3 (-ed)`}
+                                                autoComplete="off"
+                                                disabled={true}
+                                                required maxLength="300"
+                                            />
+                                        </p>
+                                    </div>
+                                </li>
+                                <li className="task-step" id='other' onClick={handleEdit}>
+                                    <div className="task-step__header">
+                                        <h4 className="task-step__title">Past Perfect</h4>
+                                        <svg className="task-step__icon" viewBox="0 0 16 9" fill="none">
+                                            <path
+                                                d="M15 1L8 8L1 1"
+                                                stroke="#CDCDCD"
+                                                strokeWidth={2}
+                                                strokeLinecap="round"
+                                                strokeLinejoin="round"
+                                            />
+                                        </svg>
+                                    </div>
+                                    <div className="task-step__body body_other --th-disabled">
+                                        <p className="task-step__text">
+                                            <textarea
+                                                className=" app-area-text other"
+                                                placeholder="Название"
+
+                                                type="text"
+                                                name="other"
+                                                defaultValue={`Используется для:
+●	рассказа о действии, которое закончилось к определённому моменту в прошлом или перед началом другого действия в прошлом.  
+👉 Пример: She had returned home before they woke up. — Она вернулась домой к моменту, когда они проснулись. 
+📝 Маркеры: before (до), by that time (к тому времени), by August (к августу).
+Форма образования: had + V3 (-ed)`}
+                                                autoComplete="off"
+                                                disabled={true}
+                                                required maxLength="300"
+                                            />
+                                        </p>
+                                    </div>
+                                </li>
+                                <li className="task-step" id='other' onClick={handleEdit}>
+                                    <div className="task-step__header">
+                                        <h4 className="task-step__title">Future Perfect</h4>
+                                        <svg className="task-step__icon" viewBox="0 0 16 9" fill="none">
+                                            <path
+                                                d="M15 1L8 8L1 1"
+                                                stroke="#CDCDCD"
+                                                strokeWidth={2}
+                                                strokeLinecap="round"
+                                                strokeLinejoin="round"
+                                            />
+                                        </svg>
+                                    </div>
+                                    <div className="task-step__body body_other --th-disabled">
+                                        <p className="task-step__text">
+                                            <textarea
+                                                className=" app-area-text other"
+                                                placeholder="Название"
+
+                                                type="text"
+                                                name="other"
+                                                defaultValue={`Используется для: 
+● описание действия, которое завершится к определённому моменту в будущем.
+👉 Пример: I will have finished my essay by tomorrow. — Я завершу своё эссе к завтрашнему дню. 
+📝 Маркеры: by tomorrow / tuesday и т.д (к завтрашнему дню, вторнику), by August (к августу)
+Форма образования: will have + V3 (-ed)`}
+                                                autoComplete="off"
+                                                disabled={true}
+                                                required maxLength="300"
+                                            />
+                                        </p>
+                                    </div>
+                                </li>
+                                <li className="task-step" id='other' onClick={handleEdit}>
+                                    <div className="task-step__header">
+                                        <h4 className="task-step__title">Present Perfect Continuous</h4>
+                                        <svg className="task-step__icon" viewBox="0 0 16 9" fill="none">
+                                            <path
+                                                d="M15 1L8 8L1 1"
+                                                stroke="#CDCDCD"
+                                                strokeWidth={2}
+                                                strokeLinecap="round"
+                                                strokeLinejoin="round"
+                                            />
+                                        </svg>
+                                    </div>
+                                    <div className="task-step__body body_other --th-disabled">
+                                        <p className="task-step__text">
+                                            <textarea
+                                                className=" app-area-text other"
+                                                placeholder="Название"
+
+                                                type="text"
+                                                name="other"
+                                                defaultValue={`Используется для: 
+● описания действия, которое началось и длилось какое-то время в прошлом и всё ещё длится в настоящем, или если действие закончилось недавно — и виден результат.
+👉 Пример: He has been working since early morning. — Он работает с раннего утра (работает до сих пор, ещё не закончил). 
+● Указывает на повторяющееся действие — оно началось в прошлом и всё ещё продолжается в момент речи.
+👉 Пример: Alice has been attending yoga classes every Wednesday for the past year. — Весь прошлый год Элис ходила на занятия йогой каждую среду. 
+📝 Маркеры: for (в течение) и since (с тех пор). 
+Форма образования: have/has been + Ving`}
+                                                autoComplete="off"
+                                                disabled={true}
+                                                required maxLength="300"
+                                            />
+                                        </p>
+                                    </div>
+                                </li>
+                                <li className="task-step" id='other' onClick={handleEdit}>
+                                    <div className="task-step__header">
+                                        <h4 className="task-step__title">Past Perfect Continuous</h4>
+                                        <svg className="task-step__icon" viewBox="0 0 16 9" fill="none">
+                                            <path
+                                                d="M15 1L8 8L1 1"
+                                                stroke="#CDCDCD"
+                                                strokeWidth={2}
+                                                strokeLinecap="round"
+                                                strokeLinejoin="round"
+                                            />
+                                        </svg>
+                                    </div>
+                                    <div className="task-step__body body_other --th-disabled">
+                                        <p className="task-step__text">
+                                            <textarea
+                                                className=" app-area-text other"
+                                                placeholder="Название"
+                                                type="text"
+                                                name="other"
+                                                defaultValue={`Используется для: 
+● описания действия, которое началось в прошлом, продолжалось какое-то время и закончилось перед неким моментом в прошлом.
+👉  Пример: I had been waiting for two hours when he called me. — Я ждала уже два часа, когда он позвонил мне.
+📝 Маркеры:  for (в течение) и since (с тех пор).
+Форма образования: had been + Ving`}
+                                                autoComplete="off"
+                                                disabled={true}
+                                                required maxLength="300"
+                                            />
+                                        </p>
+                                    </div>
+                                </li>
+                                <li className="task-step" id='other' onClick={handleEdit}>
+                                    <div className="task-step__header">
+                                        <h4 className="task-step__title">Базовая структура предложений</h4>
+                                        <svg className="task-step__icon" viewBox="0 0 16 9" fill="none">
+                                            <path
+                                                d="M15 1L8 8L1 1"
+                                                stroke="#CDCDCD"
+                                                strokeWidth={2}
+                                                strokeLinecap="round"
+                                                strokeLinejoin="round"
+                                            />
+                                        </svg>
+                                    </div>
+                                    <div className="task-step__body body_other --th-disabled">
+                                        <p className="task-step__text">
+                                            <textarea
+                                                className=" app-area-text other"
+                                                placeholder="Название"
+
+                                                type="text"
+                                                name="other"
+                                                defaultValue={`Базовый порядок в английском: субъект (С) – глагол (Г) – объект/дополнение (О/Д)
+                                                    👉 Пример: Простое утвердительное С + Г + О/Д — I read books
+                                                    👉 Пример: Вопросительное Do/Does/Did + С + Г + О/Д — Do you read books?
+                                                    👉 Пример: Отрицательное С + do/does/did not + Г + О/Д — I don't read books
+                                                    👉 Пример: С модальным глаголом С + Modal + Г + С/Д — I can read books
+                                                    `}
+                                                autoComplete="off"
+                                                disabled={true}
+                                                required maxLength="300"
+                                            />
+                                        </p>
+                                    </div>
+                                </li>
+                                <li className="task-step" id='other' onClick={handleEdit}>
+                                    <div className="task-step__header">
+                                        <h4 className="task-step__title">Множественное число</h4>
+                                        <svg className="task-step__icon" viewBox="0 0 16 9" fill="none">
+                                            <path
+                                                d="M15 1L8 8L1 1"
+                                                stroke="#CDCDCD"
+                                                strokeWidth={2}
+                                                strokeLinecap="round"
+                                                strokeLinejoin="round"
+                                            />
+                                        </svg>
+                                    </div>
+                                    <div className="task-step__body body_other --th-disabled">
+                                        <p className="task-step__text">
+                                            <textarea
+                                                className=" app-area-text other"
+                                                placeholder="Название"
+                                                type="text"
+                                                name="other"
+                                                defaultValue={`Есть несколько вариантов образования множественного числа: 
+● Базовое правило, добавить к существительному -s
+👉 Пример: cat -> catS
+● Если слово заканчивается на -s, -ss, -sh, -ch, -x, -o, добавляется окончание -es
+👉 Пример: box -> boxes
+● Если слово заканчивается на согласную + y, y меняется на i и добавляется -es
+👉 Пример: country -> countries
+● Если слово оканчивается на -f или -fe, f меняется на v и добавляется -es
+👉 Пример: knife -> knives
+● Исключения
+👉 Пример: man -> men; child -> children; woman -> women; foot -> feet; tooth -> teeth`}
+                                                autoComplete="off"
+                                                disabled={true}
+                                                required maxLength="300"
+                                            />
+                                        </p>
+                                    </div>
+                                </li>
+                                <li className="task-step" id='other' onClick={handleEdit}>
+                                    <div className="task-step__header">
+                                        <h4 className="task-step__title">Модельные глаголы</h4>
+                                        <svg className="task-step__icon" viewBox="0 0 16 9" fill="none">
+                                            <path
+                                                d="M15 1L8 8L1 1"
+                                                stroke="#CDCDCD"
+                                                strokeWidth={2}
+                                                strokeLinecap="round"
+                                                strokeLinejoin="round"
+                                            />
+                                        </svg>
+                                    </div>
+                                    <div className="task-step__body body_other --th-disabled">
+                                        <p className="task-step__text">
+                                            <textarea
+                                                className=" app-area-text other"
+                                                placeholder="Название"
+                                                type="text"
+                                                name="other"
+                                                defaultValue={`Modal verbs (модальные глаголы) в английском — вспомогательные глаголы, передающие отношение к действию (возможность, необходимость, способность, вероятность, разрешение/запрет). 
+●	Основные модальные глаголы:
+Can/Could — возможность, способность, разрешение
+May/Might — разрешение, вероятность
+Must — необходимость, обязанность, строгий запрет
+Should — совет, рекомендация, мягкое обязательство
+Would — вежливая просьба, предпочтение, условие.   
+👉 Пример: 
+"I can speak English" (способность)
+"You should see a doctor" (совет)
+"Students must wear uniforms" (обязанность)
+"May I come in?" (просьба о разрешении)
+"It might rain tomorrow" (вероятность)
+📝 Особенности: 
+- После модального глагола всегда используется базовая (начальная) форма глагола без  to: She can swim (не "to swim").
+- Модальные глаголы не изменяются от местоимений: I/You/He/She/We/They must go.
+- Вопросительные и отрицательные формы образуются без вспомогательных глаголов: Can you help me? I cannot help you.. (не "Do can you help me")
+`}
+                                                autoComplete="off"
+                                                disabled={true}
+                                                required maxLength="300"
+                                            />
+                                        </p>
+                                    </div>
+                                </li>
                             </ul>
                         </section>
                     </main>
@@ -185,8 +648,6 @@ export const BasePage = () => {
                     <FooterInner />
                 </main>
             </div>
-
         </>
-
     )
 };
