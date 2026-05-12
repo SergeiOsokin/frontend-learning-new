@@ -598,7 +598,7 @@ A/an указывает на то, что речь идет о предмете 
                                 </li>
                                 <li className="task-step" id='other' onClick={handleEdit}>
                                     <div className="task-step__header">
-                                        <h4 className="task-step__title">Модельные глаголы</h4>
+                                        <h4 className="task-step__title">Модальные глаголы</h4>
                                         <svg className="task-step__icon" viewBox="0 0 16 9" fill="none">
                                             <path
                                                 d="M15 1L8 8L1 1"

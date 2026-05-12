@@ -26,6 +26,7 @@ import { ResetForm } from './components/ResetForm';
 import { RoomPage } from './pages/RoomPage';
 import { Room } from './components/room';
 import { BasePage } from './pages/BasePage';
+import { AiPage } from './pages/AiPage';
 
 const Main = () => {
     const { authorization, logout } = useContext(AuthContext); // получаем контекст в объекте auth
@@ -69,6 +70,8 @@ const Main = () => {
 
             <Route exact path='/education/call' component={RoomPage} />
             <Route exact path='/room/:id' component={Room} />
+
+            <Route exact path='/ai' component={AiPage} />
 
             <Route exact path='/profile' component={ProfilePage} />
 

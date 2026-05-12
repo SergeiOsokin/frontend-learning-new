@@ -221,6 +221,18 @@ export const MainPage = () => {
                                     </svg>
                                     <span>Самостоятельно</span>
                                 </li>
+                                <li className="white-board__item">
+                                    <svg className="icon" viewBox="0 0 24 24" fill="none">
+                                        <path
+                                            d="M9 9C9 8.20435 9.31607 7.44129 9.87868 6.87868C10.4413 6.31607 11.2044 6 12 6M10 21H14M14 18C14 13.9 18 13.1 18 9C18 7.4087 17.3679 5.88258 16.2426 4.75736C15.1174 3.63214 13.5913 3 12 3C10.4087 3 8.88258 3.63214 7.75736 4.75736C6.63214 5.88258 6 7.4087 6 9C6 13 10 14 10 18H14Z"
+                                            stroke="#1F1E30"
+                                            strokeWidth={2}
+                                            strokeLinecap="round"
+                                            strokeLinejoin="round"
+                                        />
+                                    </svg>
+                                    <span>С AI</span>
+                                </li>
                             </ul>
                         </div>
                     </div>
