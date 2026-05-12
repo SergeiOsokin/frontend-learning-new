@@ -337,7 +337,7 @@ export const MainPage = () => {
                             {/* <a href="#" className="board-link__elem">
                                 Регистрация
                             </a> */}
-                            <Link className="board-link__elem" to="/registration">Регистрация</Link>
+                            <Link className="board-link__elem" to="/base">Это база</Link>
                         </div>
                     </div>
                     <div className="o-main__grid-7 tb-grid">

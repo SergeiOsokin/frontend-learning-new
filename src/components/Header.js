@@ -16,8 +16,6 @@ export const Header = ({ simple: simple }) => {
         history.push('/authorization');
     };
 
-
-
     return (
         <>
             <header className={`o-header ${simple && "--th-simple"}`} >
@@ -60,6 +58,9 @@ export const Header = ({ simple: simple }) => {
                         </div>
                     </Link>
                     <div className="o-header__actions">
+                        <Link className="o-header__login" to="/base">
+                            <span>Это база</span>
+                        </Link>
                         <Link className="o-header__login" to="/authorization">
                             <svg className="icon" viewBox="0 0 24 24" fill="none">
                                 <path

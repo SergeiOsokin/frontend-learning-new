@@ -34,37 +34,15 @@ export const HomeworkCard = () => {
 
     // --th-opened --th-opened
     const handleEdit = (e) => {
-        const target = e.target.closest('.task-step')
 
-        switch (target.id) {
-            case 'rules':
-                document.querySelector('.body_rules').classList.toggle('--th-disabled');
-                target.classList.toggle('--th-edited');
-                autoResize(target.id);
-                break;
-            case 'words':
-                document.querySelector('.body_words').classList.toggle('--th-disabled');
-                target.classList.toggle('--th-edited');
-                autoResize(target.id);
-                break;
-            case 'read':
-                document.querySelector('.body_read').classList.toggle('--th-disabled');
-                target.classList.toggle('--th-edited');
-                autoResize(target.id);
-                break;
-            case 'translate':
-                document.querySelector('.body_translate').classList.toggle('--th-disabled');
-                target.classList.toggle('--th-edited');
-                autoResize(target.id);
-                break;
-            case 'other':
-                document.querySelector('.body_other').classList.toggle('--th-disabled');
-                target.classList.toggle('--th-edited');
-                autoResize(target.id);
-                break;
-            default:
+        const target = e.target.closest('.task-step');
 
-        }
+        // открыть / закрыть
+        e.target.closest('.task-step').children[1].classList.toggle('--th-disabled')
+        // черная рамка вокруг
+        target.classList.toggle('--th-edited');
+        // автоматическая высота
+        target.querySelector('.app-area-text').style.height = target.querySelector('.app-area-text').scrollHeight + 'px';
     }
 
     const handleFinished = (async (e) => {
@@ -330,7 +308,7 @@ export const HomeworkCard = () => {
                                             id="checkbox"
                                             type="checkbox"
                                             className="app-toggle__input"
-                                            onClick={handleFinished}
+                                            onChange={handleFinished}
                                             disabled={task.finished}
                                             checked={task.finished}
                                         />

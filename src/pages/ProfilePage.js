@@ -71,20 +71,18 @@ export const ProfilePage = () => {
     };
 
     const handleEdit = (e) => {
-        switch (e.target.id) {
-            case 'rules':
-                document.querySelector('.body_rules').classList.toggle('--th-disabled');
-                e.target.closest('.task-step').classList.toggle('--th-edited');
-                // autoResize(e.target.id);
-                break;
-            case 'words':
-                document.querySelector('.body_words').classList.toggle('--th-disabled');
-                e.target.closest('.task-step').classList.toggle('--th-edited');
-                // autoResize(e.target.id);
-                break;
-            default:
+        if (e.target.tagName === ('LI')) {
+            const target = e.target.closest('.task-step');
+            // открыть / закрыть
+            e.target.closest('.task-step').children[1].classList.toggle('--th-disabled')
+            // черная рамка вокруг
+            target.classList.toggle('--th-edited');
+            // автоматическая высота
+            // target.querySelector('.app-area-text').style.height = target.querySelector('.app-area-text').scrollHeight + 'px';
+        } else {
+            return;
+        };
 
-        }
     }
 
     const showPass = (e) => {

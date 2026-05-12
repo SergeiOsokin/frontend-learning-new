@@ -17,6 +17,9 @@ export const EducationPage = () => {
             case 'student':
                 history.push('/education/student')
                 break;
+            case 'call':
+                history.push('/education/call')
+                break;
             default:
         }
     }

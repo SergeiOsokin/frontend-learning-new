@@ -19,7 +19,6 @@ export const TaskFormChange = ({ props, setActive, set, chan }) => {
     });
     const message = useMessage();
 
-
     const changeHandler = (e) => {
         setTaskForm({ ...task, [e.target.name]: e.target.value });
         validationInputs(e);

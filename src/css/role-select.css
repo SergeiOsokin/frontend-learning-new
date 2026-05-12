@@ -321,6 +321,7 @@ body {
 @media screen and (max-width: 1024px) {
   .app-aside {
     padding: 4rem 1.6rem 1.6rem 1.6rem;
+    height: max-content;
   }
 }
 @media screen and (max-width: 550px) {

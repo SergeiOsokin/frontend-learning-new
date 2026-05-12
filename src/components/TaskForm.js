@@ -32,34 +32,16 @@ export const TaskForm = ({ set, chan, setActive }) => {
     }
 
     const handleEdit = (e) => {
-        const target = e.target.closest('.task-step')
-        // e.target.id)
-        switch (e.target.id) {
-            case 'rules':
-                document.querySelector('.body_rules').classList.toggle('--th-disabled');
-                target.classList.toggle('--th-edited');
-                break;
-            case 'words':
-                document.querySelector('.body_words').classList.toggle('--th-disabled');
-                e.target.closest('.task-step').classList.toggle('--th-edited');
-                break;
-            case 'read':
-                document.querySelector('.body_read').classList.toggle('--th-disabled');
-                e.target.closest('.task-step').classList.toggle('--th-edited');
-                break;
-            case 'translate':
-                document.querySelector('.body_translate').classList.toggle('--th-disabled');
-                e.target.closest('.task-step').classList.toggle('--th-edited');
-                break;
-            case 'other':
-                document.querySelector('.body_other').classList.toggle('--th-disabled');
-                e.target.closest('.task-step').classList.toggle('--th-edited');
-                break;
-            case 'users':
-                document.querySelector('.body_users').classList.toggle('--th-disabled');
-                e.target.closest('.task-step').classList.toggle('--th-edited');
-                break;
-            default:
+        if (!(e.target.tagName === ('TEXTAREA'))) {
+            const target = e.target.closest('.task-step');
+            // открыть / закрыть
+            e.target.closest('.task-step').children[1].classList.toggle('--th-disabled')
+            // черная рамка вокруг
+            target.classList.toggle('--th-edited');
+            // автоматическая высота
+            target.querySelector('.app-area-text').style.height = target.querySelector('.app-area-text').scrollHeight + 'px';
+        } else {
+            return;
 
         }
     }
