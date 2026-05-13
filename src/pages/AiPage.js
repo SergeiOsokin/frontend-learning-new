@@ -12,10 +12,9 @@ export const AiPage = () => {
     const [active, setModalActive] = useState(false);
     const [notes, setNotes] = useState([]);
     const { loading, request, clearError } = useHttp();
-    const [word, setWords] = useState({
-        russianWord: '',
-        foreignWord: '',
-        categoryWord: '',
+    const [credAi, setCredAi] = useState({
+        themes: '',
+        category: '',
     });
     const [category, setCategory] = useState([]);
     const { disable, setDisable } = useState(true);
@@ -37,39 +36,37 @@ export const AiPage = () => {
 
     const changeHandler = (e) => {
         // --th-disabled --th-dark
-        if (e.target.name === 'categoryWord') {
+        if (e.target.name === 'category') {
             const idCategory = e.target.closest(".dropdown-categories__row").getAttribute('info');
-            setWords({ ...word, [e.target.name]: idCategory });
-        } else {
-            setWords({ ...word, [e.target.name]: e.target.value });
+            setCredAi({ ...credAi, [e.target.name]: idCategory });
         }
+        // else {
+        //     setCredAi({ ...credAi, [e.target.name]: e.target.value });
+        // }
     };
 
     const changeHandlerTheme = (e) => {
         // --th-disabled --th-dark
         if (e.target.name === 'themes') {
-            const idCategory = e.target.closest(".dropdown-categories__row").getAttribute('info');
-            setWords({ ...word, [e.target.name]: idCategory });
-        } else {
-            setWords({ ...word, [e.target.name]: e.target.value });
+            const themeAi = e.target.closest(".dropdown-categories__row").getAttribute('info');
+            setCredAi({ ...credAi, [e.target.name]: themeAi });
         }
+        // else {
+        //     setCredAi({ ...credAi, [e.target.name]: e.target.value });
+        // }
     }
 
     const handleSubmit = (async (e) => {
         e.preventDefault();
+        console.log(credAi);
         try {
-            const data = await request('/words/add', 'POST', word);
+            const data = await request('/ai/sentence', 'POST', credAi);
             if (data.hasOwnProperty('error')) {
                 message(data.message || data.error, false);
                 return;
             }
             message(data.message, true);
-            setWords({
-                russianWord: '',
-                foreignWord: '',
-                categoryWord: '',
-            })
-            // document.querySelector(".form__select").value = ""
+            console.log(data);
         } catch (err) {
             message(err, false);
         }
@@ -164,12 +161,11 @@ export const AiPage = () => {
                                                             <ul className="dropdown-categories__list" >
                                                                 {
                                                                     ThemesAI.map((element, index) => {
-                                                                        console.log(element)
                                                                         return (
                                                                             <li
                                                                                 className="dropdown-categories__row"
                                                                                 key={index.toString()}
-                                                                                info={index}
+                                                                                info={element}
                                                                             >
                                                                                 <div className="dropdown-categories__name">
                                                                                     {element}
@@ -246,7 +242,7 @@ export const AiPage = () => {
                                                                                         <input
                                                                                             type="checkbox"
                                                                                             className="app-checkbox__input"
-                                                                                            name="categoryWord"
+                                                                                            name="category"
                                                                                             onChange={changeHandler}
                                                                                             disabled={disable}
                                                                                             required
