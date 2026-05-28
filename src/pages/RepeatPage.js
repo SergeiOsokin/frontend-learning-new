@@ -1,4 +1,5 @@
 import React, { useEffect, useState, useLayoutEffect, useCallback } from 'react';
+import { Link, useHistory } from 'react-router-dom';
 import { useHttp } from '../hooks/http.hook';
 import { useMessage } from '../hooks/message.hook';
 import { Loader } from '../components/Loader';
@@ -21,10 +22,17 @@ export const RepeatPage = () => {
     const [category, setCategory] = useState(null);
     const [hand, setHand] = useState(true);
     const message = useMessage();
+    const [categoryName, setCategoryName] = useState('Все');
 
     const getWords = useCallback(async (category) => {
         try {
             const data = await request(`/words/list?category=${category}`, 'GET');
+
+            if (data.hasOwnProperty('error')) {
+                message(data.message || data.error, false);
+                return;
+            }
+
             if (data.data.length < 10) {
                 return setWordsInit(null)
             } else {
@@ -45,7 +53,7 @@ export const RepeatPage = () => {
         }
     }, []);
 
-    useLayoutEffect(() => {
+    useEffect(() => {
         window.addEventListener('keydown', (event) => {
             if (event.key === 'Escape') {
                 document.querySelector(".dropdown-categories").classList.remove('--th-active');
@@ -67,8 +75,9 @@ export const RepeatPage = () => {
     const handleSetCategory = (e) => {
         document.querySelector(".dropdown-categories").classList.remove('--th-active');
 
-        const categoryName = e.target.closest(".dropdown-categories__row").getAttribute('value');
-        getWords(categoryName);
+        setCategoryName(e.target.closest(".dropdown-categories__row").getAttribute('value'));
+
+        getWords(e.target.closest(".dropdown-categories__row").getAttribute('value'));
         // setHand(!hand);
     }
 
@@ -115,9 +124,11 @@ export const RepeatPage = () => {
                                     <div className="quiz-categories">
                                         <div className="quiz-categories__list">
                                             <p className="quiz-categories__label">Категории повторения:</p>
-                                            <p className="quiz-categories__current">{categories[0].category}, {categories[1].category}</p>
-                                            <p className="quiz-categories__current --th-not-dropdown">...</p>
-                                            <p className="quiz-categories__current">ещё {categories.length - 2}</p>
+                                            {/* <p className="quiz-categories__current">{categories[0].category}, {categories[1].category}</p>
+                                            <p className="quiz-categories__current --th-not-dropdown">...</p> */}
+                                            {/* <p className="quiz-categories__current">ещё {categories.length - 2}</p> */}
+                                            <p className="quiz-categories__current">{categoryName}</p>
+                                            <p className="quiz-categories__current">{categories.length}</p>
                                             <svg className="quiz-categories__arrow" viewBox="0 0 8 5" fill="none" onClick={selectHandler}>
                                                 <path
                                                     fillRule="evenodd"
@@ -225,6 +236,7 @@ export const RepeatPage = () => {
                                             className="quiz-empty__img"
                                         />
                                         <h2 className="quiz-empty__title">В выбранной категории недостаточно слов для повторения</h2>
+                                        <p className="quiz-categories__current">Добавить слова и создать новые категории можно <Link to="/wordslist">в словаре</Link></p>
                                     </div>
                                 }
 

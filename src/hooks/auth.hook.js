@@ -25,19 +25,22 @@ export const useAuth = (data) => {
         history.push('/authorization')
     }, []);
     // проверим, нет ли данных в cookie сейчас, чтобы сделать пользователя авторизованным. 
-
+    
     useEffect(() => {
         async function fetchData() {
             try {
-                const data = await request('/words/list?category=null', 'GET');
+                const data = await request('/checkauth', 'GET');
 
                 if (data.error) {
                     message('Вход в аккаунт не выполнен.', false);
                     setAuthorization(false);
                     // eslint-disable-next-line no-unused-expressions
                     return arr.includes(history.location.pathname) ? '' : history.push('/');
-                }
+                };
+
                 setAuthorization(true);
+                // history.push('/flashcards');
+                return history.location.pathname.length > 1 ? '' : history.push('/flashcards');
             } catch (error) {
                 message(error, false)
             }

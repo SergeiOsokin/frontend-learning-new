@@ -121,7 +121,7 @@ export const Aside = () => {
                                     <span className="nav__text">Обучение</span>
                                 </Link>
                             </li>
-                            <li className="nav__item">
+                            {/* <li className="nav__item">
                                 <Link className={`nav__link ${history.location.pathname.includes('ai') ? '--th-active' : ''}`} to="/ai" >
                                     <svg className="nav__icon" viewBox="0 0 32 32" fill="none">
                                         <path
@@ -134,7 +134,7 @@ export const Aside = () => {
                                     </svg>
                                     <span className="nav__text">AI</span>
                                 </Link>
-                            </li>
+                            </li> */}
                             <li className="nav__item">
                                 <Link className={`nav__link ${history.location.pathname.includes('base') ? '--th-active' : ''}`} to="/base" >
                                     {/* <Link className="nav__link" to="/education"  > */}

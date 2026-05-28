@@ -3,6 +3,7 @@ import 'materialize-css'; // для всплывабщих сообшений. �
 import React, { useContext, useEffect } from 'react';
 import { AuthContext } from './context/AuthContext';
 import { Route, Switch, Redirect } from 'react-router-dom';
+import { useHttp } from '../src/hooks/http.hook';
 import { NotesPage } from './pages/NotesPage';
 import { RepeatPage } from './pages/RepeatPage';
 import WordsPage from './pages/WordsPage';
@@ -27,9 +28,10 @@ import { RoomPage } from './pages/RoomPage';
 import { Room } from './components/room';
 import { BasePage } from './pages/BasePage';
 import { AiPage } from './pages/AiPage';
+import { Loader } from './components/Loader';
 
 const Main = () => {
-    const { authorization, logout } = useContext(AuthContext); // получаем контекст в объекте auth
+    const { authorization, logout, login } = useContext(AuthContext); // получаем контекст в объекте auth
     var pjson = require('../package.json');
     console.log(pjson.version);
 

@@ -58,7 +58,6 @@ export const AiPage = () => {
 
     const handleSubmit = (async (e) => {
         e.preventDefault();
-        console.log(credAi);
         try {
             const data = await request('/ai/sentence', 'POST', credAi);
             if (data.hasOwnProperty('error')) {
@@ -66,7 +65,6 @@ export const AiPage = () => {
                 return;
             }
             message(data.message, true);
-            console.log(data);
         } catch (err) {
             message(err, false);
         }

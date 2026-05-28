@@ -6,7 +6,6 @@ import { Loader } from './Loader';
 import { validation } from '../hooks/validation.hook';
 
 export const WordFormChange = ({ wordInfo, setActive }) => {
-    // console.log(wordInfo)
     const { loading, request } = useHttp();
     const { validationInputs } = validation();
     const [word, setWords] = useState({

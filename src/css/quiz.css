@@ -155,7 +155,7 @@
 }
 @media screen and (max-width: 768px) {
   .app-quiz {
-    align-items: flex-start;
+    align-items: center;
   }
 }
 @media screen and (max-width: 550px) {
