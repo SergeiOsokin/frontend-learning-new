@@ -251,7 +251,7 @@ export const NavNoteThemes = () => {
                             <div className="app-main__search app-search --th-empty">
                                 <input
                                     type="text"
-                                    placeholder="Text"
+                                    placeholder="Search text"
                                     className="app-search__elem"
                                 />
                                 <button className="app-search__delete line-btn-dark">

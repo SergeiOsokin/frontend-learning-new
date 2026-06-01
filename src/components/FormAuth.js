@@ -19,7 +19,7 @@ export const FormAuth = () => {
         email: '',
         password: ''
     });
-    const [passwordReset, setPasswordReset] = useState(false)
+    const [passwordReset, setPasswordReset] = useState(false);
 
     const changeHandler = (e) => {
         setForm({ ...form, [e.target.name]: e.target.value });
@@ -41,15 +41,16 @@ export const FormAuth = () => {
             message(error, false);
         }
     };
+
     const moveHandler = (event) => {
         history.push('/registration');
-    }
+    };
 
     const showPass = (e) => {
         document.getElementById('password').type === 'text' ?
             document.getElementById('password').type = 'password' :
             document.getElementById('password').type = 'text'
-    }
+    };
 
     useEffect(() => {
         // document.getElementById("root").classList.add("o-wrapper");
@@ -119,7 +120,6 @@ export const FormAuth = () => {
                                     e.preventDefault();
                                     setPasswordReset(true);
                                     document.querySelector('.o-form-page').classList.toggle('hidden');
-                                    // console.log(document.getElementsByClassName('.o-form-page').classList)
                                 }} >
                                     Сбросить</button>
                             </p> */}

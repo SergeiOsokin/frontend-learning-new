@@ -152,6 +152,7 @@ export const Categories = ({ setActive }) => {
                     </svg>
                 </button>
                 <h3 className="edit-modal__title">Редактировать категории</h3>
+                <p className="white-board__text">Категории необходимы для добавления новых слов и их повторения</p>
                 <div className="edit-wrapper">
                     <ul className="categories-edit-list">
                         <li className="categories-edit-new">

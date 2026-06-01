@@ -102,7 +102,7 @@ export const NotesPage = () => {
                             <div className="app-main__search app-search --th-active">
                                 <input
                                     type="text"
-                                    placeholder="Text"
+                                    placeholder="Search text"
                                     className="app-search__elem"
                                     id="search"
                                     autoComplete="off"

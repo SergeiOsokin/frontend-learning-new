@@ -19,7 +19,7 @@ export const WordForm = ({ wordInfo, setActive }) => {
     });
     const message = useMessage();
     const { disable, setDisable } = useState(true);
-    const [activeCategory, setActiveCategory] = useState('Выберите значение');
+    const [activeCategory, setActiveCategory] = useState('Категория для слова:');
 
     async function fetchData() {
         try {
@@ -192,7 +192,7 @@ export const WordForm = ({ wordInfo, setActive }) => {
                                                     style={{ display: "none" }}
                                                     className="create-word-select__placeholder"
                                                 >
-                                                    Выберите значение
+                                                    Категория слова:
                                                 </div>
                                                 <div className="create-word-select__value">
                                                     {activeCategory}
@@ -253,7 +253,7 @@ export const WordForm = ({ wordInfo, setActive }) => {
 
                                                         <li className="dropdown-categories__row --th-button">
                                                             <button className="dropdown-categories-add btn btn-grey">
-                                                                Новая категория
+                                                                Создать новую категорию:
                                                             </button>
                                                         </li>
                                                         <li className="dropdown-categories__row --th-input">
@@ -263,6 +263,7 @@ export const WordForm = ({ wordInfo, setActive }) => {
                                                                     value={newCategory.categoryWord}
                                                                     name="categoryWord"
                                                                     type="text"
+                                                                    placeholder='Название категории'
                                                                     className="dropdown-categories-input__elem"
                                                                 />
                                                                 <div className="dropdown-categories-input__actions">

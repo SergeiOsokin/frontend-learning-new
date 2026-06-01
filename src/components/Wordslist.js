@@ -67,14 +67,12 @@ export const WordsList = () => {
     async function fetchData() {
         try {
             const data = await request(`/words/list?category=null`, 'GET');
+
             if (data.hasOwnProperty('error')) {
                 message(data.message || data.error, false);
                 return;
             } else {
                 setWordsArr(data.data);
-                // document.addEventListener('scroll', () => {
-                //     scroll();
-                // }, true);
                 return;
             }
         } catch (err) {
@@ -113,7 +111,6 @@ export const WordsList = () => {
             categoryId: e.target.closest(".table__ceil").getAttribute("categoryid"),
             category: e.target.closest(".table__ceil").getAttribute("category")
         });
-        // console.log(e.target.closest(".table__ceil").getAttribute("ForWord"))
         setActiveModalEditWord(true)
     }
 
@@ -257,7 +254,7 @@ export const WordsList = () => {
                             <div className="app-main__search app-search --th-active">
                                 <input
                                     type="text"
-                                    placeholder="Text"
+                                    placeholder="Search text"
                                     className="app-search__elem"
                                     id="search"
                                     autoComplete="off"
@@ -372,7 +369,7 @@ export const WordsList = () => {
                                         </thead>
                                         <tbody>
                                             {wordsArr
-                                                .sort((a, b) => a.id - b.id)
+                                                // .sort((a, b) => a.id - b.id)
                                                 .slice(firstContentIndex, lastContentIndex)
                                                 .map((word, index) => {
                                                     return (

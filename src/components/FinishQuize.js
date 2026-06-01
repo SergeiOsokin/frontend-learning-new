@@ -2,8 +2,6 @@ import React, { useCallback, useState } from 'react';
 
 export const FinishQuize = ({ result }) => {
 
-    // console.log(setFinish)
-
     return (
         <section className="app-quiz --th-finish">
             <div className="app-quiz__inner">
