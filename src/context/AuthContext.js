@@ -8,4 +8,5 @@ export const AuthContext = createContext({
     userId: null,
     login: nullMy,
     logout: nullMy,
+    type: null
 });

@@ -26,6 +26,8 @@ export const FormAuth = () => {
         validationInputs(e);
     };
 
+    console.log(auth)
+
     const loginHandler = async (e) => {
         e.preventDefault();
         try {
@@ -36,7 +38,10 @@ export const FormAuth = () => {
             }
             history.push('/wordslist');
             auth.login(data); // передаем полученные данные в auth.hook
-            auth.userId = data.user;
+            auth.userId = data.user
+            localStorage.setItem('typeUser', data.type);
+
+            console.log(localStorage.getItem('typeUser'))
         } catch (error) {
             message(error, false);
         }

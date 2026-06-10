@@ -1,9 +1,10 @@
 //
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useContext } from 'react';
 import { useHttp } from '../hooks/http.hook';
 import { useMessage } from '../hooks/message.hook';
 import { Loader } from './Loader';
 import { validation } from '../hooks/validation.hook';
+import { AuthContext } from '../context/AuthContext';
 
 export const WordForm = ({ wordInfo, setActive }) => {
     const { loading, request, clearError } = useHttp();
@@ -21,6 +22,8 @@ export const WordForm = ({ wordInfo, setActive }) => {
     const { disable, setDisable } = useState(true);
     const [activeCategory, setActiveCategory] = useState('Категория для слова:');
 
+    const auth = useContext(AuthContext); // получаем контекст в объекте auth
+
     async function fetchData() {
         try {
             const data = await request('/category/get', 'GET', {});
@@ -33,6 +36,8 @@ export const WordForm = ({ wordInfo, setActive }) => {
             message(err, false);
         }
     }
+
+    console.log(auth)
 
 
     const changeHandler = (e) => {
