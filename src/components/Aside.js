@@ -106,6 +106,24 @@ export const Aside = () => {
                                     <span className="nav__text">Заметки</span>
                                 </Link>
                             </li>
+
+                            {localStorage.getItem('typeUser').includes(2, 0) &&
+                                <li className="nav__item">
+                                    <Link className={`nav__link ${history.location.pathname.includes('articles') ? '--th-active' : ''}`} to="/articles">
+                                        <svg className="nav__icon" viewBox="0 0 32 32" fill="none">
+                                            <path
+                                                d="M17.9987 10.6667H5.33203M5.33203 8.00008V25.3334C5.33203 25.687 5.47251 26.0262 5.72256 26.2762C5.9726 26.5263 6.31174 26.6667 6.66536 26.6667H25.332C25.6857 26.6667 26.0248 26.5263 26.2748 26.2762C26.5249 26.0262 26.6654 25.687 26.6654 25.3334V12.0001C26.6654 11.6465 26.5249 11.3073 26.2748 11.0573C26.0248 10.8072 25.6857 10.6667 25.332 10.6667H18.6227C18.4273 10.6667 18.2342 10.6236 18.0573 10.5407C17.8803 10.4577 17.7238 10.3369 17.5987 10.1867L15.0654 7.14675C14.9403 6.99658 14.7837 6.87575 14.6068 6.7928C14.4298 6.70986 14.2368 6.66682 14.0414 6.66675H6.66536C6.31174 6.66675 5.9726 6.80722 5.72256 7.05727C5.47251 7.30732 5.33203 7.64646 5.33203 8.00008Z"
+                                                stroke="currentColor"
+                                                strokeWidth={2}
+                                                strokeLinecap="round"
+                                                strokeLinejoin="round"
+                                            />
+                                        </svg>
+                                        <span className="nav__text">Статьи</span>
+                                    </Link>
+                                </li>
+                            }
+
                             <li className="nav__item">
                                 <Link className={`nav__link ${history.location.pathname.includes('education') ? '--th-active' : ''}`} to="/education" >
                                     {/* <Link className="nav__link" to="/education"  > */}

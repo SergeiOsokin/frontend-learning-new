@@ -5,6 +5,7 @@ import { AuthContext } from './context/AuthContext';
 import { Route, Switch, Redirect } from 'react-router-dom';
 import { useHttp } from '../src/hooks/http.hook';
 import { NotesPage } from './pages/NotesPage';
+import { ArticlesPage } from './pages/ArticlesPage';
 import { RepeatPage } from './pages/RepeatPage';
 import WordsPage from './pages/WordsPage';
 import { FormReg } from './components/FormReg';
@@ -17,6 +18,8 @@ import { NotFoundPage } from './pages/NotFoundPage';
 import { EducationPage } from './pages/EducationPage';
 import { NoteForm } from './components/NoteForm';
 import { NoteCard } from './components/NoteCard';
+import { ArticleForm } from './components/ArticleForm';
+import { ArticleCard } from './components/ArticleCard';
 import { TaskForm } from './components/TaskForm';
 import { TaskCard } from './components/TaskCard';
 import { HomeworkCard } from './components/HomeworkCard';
@@ -55,6 +58,10 @@ const Main = () => {
             <Route exact path='/notes' component={NotesPage} />
             <Route exact path='/notes/new' component={NoteForm} />
             <Route exact path='/notes/open/:id' component={NoteCard} />
+
+            <Route exact path='/articles' component={ArticlesPage} />
+            <Route exact path='/articles/new' component={ArticleForm} />
+            <Route exact path='/articles/open/:id' component={ArticleCard} />
 
             <Route exact path='/flashcards' component={RepeatPage} />
             <Route exact path='/wordslist' component={WordsPage} />
