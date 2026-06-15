@@ -57,7 +57,7 @@ export const ArticlesPage = () => {
 
     const handleSubmitDelete = useCallback(async (e) => {
         try {
-            const data = await request(`/articles/delete/${articleId}`, 'DELETE', {});
+            const data = await request(`/article/delete/${Number(articleId)}`, 'DELETE', {});
             if (data.hasOwnProperty('error')) {
                 message(data.message || data.error, false);
                 return;
@@ -217,7 +217,7 @@ export const ArticlesPage = () => {
                                             <div className="confirm-delete">
                                                 <h3 className="confirm-delete__title">
                                                     Вы уверены, что хотите <br />
-                                                    удалить заметку?
+                                                    удалить статью?
                                                 </h3>
                                                 <p className="confirm-delete__text">Это действие будет нельзя отменить</p>
                                                 <div className="confirm-delete__actions">

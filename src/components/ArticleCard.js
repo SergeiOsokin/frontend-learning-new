@@ -31,7 +31,23 @@ export const ArticleCard = () => {
         setArticle({ ...article, [e.target.name]: e.target.value });
         autoResize(e.target.name);
         // validationInputs(e);
-    }
+    };
+
+    const handlePublish = useCallback(async (e) => {
+        e.preventDefault();
+        try {
+            const data = await request(`/article/post/${article.id}?posted=${document.querySelector('.app-toggle__input').checked}`, 'PATCH');
+            if (data.hasOwnProperty('error')) {
+                message(data.message || data.error, false);
+                return;
+            }
+            autoResize('text_art');
+            message(data.message, true);
+            setArticle({ ...article, posted: data.data })
+        } catch (err) {
+            message(err, false);
+        }
+    }, [article]);
 
     const handleSubmit = useCallback(async (e) => {
         e.preventDefault();
@@ -54,7 +70,6 @@ export const ArticleCard = () => {
     }
 
     const handleSubmitDelete = useCallback(async (e) => {
-        // note.id);
         e.preventDefault();
         try {
             const data = await request(`/article/delete/${article.id}`, 'DELETE', {});
@@ -63,7 +78,7 @@ export const ArticleCard = () => {
                 return;
             }
             message(data.message, true);
-            history.push('/notes')
+            history.push('/articles')
         } catch (error) {
             message(error, false);
         }
@@ -219,8 +234,7 @@ export const ArticleCard = () => {
                                                     id="checkbox"
                                                     type="checkbox"
                                                     className="app-toggle__input"
-                                                    // onChange={handleFinished}
-                                                    disabled={article.posted}
+                                                    onChange={handlePublish}
                                                     checked={article.posted}
                                                 />
                                                 <div className="app-toggle__elem" />
@@ -253,8 +267,6 @@ export const ArticleCard = () => {
                         </main>
                     }
 
-
-
                     {deleteModal &&
                         <div className="app-modal">
                             <div className="app-modal__overlay" />
@@ -273,7 +285,7 @@ export const ArticleCard = () => {
                                 <div className="confirm-delete">
                                     <h3 className="confirm-delete__title">
                                         Вы уверены, что хотите <br />
-                                        удалить заметку?
+                                        удалить статью?
                                     </h3>
                                     <p className="confirm-delete__text">Это действие будет нельзя отменить</p>
                                     <div className="confirm-delete__actions">
