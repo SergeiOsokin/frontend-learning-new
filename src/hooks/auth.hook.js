@@ -7,7 +7,7 @@ import { AuthContext } from '../context/AuthContext';
 
 export const useAuth = (data) => {
     const { userId } = useContext(AuthContext);
-    const [authorization, setAuthorization] = useState(null);
+    const [authorization, setAuthorization] = useState(false);
     const [ready, setReady] = useState(false); // для "модуля" авторизации
     const message = useMessage();
     const { request } = useHttp();
@@ -39,7 +39,6 @@ export const useAuth = (data) => {
                 };
 
                 setAuthorization(true);
-                // history.push('/flashcards');
                 return history.location.pathname.length > 1 ? '' : history.push('/flashcards');
             } catch (error) {
                 message(error, false)

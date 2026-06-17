@@ -32,11 +32,12 @@ import { Room } from './components/room';
 import { BasePage } from './pages/BasePage';
 import { AiPage } from './pages/AiPage';
 import { Loader } from './components/Loader';
+import { FeedPage } from './pages/FeedPage';
 
 const Main = () => {
     const { authorization, logout, login } = useContext(AuthContext); // получаем контекст в объекте auth
     var pjson = require('../package.json');
-    console.log(pjson.version);
+    console.info(pjson.version);
 
     function requireAuth(nextState, replace, next) {
         if (!authorization) {
@@ -76,6 +77,8 @@ const Main = () => {
             <Route exact path='/base' component={BasePage} />
 
             <Route exact path='/education' component={EducationPage} />
+
+            <Route exact path='/feed' component={FeedPage} />
 
             <Route exact path='/education/call' component={RoomPage} />
             <Route exact path='/room/:id' component={Room} />
