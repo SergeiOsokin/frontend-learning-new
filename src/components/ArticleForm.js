@@ -113,7 +113,7 @@ export const ArticleForm = () => {
                                     disabled={loading}
                                 />
                             </div>
-                            <div className="app-create-notice__title create-notice-title">
+                            {/* <div className="app-create-notice__title create-notice-title">
                                 <input
                                     placeholder="Ссылка на картинку (не обязательно)"
                                     className="create-notice-title__elem"
@@ -126,7 +126,7 @@ export const ArticleForm = () => {
                                     autoComplete="off"
                                     disabled={loading}
                                 />
-                            </div>
+                            </div> */}
                             <div className="app-create-notice__added">
 
                                 <div className="notice-example-add">

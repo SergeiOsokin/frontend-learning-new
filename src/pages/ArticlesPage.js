@@ -138,7 +138,6 @@ export const ArticlesPage = () => {
                     {!loading &&
                         <main className="app-main__mid">
                             <section className="app-cards">
-
                                 <ul className="app-cards__inner">
                                     <li className="app-cards__item">
                                         <button className="card-add" onClick={handleCreateArticle}>
