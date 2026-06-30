@@ -16,7 +16,9 @@ export const FeedPage = () => {
     const [articles, setArticles] = useState([]);
     const { loading, request } = useHttp();
     const [inputValue, setInputValue] = useState('')
-    const [filter, setFilter] = useState('Все статьи')
+    const [filter, setFilter] = useState('Все статьи');
+    const [filterValue, setFilterValue] = useState('any');
+    const [offset, setOffset] = useState(2);
 
     function menuSearch() {
         let phrase = document.querySelector('.app-search__elem');
@@ -41,10 +43,7 @@ export const FeedPage = () => {
     };
 
     const handleRead = (e) => {
-        console.log(e.target.closest(".card-note").childNodes[1].childNodes[2].style)
-
         e.target.closest(".card-note").childNodes[1].childNodes[2].style.webkitLineClamp = 3000;
-        // e.target.closest('.card-note__text').style.overflow = 1;
     };
 
     const handleLike = async (e) => {
@@ -56,65 +55,58 @@ export const FeedPage = () => {
                 message(data.message || data.error, false);
                 return;
             }
+
             message(data.message, true);
-            getArticles();
+            setOffset(2);
+            //   Тут добавить обновление стиля на лайке
+            getArticles(filterValue, 0);
         } catch (error) {
             message(error, false);
         }
-    }
+    };
 
     // Раскрытие списка фильтров
     const handleFilter = (e) => {
-
         document.querySelector(".dropdown-categories").classList.toggle('--th-active');
-
-        // if (e.target.classList.contains('create-word-select')) {
-        //     document.querySelector(".checkCatAdd .dropdown-categories").classList.toggle('--th-active');
-        // } else if (e.target.classList.contains('app-checkbox__input')) {
-        //     // setActiveCategory(e.target.closest('.dropdown-categories__checkbox').getAttribute('info'));
-        //     document.querySelector(".checkCatAdd .dropdown-categories").classList.toggle('--th-active');
-        // }
     };
 
     const handleCheckFilter = async (e) => {
-        console.log(e.target.closest('.dropdown-categories__row').getAttribute('name'))
         setFilter(e.target.closest('.dropdown-categories__row').getAttribute('name'));
-        getArticles(e.target.value);
+        setFilterValue(e.target.value);
+        setOffset(2);
+
+        getArticles(e.target.value, 0);
 
         document.querySelector(".dropdown-categories").classList.toggle('--th-active');
     }
 
-    const handleSubmitDelete = useCallback(async (e) => {
-        // try {
-        //     const data = await request(`/article/delete/${noteId}`, 'DELETE', {});
-        //     if (data.hasOwnProperty('error')) {
-        //         message(data.message || data.error, false);
-        //         return;
-        //     }
-        //     message(data.message, true);
-        //     setDeleteModal(false);
-        //     getArticles();
-        // } catch (error) {
-        //     message(error, false);
-        // }
-    }, [noteId]);
+    const handleGetMoreArt = async (e) => {
+        getArticles(filterValue, (offset - 1) * 10, articles);
+        setOffset(offset + 1)
+    };
 
-    const getArticles = async function fetchData(fil) {
+    const getArticles = async function fetchData(fil, off, arr = []) {
+
         try {
-            const data = await request(`/article/feed?filter=${fil}`, 'GET', {});
+            const data = await request(`/article/feed?filter=${fil}&offset=${off}`, 'GET', {});
             if (data.hasOwnProperty('error')) {
                 message(data.message || data.error, false);
                 return;
             }
-            setArticles(data.data)
+
+            setArticles(arr.concat(data.data));
+
+            if (data.data.length < 10) {
+                return document.querySelector('.filters-top__add-word').classList.add('--th-mobile');
+            }
         } catch (error) {
             message(error, false);
         }
-    }
+    };
 
-    useLayoutEffect(() => {
-        getArticles();
-    }, [request, active,])
+    useEffect(() => {
+        getArticles(filterValue, 0, articles);
+    }, [noteId])
 
 
     return (
@@ -212,7 +204,7 @@ export const FeedPage = () => {
                                     {articles
                                         .map((article, index) => {
                                             return (
-                                                <li className="app-cards__item" key={index + article.id} info={article.id}>
+                                                <li className="app-cards__item" key={article.id} info={article.id}>
                                                     <div className="card card-note">
                                                         <div className="card-note__top">
                                                             <p className="card-note__date">{article.date_create ? article.date_create.substring(0, 10) : ''}</p>
@@ -243,7 +235,22 @@ export const FeedPage = () => {
                                             )
                                         })}
                                 </ul>
+
                             </section>
+                            <div className="filters-top__left">
+                                <button className=" btn btn-dark filters-top__add-word" onClick={handleGetMoreArt}>
+                                    <svg className="icon" viewBox="0 0 25 24" fill="none">
+                                        <path
+                                            d="M5.5 12H19.5M12.5 19V5"
+                                            stroke="currentColor"
+                                            strokeWidth={2}
+                                            strokeLinecap="round"
+                                            strokeLinejoin="round"
+                                        />
+                                    </svg>
+                                    <span>Еще статьи</span>
+                                </button>
+                            </div>
                         </main>
                     }
                     <FooterInner />

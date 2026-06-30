@@ -298,31 +298,6 @@
     gap: 1.6rem;
   }
 }
-.filters-top__add-word {
-  height: 4rem;
-  width: 17.8rem;
-  padding-left: 0;
-  padding-right: 0;
-}
-@media screen and (max-width: 1024px) {
-  .filters-top__add-word {
-    height: 4.8rem;
-  }
-}
-.filters-top__add-word.--th-mobile {
-  display: none;
-}
-.filters-categories.--th-mobile {
-  display: none;
-}
-@media screen and (max-width: 768px) {
-  .filters-top__add-word {
-    width: 100%;
-  }
-
-  .filters-top__add-word.--th-desktop {
-    display: none;
-  }
 
   .filters-categories.--th-desktop {
     display: none;
@@ -333,15 +308,6 @@
     flex: 1 1 auto;
     width: 100%;
   }
-
-  .filters-top__add-word.--th-mobile {
-    display: flex;
-  }
-}
-.filters-top__add-word .icon {
-  width: 2.4rem;
-  height: 2.4rem;
-}
 
 .filters-categories {
   position: relative;
