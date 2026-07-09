@@ -23,7 +23,7 @@ export const ArticleCard = () => {
         image: '',
         theme: '',
         category: '',
-        text_art: '',
+        textArt: '',
         posted: null,
     });
 
@@ -41,7 +41,7 @@ export const ArticleCard = () => {
                 message(data.message || data.error, false);
                 return;
             }
-            autoResize('text_art');
+            autoResize('textArt');
             message(data.message, true);
             setArticle({ ...article, posted: data.data })
         } catch (err) {
@@ -53,12 +53,13 @@ export const ArticleCard = () => {
         e.preventDefault();
         try {
             const data = await request(`/article/patch/${article.id}`, 'PATCH', article);
+            
             if (data.hasOwnProperty('error')) {
                 message(data.message || data.error, false);
                 return;
             }
             // autoResize('text');
-            autoResize('text_art');
+            autoResize('textArt');
             return message(data.message, true);
         } catch (err) {
             message(err, false);
@@ -74,7 +75,7 @@ export const ArticleCard = () => {
         try {
             const data = await request(`/article/delete/${article.id}`, 'DELETE', {});
             if (data.hasOwnProperty('error')) {
-                message(data.message, false);
+                message(data.message || data.error, false);
                 return;
             }
             message(data.message, true);
@@ -103,12 +104,12 @@ export const ArticleCard = () => {
                     image: data[0].image,
                     theme: data[0].theme,
                     category: data[0].category,
-                    text_art: data[0].text_art,
+                    textArt: data[0].text_art,
                     posted: data[0].posted,
                 });
 
                 // autoResize('text');
-                autoResize('text_art');
+                autoResize('textArt');
             } catch (error) {
                 message(error, false);
             }
@@ -182,7 +183,7 @@ export const ArticleCard = () => {
                                             disabled={loading}
                                         />
                                     </div>
-                                    <div className="app-create-notice__title create-notice-title">
+                                    {/* <div className="app-create-notice__title create-notice-title">
                                         <input
                                             placeholder="Ссылка на картинку (не обязательно)"
                                             className="create-notice-title__elem image"
@@ -195,7 +196,7 @@ export const ArticleCard = () => {
                                             autoComplete="off"
                                             disabled={loading}
                                         />
-                                    </div>
+                                    </div> */}
                                     <div className="app-create-notice__added">
                                         <div className="notice-example-add">
                                             <svg
@@ -214,13 +215,13 @@ export const ArticleCard = () => {
                                         {note.example}
                                     </div> */}
                                             <textarea
-                                                className="app-area-notice-text text_art"
+                                                className="app-area-notice-text textArt"
                                                 placeholder="Текст статьи. Только на латинице!"
-                                                id="text_art"
+                                                id="textArt"
                                                 type="text"
-                                                name="text_art"
+                                                name="textArt"
                                                 onChange={changeHandler}
-                                                value={article.text_art}
+                                                value={article.textArt}
                                                 autoComplete="off"
                                                 disabled={loading}
                                                 required maxLength="2000"

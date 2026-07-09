@@ -258,7 +258,7 @@ export const ProfilePage = () => {
                                     </li>
                                     <li className="task-step" id='rules' onClick={openList}>
                                         <div className="task-step__header">
-                                            <h4 className="task-step__title">Сменить профиль</h4>
+                                            <h4 className="task-step__title">Сменить роль</h4>
                                         </div>
                                         <div className="task-step__body body_rules --th-disabled">
                                             <div className="task-step__text">

@@ -97,7 +97,7 @@ export const FeedPage = () => {
             setArticles(arr.concat(data.data));
 
             if (data.data.length < 10) {
-                return document.querySelector('.filters-top__add-word').classList.add('--th-mobile');
+                return document.querySelector('.filters-down__more').classList.add('--th-disable');
             }
         } catch (error) {
             message(error, false);
@@ -159,8 +159,8 @@ export const FeedPage = () => {
                     {!loading &&
                         <main className="app-main__mid">
                             <section className="app-cards">
-                                <div class="filters-top__left">
-                                    {/*  --th-desktop */}
+                                <p class="quiz-categories__current">Привет в новом разделе! <br />Теперь можно читать статьи, которые публикуют другие пользователи <br />(доступно для роли: Преподаватель на компьютере)</p>
+                                {/* <div class="filters-top__left">
                                     <div class="filters-categories">
                                         <button class="filters-categories__select" onClick={handleFilter}>
                                             <span>Показать: {filter}</span>
@@ -199,7 +199,7 @@ export const FeedPage = () => {
                                             </ul>
                                         </div>
                                     </div>
-                                </div>
+                                </div> */}
                                 <ul className="app-cards__inner feed">
                                     {articles
                                         .map((article, index) => {
@@ -224,11 +224,11 @@ export const FeedPage = () => {
                                                                     className="feed-eye__img"
                                                                 />
                                                             </button>
-                                                            <button
+                                                            {/* <button
                                                                 className={`place-card__like-icon ${article.liked ? '--the-liked' : ''}`}
                                                                 onClick={handleLike}
                                                             >
-                                                            </button>
+                                                            </button> */}
                                                         </div>
                                                     </div>
                                                 </li>
@@ -238,7 +238,7 @@ export const FeedPage = () => {
 
                             </section>
                             <div className="filters-top__left">
-                                <button className=" btn btn-dark filters-top__add-word" onClick={handleGetMoreArt}>
+                                <button className=" btn btn-dark filters-down__more" onClick={handleGetMoreArt}>
                                     <svg className="icon" viewBox="0 0 25 24" fill="none">
                                         <path
                                             d="M5.5 12H19.5M12.5 19V5"

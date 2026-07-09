@@ -171,6 +171,10 @@
   position: relative;
 }
 
+.more-btn.mobile {
+  display: none;
+}
+
 .more-btn.--th-active .more-btn__menu {
   opacity: 1;
   visibility: visible;

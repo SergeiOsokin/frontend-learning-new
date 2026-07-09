@@ -24,8 +24,6 @@ export const EducationPage = () => {
         }
     }
 
-    console.log(localStorage.getItem('typeUser').includes(2))
-
     return (
         <>
             <div className="app-inner">

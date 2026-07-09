@@ -37,9 +37,6 @@ export const WordForm = ({ wordInfo, setActive }) => {
         }
     }
 
-    console.log(auth)
-
-
     const changeHandler = (e) => {
         // --th-disabled --th-dark
         if (e.target.name === 'categoryWord') {

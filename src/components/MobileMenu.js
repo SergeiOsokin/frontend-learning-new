@@ -27,6 +27,7 @@ export const MobileMenu = ({ active_icon: simple }) => {
                             />
                         </svg>
                     </button>
+                    Повторение
                 </li>
                 <li className="app-mobile-menu__item">
                     <button className={`app-mobile-menu__btn `} onClick={() => { history.push('/wordslist') }}>
@@ -40,6 +41,7 @@ export const MobileMenu = ({ active_icon: simple }) => {
                             />
                         </svg>
                     </button>
+                    Слова
                 </li>
                 <li className="app-mobile-menu__item">
                     <button className={`app-mobile-menu__btn `} onClick={() => { history.push('/notes') }}>
@@ -53,6 +55,7 @@ export const MobileMenu = ({ active_icon: simple }) => {
                             />
                         </svg>
                     </button>
+                    Заметки
                 </li>
                 <li className="app-mobile-menu__item">
                     {/*  --th-active */}
@@ -67,6 +70,22 @@ export const MobileMenu = ({ active_icon: simple }) => {
                             />
                         </svg>
                     </button>
+                    Учеба
+                </li>
+                <li className="app-mobile-menu__item">
+                    {/*  --th-active */}
+                    <button className={`app-mobile-menu__btn `} onClick={() => { history.push('/feed') }}>
+                        <svg viewBox="0 0 32 32" fill="none">
+                            <path
+                                d="M6.66797 25.3333V5.33333C6.66797 4.97971 6.80844 4.64057 7.05849 4.39052C7.30854 4.14048 7.64768 4 8.0013 4H24.0013C24.3549 4 24.6941 4.14048 24.9441 4.39052C25.1942 4.64057 25.3346 4.97971 25.3346 5.33333V22.6667H9.33464C8.62739 22.6667 7.94911 22.9476 7.44902 23.4477C6.94892 23.9478 6.66797 24.6261 6.66797 25.3333ZM6.66797 25.3333C6.66797 26.0406 6.94892 26.7189 7.44902 27.219C7.94911 27.719 8.62739 28 9.33464 28H25.3346M12.0013 4V22.6667M21.3346 22.6667V28"
+                                stroke="currentColor"
+                                strokeWidth={2}
+                                strokeLinecap="round"
+                                strokeLinejoin="round"
+                            />
+                        </svg>
+                    </button>
+                    Лента
                 </li>
                 <li className="app-mobile-menu__item ">
                     {/*  --th-active */}
@@ -79,8 +98,9 @@ export const MobileMenu = ({ active_icon: simple }) => {
                                 strokeLinejoin="round" />
                         </svg>
                     </button>
+                    Профиль
                 </li>
-                <li className="app-mobile-menu__item">
+                {/* <li className="app-mobile-menu__item">
                     <button className={`app-mobile-menu__btn `} onClick={() => { history.push('/') }}>
                         <svg viewBox="0 0 24 24" fill="none">
                             <path
@@ -91,7 +111,7 @@ export const MobileMenu = ({ active_icon: simple }) => {
                             />
                         </svg>
                     </button>
-                </li>
+                </li> */}
             </ul>
         </div>
     )

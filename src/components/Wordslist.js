@@ -485,7 +485,7 @@ export const WordsList = () => {
                                     {/* Мобильный вид  */}
                                     < ul className="app-dictionary__list dictionary-mob">
                                         {wordsArr
-                                            .sort((a, b) => a.id - b.id)
+                                            // .sort((a, b) => a.id - b.id)
                                             .map((word, index) => {
                                                 return (
                                                     <li className="dictionary-mob__item"
@@ -507,7 +507,7 @@ export const WordsList = () => {
                                                                 categoryid={word.category_word_id}
                                                                 category={word.category}
                                                             >
-                                                                <div className="more-btn ">
+                                                                <div className="more-btn mobile">
                                                                     <button className="more-btn__btn" onClick={handleWordBtn}>
                                                                         <svg className="icon" viewBox="0 0 24 24" fill="none">
                                                                             <path

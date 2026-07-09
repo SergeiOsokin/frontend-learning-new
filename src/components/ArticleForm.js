@@ -15,22 +15,21 @@ export const ArticleForm = () => {
     const [article, setArticle] = useState({
         theme: '',
         category: '',
-        text_art: '',
+        textArt: '',
     });
     const message = useMessage();
 
     const changeHandler = (e) => {
-        setArticle({ ...article, [e.target.name]: e.target.value });
+        setArticle({ ...article, [e.target.name]: e.target.value.normalize() });
         if (e.target.type === 'textarea') { autoResize(e.target.name) }
         // validationInputs(e);
     }
 
     const handleCancel = () => {
-        history.push('/notes')
+        history.push('/articles');
     }
 
     const handleSubmit = (async (e) => {
-        // note)
         e.preventDefault();
         try {
             const data = await request('/article/create', 'POST', article);
@@ -43,8 +42,7 @@ export const ArticleForm = () => {
             setArticle({
                 theme: '',
                 category: '',
-                text_art: '',
-                image: ''
+                textArt: '',
             })
         } catch (err) {
             message(err, false);
@@ -143,13 +141,13 @@ export const ArticleForm = () => {
                                         />
                                     </svg>
                                     <textarea
-                                        className="app-area-text text_art"
+                                        className="app-area-text textArt"
                                         placeholder="Текст статьи. Только на латинице!"
-                                        id="text_art"
+                                        id="textArt"
                                         type="text"
-                                        name="text_art"
+                                        name="textArt"
                                         onChange={changeHandler}
-                                        value={article.text_art}
+                                        value={article.textArt}
                                         autoComplete="off"
                                         disabled={loading}
                                         required maxLength="2000"
@@ -170,14 +168,14 @@ export const ArticleForm = () => {
                                         strokeLinejoin="round"
                                     />
                                 </svg>
-                                <span>Удалить</span>
+                                <span>Отменить</span>
                             </button>
                             <button className="app-create-notice__save btn btn-dark" onClick={handleSubmit}>
                                 Сохранить
                             </button>
-                            <button className="app-create-notice__save btn btn-dark" onClick={handleSubmit}>
+                            {/* <button className="app-create-notice__save btn btn-dark" onClick={handleSubmit}>
                                 Сохранить и опубликовать
-                            </button>
+                            </button> */}
                         </div>
                     </div>
                 </main>
