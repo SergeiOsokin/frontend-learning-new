@@ -16,7 +16,8 @@ export const FormReg = () => {
     const [form, setForm] = useState({
         email: '',
         password: '',
-        passwordConfirm: ''
+        passwordConfirm: '',
+        type: '1'
     });
     const [isError, setError] = useState(false)
 
@@ -50,13 +51,12 @@ export const FormReg = () => {
                 e.type = 'password' :
                 e.type = 'text'
         })
-
-
-    }
+    };
 
     const moveHandler = (event) => {
         history.push('/authorization');
-    }
+    };
+
     useEffect(() => {
         // document.getElementById("root").classList.add("o-wrapper");
         document.getElementById("root").classList.replace("app-wrapper", "o-wrapper");
@@ -133,6 +133,11 @@ export const FormReg = () => {
                                         </svg>
                                     </div>
                                 </div>
+                                <select onChange={changeHandler} name="type" className="create-word-select">
+                                    <option value="1">Я - Студент</option>
+                                    <option value="2">Я - Преподаватель</option>
+                                    <option value="0">Я - Оба</option>
+                                </select>
                             </div>
                             <button className="o-form__action btn btn-dark">
                                 Зарегистрироваться

@@ -19,6 +19,10 @@
   }
 }
 
+.app-cards__inner.feed {
+  grid-template-columns: 1fr;
+}
+
 .card-add {
   border: 1px solid #CDCDCD;
   color: #CDCDCD;
@@ -94,6 +98,11 @@
     margin-top: 1.5rem;
   }
 }
+
+.card-note__content.feed {
+  margin-top: 0;
+}
+
 .card-note__title {
   font-size: 2rem;
   line-height: 130%;
@@ -103,14 +112,14 @@
   -webkit-line-clamp: 2;
   -webkit-box-orient: vertical;
 }
-.card-note__text {
+/* .card-note__text {
   font-size: 1.6rem;
   line-height: 130%;
   overflow: hidden;
   display: -webkit-box;
   -webkit-line-clamp: 3;
   -webkit-box-orient: vertical;
-}
+} */
 .card-note__date {
   color: #939393;
   font-size: 1.6rem;

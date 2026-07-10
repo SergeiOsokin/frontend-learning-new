@@ -487,6 +487,14 @@ h1 {
   color: inherit;
 }
 
+.app-mobile-menu__item {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  font-size: 10px;
+  color: white;
+}
+
 button {
   font-family: "Golos Text", serif;
   cursor: pointer;
@@ -494,7 +502,7 @@ button {
 }
 
 .btn {
-  padding: 0 1.6rem;
+  /* padding: 0 1.6rem; */
   height: 4rem;
   font-size: 1.6rem;
   display: flex;

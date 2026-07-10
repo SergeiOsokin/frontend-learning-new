@@ -40,24 +40,60 @@ export const EducationPage = () => {
                     <main className="app-main__mid">
                         <section className="app-role-select">
                             <ul className="app-role-select__grid">
-                                <li className="role-card --th-teacher">
-                                    <button className="role-card__btn" name='teacher' onClick={handleCheckRole}>
-                                        <span className="role-card__img" />
-                                        <span className="role-card__title">Преподаватель</span>
-                                        <span className="role-card__text">
-                                            Создать и назначить задачи
-                                        </span>
-                                    </button>
-                                </li>
-                                <li className="role-card --th-student">
-                                    <button className="role-card__btn" name='student' onClick={handleCheckRole}>
-                                        <span className="role-card__img" />
-                                        <span className="role-card__title">Ученик</span>
-                                        <span className="role-card__text">
-                                            Выполнить задачи
-                                        </span>
-                                    </button>
-                                </li>
+
+                                {localStorage.getItem('typeUser').includes(1, 0) &&
+
+                                    <li className="role-card --th-student">
+                                        <button className="role-card__btn" name='student' onClick={handleCheckRole}>
+                                            <span className="role-card__img" />
+                                            <span className="role-card__title">Ученик</span>
+                                            <span className="role-card__text">
+                                                Выполнить задачи
+                                            </span>
+                                        </button>
+                                    </li>
+
+                                }
+
+                                {localStorage.getItem('typeUser').includes(2, 0) &&
+
+                                    <li className="role-card --th-teacher">
+                                        <button className="role-card__btn" name='teacher' onClick={handleCheckRole}>
+                                            <span className="role-card__img" />
+                                            <span className="role-card__title">Преподаватель</span>
+                                            <span className="role-card__text">
+                                                Создать и назначить задачи
+                                            </span>
+                                        </button>
+                                    </li>
+
+                                }
+
+                                {localStorage.getItem('typeUser').includes(0) &&
+                                    <>
+
+                                        <li className="role-card --th-student">
+                                            <button className="role-card__btn" name='student' onClick={handleCheckRole}>
+                                                <span className="role-card__img" />
+                                                <span className="role-card__title">Ученик</span>
+                                                <span className="role-card__text">
+                                                    Выполнить задачи
+                                                </span>
+                                            </button>
+                                        </li>
+
+                                        <li className="role-card --th-teacher">
+                                            <button className="role-card__btn" name='teacher' onClick={handleCheckRole}>
+                                                <span className="role-card__img" />
+                                                <span className="role-card__title">Преподаватель</span>
+                                                <span className="role-card__text">
+                                                    Создать и назначить задачи
+                                                </span>
+                                            </button>
+                                        </li>
+                                    </>
+                                }
+
                             </ul>
                         </section>
                     </main>

@@ -34,9 +34,10 @@ export const FormAuth = () => {
                 message(data.message || data.error, false);
                 return;
             }
-            history.push('/wordslist');
+            localStorage.setItem('typeUser', data.type);
             auth.login(data); // передаем полученные данные в auth.hook
-            auth.userId = data.user;
+
+            history.push('/wordslist');
         } catch (error) {
             message(error, false);
         }

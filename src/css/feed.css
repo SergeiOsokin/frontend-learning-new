@@ -1,0 +1,31 @@
+.filters-down__more {
+  height: 4rem;
+  width: 100%;
+  padding-left: 0;
+  padding-right: 0;
+}
+
+@media screen and (max-width: 768px) {
+  .filters-down__more {
+    height: 4.8rem;
+  }
+}
+
+.filters-down__more .icon {
+  width: 2.4rem;
+  height: 2.4rem;
+}
+
+@media screen and (max-width: 1024px) {
+  .filters-down__more {
+    height: 4.8rem;
+  }
+}
+
+.filters-down__more.--th-disable {
+  display: none;
+}
+
+.filters-categories.--th-mobile {
+  display: none;
+}

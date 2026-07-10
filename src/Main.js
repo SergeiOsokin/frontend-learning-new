@@ -5,6 +5,7 @@ import { AuthContext } from './context/AuthContext';
 import { Route, Switch, Redirect } from 'react-router-dom';
 import { useHttp } from '../src/hooks/http.hook';
 import { NotesPage } from './pages/NotesPage';
+import { ArticlesPage } from './pages/ArticlesPage';
 import { RepeatPage } from './pages/RepeatPage';
 import WordsPage from './pages/WordsPage';
 import { FormReg } from './components/FormReg';
@@ -17,6 +18,8 @@ import { NotFoundPage } from './pages/NotFoundPage';
 import { EducationPage } from './pages/EducationPage';
 import { NoteForm } from './components/NoteForm';
 import { NoteCard } from './components/NoteCard';
+import { ArticleForm } from './components/ArticleForm';
+import { ArticleCard } from './components/ArticleCard';
 import { TaskForm } from './components/TaskForm';
 import { TaskCard } from './components/TaskCard';
 import { HomeworkCard } from './components/HomeworkCard';
@@ -29,11 +32,12 @@ import { Room } from './components/room';
 import { BasePage } from './pages/BasePage';
 import { AiPage } from './pages/AiPage';
 import { Loader } from './components/Loader';
+import { FeedPage } from './pages/FeedPage';
 
 const Main = () => {
     const { authorization, logout, login } = useContext(AuthContext); // получаем контекст в объекте auth
     var pjson = require('../package.json');
-    console.log(pjson.version);
+    console.info(pjson.version);
 
     function requireAuth(nextState, replace, next) {
         if (!authorization) {
@@ -56,6 +60,10 @@ const Main = () => {
             <Route exact path='/notes/new' component={NoteForm} />
             <Route exact path='/notes/open/:id' component={NoteCard} />
 
+            <Route exact path='/articles' component={ArticlesPage} />
+            <Route exact path='/articles/new' component={ArticleForm} />
+            <Route exact path='/articles/open/:id' component={ArticleCard} />
+
             <Route exact path='/flashcards' component={RepeatPage} />
             <Route exact path='/wordslist' component={WordsPage} />
             {/* <Route exact path='/addword' component={AddWord} /> */}
@@ -69,6 +77,8 @@ const Main = () => {
             <Route exact path='/base' component={BasePage} />
 
             <Route exact path='/education' component={EducationPage} />
+
+            <Route exact path='/feed' component={FeedPage} />
 
             <Route exact path='/education/call' component={RoomPage} />
             <Route exact path='/room/:id' component={Room} />

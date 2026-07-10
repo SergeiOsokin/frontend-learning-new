@@ -526,3 +526,8 @@
   height: 8rem;
   margin: 0 auto;
 }
+
+.feed-eye__img {
+  display: block;
+  margin: 0 auto;
+}

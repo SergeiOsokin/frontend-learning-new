@@ -18,8 +18,8 @@ export const useMessage = () => {
                                         d="M7 17L14.96 9M15 17L7.04 9"
                                         stroke="currentColor"
                                         stroke-width="2"
-                                        stroke-linecap="round"
-                                        stroke-linejoin="round">
+                                        strokeLinecap="round"
+                                        strokeLinejoin="round">
                                     </path>
                                 </svg>
                             </button>
@@ -38,8 +38,8 @@ export const useMessage = () => {
                                     d="M7 17L14.96 9M15 17L7.04 9"
                                     stroke="currentColor"
                                     stroke-width="2"
-                                    stroke-linecap="round"
-                                    stroke-linejoin="round"></path>
+                                    strokeLinecap="round"
+                                    strokeLinejoin="round"></path>
                                     </svg>
                         </button>
                     </div>
@@ -58,7 +58,7 @@ export const useMessage = () => {
 //             </h3>
 //             <button className="line-btn-grey app-toast__close">
 //                 <svg className="icon" viewBox="0 0 24 24" fill="none">
-//                     <path d="M7 17L14.96 9M15 17L7.04 9" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+//                     <path d="M7 17L14.96 9M15 17L7.04 9" stroke="currentColor" stroke-width="2" stroke-linecap="round" strokeLinejoin="round" />
 //                 </svg>
 //             </button>
 //         </div>

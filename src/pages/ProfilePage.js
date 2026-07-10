@@ -10,26 +10,18 @@ import { FooterInner } from '../components/Footer';
 import { AuthContext } from '../context/AuthContext';
 
 export const ProfilePage = () => {
-    const { authorization, logout, userId } = useContext(AuthContext); // получаем контекст в объекте auth
+    const { logout } = useContext(AuthContext); // получаем контекст в объекте auth
     const message = useMessage();
-    const history = useHistory();
     const { loading, request } = useHttp();
-    const [deleteModal, setDeleteModal] = useState(false);
     const [token, setToken] = useState();
-    const [resetPsw, setResetPsw] = useState(false);
     const { validationInputs } = validation();
     const [form, setForm] = useState({
         passwordOld: '',
         passwordNew: '',
         passwordConfirm: ''
     });
-
-    const [user, setUser] = useState({
-        users: ''
-    });
-
-    const [userDelete, setUserDelete] = useState({
-        user: ''
+    const [type, setType] = useState({
+        type: localStorage.getItem('typeUser')
     });
 
     const genToken = async function fetchData() {
@@ -65,12 +57,30 @@ export const ProfilePage = () => {
         }
     });
 
-    const changeHandler = (e) => {
+    const updateType = (async (e) => {
+        e.preventDefault();
+        try {
+            const data = await request('/lk/user/type', 'PATCH', type);
+            if (data.hasOwnProperty('error')) {
+                return message(data.message || data.error, false);
+            }
+            message(data.message, true);
+            localStorage.setItem('typeUser', data.newType);
+        } catch (error) {
+            message(error, false);
+        };
+    });
+
+    const changeHandlerPass = (e) => {
         setForm({ ...form, [e.target.name]: e.target.value });
         validationInputs(e);
     };
 
-    const handleEdit = (e) => {
+    const changeHandlerType = (e) => {
+        setType({ ...type, [e.target.name]: e.target.value });
+    };
+
+    const openList = (e) => {
         if (e.target.tagName === ('LI')) {
             const target = e.target.closest('.task-step');
             // открыть / закрыть
@@ -82,7 +92,6 @@ export const ProfilePage = () => {
         } else {
             return;
         };
-
     }
 
     const showPass = (e) => {
@@ -91,11 +100,11 @@ export const ProfilePage = () => {
                 e.type = 'password' :
                 e.type = 'text'
         })
-    }
+    };
 
     useLayoutEffect(() => {
         genToken();
-    }, [])
+    }, []);
 
     return (
         <>
@@ -119,7 +128,7 @@ export const ProfilePage = () => {
                         <main className="app-main__mid">
                             <section className="task-more">
                                 <ul className="task-more__list">
-                                    <li className="task-step" id='rules' onClick={handleEdit}>
+                                    <li className="task-step" id='rules' onClick={openList}>
                                         <div className="task-step__header">
                                             <h4 className="task-step__title">Обновить пароль</h4>
                                         </div>
@@ -136,7 +145,7 @@ export const ProfilePage = () => {
                                                                 autoComplete="off"
                                                                 name="passwordOld"
                                                                 required minLength="6"
-                                                                onChange={changeHandler}
+                                                                onChange={changeHandlerPass}
                                                                 value={form.password}
                                                                 disabled={loading}
                                                             />
@@ -161,7 +170,7 @@ export const ProfilePage = () => {
                                                                 autoComplete="off"
                                                                 name="passwordNew"
                                                                 required minLength="6"
-                                                                onChange={changeHandler}
+                                                                onChange={changeHandlerPass}
                                                                 value={form.passwordNew}
                                                                 disabled={loading}
                                                             />
@@ -186,7 +195,7 @@ export const ProfilePage = () => {
                                                                 autoComplete="off"
                                                                 name="passwordConfirm"
                                                                 required minLength="6"
-                                                                onChange={changeHandler}
+                                                                onChange={changeHandlerPass}
                                                                 value={form.passwordConfirm}
                                                                 disabled={loading}
                                                             />
@@ -211,7 +220,7 @@ export const ProfilePage = () => {
 
                                         </div>
                                     </li>
-                                    <li className="task-step" id='words' onClick={handleEdit}>
+                                    <li className="task-step" id='words' onClick={openList}>
                                         <div className="task-step__header">
                                             <h4 className="task-step__title">Телеграмм бот</h4>
                                         </div>
@@ -244,6 +253,26 @@ export const ProfilePage = () => {
                                                 </button>
                                             }
 
+
+                                        </div>
+                                    </li>
+                                    <li className="task-step" id='rules' onClick={openList}>
+                                        <div className="task-step__header">
+                                            <h4 className="task-step__title">Сменить роль</h4>
+                                        </div>
+                                        <div className="task-step__body body_rules --th-disabled">
+                                            <div className="task-step__text">
+                                                <form className="o-form o-form-new-password" autoComplete='off'>
+                                                    <select onChange={changeHandlerType} name="type" defaultValue={`${type.type}`} className="create-word-select">
+                                                        <option value="1">Я - Студент</option>
+                                                        <option value="2">Я - Преподаватель</option>
+                                                        <option value="0">Я - Оба</option>
+                                                    </select>
+                                                    <button onClick={updateType} className="o-form__action btn btn-dark">
+                                                        Обновить
+                                                    </button>
+                                                </form>
+                                            </div>
 
                                         </div>
                                     </li>

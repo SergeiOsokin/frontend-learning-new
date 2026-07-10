@@ -393,7 +393,7 @@ button {
 }
 
 .btn {
-  padding: 0 1.6rem;
+  /* padding: 0 1.6rem; */
   height: 4rem;
   font-size: 1.6rem;
   display: flex;
