@@ -6,6 +6,7 @@ import { Loader } from './Loader';
 import { validation } from '../hooks/validation.hook';
 import { Header } from './Header';
 import { Footer } from './Footer';
+import { doments } from '../constants/const';
 // import { useMessage } from '../hooks/message.hook';
 
 export const FormReg = () => {
@@ -28,7 +29,8 @@ export const FormReg = () => {
 
     const registrHandler = async (e) => {
         e.preventDefault();
-        if (form.password === form.passwordConfirm) {
+
+        if (form.password === form.passwordConfirm && doments.some(sub => form.email.includes(sub))) {
             try {
                 const data = await request('/signup', 'POST', form);
                 if (data.hasOwnProperty('error')) {
@@ -40,7 +42,11 @@ export const FormReg = () => {
                 message(error, false);
             }
         } else {
-            message('Пароли не совпадают', false);
+            if (doments.some(sub => form.email.includes(sub))) {
+                message('Пароли не совпадают', false);
+            } else {
+                message(`Разрешена только почта от: ${doments}. Sorry=(`, false);
+            }
         }
 
     };

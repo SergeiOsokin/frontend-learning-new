@@ -20,7 +20,7 @@ export const useAuth = (data) => {
     // что делаем при разлогинивании
     const logout = useCallback(async () => {
         const req = await request('/deletecookie', 'DELETE');
-        message('Выход выполнен', true)
+        // message('Выход выполнен', true)
         setAuthorization(false);
         history.push('/authorization')
     }, []);
