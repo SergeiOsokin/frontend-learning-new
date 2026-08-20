@@ -12,7 +12,7 @@ export const useAuth = (data) => {
     const message = useMessage();
     const { request } = useHttp();
     const history = useHistory();
-    const arr = ['/authorization', '/recover', '/registration']
+    const arr = ['/authorization', '/recover', '/registration', '/']
     // что происходит после успешной авторизации
     const login = useCallback(() => {
         setAuthorization(true);
@@ -25,14 +25,24 @@ export const useAuth = (data) => {
         history.push('/authorization')
     }, []);
     // проверим, нет ли данных в cookie сейчас, чтобы сделать пользователя авторизованным. 
-    
+
     useEffect(() => {
         async function fetchData() {
             try {
                 const data = await request('/checkauth', 'GET');
 
+                console.log(data.data)
+
                 if (data.error) {
-                    message('Вход в аккаунт не выполнен.', false);
+                    // если токен протух. 403 ХЗ зачем взял
+                    if (data.error === 'Не авторизованы') {
+                        if (arr.includes(history.location.pathname)) { //чтобы не отображать сообщения с ошибками связанные с логинами
+                            return;
+                        }
+                        logout(); // чтобы сменить авторизацию на false 
+                        message(data.error, false);
+                        return;
+                    }
                     setAuthorization(false);
                     // eslint-disable-next-line no-unused-expressions
                     return arr.includes(history.location.pathname) ? '' : history.push('/');

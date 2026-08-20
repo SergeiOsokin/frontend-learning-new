@@ -24,18 +24,18 @@ export const useHttp = () => {
             const data = await response.json();
             setLoading(false);
 
-            console.log(response.status)
-
-            // Тут проверить что не возвращается ошибка, чтобы сделать разлогинивание
-            if (data.hasOwnProperty('error')) {
-                if (response.status === (401 || 403)) {
-                    logout();
-                    history.push('/authorization');
-                    message(data.error, false);
-                }
-
-                return data;
-            }
+            // if (data.hasOwnProperty('error')) {
+            //     // если токен протух. 403 ХЗ зачем взял
+            //     if (response.status === (401 || 403)) {
+            //         logout(); // чтобы сменить авторизацию на false 
+            //         if (history.location.pathname === '/') { //чтобы на главной странице не отображать сообщения с ошибками
+            //             return;
+            //         }
+            //         history.push('/authorization');
+            //         message(data.error, false);
+            //     }
+            //     return data;
+            // }
 
             return data;
         } catch (error) {
