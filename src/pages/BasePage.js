@@ -8,10 +8,14 @@ import { Aside } from '../components/Aside';
 import { autoResize } from '../hooks/autoResize.hook';
 import { FooterInner } from '../components/Footer';
 import { Header } from '../components/Header';
+import { BaseTestForm } from '../components/BaseTestForm';
 
 export const BasePage = () => {
     const { loading, request } = useHttp();
-    const [inputValue, setInputValue] = useState('')
+    const [inputValue, setInputValue] = useState('');
+    const [activeModalAdd, setActiveModalAdd] = useState(false);
+    const [testThemeId, setTestThemeId] = useState();
+    const [testThemeName, setTestThemeName] = useState('');
 
     // --th-opened --th-opened
     const handleEdit = (e) => {
@@ -22,7 +26,7 @@ export const BasePage = () => {
         target.classList.toggle('--th-edited');
         // автоматическая высота
         target.querySelector('.app-area-text').style.height = target.querySelector('.app-area-text').scrollHeight + 'px';
-    }
+    };
 
     function menuSearch() {
         let phrase = document.querySelector('.app-search__elem');
@@ -39,11 +43,18 @@ export const BasePage = () => {
                 navItemTopics.children[i].style.display = "none";
             }
         }
-    }
+    };
 
     const handleChange = (e) => {
         setInputValue(e.target.value)
         menuSearch();
+    };
+
+    const handleTest = (e) => {
+        e.preventDefault();
+        setTestThemeId(e.target.closest('.task-step').getAttribute('baseTheme'));
+        setTestThemeName(e.target.closest('.task-step').children[0].children[0].textContent);
+        setActiveModalAdd(true);
     }
 
     return (
@@ -99,7 +110,7 @@ export const BasePage = () => {
                         <section className="task-more">
                             <h3 className="task-more__title">{ }</h3>
                             <ul className="task-more__list">
-                                <li className="task-step" id='rules' onClick={handleEdit}>
+                                <li className="task-step" id='rules' baseTheme={1} onClick={handleEdit}>
                                     <div className="task-step__header">
                                         <h4 className="task-step__title">Артикли</h4>
                                         <svg className="task-step__icon" viewBox="0 0 16 9" fill="none">
@@ -130,9 +141,13 @@ A/an указывает на то, что речь идет о предмете 
                                                 required maxLength="2000"
                                             />
                                         </p>
+                                        <button onClick={handleTest} className="o-form__action btn btn-dark">
+                                            Закрепить
+                                        </button>
                                     </div>
+
                                 </li>
-                                <li className="task-step" id='words' onClick={handleEdit}>
+                                <li className="task-step" id='words'  baseTheme={2} onClick={handleEdit}>
                                     <div className="task-step__header">
                                         <h4 className="task-step__title">Present Simple</h4>
                                         <svg className="task-step__icon" viewBox="0 0 16 9" fill="none">
@@ -167,9 +182,12 @@ A/an указывает на то, что речь идет о предмете 
                                                 required maxLength="200"
                                             />
                                         </p>
+                                        <button onClick={handleTest} className="o-form__action btn btn-dark">
+                                            Закрепить
+                                        </button>
                                     </div>
                                 </li>
-                                <li className="task-step" id='read' onClick={handleEdit}>
+                                <li className="task-step" id='read' baseTheme={3} onClick={handleEdit}>
                                     <div className="task-step__header">
                                         <h4 className="task-step__title">Past Simple</h4>
                                         <svg className="task-step__icon" viewBox="0 0 16 9" fill="none">
@@ -206,7 +224,7 @@ A/an указывает на то, что речь идет о предмете 
                                         </p>
                                     </div>
                                 </li>
-                                <li className="task-step" id='translate' onClick={handleEdit}>
+                                <li className="task-step" id='translate' baseTheme={4} onClick={handleEdit}>
                                     <div className="task-step__header">
                                         <h4 className="task-step__title">Future Simple</h4>
                                         <svg className="task-step__icon" viewBox="0 0 16 9" fill="none">
@@ -245,7 +263,7 @@ A/an указывает на то, что речь идет о предмете 
                                         </p>
                                     </div>
                                 </li>
-                                <li className="task-step" id='other' onClick={handleEdit}>
+                                <li className="task-step" id='other' baseTheme={5} onClick={handleEdit}>
                                     <div className="task-step__header">
                                         <h4 className="task-step__title">Present Continuous</h4>
                                         <svg className="task-step__icon" viewBox="0 0 16 9" fill="none">
@@ -284,7 +302,7 @@ A/an указывает на то, что речь идет о предмете 
                                         </p>
                                     </div>
                                 </li>
-                                <li className="task-step" id='other' onClick={handleEdit}>
+                                <li className="task-step" id='other' baseTheme={6} onClick={handleEdit}>
                                     <div className="task-step__header">
                                         <h4 className="task-step__title">Past Continuous</h4>
                                         <svg className="task-step__icon" viewBox="0 0 16 9" fill="none">
@@ -319,7 +337,7 @@ A/an указывает на то, что речь идет о предмете 
                                         </p>
                                     </div>
                                 </li>
-                                <li className="task-step" id='other' onClick={handleEdit}>
+                                <li className="task-step" id='other'  baseTheme={7} onClick={handleEdit}>
                                     <div className="task-step__header">
                                         <h4 className="task-step__title">Future Continuous</h4>
                                         <svg className="task-step__icon" viewBox="0 0 16 9" fill="none">
@@ -352,7 +370,7 @@ A/an указывает на то, что речь идет о предмете 
                                         </p>
                                     </div>
                                 </li>
-                                <li className="task-step" id='other' onClick={handleEdit}>
+                                <li className="task-step" id='other' baseTheme={8} onClick={handleEdit}>
                                     <div className="task-step__header">
                                         <h4 className="task-step__title">Present Perfect</h4>
                                         <svg className="task-step__icon" viewBox="0 0 16 9" fill="none">
@@ -391,7 +409,7 @@ A/an указывает на то, что речь идет о предмете 
                                         </p>
                                     </div>
                                 </li>
-                                <li className="task-step" id='other' onClick={handleEdit}>
+                                <li className="task-step" id='other' baseTheme={9} onClick={handleEdit}>
                                     <div className="task-step__header">
                                         <h4 className="task-step__title">Past Perfect</h4>
                                         <svg className="task-step__icon" viewBox="0 0 16 9" fill="none">
@@ -424,7 +442,7 @@ A/an указывает на то, что речь идет о предмете 
                                         </p>
                                     </div>
                                 </li>
-                                <li className="task-step" id='other' onClick={handleEdit}>
+                                <li className="task-step" id='other' baseTheme={10} onClick={handleEdit}>
                                     <div className="task-step__header">
                                         <h4 className="task-step__title">Future Perfect</h4>
                                         <svg className="task-step__icon" viewBox="0 0 16 9" fill="none">
@@ -457,7 +475,7 @@ A/an указывает на то, что речь идет о предмете 
                                         </p>
                                     </div>
                                 </li>
-                                <li className="task-step" id='other' onClick={handleEdit}>
+                                <li className="task-step" id='other' baseTheme={11} onClick={handleEdit}>
                                     <div className="task-step__header">
                                         <h4 className="task-step__title">Present Perfect Continuous</h4>
                                         <svg className="task-step__icon" viewBox="0 0 16 9" fill="none">
@@ -492,7 +510,7 @@ A/an указывает на то, что речь идет о предмете 
                                         </p>
                                     </div>
                                 </li>
-                                <li className="task-step" id='other' onClick={handleEdit}>
+                                <li className="task-step" id='other' baseTheme={12} onClick={handleEdit}>
                                     <div className="task-step__header">
                                         <h4 className="task-step__title">Past Perfect Continuous</h4>
                                         <svg className="task-step__icon" viewBox="0 0 16 9" fill="none">
@@ -524,7 +542,7 @@ A/an указывает на то, что речь идет о предмете 
                                         </p>
                                     </div>
                                 </li>
-                                <li className="task-step" id='other' onClick={handleEdit}>
+                                <li className="task-step" id='other' baseTheme={13} onClick={handleEdit}>
                                     <div className="task-step__header">
                                         <h4 className="task-step__title">Базовая структура предложений</h4>
                                         <svg className="task-step__icon" viewBox="0 0 16 9" fill="none">
@@ -558,7 +576,7 @@ A/an указывает на то, что речь идет о предмете 
                                         </p>
                                     </div>
                                 </li>
-                                <li className="task-step" id='other' onClick={handleEdit}>
+                                <li className="task-step" id='other' baseTheme={14} onClick={handleEdit}>
                                     <div className="task-step__header">
                                         <h4 className="task-step__title">Множественное число</h4>
                                         <svg className="task-step__icon" viewBox="0 0 16 9" fill="none">
@@ -596,7 +614,7 @@ A/an указывает на то, что речь идет о предмете 
                                         </p>
                                     </div>
                                 </li>
-                                <li className="task-step" id='other' onClick={handleEdit}>
+                                <li className="task-step" id='other' baseTheme={15} onClick={handleEdit}>
                                     <div className="task-step__header">
                                         <h4 className="task-step__title">Модальные глаголы</h4>
                                         <svg className="task-step__icon" viewBox="0 0 16 9" fill="none">
@@ -648,6 +666,8 @@ Would — вежливая просьба, предпочтение, услов�
                     <FooterInner />
                 </main>
             </div>
+
+            {activeModalAdd && <BaseTestForm testThemeId={testThemeId} testThemeName={testThemeName} setActive={setActiveModalAdd}  />}
         </>
     )
 };

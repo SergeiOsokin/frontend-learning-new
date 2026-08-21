@@ -1,0 +1,104 @@
+
+.test-modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 9999;
+  display: flex;
+  align-items: stretch;
+  justify-content: flex-end;
+  background-color: rgba(31, 30, 48, 0.3);
+  backdrop-filter: blur(10px);
+}
+.test-modal__inner {
+  /* width: 100%; */
+  max-width: 120.2rem;
+  background-color: #F6F6F1;
+  padding: 8rem 2rem 2.4rem 3.2rem;
+  position: relative;
+  display: flex;
+  align-items: stretch;
+  justify-content: space-between;
+  flex-direction: column;
+}
+@media screen and (max-width: 768px) {
+  .test-modal__inner {
+    padding: 2rem 2rem 2.4rem 3.2rem;
+  }
+}
+@media screen and (max-width: 550px) {
+  .test-modal__inner {
+    padding: 4rem 1.6rem 2rem 1.6rem;
+  }
+}
+.test-modal__title {
+  font-size: 3.2rem;
+  line-height: 130%;
+  font-weight: 400;
+  font-family: "Unbounded", serif;
+  flex: 0 0 auto;
+}
+@media screen and (max-width: 550px) {
+  .test-modal__title {
+    max-width: 40rem;
+    padding-bottom: 2rem;
+    font-size: 2.6rem;
+  }
+}
+.test-modal__close {
+  position: absolute;
+  top: 2.4rem;
+  left: auto;
+  right: 3.4rem;
+  width: 3.2rem;
+  height: 3.2rem;
+  color: #939393;
+  background-color: transparent;
+  border: none;
+  outline: none;
+  padding: 0;
+  margin: 0;
+}
+@media screen and (max-width: 550px) {
+  .test-modal__close {
+    top: 1.4rem;
+    right: 1.4rem;
+  }
+}
+.test-modal__close:hover {
+  opacity: 0.8;
+}
+.test-modal__close:active {
+  opacity: 0.9;
+}
+
+.test-wrapper {
+  flex: 1 1 auto;
+  overflow-y: scroll;
+  padding-bottom: 5rem;
+  margin-right: -2rem;
+  padding-right: 2rem;
+  margin-top: 4.8rem;
+}
+@media screen and (max-width: 550px) {
+  .test-wrapper {
+    margin-top: 0;
+  }
+}
+.test-wrapper.--th-delete-category {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.test-wrapper.--th-delete-category .categories-test-list {
+  display: none;
+}
+.test-wrapper.--th-delete-category .confirm-category-delete {
+  display: block;
+}
+
+.test-wrapper .confirm-category-delete {
+  display: none;
+}
