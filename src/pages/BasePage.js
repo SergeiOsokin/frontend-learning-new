@@ -19,6 +19,8 @@ export const BasePage = () => {
 
     // --th-opened --th-opened
     const handleEdit = (e) => {
+        if (e.target.classList.contains('o-form__action')) return;
+
         const target = e.target.closest('.task-step');
         // открыть / закрыть
         e.target.closest('.task-step').children[1].classList.toggle('--th-disabled')
@@ -110,6 +112,82 @@ export const BasePage = () => {
                         <section className="task-more">
                             <h3 className="task-more__title">{ }</h3>
                             <ul className="task-more__list">
+                                <li className="task-step" id='other' baseTheme={13} onClick={handleEdit}>
+                                    <div className="task-step__header">
+                                        <h4 className="task-step__title">Базовая структура предложений</h4>
+                                        <svg className="task-step__icon" viewBox="0 0 16 9" fill="none">
+                                            <path
+                                                d="M15 1L8 8L1 1"
+                                                stroke="#CDCDCD"
+                                                strokeWidth={2}
+                                                strokeLinecap="round"
+                                                strokeLinejoin="round"
+                                            />
+                                        </svg>
+                                    </div>
+                                    <div className="task-step__body body_other --th-disabled">
+                                        <p className="task-step__text">
+                                            <textarea
+                                                className=" app-area-text other"
+                                                placeholder="Название"
+
+                                                type="text"
+                                                name="other"
+                                                defaultValue={`Базовый порядок в английском:
+субъект (С) – глагол (Г) – объект/дополнение (О/Д)
+👉 Пример: Простое утвердительное 
+С + Г + О/Д — I read books
+👉 Пример: Вопросительное 
+Do/Does/Did + С + Г + О/Д — Do you read books?
+👉 Пример: 
+Отрицательное С + do/does/did not + Г + О/Д — I don't read books
+👉 Пример: 
+С модальным глаголом С + Modal + Г + С/Д — I can read books`}
+                                                autoComplete="off"
+                                                disabled={true}
+                                                required maxLength="300"
+                                            />
+                                        </p>
+                                    </div>
+                                </li>
+                                <li className="task-step" id='other' baseTheme={14} onClick={handleEdit}>
+                                    <div className="task-step__header">
+                                        <h4 className="task-step__title">Множественное число</h4>
+                                        <svg className="task-step__icon" viewBox="0 0 16 9" fill="none">
+                                            <path
+                                                d="M15 1L8 8L1 1"
+                                                stroke="#CDCDCD"
+                                                strokeWidth={2}
+                                                strokeLinecap="round"
+                                                strokeLinejoin="round"
+                                            />
+                                        </svg>
+                                    </div>
+                                    <div className="task-step__body body_other --th-disabled">
+                                        <p className="task-step__text">
+                                            <textarea
+                                                className=" app-area-text other"
+                                                placeholder="Название"
+                                                type="text"
+                                                name="other"
+                                                defaultValue={`Есть несколько вариантов образования множественного числа: 
+● Базовое правило, добавить к существительному -s
+👉 Пример: cat -> catS
+● Если слово заканчивается на -s, -ss, -sh, -ch, -x, -o, добавляется окончание -es
+👉 Пример: box -> boxes
+● Если слово заканчивается на согласную + y, y меняется на i и добавляется -es
+👉 Пример: country -> countries
+● Если слово оканчивается на -f или -fe, f меняется на v и добавляется -es
+👉 Пример: knife -> knives
+● Исключения
+👉 Пример: man -> men; child -> children; woman -> women; foot -> feet; tooth -> teeth`}
+                                                autoComplete="off"
+                                                disabled={true}
+                                                required maxLength="300"
+                                            />
+                                        </p>
+                                    </div>
+                                </li>
                                 <li className="task-step" id='rules' baseTheme={1} onClick={handleEdit}>
                                     <div className="task-step__header">
                                         <h4 className="task-step__title">Артикли</h4>
@@ -145,9 +223,8 @@ A/an указывает на то, что речь идет о предмете 
                                             Закрепить
                                         </button>
                                     </div>
-
                                 </li>
-                                <li className="task-step" id='words'  baseTheme={2} onClick={handleEdit}>
+                                <li className="task-step" id='words' baseTheme={2} onClick={handleEdit}>
                                     <div className="task-step__header">
                                         <h4 className="task-step__title">Present Simple</h4>
                                         <svg className="task-step__icon" viewBox="0 0 16 9" fill="none">
@@ -222,6 +299,9 @@ A/an указывает на то, что речь идет о предмете 
                                                 required maxLength="500"
                                             />
                                         </p>
+                                        <button onClick={handleTest} className="o-form__action btn btn-dark">
+                                            Закрепить
+                                        </button>
                                     </div>
                                 </li>
                                 <li className="task-step" id='translate' baseTheme={4} onClick={handleEdit}>
@@ -261,6 +341,9 @@ A/an указывает на то, что речь идет о предмете 
                                                 required maxLength="500"
                                             />
                                         </p>
+                                        <button onClick={handleTest} className="o-form__action btn btn-dark">
+                                            Закрепить
+                                        </button>
                                     </div>
                                 </li>
                                 <li className="task-step" id='other' baseTheme={5} onClick={handleEdit}>
@@ -300,6 +383,9 @@ A/an указывает на то, что речь идет о предмете 
                                                 required maxLength="300"
                                             />
                                         </p>
+                                        <button onClick={handleTest} className="o-form__action btn btn-dark">
+                                            Закрепить
+                                        </button>
                                     </div>
                                 </li>
                                 <li className="task-step" id='other' baseTheme={6} onClick={handleEdit}>
@@ -335,9 +421,12 @@ A/an указывает на то, что речь идет о предмете 
                                                 required maxLength="300"
                                             />
                                         </p>
+                                        <button onClick={handleTest} className="o-form__action btn btn-dark">
+                                            Закрепить
+                                        </button>
                                     </div>
                                 </li>
-                                <li className="task-step" id='other'  baseTheme={7} onClick={handleEdit}>
+                                <li className="task-step" id='other' baseTheme={7} onClick={handleEdit}>
                                     <div className="task-step__header">
                                         <h4 className="task-step__title">Future Continuous</h4>
                                         <svg className="task-step__icon" viewBox="0 0 16 9" fill="none">
@@ -368,6 +457,9 @@ A/an указывает на то, что речь идет о предмете 
                                                 required maxLength="300"
                                             />
                                         </p>
+                                        <button onClick={handleTest} className="o-form__action btn btn-dark">
+                                            Закрепить
+                                        </button>
                                     </div>
                                 </li>
                                 <li className="task-step" id='other' baseTheme={8} onClick={handleEdit}>
@@ -407,6 +499,9 @@ A/an указывает на то, что речь идет о предмете 
                                                 required maxLength="300"
                                             />
                                         </p>
+                                        <button onClick={handleTest} className="o-form__action btn btn-dark">
+                                            Закрепить
+                                        </button>
                                     </div>
                                 </li>
                                 <li className="task-step" id='other' baseTheme={9} onClick={handleEdit}>
@@ -440,6 +535,9 @@ A/an указывает на то, что речь идет о предмете 
                                                 required maxLength="300"
                                             />
                                         </p>
+                                        <button onClick={handleTest} className="o-form__action btn btn-dark">
+                                            Закрепить
+                                        </button>
                                     </div>
                                 </li>
                                 <li className="task-step" id='other' baseTheme={10} onClick={handleEdit}>
@@ -473,6 +571,9 @@ A/an указывает на то, что речь идет о предмете 
                                                 required maxLength="300"
                                             />
                                         </p>
+                                        <button onClick={handleTest} className="o-form__action btn btn-dark">
+                                            Закрепить
+                                        </button>
                                     </div>
                                 </li>
                                 <li className="task-step" id='other' baseTheme={11} onClick={handleEdit}>
@@ -508,6 +609,9 @@ A/an указывает на то, что речь идет о предмете 
                                                 required maxLength="300"
                                             />
                                         </p>
+                                        <button onClick={handleTest} className="o-form__action btn btn-dark">
+                                            Закрепить
+                                        </button>
                                     </div>
                                 </li>
                                 <li className="task-step" id='other' baseTheme={12} onClick={handleEdit}>
@@ -540,78 +644,9 @@ A/an указывает на то, что речь идет о предмете 
                                                 required maxLength="300"
                                             />
                                         </p>
-                                    </div>
-                                </li>
-                                <li className="task-step" id='other' baseTheme={13} onClick={handleEdit}>
-                                    <div className="task-step__header">
-                                        <h4 className="task-step__title">Базовая структура предложений</h4>
-                                        <svg className="task-step__icon" viewBox="0 0 16 9" fill="none">
-                                            <path
-                                                d="M15 1L8 8L1 1"
-                                                stroke="#CDCDCD"
-                                                strokeWidth={2}
-                                                strokeLinecap="round"
-                                                strokeLinejoin="round"
-                                            />
-                                        </svg>
-                                    </div>
-                                    <div className="task-step__body body_other --th-disabled">
-                                        <p className="task-step__text">
-                                            <textarea
-                                                className=" app-area-text other"
-                                                placeholder="Название"
-
-                                                type="text"
-                                                name="other"
-                                                defaultValue={`Базовый порядок в английском: субъект (С) – глагол (Г) – объект/дополнение (О/Д)
-                                                    👉 Пример: Простое утвердительное С + Г + О/Д — I read books
-                                                    👉 Пример: Вопросительное Do/Does/Did + С + Г + О/Д — Do you read books?
-                                                    👉 Пример: Отрицательное С + do/does/did not + Г + О/Д — I don't read books
-                                                    👉 Пример: С модальным глаголом С + Modal + Г + С/Д — I can read books
-                                                    `}
-                                                autoComplete="off"
-                                                disabled={true}
-                                                required maxLength="300"
-                                            />
-                                        </p>
-                                    </div>
-                                </li>
-                                <li className="task-step" id='other' baseTheme={14} onClick={handleEdit}>
-                                    <div className="task-step__header">
-                                        <h4 className="task-step__title">Множественное число</h4>
-                                        <svg className="task-step__icon" viewBox="0 0 16 9" fill="none">
-                                            <path
-                                                d="M15 1L8 8L1 1"
-                                                stroke="#CDCDCD"
-                                                strokeWidth={2}
-                                                strokeLinecap="round"
-                                                strokeLinejoin="round"
-                                            />
-                                        </svg>
-                                    </div>
-                                    <div className="task-step__body body_other --th-disabled">
-                                        <p className="task-step__text">
-                                            <textarea
-                                                className=" app-area-text other"
-                                                placeholder="Название"
-                                                type="text"
-                                                name="other"
-                                                defaultValue={`Есть несколько вариантов образования множественного числа: 
-● Базовое правило, добавить к существительному -s
-👉 Пример: cat -> catS
-● Если слово заканчивается на -s, -ss, -sh, -ch, -x, -o, добавляется окончание -es
-👉 Пример: box -> boxes
-● Если слово заканчивается на согласную + y, y меняется на i и добавляется -es
-👉 Пример: country -> countries
-● Если слово оканчивается на -f или -fe, f меняется на v и добавляется -es
-👉 Пример: knife -> knives
-● Исключения
-👉 Пример: man -> men; child -> children; woman -> women; foot -> feet; tooth -> teeth`}
-                                                autoComplete="off"
-                                                disabled={true}
-                                                required maxLength="300"
-                                            />
-                                        </p>
+                                        <button onClick={handleTest} className="o-form__action btn btn-dark">
+                                            Закрепить
+                                        </button>
                                     </div>
                                 </li>
                                 <li className="task-step" id='other' baseTheme={15} onClick={handleEdit}>
@@ -657,6 +692,9 @@ Would — вежливая просьба, предпочтение, услов�
                                                 required maxLength="300"
                                             />
                                         </p>
+                                        <button onClick={handleTest} className="o-form__action btn btn-dark">
+                                            Закрепить
+                                        </button>
                                     </div>
                                 </li>
                             </ul>
@@ -667,7 +705,7 @@ Would — вежливая просьба, предпочтение, услов�
                 </main>
             </div>
 
-            {activeModalAdd && <BaseTestForm testThemeId={testThemeId} testThemeName={testThemeName} setActive={setActiveModalAdd}  />}
+            {activeModalAdd && <BaseTestForm testThemeId={testThemeId} testThemeName={testThemeName} setActive={setActiveModalAdd} />}
         </>
     )
 };

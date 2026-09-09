@@ -18,7 +18,7 @@ export const FinishQuize = ({ result }) => {
                     <ul className="quiz-finish__results">
                         {result.map((el, ind) => {
                             return (
-                                <li className={`quiz-finish__row ${el.isRight ? '' : '--th-red'}`} key={ind}>Слово: {el.translate} Ответ: {el.foreignWord}</li>
+                                <li className={`quiz-finish__row ${el.isRight ? '' : '--th-red'}`} key={ind}>{el.translate} <br /> Ответ: {el.foreignWord}</li>
                             )
                         })}
                         {/* <li className="quiz-finish__row">To pursue</li>

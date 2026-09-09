@@ -85,7 +85,7 @@ a:hover {
 
 .app-wrapper {
   height: 100%;
-  max-height: 100vh;
+  /* max-height: 100vh; */
   overflow: hidden;
 }
 

@@ -455,7 +455,7 @@
     grid-template-columns: 1fr;
   }
 }
-.quiz-finish__row.--th-red {
+/* .quiz-finish__row.--th-red {
   color: #E84245;
   position: relative;
 }
@@ -470,7 +470,7 @@
   top: 50%;
   left: -1.4rem;
   transform: translateY(-50%);
-}
+} */
 
 .quiz-reset {
   width: 28rem;

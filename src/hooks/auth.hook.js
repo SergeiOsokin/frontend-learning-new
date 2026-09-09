@@ -12,7 +12,7 @@ export const useAuth = (data) => {
     const message = useMessage();
     const { request } = useHttp();
     const history = useHistory();
-    const arr = ['/authorization', '/recover', '/registration', '/']
+    const arr = ['/authorization', '/recover', '/registration', '/', '/base']
     // что происходит после успешной авторизации
     const login = useCallback(() => {
         setAuthorization(true);
