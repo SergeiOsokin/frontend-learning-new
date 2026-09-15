@@ -6,6 +6,7 @@
 @import url('./css/mixins.css');
 @import url('./css/notice-board.css');
 @import url('./css/feed.css');
+@import url('./css/autor.css');
 
 @import url('./css/quiz.css');
 @import url('./css/role-select.css');
@@ -35,6 +36,8 @@
 
 @import url('./css/pages/notice/create.css');
 @import url('./css/pages/notice/list.css');
+
+@import url('./css/pages/base/baseTest.css');
 
 @import url('./css/pages/quiz/index.css');
 
