@@ -31,8 +31,6 @@ export const useAuth = (data) => {
             try {
                 const data = await request('/checkauth', 'GET');
 
-                console.log(data.data)
-
                 if (data.error) {
                     // если токен протух. 403 ХЗ зачем взял
                     if (data.error === 'Не авторизованы') {

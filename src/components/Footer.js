@@ -1,5 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom/cjs/react-router-dom';
+import { hostSimple } from '../constants/const';
 
 export const Footer = () => {
 
@@ -13,7 +14,7 @@ export const Footer = () => {
           <a href="mailto:support@learnew.ru?subject=Вопрос с learnew" className="app-main__link app-main__text">
             Поддержка
           </a>
-          <Link to="/agreement" className="o-footer__label o-footer__link">
+          <Link to={`/agreement`} className="o-footer__label o-footer__link">
             Условия использования
           </Link>
           <Link to="/privacy" className="o-footer__label o-footer__link">

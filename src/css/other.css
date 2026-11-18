@@ -749,6 +749,11 @@
   width: 100%;
 }
 
+
+.o-form__police-container {
+  display: flex;
+}
+
 .o-form__police {
   margin-top: 2rem;
   color: #939393;

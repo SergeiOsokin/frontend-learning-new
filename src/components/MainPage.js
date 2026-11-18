@@ -3,6 +3,7 @@ import React, { useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { Header } from './Header';
 import { Footer } from './Footer';
+import { Cookies } from '../hooks/cookies.hook';
 
 export const MainPage = () => {
 
@@ -111,7 +112,7 @@ export const MainPage = () => {
                                                 strokeLinecap="round"
                                             />
                                         </svg>
-                                        <a href="mailto:sergei.osokin.rf@mail.ru?subject=Вопрос с learnew" className="board-link__elem">
+                                        <a href="mailto:support@learnew.ru?subject=Вопрос с learnew" className="board-link__elem">
                                             Обратная связь
                                         </a>
                                         {/* <a href="#" className="board-link__elem">
@@ -382,7 +383,7 @@ export const MainPage = () => {
                 <div className="autor__about">
                     <h2 className="autor__title">Об авторе</h2>
                     <p className="autor__description">
-                        Привет! Меня зовут Сергей Осокин, разработчик и владелец данного интернет ресурса https://learnew.ru/
+                        Привет! Меня зовут Сергей Осокин, разработчик и владелец данного интернет ресурса <a href="https://learnew.ru/">https://learnew.ru/</a>
                         <br></br>
                         <br></br>В течение нескольких лет я активно занимаюсь изучением английского языка, и за это время не смог найти для себя подходящего онлайн инструмента, который позволил бы организовать изучаемый материал в удобном виде.
                         <br></br>
@@ -412,6 +413,9 @@ export const MainPage = () => {
 */}
                 </div>
             </section>
+
+            <Cookies ></Cookies>
+
             <Footer />
         </>
     )

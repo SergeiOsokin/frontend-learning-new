@@ -83,12 +83,6 @@ a:hover {
     text-decoration: underline;
 }
 
-.app-wrapper {
-    height: 100%;
-    /* max-height: 100vh; */
-    overflow: hidden;
-}
-
 .app-inner {
     height: 100%;
 }
@@ -293,29 +287,6 @@ body {
 
 .app-main__link:active {
     color: #1F1E30;
-}
-
-.app-wrapper {
-    padding: 2.4rem;
-    background-color: #F6F6F1;
-}
-
-@media screen and (max-width: 1440px) {
-    .app-wrapper {
-        padding: 4rem;
-    }
-}
-
-@media screen and (max-width: 1024px) {
-    .app-wrapper {
-        padding: 2.4rem;
-    }
-}
-
-@media screen and (max-width: 550px) {
-    .app-wrapper {
-        padding: 0;
-    }
 }
 
 .app-inner {

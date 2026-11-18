@@ -7,6 +7,7 @@ import { validation } from '../hooks/validation.hook';
 import { Header } from './Header';
 import { Footer } from './Footer';
 import { doments } from '../constants/const';
+import { Cookies } from '../hooks/cookies.hook';
 // import { useMessage } from '../hooks/message.hook';
 
 export const FormReg = () => {
@@ -18,7 +19,8 @@ export const FormReg = () => {
         email: '',
         password: '',
         passwordConfirm: '',
-        type: '1'
+        type: '1',
+        consent: false
     });
     const [isError, setError] = useState(false)
 
@@ -98,6 +100,7 @@ export const FormReg = () => {
                                         type="password"
                                         placeholder="Пароль"
                                         name="password"
+                                        autoComplete="new-password"
                                         required minLength="6"
                                         onChange={changeHandler}
                                         value={form.password}
@@ -148,11 +151,22 @@ export const FormReg = () => {
                             <button className="o-form__action btn btn-dark">
                                 Зарегистрироваться
                             </button>
-                            <p className="o-form__police ">
-                                Регистрируясь вы соглашаетесь с{" "}
-                                <Link to="/agreement">условиями использования</Link> и{" "}
-                                <Link to="/privacy">политикой конфиденциальности</Link>
-                            </p>
+                            <div className="o-form__police-container">
+                                    <input
+                                        name="consent"
+                                        id="checkbox"
+                                        type="checkbox"
+                                        required
+                                        // className="app-toggle__input"
+                                        onChange={changeHandler}
+                                    />
+                                <p className="o-form__police ">
+                                    Регистрируясь вы соглашаетесь с{" "}
+                                    <Link to="/agreement">условиями использования</Link> и{" "}
+                                    <Link to="/privacy">политикой конфиденциальности</Link>
+                                </p>
+                            </div>
+
                         </form>
                         <p className="o-form-wrapper__text">
                             Есть аккаунт? <Link to="/authorization">Вход</Link>
@@ -160,6 +174,9 @@ export const FormReg = () => {
                     </div>
                 </div>
             </main>
+
+            <Cookies ></Cookies>
+
             <Footer />
 
         </>

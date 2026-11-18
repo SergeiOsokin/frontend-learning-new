@@ -10,10 +10,12 @@
   <meta name="Copyright" content="Sergei Osokin">
   <meta name="yandex-verification" content="fedd748e123fd868" />
   <meta name="description"
-    content="LearNew - ваша внешняя память. Изучай новое, повторяй изученное. Делай заметки. Обращайся к знаниям в любой момент. Разбивай материал по категориям. Создай свою собственную библиотеку материала, который будет удобен для тебя.">
-  <meta name="keywords" content="иностранный повторение слов грамматика правила заметки английский онлайн заметки обучение тетрадь знания репетитор" />
+    content="LearNew — платформа для изучения английского и других языков: словарь, заметки, квизы и интервальное повторение слов. Учитесь системно и закрепляйте материал эффективно. Подходит для самостоятельного изучения и преподавателей.">
+  <meta name="keywords"
+    content="изучение английского языка выучить английский самостоятельно обучение английскому для взрослых заметки для изучения языка интервальное повторение слов инструменты для самостоятельного обучения платформа для преподавателей языков " />
   <meta name="theme-color" content="#FFFFFF">
-  <title>Рабочая тетрадь по иностранному языку</title>
+  <!-- <title>Рабочая тетрадь по иностранному языку</title> -->
+  <title>LearNew — платформа для изучения: словарь, заметки, квизы</title>
   <link rel="canonical" href="https://learnew.ru" />
   <link rel="shortcut icon" type="image/x-icon" sizes="16x16" href="./img/favicon.png" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -23,106 +25,159 @@
     href="https://fonts.googleapis.com/css2?family=Golos+Text:wght@400..900&family=Unbounded:wght@200..900&display=swap"
     rel="stylesheet">
   <!-- <meta http-equiv="refresh" content="0;URL=https://learnew.ru"/> -->
+  <meta property="og:title" content="LearNew — платформа для изучения: словарь, заметки, квизы" />
+  <meta property="og:site_name" content="LearNew">
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://learnew.ru" />
+  <meta property="og:image" content="	http://localhost:8080/static/media/home-image.60179fb9163ac33f7188.webp" />
+  <meta property="og:description"
+    content="Создание словаря иностранных слов, заметок, правил. Преподавание иностранных языков." />
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebSite",
+    "name": "LearNew",
+    "url": "https://learnew.ru/",
+    "description": "Платформа для изучения английского и других языков: словарь, заметки, квизы и интервальное повторение слов.",
+    "inLanguage": "ru",
+    "potentialAction": {
+      "@type": "SearchAction",
+      "target": "https://learnew.ru/dictionary?q={search_term_string}",
+      "query-input": "required name=search_term_string"
+    }
+  }
+  </script>
 </head>
 
 <body class="app-wrapper" id="root">
-  <!-- <main id="root"></main> -->
-  <!-- <header class="hidden">
-    <div class="">
-      <a class="" href="/"><span>Learnew</span></a>
-    </div>
-    <div class="">
-      <a class="" href="/authorization"><span>Войти</span></a>
-    </div>
+
+  <header class="header">
+    <a href="/" class="logo" aria-label="LearNew — на главную">LearNew</a>
+    <nav class="nav" aria-label="Основная навигация">
+      <ul>
+        <li><a href="/wordslist">Словарь</a></li>
+        <li><a href="/notes">Заметки</a></li>
+        <li><a href="/flashcards">Квизы</a></li>
+        <li><a href="/education/teacher">Преподавателям</a></li>
+      </ul>
+    </nav>
+    <a href="/registration" class="btn btn-primary">Начать бесплатно</a>
   </header>
-  <main class="hidden">
-    <div class="">
-      <div class="">
-        <div class="">
-          <a class="" href="/registration">Регистрация</a>
-        </div>
-        <div class="">
-          <a class="" href="/authorization">Вход</a>
-        </div>
+
+  <main>
+    <section class="hero">
+      <h1>Учите язык системно: словарь, заметки и квизы в одном месте</h1>
+      <p class="hero-lead">
+        LearNew — платформа для изучения английского и других языков.
+        Ведите личный словарь, фиксируйте заметки, закрепляйте лексику квизами
+        и не забывайте выученное благодаря интервальному повторению.
+      </p>
+      <div class="hero-actions">
+        <a href="/registration" class="btn btn-primary">Начать учиться бесплатно</a>
+        <a href="/dictionary" class="btn btn-secondary">Попробовать словарь</a>
       </div>
-      <div class="">
-        <div class="">
-          <div class="">
-            <div class="">
-              <h1 class="">Словарь, заметки, <br class=""> квизы — <br class=""> <span class="">учите язык</span> <span
-                  class=""><span class="">учите язык</span>
-                  легко</span></h1>
-            </div>
-            <div class="">
-              <div class="">
-                <div class="">
-                  <a class="" href="/registration">Регистрация</a>
-                </div>
-                <div class="">
-                  <a href="mailto:sergei.osokin.rf@mail.ru?subject=Вопрос с learnew" class="">Обратная связь</a>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="">
-            <p class="">Храните слова, записывайте грамматику, <br> создавайте задания и проходите
-              квизы.
-              <br> <br> Всё необходимое для изучения языка <br> в одном месте.
-            </p>
-            <ul class="">
-              <li class=""><span>Словарь</span></li>
-              <li class=""><span>Квиз</span></li>
-              <li class=""><span>Грамматика</span></li>
-              <li class=""><span>Заметки</span></li>
-              <li class=""><span>Задания</span></li>
-              <li class=""><span>В своём темпе</span></li>
-              <li class=""><span>С учителем</span></li>
-              <li class=""><span>Самостоятельно</span></li>
-            </ul>
-          </div>
-        </div>
-        <div class="">
-          <div class="">
-            <p class="">Храните слова, записывайте грамматику, <br> создавайте задания и проходите
-              квизы.
-              <br> <br> Всё необходимое для изучения языка <br> в одном месте.
-            </p>
-            <ul class="">
-              <li class=""><span>Словарь</span></li>
-              <li class=""><span>Квиз</span></li>
-              <li class=""><span>Грамматика</span></li>
-              <li class=""><span>Заметки</span></li>
-              <li class=""><span>Задания</span></li>
-              <li class=""><span>В своём темпе</span></li>
-              <li class=""><span>С учителем</span></li>
-              <li class=""><span>Самостоятельно</span></li>
-            </ul>
-          </div>
-          <div class=""><a class="" href="/registration">Регистрация</a></div>
-        </div>
-        <div class="">
-          <div class=""><a class="" href="/">Обратная связь</a>
-          </div>
-          <div class=""></div>
-        </div>
+    </section>
+
+    <section class="features" aria-labelledby="features-title">
+      <h2 id="features-title">Инструменты для самостоятельного обучения и занятий с преподавателем</h2>
+
+      <article class="feature">
+        <h3>Словарь для изучения английских слов</h3>
+        <p>Добавляйте слова, фразы и переводы в личный словарь. Слова, которые вы встретили в текстах и на занятиях,
+          всегда под рукой.</p>
+        <p><a href="/dictionary">Открыть словарь</a></p>
+      </article>
+
+      <article class="feature">
+        <h3>Заметки для изучения языка</h3>
+        <p>Записывайте примеры употребления, грамматические правила и контекст к каждому слову. Заметки помогают
+          запоминать не отдельные слова, а живой язык.</p>
+        <p><a href="/notes">Как работают заметки</a></p>
+      </article>
+
+      <article class="feature">
+        <h3>Квизы для запоминания слов</h3>
+        <p>Проверяйте себя короткими тестами: подбор перевода, карточки, выбор правильного варианта. Тренируйте лексику
+          без скучной зубрёжки.</p>
+        <p><a href="/flashcards">Пройти квиз</a></p>
+      </article>
+
+      <!-- <article class="feature">
+        <h3>Интервальное повторение слов</h3>
+        <p>Платформа сама подскажет, какие слова пора повторить, — по методике интервальных повторений. Вы учитесь в
+          оптимальный момент и не тратите время на уже выученное.</p>
+        <p><a href="/spaced-repetition">Подробнее об интервальном повторении</a></p>
+      </article> -->
+    </section>
+
+    <section class="audience" aria-labelledby="audience-title">
+      <h2 id="audience-title">Для кого LearNew</h2>
+
+      <div class="audience-item">
+        <h3>Для тех, кто учит английский самостоятельно</h3>
+        <p>Стройте свой прогресс без репетитора: системное изучение языка через регулярные повторения и тренировку
+          лексики.</p>
       </div>
+
+      <div class="audience-item">
+        <h3>Для взрослых, которые возвращаются к языку</h3>
+        <p>Обучение английскому для взрослых без лишнего стресса: короткие квизы и повторения встраиваются в рабочий
+          день.</p>
+      </div>
+
+      <div class="audience-item">
+        <h3>Для преподавателей</h3>
+        <p>Платформа для преподавателей языков: делитесь словарями и заметками со студентами, задавайте квизы и
+          отслеживайте прогресс группы.</p>
+      </div>
+    </section>
+
+    <section class="how-it-works" aria-labelledby="how-title">
+      <h2 id="how-title">Как это работает</h2>
+      <ol>
+        <li>Добавьте новые слова в личный словарь и снабдите их заметками.</li>
+        <li>Проходите квизы</li>
+        <li>Повторяйте сложные слова по расписанию интервальных повторений.</li>
+        <li>Следите за ростом словарного запаса и не забывайте выученное.</li>
+      </ol>
+    </section>
+
+    <!-- FAQ — полезно для SEO и расширенных сниппетов -->
+    <section class="faq" aria-labelledby="faq-title">
+      <h2 id="faq-title">Частые вопросы</h2>
+
+      <h3>LearNew подходит только для английского?</h3>
+      <p>Нет, словарь, заметки и квизы работают с любым языком — вы сами определяете, что и на каком языке учите.</p>
+
+      <h3>Это бесплатно?</h3>
+      <p>Да, базовые функции доступны бесплатно.</p>
+
+      <h3>Нужен ли установленный телефон или программа?</h3>
+      <p>Нет. LearNew работает в браузере, а повторения слов доступны и через Telegram-бота.</p>
+    </section>
+
+    <section class="cta">
+      <h2>Начните закреплять слова уже сегодня</h2>
+      <p>Заведите бесплатный аккаунт, добавьте первые 10 слов — и LearNew сам напомнит, когда их повторить.</p>
+      <a href="/registration" class="btn btn-primary">Создать аккаунт</a>
+    </section>
   </main>
 
-  
-  <footer class="hidden">
+  <footer class="footer">
+    <nav aria-label="Дополнительная навигация">
+      <ul>
+        <li><a href="/">О платформе</a></li>
+        <li><a hhref="mailto:support@learnew.ru?subject=Вопрос с learnew">Обратная связь</a></li>
+        <li><a href="/privacy">Политика конфиденциальности</a></li>
+      </ul>
+    </nav>
+    <p>© 2025–2026 Learnew. Все права защищены.</p>
+  </footer>
 
-    <div class="">
-      <p class="">© 2025 Learnew. <br> Все права защищены.</p>
-      <div class="">
-        <a href="mailto:support@learnew.ru?subject=Вопрос с learnew" class="">Поддержка</a>
-        <a class="" href="/agreement">Условия использования</a>
-        <a class="" href="/privacy">Политика конфиденциальности</a>
-      </div>
-    </div>
-  </footer> -->
 
   <!-- Yandex.Metrika counter -->
-  <script type="text/javascript">
+  <!-- <script type="text/javascript">
     (function (m, e, t, r, i, k, a) {
       m[i] = m[i] || function () { (m[i].a = m[i].a || []).push(arguments) };
       m[i].l = 1 * new Date();
@@ -136,11 +191,11 @@
       trackLinks: true,
       accurateTrackBounce: true
     });
-  </script>
-  <noscript>
+  </script> -->
+  <!-- <noscript>
     <div><img src="https://mc.yandex.ru/watch/103009792" style="position:absolute; left:-9999px;"
         alt="mc.yandex.ru/watch/103009792" /></div>
-  </noscript>
+  </noscript> -->
   <!-- /Yandex.Metrika counter -->
 </body>
 

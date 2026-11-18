@@ -159,7 +159,7 @@ export const FeedPage = () => {
                     {!loading &&
                         <main className="app-main__mid">
                             <section className="app-cards">
-                                <p class="quiz-categories__current">Привет в новом разделе! <br />Теперь можно читать статьи, которые публикуют другие пользователи <br />(доступно для роли: Преподаватель на компьютере)</p>
+                                <p className="quiz-categories__current">Привет в новом разделе! <br />Теперь можно читать статьи, которые публикуют другие пользователи <br />(доступно для роли: Преподаватель на компьютере)</p>
                                 {/* <div class="filters-top__left">
                                     <div class="filters-categories">
                                         <button class="filters-categories__select" onClick={handleFilter}>

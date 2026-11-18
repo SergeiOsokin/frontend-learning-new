@@ -8,6 +8,7 @@ import { validation } from '../hooks/validation.hook';
 import { Header } from './Header';
 import { Footer } from './Footer';
 import { ResetForm } from './ResetForm';
+import { Cookies } from '../hooks/cookies.hook';
 
 export const FormAuth = () => {
     const auth = useContext(AuthContext); // получаем контекст в объекте auth
@@ -136,6 +137,7 @@ export const FormAuth = () => {
             </main>
 
             {/* {passwordReset && <ResetForm />} */}
+            <Cookies ></Cookies>
 
             <Footer />
         </>

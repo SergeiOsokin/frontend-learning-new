@@ -4,6 +4,7 @@ import { AuthContext } from '../context/AuthContext';
 
 import logoWhite from '../../src/img/logo_white.svg';
 import iconUserWhite from '../../src/img/Icon_enter_white.svg';
+import { hostSimple } from '../constants/const';
 
 // переделать меню просто на a
 
@@ -20,7 +21,7 @@ export const Header = ({ simple: simple }) => {
         <>
             <header className={`o-header ${simple && "--th-simple"}`} >
                 <div className="container o-header__inner">
-                    <Link className="" to="/">
+                    <Link className="" to={`/`}>
                         <div className="o-header__logo">
                             <svg className="icon" viewBox="0 0 24 24" fill="none">
                                 <path
