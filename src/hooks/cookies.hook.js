@@ -49,8 +49,6 @@ export const Cookies = () => {
         } else if (saved === 'accepted') {
             loadAnalytics();
         }
-
-        console.log(saved)
     }, []);
 
     return (

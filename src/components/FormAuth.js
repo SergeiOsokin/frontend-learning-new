@@ -137,7 +137,7 @@ export const FormAuth = () => {
             </main>
 
             {/* {passwordReset && <ResetForm />} */}
-            <Cookies ></Cookies>
+            {/* <Cookies ></Cookies> */}
 
             <Footer />
         </>

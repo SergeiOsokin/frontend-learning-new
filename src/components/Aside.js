@@ -108,7 +108,7 @@ export const Aside = () => {
                                 </Link>
                             </li>
 
-                            {localStorage.getItem('typeUser').includes(2, 0) &&
+                            {(localStorage.getItem('typeUser').includes(2) || localStorage.getItem('typeUser').includes(0)) &&
                                 <li className="nav__item">
                                     <Link className={`nav__link ${history.location.pathname.includes('articles') ? '--th-active' : ''}`} to="/articles">
                                         <svg className="nav__icon" viewBox="0 0 32 32" fill="none">

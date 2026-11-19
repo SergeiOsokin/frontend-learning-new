@@ -414,7 +414,7 @@ export const MainPage = () => {
                 </div>
             </section>
 
-            <Cookies ></Cookies>
+            {/* <Cookies ></Cookies> */}
 
             <Footer />
         </>

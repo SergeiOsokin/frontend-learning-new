@@ -20,7 +20,7 @@ export const FormReg = () => {
         password: '',
         passwordConfirm: '',
         type: '1',
-        consent: false
+        consent: null
     });
     const [isError, setError] = useState(false)
 
@@ -175,7 +175,7 @@ export const FormReg = () => {
                 </div>
             </main>
 
-            <Cookies ></Cookies>
+            {/* <Cookies ></Cookies> */}
 
             <Footer />
 

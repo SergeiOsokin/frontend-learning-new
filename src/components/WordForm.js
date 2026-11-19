@@ -81,7 +81,7 @@ export const WordForm = ({ wordInfo, setActive }) => {
             setWords({
                 russianWord: '',
                 foreignWord: '',
-                categoryWord: '',
+                categoryWord: word.categoryWord,
             })
             // document.querySelector(".form__select").value = ""
         } catch (err) {
