@@ -38,7 +38,18 @@ export const Cookies = () => {
             clickmap: true,
             trackLinks: true,
             accurateTrackBounce: true
-        });`
+        });`;
+
+        let noscript = document.createElement('noscript');
+        let div = document.createElement('div');
+        let img = document.createElement('img');
+        img.src = 'https://mc.yandex.ru/watch/103009792'
+        img.style = 'position:absolute; left:-9999px;'
+        img.alt = 'mc.yandex.ru/watch/103009792'
+        div.appendChild(img);
+        noscript.appendChild(div);
+        document.body.appendChild(noscript);
+
         console.log('ЯМ включена т.к. ' + localStorage.getItem(STORAGE_KEY))
     }
 
