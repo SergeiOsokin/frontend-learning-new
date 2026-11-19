@@ -56,7 +56,7 @@ export const Cookies = () => {
             <div >
                 <p className="cookie-banner__text" >
                     Этот сайт использует cookies для работы и аналитики. Подробнее в
-                    <Link to="/privacy" className="o-footer__label o-footer__link">Политика конфиденциальности
+                    <Link to="/privacy" name="policy" className="o-footer__label o-footer__link">Политика конфиденциальности
                     </Link>
                 </p>
                 <div className="cookie-banner__bottoms" >

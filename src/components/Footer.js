@@ -14,13 +14,13 @@ export const Footer = () => {
             © 2025 Learnew. <br /> Все права защищены.
           </p>
           <div className="o-footer__links">
-            <a href="mailto:support@learnew.ru?subject=Вопрос с learnew" className="app-main__link app-main__text">
+            <a href="mailto:support@ learnew.ru?subject=Вопрос с learnew" className="app-main__link app-main__text">
               Поддержка
             </a>
             <Link to={`/agreement`} className="o-footer__label o-footer__link">
               Условия использования
             </Link>
-            <Link to="/privacy" className="o-footer__label o-footer__link">
+            <Link to="/privacy" name="policy" className="o-footer__label o-footer__link">
               Политика конфиденциальности
             </Link>
           </div>
@@ -52,7 +52,7 @@ export const FooterInner = () => {
             </Link>
           </li>
           <li className="app-main__link-wrapper">
-            <Link to="/privacy" className="app-main__link app-main__text">
+            <Link to="/privacy" name="policy" className="app-main__link app-main__text">
               Политика конфиденциальности
             </Link>
           </li>

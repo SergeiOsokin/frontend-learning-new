@@ -5,17 +5,17 @@
   <meta charset="utf-8" />
   <meta name="viewport"
     content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no" />
-  <meta name="robots" content="index, nofollow" />
+  <meta name="robots" content="index" />
   <meta name="autor" content="Sergei Osokin">
   <meta name="Copyright" content="Sergei Osokin">
   <meta name="yandex-verification" content="fedd748e123fd868" />
   <meta name="description"
-    content="LearNew — платформа для изучения английского и других языков: словарь, заметки, квизы и интервальное повторение слов. Учитесь системно и закрепляйте материал эффективно. Подходит для самостоятельного изучения и преподавателей.">
+    content="LearNew — платформа для изучения английского и других языков: словарь, заметки и повторение. Учитесь самостоятельно или с преподавателем, системно и эффективно.">
   <meta name="keywords"
     content="изучение английского языка выучить английский самостоятельно обучение английскому для взрослых заметки для изучения языка интервальное повторение слов инструменты для самостоятельного обучения платформа для преподавателей языков " />
   <meta name="theme-color" content="#FFFFFF">
   <!-- <title>Рабочая тетрадь по иностранному языку</title> -->
-  <title>LearNew — платформа для изучения: словарь, заметки, квизы</title>
+  <title>LearNew - платформа изучения языков</title>
   <link rel="canonical" href="https://learnew.ru" />
   <link rel="shortcut icon" type="image/x-icon" sizes="16x16" href="./img/favicon.png" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -29,7 +29,7 @@
   <meta property="og:site_name" content="LearNew">
   <meta property="og:type" content="website" />
   <meta property="og:url" content="https://learnew.ru" />
-  <meta property="og:image" content="	http://localhost:8080/static/media/home-image.60179fb9163ac33f7188.webp" />
+  <meta property="og:image" content="https://learnew.ru/static/media/home-image.60179fb9163ac33f7188.webp" />
   <meta property="og:description"
     content="Создание словаря иностранных слов, заметок, правил. Преподавание иностранных языков." />
 
@@ -168,12 +168,86 @@
     <nav aria-label="Дополнительная навигация">
       <ul>
         <li><a href="/">О платформе</a></li>
-        <li><a hhref="mailto:support@learnew.ru?subject=Вопрос с learnew">Обратная связь</a></li>
-        <li><a href="/privacy">Политика конфиденциальности</a></li>
+        <li><a href="mailto:support@learnew.ru?subject=Вопрос с learnew">Обратная связь</a></li>
+        <li><a href="/privacy" name="policy">Политика конфиденциальности</a></li>
       </ul>
     </nav>
     <p>© 2025–2026 Learnew. Все права защищены.</p>
   </footer>
+
+  <section class="seo">
+    <div name="cookie-banner" className='cookie-banner'>
+      <div>
+        <p className="cookie-banner__text">
+          Этот сайт использует cookies для работы и аналитики. Подробнее в
+          <a to="/privacy" name="policy" className="o-footer__label o-footer__link">Политика конфиденциальности
+          </a>
+        </p>
+        <div className="cookie-banner__bottoms">
+          <button onClick={acceptCookies} className="cookie-banner__bottom_accept">
+            Принять все
+          </button>
+          <button onClick={rejectCookies} className="cookie-banner__bottom_reject">
+            Принять только необходимые для работы
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <form className="o-form" onSubmit={registrHandler} autoComplete='off'>
+      <h1 className="o-form__title">Регистрация</h1>
+      <div className="o-form__inner">
+        <div className="o-form__input">
+          <input className="o-form__input-elem" type="email" placeholder="Email" name="email" onChange={changeHandler}
+            required maxLength="30" minLength="2" pattern="[a-zA-Z0-1\W\D]{1,}@[[a-zA-Z0-1\W\D]{1,}\.[a-zA-Z]{2,3}"
+            value={form.email} autoComplete="off" disabled={loading} />
+        </div>
+        <div className="o-form__input">
+          <input className="o-form__input-elem password" id="password" type="password" placeholder="Пароль"
+            name="password" autoComplete="new-password" required minLength="6" onChange={changeHandler}
+            value={form.password} disabled={loading} />
+          <div className="o-form__input-icon" onClick={showPass}>
+            <svg className="icon" viewBox="0 0 24 24" fill="none">
+              <path
+                d="M3.933 13.909C3.46923 13.3594 3.1487 12.7036 3 12C3 11 7 6 12 6M19.6 9.8C20.2506 10.3987 20.7332 11.1571 21 12C21 13 18 18 12 18C11.686 18 11.38 17.986 11.082 17.96M5 19L19 5M15 12C15 12.7956 14.6839 13.5587 14.1213 14.1213C13.5587 14.6839 12.7956 15 12 15C11.2044 15 10.4413 14.6839 9.87868 14.1213C9.31607 13.5587 9 12.7956 9 12C9 11.2044 9.31607 10.4413 9.87868 9.87868C10.4413 9.31607 11.2044 9 12 9C12.7956 9 13.5587 9.31607 14.1213 9.87868C14.6839 10.4413 15 11.2044 15 12Z"
+                stroke="currentColor" strokeWidth={2} strokeLinecap="round" strokeLinejoin="round" />
+            </svg>
+          </div>
+        </div>
+        <div className="o-form__input">
+          <input className="o-form__input-elem password" id="password" type="password" placeholder="Повторите пароль"
+            name="passwordConfirm" required minLength="6" onChange={changeHandler} value={form.passwordConfirm}
+            disabled={loading} />
+          <div className="o-form__input-icon" onClick={showPass}>
+            <svg className="icon" viewBox="0 0 24 24" fill="none">
+              <path
+                d="M3.933 13.909C3.46923 13.3594 3.1487 12.7036 3 12C3 11 7 6 12 6M19.6 9.8C20.2506 10.3987 20.7332 11.1571 21 12C21 13 18 18 12 18C11.686 18 11.38 17.986 11.082 17.96M5 19L19 5M15 12C15 12.7956 14.6839 13.5587 14.1213 14.1213C13.5587 14.6839 12.7956 15 12 15C11.2044 15 10.4413 14.6839 9.87868 14.1213C9.31607 13.5587 9 12.7956 9 12C9 11.2044 9.31607 10.4413 9.87868 9.87868C10.4413 9.31607 11.2044 9 12 9C12.7956 9 13.5587 9.31607 14.1213 9.87868C14.6839 10.4413 15 11.2044 15 12Z"
+                stroke="currentColor" strokeWidth={2} strokeLinecap="round" strokeLinejoin="round" />
+            </svg>
+          </div>
+        </div>
+        <select onChange={changeHandler} name="type" className="create-word-select">
+          <option value="1">Я - Студент</option>
+          <option value="2">Я - Преподаватель</option>
+          <option value="0">Я - Оба</option>
+        </select>
+      </div>
+      <button className="o-form__action btn btn-dark">
+        Зарегистрироваться
+      </button>
+      <div className="o-form__police-container">
+        <input name="consent" id="checkbox" type="checkbox" required="true" onChange={changeHandler} />
+        <p className="o-form__police ">
+          Регистрируясь вы соглашаетесь с{" "}
+          <a to="/agreement">условиями использования</a> и{" "}
+          <a to="/privacy">политикой конфиденциальности</a>
+        </p>
+      </div>
+
+    </form>
+
+  </section>
+
 </body>
 
 </html>
